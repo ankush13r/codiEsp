@@ -1,0 +1,16 @@
+@import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+.mainBox{
+    margin: auto;
+    width: 90%;
+    height: 500px;
+}
+
+.files{
+    width: 25%;
+    height: 100%;
+}
+.box1, .box2{
+    height: 100%;
+    width: 35%;
+}
