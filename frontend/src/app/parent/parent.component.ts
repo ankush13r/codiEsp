@@ -3,9 +3,9 @@ import {DataControllerService} from '../data-controller.service';
 
 
 @Component({
-  selector: 'app-data-controller',
-  templateUrl: './data-controller.component.html',
-  styleUrls: ['./data-controller.component.css']
+  selector: 'app-parent',
+  templateUrl: './parent.component.html',
+  styleUrls: ['./parent.component.css']
 })
 export class DataControllerComponent implements OnInit {
 

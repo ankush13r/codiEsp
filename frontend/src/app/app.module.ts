@@ -4,10 +4,10 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { DataControllerComponent } from './data-controller/data-controller.component';
+import { DataControllerComponent } from './parent/parent.component';
 import { FilesComponent } from './files/files.component';
-import { TextBoxOrigComponent } from './source-data/source-data.component';
-import { TextBoxTrgComponent } from './target-data/target-data.component';
+import { SourceDataComponent } from './source-data/source-data.component';
+import { TargetDataComponent } from './target-data/target-data.component';
 
 @NgModule({
   declarations: [
@@ -15,8 +15,8 @@ import { TextBoxTrgComponent } from './target-data/target-data.component';
     NavbarComponent,
     DataControllerComponent,
     FilesComponent,
-    TextBoxOrigComponent,
-    TextBoxTrgComponent,
+    SourceDataComponent,
+    TargetDataComponent,
     
   ],
   imports: [

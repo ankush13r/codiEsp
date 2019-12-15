@@ -10,11 +10,11 @@ import { SourceDataService } from '../source-data.service';
   templateUrl: './source-data.component.html',
   styleUrls: ['./source-data.component.css']
 })
-export class TextBoxOrigComponent implements OnInit {
+export class SourceDataComponent implements OnInit {
   title = "Origen";
   file: string = null;
   sourceData: Object = {};
-  errorMessage:any;
+  errorMessage: any;
 
   constructor(
     private dataControllerService: DataControllerService,
@@ -25,17 +25,24 @@ export class TextBoxOrigComponent implements OnInit {
   }
 
   getSelectedFile() {
-    this.dataControllerService.getSelectedFile().subscribe(result => {     
-       if (this.file !== result) {
+    this.dataControllerService.getSelectedFile().subscribe(result => {
+      if (this.file !== result) {
         this.file = result
         this.getData();
-              
+        this.setExistData();        
       }
     });
   }
-
   getData() {
-    this.sourceData = this.sourceDataService.getDataByFile(this.file);    
+    this.sourceData = this.sourceDataService.getDataByFile(this.file);
+  }
+  
+  setExistData(){  
+    var result = (this.sourceData["data"])?true:false;
+    this.dataControllerService.setIsFoundData(result);
+  }
+  onClick(){
+    console.log(document.getSelection());
   }
 }
 

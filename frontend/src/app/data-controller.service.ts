@@ -10,6 +10,9 @@ export class DataControllerService {
   // Create a new variable type BehaviorSubject to share selected file between two components.
   // BehaviorSubject serves for synchronize shared data
   private selectedFile = new BehaviorSubject<string>(null);
+  private isFoundData = new BehaviorSubject<boolean>(null);
+
+
 
 
   constructor() { }
@@ -23,4 +26,10 @@ export class DataControllerService {
     return (this.selectedFile.asObservable())
   } 
 
+  setIsFoundData(parm:boolean){
+    this.isFoundData.next(parm);
+  }
+  getIsFoundData(){
+    return (this.isFoundData.asObservable())
+  }
 }
