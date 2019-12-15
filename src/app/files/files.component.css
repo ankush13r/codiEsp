@@ -19,9 +19,14 @@ ul li{
 }
 
 ul li:hover{
-    background: rgb(240, 240, 240);
+    box-shadow: 0 0 0 200px rgba(0, 0, 0, 0.219) inset;
  }
 
  ul li:active{
     margin-left:2px ;
+ }
+
+ .selected{
+     background: rgb(0, 33, 221);
+     color: white;
  }

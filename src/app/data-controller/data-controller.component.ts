@@ -9,26 +9,18 @@ import {DataControllerService} from '../data-controller.service';
 })
 export class DataControllerComponent implements OnInit {
 
-  selectedFile :string;
-  files : string[];
+  selectedFile : string;
   constructor(private dataControllerService: DataControllerService) {
 
   }
 
   ngOnInit() {
-    this.getFiles();
+
   }
 
-  getFiles() {
-    this.dataControllerService.getFiles()
-      .subscribe(files => this.files = files);     
-  }
 
-  selectFile(file){
-    this.selectedFile = file;
-    console.log(this.selectedFile);
-    
-  }
+
+
 
 
 }

@@ -1,21 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+
+import { Observable, BehaviorSubject, of } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataControllerService {
-  files: string[] = [
-    "file1", "file2","file3",
-    "file4", "file5","file6",
-    "file7", "file8","file9",
-    "file10", "file11"
-  ];
-  
-    constructor() { }
+  // Create a new variable type BehaviorSubject to share selected file between two components.
+  // BehaviorSubject serves for synchronize shared data
+  private selectedFile = new BehaviorSubject<string>(null);
 
-  getFiles(): Observable<string[]> {
-    return of(this.files);
+
+  constructor() { }
+
+
+  setSelectedFile(file: string){
+    this.selectedFile.next(file);
   }
+
+  getSelectedFile() {
+    return (this.selectedFile.asObservable())
+  } 
+
 }
