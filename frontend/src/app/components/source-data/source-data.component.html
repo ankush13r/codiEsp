@@ -1,0 +1,19 @@
+<div class="mainDiv">
+    <h4 class="boxHeader">{{title}}</h4>
+    <div *ngIf="file">
+        <div class="d-flex justify-content-around" *ngIf="sourceData.data">
+            <div class="paragraph">
+                <p id="sourceText">{{sourceData.data}}</p>
+            </div>
+            <div class="btnMoveText" (click)="moveSelectedData()">
+                <button class="btn btn-outline-dark"><i class="fa fa-arrow-circle-right"></i></button>
+            </div>
+        </div>
+        <div *ngIf="!sourceData.data">
+            <p>Error: Couldn't find any file.</p>
+        </div>
+    </div>
+    <div *ngIf ="!file">
+        Select a file to continue!
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<div>
+    <h4 class="boxHeader">{{title}}</h4>
+    <div *ngIf="isFoundData">
+        <form action="">
+            <div class="main">
+                <div class="divTextArea">
+                    <textarea name="targetText" type="textarea" class="textarea"
+                     placeholder="You can select data from the source box and move here by the arrow key."
+                        [(ngModel)]="targetText" (blur)="setTargetText(targetText)"></textarea>
+                </div>
+                <div class="d-flex justify-content-around mt-4">
+                    <button type="button" class="btn btn-outline-info" (click)="searchData()">Find</button>
+                    <button type="button" class="btn btn-outline-dark" (click)="modifyData()">Modify</button>
+                    <button type="button" class="btn btn-outline-danger" (click)="removeData()">Delete</button>
+                    <button type="button" class="btn btn-primary" (click)="submitData()">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
