@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { DataControllerService } from '../../services/data-controller.service';
 import { ApiService } from 'src/app/services/api.service';
+import { FileObj } from 'src/app/interfaces/file-obj';
 
 @Component({
   selector: 'app-target-data',
@@ -10,9 +11,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class TargetDataComponent implements OnInit {
   title = "Target"
-  file: string = null;
-  isFoundData: boolean = false;
-  targetText: string = null;
+  file: FileObj = null;
 
   constructor(
     private dataControllerService: DataControllerService,
@@ -21,8 +20,6 @@ export class TargetDataComponent implements OnInit {
 
   ngOnInit() {
     this.getSelectedFile();
-    this.geTIsFoundData();
-    this.getTargetText();
   }
 
   getSelectedFile() {
@@ -32,35 +29,16 @@ export class TargetDataComponent implements OnInit {
       }
     });
   }
-  geTIsFoundData() {
-    this.dataControllerService.getIsFoundData().subscribe(result => {
-      this.isFoundData = result;
-    });
-  }
-  getTargetText() {
-    this.dataControllerService.getTargetText().subscribe(result => {
-      this.targetText = result;
-    });
-  }
-  setTargetText(text: string) {
-    if (text) {
-      text = text.trim()
-    }
-    this.dataControllerService.setTargetText(text);
-  }
 
-  searchData() {
-    this.setTargetText(this.apiService.getData());
-  }
 
   submitData() {
-    this.apiService.setData();
+    this.apiService.postData(this.file);
   }
   removeData() {
-    this.apiService.removeData();
+    this.apiService.removeData(this.file);
   }
   modifyData() {
-    this.apiService.modifyData();
+    this.apiService.modifyData(this.file);
   }
 
   

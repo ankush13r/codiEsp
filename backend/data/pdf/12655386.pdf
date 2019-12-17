@@ -1,0 +1,769 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+	<head>
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<meta name="theme-color" content="#ea4700">
+<meta property="og:url" content="http://www.revistaneurocirugia.com/es-linkresolver-articulo-90133546" /> 
+<meta property="og:image" content="https://multimedia.elsevier.es/PublicationsMultimediaV1/revista/cover/11301473" />
+<meta property="og:image:width" content="577" />
+<meta property="og:image:height" content="768" />
+<meta property="og:title" content="" />
+
+<link rel="shortcut icon" href="/images/favicon.png" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/jquery.sidr/2.2.1/stylesheets/jquery.sidr.light.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" />
+<link type="text/css" rel="stylesheet"  href="https://assets.revistaneurocirugia.com//item/layout/item.css" />
+<link type="text/css" rel="stylesheet"  href="https://assets.revistaneurocirugia.com//item/style/item.css" />
+<link type="text/css" rel="stylesheet"  href="https://assets.revistaneurocirugia.com//org/css/plantilla.css" />
+
+<link type="text/css" rel="stylesheet"  href="https://assets.revistaneurocirugia.com//org/css/cssFill.php?color=%23ea4700" />
+<link type="text/css" rel="stylesheet"  href="/css/propio.css" /><title></title>
+<script type="text/javascript" async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script type="text/javascript" src="https://assets.revistaneurocirugia.com//org/js/menu-principal.js" ></script>
+<script type="text/javascript" src="https://assets.revistaneurocirugia.com//org/js/jquery-org.js" ></script>
+<script type="text/javascript" src="https://assets.revistaneurocirugia.com//org/js/funciones-org.js" ></script>
+<script type="text/javascript" src="https://assets.revistaneurocirugia.com//org/js/preloadimg.js" ></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.sidr/2.2.1/jquery.sidr.min.js"></script>
+<script type="text/javascript" src="/js/propio.js"></script><script>
+	var rellenar_campos='Debe rellenar todos los campos';
+	var login_ko='Usuario y/o contraseña incorrectos';
+	var ver_mas='Ver mas';
+	var ocultar='Ocultar';
+	var permiso_m_a='Por favor, acceda a su cuenta para consultar el material adicional';
+	var login_block='Ha realizado demasiados intentos. Intentelo de nuevo mas tarde';
+	var pass_ko='Las contraseñas no coinciden';
+	var clausula_no='Debe aceptar la cláusula de privacidad';
+	var correo_enviado='Se ha enviado un Email a su correo electronico con las instrucciones para restablecer su contraseña';
+	var correo_no_enviado='El usuario no existe';
+	var mail_no_acceso='El email especificado no tiene acceso a la publicación.';
+ var idioma='es';
+</script>
+
+<script>
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+</script>
+
+
+<script type='text/javascript'>
+
+var necesitaCookieProf=true;googletag.cmd.push(function() {
+
+	//superio	
+	googletag.defineSlot('/6053/elses.journals', [[728, 90] , [900, 100]], 'elsevierjournals_top').addService(googletag.pubads());
+	//superior mobile
+	googletag.defineSlot('/6053/elses.journals', [[300, 250]], 'elsevierjournals_top_mobile').addService(googletag.pubads()); 
+	googletag.defineSlot('/6053/elses.journals', [[360, 90]], 'elsevierjournals_top1').addService(googletag.pubads());
+	googletag.defineSlot('/6053/elses.journals', [[360, 90]], 'elsevierjournals_top2').addService(googletag.pubads());
+
+	googletag.defineSlot('/6053/elses.journals', [[225, 225]], 'elsevierjournals_lateral1').addService(googletag.pubads());
+	googletag.defineSlot('/6053/elses.journals', [[180, 180] , [225, 400]], 'elsevierjournals_lateral2').addService(googletag.pubads());
+	
+
+
+  
+googletag.pubads().setTargeting("es_PUBLICACION", "340");
+var revistaId=340;
+googletag.pubads().setTargeting("es_PUBLICACION_NOMBRE", "Neurocirugía");
+
+googletag.pubads().setTargeting("es_PROFESIONAL", "NO");
+
+googletag.pubads().setTargeting("es_IDIOMA", "ES");
+
+
+
+
+googletag.pubads().collapseEmptyDivs();
+googletag.pubads().enableSingleRequest();
+//googletag.pubads().enableSyncRendering();
+googletag.enableServices();
+	
+});
+	
+
+
+</script>
+</head>	<body class='revista-b-linkresolver es'>
+	<div class="banner" id="banner-top">
+<div id="elsevierjournals_top" style="border:none" align="center" class='desktop'>
+   <script type="text/javascript">
+       googletag.cmd.push(function() {googletag.display('elsevierjournals_top'); });
+    </script>
+</div>
+<div id="elsevierjournals_top_mobile" style="border:none" align="center" class='mobile'>
+   <script type="text/javascript">
+       googletag.cmd.push(function() {googletag.display('elsevierjournals_top_mobile'); });
+    </script>
+</div>
+</div>
+<header >
+<div class="suscribase">
+		<div class="suscribase mobile"><a href='http://tienda.elsevier.es/neurocirugia-jo-1130-1473.html' target="_blank">Suscríbase a la Revista</a></div>
+	</div><div class="logo-buscador desktop">
+	<div class="trans">
+	<div class="logo">
+	<a href='/'><div class='img'>
+		<img src='/images/w_neuro_00.png' class='wordmark'/>			
+	</div></a>
+	</div>
+	<div class="buscador">
+		
+		<div class="box-buscador">
+			<div class="campo cell open capa-buscador">
+				<div class="busqueda">
+	<form class="frmBuscador" action="/es-buscador"  method="get">
+	<div class="input"><input class="obligatorio" type="text" name="txtBuscador"  value="" placeholder="Buscar"/></div>
+	<div class="btn-buscar"><input type="submit" value="" class="lupa_blanca" /></div>
+	</form>
+</div>				<div class="busqueda-avanzada"><a href="es-busqueda-avanzada">Búsqueda avanzada</a></div>
+			</div>
+			<div class="compartir cell">
+				<div class='capa-compartir close'>
+				<div class="icos-compartir ">
+					<div class="twitter"><a href='/es-compartir-twitter?url=http://www.revistaneurocirugia.com/es-linkresolver-articulo-90133546&title=' class="twitter-g" target="_blank"></a></div>
+<div class="facebook"><a href='/es-compartir-facebook?url=http://www.revistaneurocirugia.com/es-linkresolver-articulo-90133546&title=' class="facebook-g" target="_blank"></a></div>
+<div class='linkedin'><a href='/es-compartir-linkedin?url=http://www.revistaneurocirugia.com/es-linkresolver-articulo-90133546&title=' class='linkedin-g' target='_blank'></a></div>
+<div class="whatsup mobile"><a target="_blank" href="whatsapp://send?text=http://www.revistaneurocirugia.com/es-linkresolver-articulo-90133546" data-action="share/whatsapp/share" class="whatsup-g"></a></div>
+<div class="sobre"><a href='mailto:?subject=Recomendaci%C3%B3n%20de%20lectura%20%20Neurocirug%C3%ADa&body=www.revistaneurocirugia.com%2Fes-linkresolver-articulo-90133546' class="sobre_g_claro" target="_blank"></a></div>				</div>
+				</div>
+				<div class="btn-compartir">
+					<input type="button" name="btn-compartir" id="txt" class="compartir-bl"/>
+					<div>Compartir</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+	</div>
+</div><div class="tres-puntos desktop"><div class="tres-puntos-g"></div></div>
+
+<div class="accesos-revista " >
+		<div class="suscribirse desktop">
+		<a href='http://tienda.elsevier.es/neurocirugia-jo-1130-1473.html' target="_blank">Suscríbase a la Revista</a>
+	</div>
+		<div class='desp-hamb-left hamb-left ico mobile'></div>
+	
+	<input type="hidden" value="es" id="idioma"/>
+	<div class="idiomas desktop">
+	
+	
+	<input type="radio" id='idioma_es' name="cmbIdioma" class="magic-radio"  value="es" checked/><label for="idioma_es"> Español</label>	<input type="radio" id='idioma_en' name="cmbIdioma" class="magic-radio"  value="en"  /><label for="idioma_en"> English</label>			
+	
+	</div>
+	
+	
+	<div class="accesos">
+		<div class="btn-comite desktop"><a href='/es-comite-editorial'>Comité editorial</a></div>
+		
+				<div class="btn-publique desktop desp" rel="publique"><span>Publique en esta revista</span></div>
+		<div class="caja-desp publique">
+			<div class="top"><div class="triangulo"></div></div>
+			<div class="bottom">
+				<div class="content">
+				<div class="cerrar" rel="publique"></div>
+				<div class="clear"></div>
+				<ul>
+				<li ><a class="guia" href='/es-guia-autores'>Guía para autores</a></li>
+<li ><a class="manuscritos" href='/es-envio-manuscritos'>Envío de manuscritos</a></li>
+<li ><a target="_blank" href="https://www.elsevier.com/editors/perk" class="manuscritos">Ética editorial</a></li>				</ul>
+				</div>
+			</div>
+		</div>
+		
+		
+		<a href='/es-guia-autores'><div class='guia-autores ico mobile'></div></a>
+				
+		
+		
+		<div class='compartir-g ico mobile desp-bot' rel="social"></div>
+		<div class="caja-desp mid social">
+		<div class="top"></div>
+		<div class="bottom">
+			<div class="content">
+			<div class="titulo">Compartir</div> <div class="cerrar" rel="social"></div>
+			<div class="clear"></div>
+			<div class="icos-compartir">
+				<div class="twitter"><a href='/es-compartir-twitter?url=http://www.revistaneurocirugia.com/es-linkresolver-articulo-90133546&title=' class="twitter-g" target="_blank"></a></div>
+<div class="facebook"><a href='/es-compartir-facebook?url=http://www.revistaneurocirugia.com/es-linkresolver-articulo-90133546&title=' class="facebook-g" target="_blank"></a></div>
+<div class='linkedin'><a href='/es-compartir-linkedin?url=http://www.revistaneurocirugia.com/es-linkresolver-articulo-90133546&title=' class='linkedin-g' target='_blank'></a></div>
+<div class="whatsup mobile"><a target="_blank" href="whatsapp://send?text=http://www.revistaneurocirugia.com/es-linkresolver-articulo-90133546" data-action="share/whatsapp/share" class="whatsup-g"></a></div>
+<div class="sobre"><a href='mailto:?subject=Recomendaci%C3%B3n%20de%20lectura%20%20Neurocirug%C3%ADa&body=www.revistaneurocirugia.com%2Fes-linkresolver-articulo-90133546' class="sobre_g_claro" target="_blank"></a></div>			</div>
+			
+			</div>
+		</div>
+		</div>
+		
+		<a href='es-busqueda-avanzada'><div class='btn-desp desp-buscador lupa-g ico mobile'></div></a>
+				<div class='btn-desp desp-acceso login-g ico mobile desp-bot ' rel="acceso"></div>
+		<div class="btn-login desktop desp" rel='login'>
+		<span >
+			
+						Acceder					</span>
+		</div>
+		<div class="caja-desp login desp-accesos acceso">
+		
+		<div class="top"></div>
+		<div class="bottom">
+		<div class="content">
+						<div class="form-login">
+				<div class="cerrar" rel="login"></div>
+				
+				<div class="titulo-msg">
+				<div class='msg' ></div>
+				<div class="titulo">Introduzca su usuario y contraseña</div>
+				
+				</div>
+				<div class="clear"></div>
+								
+				
+				<form id="frmLogin" method="post" >
+				<div class="campos">
+				<input type="text" name="txtUsuario" id="txtUsuario" placeholder="Usuario *"/> *
+				<input type="password" name="txtPassword" id="txtPassword" placeholder="Password *"/> *
+				</div>
+				<div class="actions">
+				<div class="chk-recordar"><div class="chkNaranja"><input type="checkbox" name="chkRecordar" id="chkRecordar"  /></div>Recordarme </div>
+				<div class="btn-acceder desktop"><input type="submit"  class="btn-01 desktop" value="" /><div class="label">Acceder</div></div>
+				
+				</div>
+				<div class="lista-flechas">
+				<ul>
+					<li><div class="flecha-an-de-corp"></div><span class="btn-recordar" >He olvidado mi contraseña</span></li>
+					<li><div class="flecha-an-de-corp"></div><a href='/es-contacto'>Contacte con nosotros</a></li>
+				
+				</ul>
+				</div>
+				
+				<div class="mobile"><input type="submit"  class="btn-01" value="" /><div class="label">Acceder</div></div>
+				</form>
+			
+				<div class="obligatorio">* Campos obligatorios</div>
+			</div>
+			<div class="form-recordar">
+			<div class="titulo-msg">
+					<div class='msg' ></div>
+					<div class="titulo">Introduzca su email</div>
+				
+				</div>
+				
+				<div class="cerrar" rel="login"></div>
+				<div class="clear"></div>
+				<form id="frmRecordar" method="post" >
+				<div class="campos">
+					<input type="text" name="txtUsuario" id="txtUsuarioR" placeholder="Usuario"/> *
+				</div>
+				
+				<input type="submit"  class="btn-01" value="Enviar" /></div>
+				</form>
+			
+			
+			
+						</div>
+			
+			
+		
+		</div>
+		
+		
+		
+		
+		
+			</div>
+				
+	</div>
+
+
+</div>
+<div class="breadcumb desktop">
+	<div class='ruta'>
+	
+		<a href="/es">N&uacute;mero actual</a>
+		
+	
+	
+	</div>
+</div></header>
+
+
+
+
+
+
+<main >
+
+<div class="container">
+<nav class="menu menu-dinamico menu-revista desktop">
+		<ul class="menu-list"></ul>
+		<div class="desp" rel="menu-extra"></div>
+		<div class="caja-desp menu-extra">
+			<div class="top"></div>
+			<div class="bottom">
+				<div class="content">
+				<div class="cerrar" rel="menu-extra"></div>
+				<div class="clear"></div>
+				<ul>
+				
+				</ul>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+		var menulist=[{"titulo":"Inicio","enlace":"\/es","activo":""},{"titulo":"Articles in press","enlace":"\/es-ahead-of-print","activo":""},{"titulo":"N&uacute;mero actual","enlace":"\/es-vol-30-num-6-sumario-S1130147319X00068","activo":""},{"titulo":"N&uacute;meros anteriores","enlace":"\/es-numeros-anteriores","activo":""},{"titulo":"Congresos","enlace":"\/es-congresos","activo":""},{"titulo":"Lo m\u00e1s le\u00eddo","enlace":"\/es-mas-leidos","activo":""}];
+		</script>
+</nav>
+
+
+<div id="intrabanner" class="banner" align="center">
+
+
+<div id="elsevierjournals_top1" style="display:inline-block">
+   <script type="text/javascript">
+       googletag.cmd.push(function() {googletag.display('elsevierjournals_top1'); });
+    </script>
+</div>
+ 
+<div id="elsevierjournals_top2" style="display:inline-block">
+   <script type="text/javascript">
+       googletag.cmd.push(function() {googletag.display('elsevierjournals_top2'); });
+    </script>
+</div>
+
+<!--
+<div id="elsevierjournals_lateral1" style="border:none" align="center" class='mobile'>
+   <script type="text/javascript">
+       googletag.cmd.push(function() {googletag.display('elsevierjournals_lateral1'); });
+    </script>
+</div>
+-->
+
+
+</div>
+
+
+
+
+<div class="info-revista" style='display:none'>
+<div class='titulo-revista mobile'>Neurocirugía</div>
+<div class="row">
+	
+	<div class="portada cell">
+
+	<a href='https://multimedia.elsevier.es/PublicationsMultimediaV1/revista/cover/11301473'  target='_blank'><img src='https://multimedia.elsevier.es/PublicationsMultimediaV1/revista/cover/11301473' alt='' /></a>	<div class="issns">
+	ISSN: 1130-1473<BR/>
+		</div>
+	
+	
+</div>	<div id="descripcion"   class='descripcion cell'>
+		<div class="texto">
+	<p><i>Neurocirugía</i> es la revista oficial de la Sociedad Española de Neurocirugía (SENEC). Tiene una periodicidad bimestral (6 números al año). Neurocirugía considerará para su publicación trabajos científicos originales de contenido clínico y experimental relacionados con la neurocirugía y otras ciencias neurológicas afines.
+<br/><br/>
+Todos los manuscritos se someten a una valoración efectuada por revisores expertos (peer review)  realizada de forma anónima (doble ciego). La revista acepta trabajos escritos en español o inglés. </p>		</div>
+	<span class="ver-mas">Ver más</span>
+
+</div>	<div class="index cell">
+		<h4>Indexada en:</h4>
+	<p>Research Alert Institute, C.A.B., Excerpta Medica, JCR, Index Medicus/Medline e IBECS</p>
+	<span class="ver-mas">Ver más</span>
+		<h4>S&iacute;guenos en:</h4>
+	<div class="icos-social">
+	
+	
+						<div class="rss"><a href='/es-rss-ultimo' class="rss-g" target="_blank"></a></div>
+		
+	</div>
+</div>
+
+
+<div class="metricas cell">
+	
+			<div class="caja">
+		<div class="caja-desp factor">
+			<div class="top"><div class="triangulo"></div></div>
+			<div class="bottom">
+				<div class="content">
+				<div class='anios'>
+								<div class="anio"><div class="factor">0,519 (2018)</div></div>
+								<div class="anio"><div class="factor">0,31 (2017)</div></div>
+								<div class="anio"><div class="factor">0,548 (2016)</div></div>
+								<div class="anio"><div class="factor">0,41 (2015)</div></div>
+								<div class="anio"><div class="factor">0,293 (2014)</div></div>
+								<div class="anio"><div class="factor">0,322 (2013)</div></div>
+								<div class="anio"><div class="factor">0,343 (2012)</div></div>
+								<div class="anio"><div class="factor">0,54 (2011)</div></div>
+								</div>
+				<div class="cerrar" rel="factor"></div>
+				<div class="clear"></div>
+				<div class="clear titulo-desp">Factor de Impacto</div> 
+				<p>El factor de impacto mide la media del número de citaciones recibidas en un año por trabajos publicados en la publicación durante los dos años anteriores.<br/><br/>© Clarivate Analytics, Journal Citation Reports 2017 2018</p>
+				</div>
+			</div>
+		</div>
+		<div class='titulo'>Factor de Impacto 2018</div><div class='info-g desp' rel="factor"></div>
+		
+		<div class="metrica">0,519</div>
+		</div>
+		
+			<div class="caja">
+		<div class="caja-desp citeScore" >
+			<div class="top"><div class="triangulo"></div></div>
+			<div class="bottom">
+				<div class="content">
+					<div class="cerrar" rel="citeScore"></div>
+					<div class="clear titulo-desp">CiteScore 2018</div>
+						<p>CiteScore mide la media de citaciones recibidas por artículo publicado. <a href='https://www.scopus.com/sourceid/17488' target='_blank'>Leer más</a> </p>
+				</div>
+			</div>
+		</div>
+			<div class='titulo'>CiteScore 2018</div><div class='info-g desp' rel="citeScore"></div>
+			<div class="metrica">0,44	
+			</div>
+		</div>
+					<div class="caja">
+		<div class="caja-desp scimago" >
+			<div class="top"><div class="triangulo"></div></div>
+			<div class="bottom">
+				<div class="content">
+					<div class="cerrar" rel="scimago"></div>
+					<p>SJR es una prestigiosa métrica basada en la idea que todas las citaciones no son iguales. SJR usa un algoritmo similar al page rank de Google; es una medida cuantitativa y cualitativa al impacto de una publicación. </p>
+				</div>
+			</div>
+		</div>
+			<div class='titulo'>SJR</div><div class='info-g desp' rel="scimago"></div>
+			<div class="metrica">0,228</div>
+		</div>
+					<div class="caja">
+			<div class="caja-desp snip">
+			<div class="top"><div class="triangulo"></div></div>
+			<div class="bottom">
+				<div class="content">
+					<div class="cerrar" rel="snip"></div>
+					<p>SNIP permite comparar el impacto de revistas de diferentes campos temáticos, corrigiendo las diferencias en la probabilidad de ser citado que existe entre revistas de distintas materias.</p>
+				</div>
+			</div>
+			</div>
+			<div class='titulo'>SNIP</div><div class='info-g desp' rel="snip"></div>
+			<div class="metrica">0,278</div>
+		</div>
+		<span class="ver-mas">
+	<span class='mas'>Ver más</span>
+	<span class="menos" style="display:none">Ocultar</span>
+	</span>
+</div>
+
+	
+</div>
+
+
+</div>
+<div class="ocultar desktop mostrar">
+	
+	<div class='btn-ocultar' style='display:none'>Ocultar <div class='flecha-an-ar-corp'></div></div>
+	<div class='btn-mostrar' >Información de la revista <div class='flecha-an-ar-corp'></div></div>
+</div>
+
+
+
+
+
+
+
+<div class="contenido">
+
+<div id="linkresolver" >
+<H1>Artículo</H1>
+
+</div>
+</div>
+
+
+<div class="sidebar desktop">
+
+<div class="suscribase-newsletter">
+<form method="post" action="/es-alerta-email">
+<h2>Suscríbase a la <i>newsletter</i></h2>
+<input type="email" name="sidrtxtEmail"   placeholder="Introduzca su email" class="obligatorio"/> 
+<input type="submit" value="" class="btn-01" />
+
+</form>
+</div><div class="sociedad">
+<div class='titulo'>Sociedad española de neurocirugía</div>
+<div class="imagen"><img src='/images/sociedad.png' /></div>
+
+</div><div class="cope">
+<a class="enlace" href="http://www.publicationethics.org" target="_blank"><img src="https://assets.revistaneurocirugia.com//org/images/cope.jpg"  /></a>
+<div class="texto">
+Neurocirugía se adhiere a los principios y procedimientos dictados por el Committee on Publication Ethics (COPE)<br/> <a  class="enlace" href="http://www.publicationethics.org" target="_blank">www.publicationethics.org</a>.
+</div>
+</div>
+<div class="enlaces">
+
+<ul>
+<li><a href="/es-revistas-reurocirugia">Revistas Neurocirugía</a></li>
+<li><a href="/es-sociedades-neurocirugia">Sociedades Neurocirugía</a></li>
+<li><a href="/es-direcciones-utiles">Direcciones útiles</a></li> 
+</ul>
+
+</div><div  class="box-opciones ultimo-congreso">
+	<div class="titulo">Congresos</div>
+	<div class="content">
+		<div class="titulo-congreso"> XXIII Congreso Nacional de la Sociedad Española de Neurocirugía</div>
+		<div class="portada-congreso"><img src='https://static.elsevier.es/congresos/imagenes/99/portada_neurocirugia2019.png' /></div>
+		<div class="mas"><a href='/es-congresos-xxiii-congreso-nacional-sociedad-espanola-99'>Ver más</a></div>
+	</div>
+</div>
+<div class="banner" id="banner-sidebar-top">
+<div id="elsevierjournals_lateral1" style="border:none" align="center">
+   <script type="text/javascript">
+       googletag.cmd.push(function() {googletag.display('elsevierjournals_lateral1'); });
+    </script>
+</div>
+</div><div class="banner" id="banner-sidebar-top">
+<div id="elsevierjournals_lateral2" style="border:none" align="center">
+   <script type="text/javascript">
+       googletag.cmd.push(function() {googletag.display('elsevierjournals_lateral2'); });
+    </script>
+</div>
+</div>
+<div class="banner" id="banner-sidebar-bot">
+<div id="elsevierjournals_pixel">
+   <script type="text/javascript">
+       googletag.cmd.push(function() {googletag.display('elsevierjournals_pixel '); });
+    </script>
+</div>
+</div>
+</div><div class="scroll-top"></div><div class="clear"></div>
+</div>
+
+
+</main><footer>
+<div class="container">
+
+<div class="enlaces">
+	<div class="cols">
+		<div class="left cell desktop">
+			<div class="col">
+				<h2>Leer</h2>
+				<ul>
+										<li><a href='/es-ahead-of-print'>Articles in press</a></li>
+										<li><a href='/'>N&uacute;mero actual</a></li>
+					
+					<li><a href='/es-mas-leidos'>Lo más leído</a></li>
+				</ul>
+			</div>
+			<div class="col">
+				<h2>Archivo</h2>
+				<ul>
+					<li><a href='/es-numeros-anteriores'>N&uacute;meros anteriores</a></li>
+															<li><a href='/es-congresos'>Congresos</a></li>
+										
+				</ul>
+			</div>
+			<div class="clear"></div>
+		</div>
+	<div class="right cell">
+		<div class="col">
+<h2 class="desktop">Publique en esta revista</h2>
+	<ul class="desktop">
+		<li ><a class="guia" href='/es-guia-autores'>Guía para autores</a></li>
+<li ><a class="manuscritos" href='/es-envio-manuscritos'>Envío de manuscritos</a></li>
+<li ><a target="_blank" href="https://www.elsevier.com/editors/perk" class="manuscritos">Ética editorial</a></li>		<li><a href='/es-comite-editorial'>Comité editorial</a></li>
+	</ul>
+<h2 class="desktop">Información legal</h2>
+	<ul class="">
+		<li><a href='/es-permisos-reproduccion'>Permisos de reproducción</a></li>
+		<li><a href='https://www.elsevier.com/legal/elsevier-website-terms-and-conditions' target='_blank'>Términos y condiciones</a></li>
+				<li><a href='https://www.elsevier.com/legal/privacy-policy-es-es' target='_blank'>Política de privacidad</a></li>
+						<li class='mobile'><a href='/es-contratar'>Publicidad</a></li>
+			</ul>
+</div>
+
+<div class="col desktop" align="right">
+<h2>Suscríbase</h2>
+	<ul>
+				<li><a href='http://tienda.elsevier.es/neurocirugia-jo-1130-1473.html' target="_blank">Suscríbase a la Revista</a></li>
+				<li><a href='/es-alerta-email'>Alerta por email</a></li>
+		<li><a href='/es-rss-ultimo' target="_blank">RSS</a></li>
+	</ul>
+<h2>Publicidad</h2>
+	<ul>
+		<li><a href='/es-contratar'>Contratar</a></li>
+	</ul>
+</div>		<div class="clear"></div>
+	</div>
+		<div class="clear"></div>
+	</div>
+	</div>
+	<div class="contactar desktop">
+		<div class="contacto">
+			<div class="sobre_g_claro"></div> <a href='/es-contacto'>Contactar</a>
+		</div>
+		<div class="comite">
+			<div class="gente_g_claro"></div> <a href='/es-comite-editorial'>Comité editorial</a>
+		</div>
+	</div>
+	
+</div>
+<div class="sep-pie"></div>
+<div class="container">
+
+<div class="copy-logos">
+	<div class="copy">
+	&copy; Copyright 2019. Sociedad Española de Neurocirugía<br/><br/>
+	 Este website utiliza cookies. Para rechazar o conocer más, visite nuestra página de <a href='/es-politica-cookies'>Política de Cookies</a>.	<span class="mobile"><br/>Elsevier España S.L.U. © 2019. Todos los derechos reservados</span>
+	</div>
+	<div class="logos"><div class="logo-elsevier-g-b"></div>
+					   <div class="logo-relx"></div>
+	</div>
+	<div class="clear"></div>
+</div></div>
+
+</footer><div id="sidr-left" class="sidr mobile left">
+<div class="back">
+<div class='titulo-idiomas'>Idiomas</div>
+<div class='idiomas'>
+
+	<ul>
+	<li><a href='/es' class='active'>Español</a></li>	<li><a href='/en' >English</a></li>			</ul>
+
+
+</div>
+<div class="infoRevista mobile">Neurocirugía</div>
+<div class="enlaces">
+  
+    	<ul>
+	
+		
+	<li class='' rel='inicio'>
+	<a href='/es' class='' >Inicio</a>
+		
+	
+	</li>
+	
+		
+	<li class='' rel='articles-in-press'>
+	<a href='/es-ahead-of-print' class='' >Articles in press</a>
+		
+	
+	</li>
+	
+		
+	<li class='' rel='numero-actual'>
+	<a href='/es-vol-30-num-6-sumario-S1130147319X00068' class='' >N&uacute;mero actual</a>
+		
+	
+	</li>
+	
+		
+	<li class='' rel='numeros-anteriores'>
+	<a href='/es-numeros-anteriores' class='' >N&uacute;meros anteriores</a>
+		
+	
+	</li>
+	
+		
+	<li class='' rel='congresos'>
+	<a href='/es-congresos' class='' >Congresos</a>
+		
+	
+	</li>
+	
+		
+	<li class='' rel='lo-mas-leido'>
+	<a href='/es-mas-leidos' class='' >Lo más leído</a>
+		
+	
+	</li>
+	
+		</ul>
+  <ul class="accesos">
+	<li><a href="/es-comite-editorial">Comité editorial</a></li>
+	    <li ><a  class="publicar" tabindex='1'>Publique en esta revista</a></li>
+	<ul style="display:none">
+		<li ><a class="guia" href='/es-guia-autores'>Guía para autores</a></li>
+<li ><a class="manuscritos" href='/es-envio-manuscritos'>Envío de manuscritos</a></li>
+<li ><a target="_blank" href="https://www.elsevier.com/editors/perk" class="manuscritos">Ética editorial</a></li>	</ul>
+	  </ul>
+ </div>
+  <div class="suscribase-newsletter">
+	<form method="post" action="/es-alerta-email">
+	<h2>Suscríbase a la <i>newsletter</i></h2>
+	<input type="email" name="sidrtxtEmail" id="sidrtxtEmail"  placeholder="Introduzca su email" class="obligatorio"/> <input type="submit" value="" class="btn-01" />
+	</form>
+	<div class="clear"></div>
+	</div>
+	
+
+
+</div>
+</div><div id="sidr-right" class="sidr mobile right">
+</div><div class="capa-loading"><div class="loading"></div></div>
+
+ 
+	<div class="capa-cookies">
+		<div class='cookies-banner'>
+		
+
+			<div class="profesional caja">
+		
+							<div class='idiomas'>
+				<span rel='es' class='active'>es</span>				<span rel='en' >en</span>												</div>
+							
+				
+			<div class='texto'>	
+						<p  class='idioma_es active'>¿Es usted profesional sanitario apto para prescribir o dispensar medicamentos?</span>			<p  class='idioma_en '>Are you a health professional able to prescribe or dispense drugs?</span>												</div>
+			<div class='buttons'>
+				<input type='button' class='btn-02 si' value='Sí' /> 
+				<input type='button' class='btn-02 no' value='No' />
+			</div>	
+		</div>
+		
+				<div class="cookies caja">
+							<div class='idiomas'>
+				<span rel='es' class='active'>es</span>				<span rel='en' >en</span>												</div>
+						<div class="titulo">
+							<span class='idioma_es active' >Política de cookies</span>				<span class='idioma_en ' >Cookies policy</span>														</div>
+			
+			
+			<div class='texto'>
+						<span class='idioma_es active'>Utilizamos cookies propias y de terceros para mejorar nuestros servicios y mostrarle publicidad relacionada con sus preferencias mediante el análisis de sus hábitos de navegación. Si continua navegando, consideramos que acepta su uso. Puede cambiar la configuración u obtener más información <a href='/es-politica-cookies'>aquí</a>.</span>			<span class='idioma_en '>To improve our services and products, we use "cookies" (own or third parties authorized) to show advertising related to client preferences through the analyses of navigation customer behavior. Continuing navigation will be considered as acceptance of this use.  You can change the settings or obtain more information by clicking  <a href='/en-politica-cookies'>here</a>.</span>													
+				
+			</div>	
+			<div class='buttons' align='center'>
+				<input type='button' class='btn-02 ok' value='Aceptar' /> 
+			</div>
+			</div>
+		
+		</div>
+	</div>
+	
+<script type="text/javascript">
+ 
+ 
+	<!-- Google Analytics -->
+
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	
+	ga('create', 'UA-16519953-35', 'auto');
+	
+		
+	
+	
+	ga('send', 'pageview',{'dimension1':'340','dimension2':'Neurocirugía','dimension6':'CERRADO-NOPERMISO','dimension9':'es','dimension14':'OTHER','dimension15':'NULL'});
+
+	<!-- End Google Analytics -->
+ 
+
+ 
+</script>
+
+	
+	</body>
+</html>

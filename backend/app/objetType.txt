@@ -1,0 +1,21 @@
+FileObj = {
+    name:string;
+    type:string;
+    path:string;
+    source?:string;
+    target?:string;
+    metaData?:{
+        location:string,
+        conationTime:number
+    };
+    error?:{
+        message:string
+    };
+}
+
+FilesObj = {
+    totalRecords:number;
+    currentPage:number;
+    files:FileObj[];
+}
+

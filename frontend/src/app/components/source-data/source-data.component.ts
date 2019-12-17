@@ -3,6 +3,7 @@ import { Observable, BehaviorSubject, of } from 'rxjs';
 
 import { DataControllerService } from '../../services/data-controller.service';
 import { ApiService } from '../../services/api.service';
+import { FileObj } from 'src/app/interfaces/file-obj';
 
 
 @Component({
@@ -13,9 +14,7 @@ import { ApiService } from '../../services/api.service';
 export class SourceDataComponent implements OnInit {
 
   title = "Source";
-  file: string = null;
-  sourceData: Object = {};
-  errorMessage: any;
+  file: FileObj = null;
 
   constructor(
     private dataControllerService: DataControllerService,
@@ -29,30 +28,33 @@ export class SourceDataComponent implements OnInit {
     this.dataControllerService.getSelectedFile().subscribe(result => {
       if (this.file !== result) {
         this.file = result
-        this.getData();
-        this.setExistData();
       }
     });
   }
-  getData() {
-    this.sourceData = this.apiService.getDataByFile(this.file);
-  }
 
-  setExistData() {
-    var result = (this.sourceData["data"]) ? true : false;
-    this.dataControllerService.setIsFoundData(result);
-  }
+
+
   moveSelectedData() {
     var selectedObj = document.getSelection();
     var startNode = selectedObj.anchorNode.parentElement;
     var endNode = selectedObj.focusNode.parentElement;
     if (endNode.getAttribute("id") === "sourceText" &&
-      startNode.getAttribute("id") === "sourceText") {
-        this.dataControllerService.setTargetText(selectedObj.toString());
-      }else{
+      startNode.getAttribute("id") === "sourceText" && selectedObj.toString() != "") {
+      if (
+        this.file.target == ""
+        || this.file.target == null
+        || confirm("Do you really want to do it? It will erase old text.")
+      ) {
+        this.file.target = selectedObj.toString();
+
+      } else if (selectedObj.toString() != "") {
         console.log("Error: The text must be from the origen box");
+
+      } else {
+        console.log("Error: Nothing selected");
       }
+    }
+
   }
-  
 }
 

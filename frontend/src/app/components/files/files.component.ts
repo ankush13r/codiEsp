@@ -2,6 +2,8 @@ import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
 
 import {DataControllerService} from '../../services/data-controller.service';
 import {ApiService} from "../../services/api.service"
+import { FilesObj } from 'src/app/interfaces/files-obj';
+import { FileObj } from 'src/app/interfaces/file-obj';
 
 @Component({
   selector: 'app-files',
@@ -10,8 +12,8 @@ import {ApiService} from "../../services/api.service"
 })
 export class FilesComponent implements OnInit {
   title = "Files";
-  selectedFile :string;
-  files : string[];
+  selectedFile :FileObj;
+  data : FilesObj
   
   constructor(private apiService: ApiService,private dataControllerService: DataControllerService) {
 
@@ -24,7 +26,7 @@ export class FilesComponent implements OnInit {
 
   getFiles() {
     this.apiService.getFiles()
-      .subscribe(files => this.files = files);
+      .subscribe(files => this.data = files);
   }
 
   selectFile(file){

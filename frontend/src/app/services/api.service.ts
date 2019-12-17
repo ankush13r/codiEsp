@@ -1,59 +1,88 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { FilesObj } from '../interfaces/files-obj';
+import { FileObj } from '../interfaces/file-obj';
+
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  data: Object = {
-    file1: { data: "data1 ", message: "message1" },
-    file2: { data: "data2 ", message: "message2" },
-    file3: { data: "data3 ", message: "message3" },
-    file4: { data: "data4 ", message: "message4" },
-    file5: { data: false, message: "error5" },
-    file6: { data: "data6 ", message: "message6" },
-    file7: { data: "data7 ", message: "message7" },
-    file8: { data: "data8 ", message: "message8" },
-    file9: { data: "data9 ", message: "message9" },
-    file10: { data: "data10 ", message: "message10" },
-    file11: { data: false, message: "error11" },
-  };
-
-
-  files: string[] = [
-    "file1", "file2","file3",
-    "file4", "file5","file6",
-    "file7", "file8","file9",
-    "file10", "file11"
-  ];
   
-    constructor() { }
-
-  getFiles(): Observable<string[]> {
-    return of(this.files);
+  data = {
+    totalRecords: 200,
+    currentPage: 2,
+    files: [
+      {
+        name: "file1",
+        type: "pdf",
+        path: "./path/file1",
+        error:{message:"Failed to open the file1"}
+      },
+      {
+        name: "file2",
+        type: "pdf",
+        path: "./path/file2",
+        source: "File2 data"
+      }, 
+      {
+        name: "file3",
+        type: "pdf",
+        path: "./path/file3",
+        source: "File3 data"
+      }, 
+      {
+        name: "file4",
+        type: "pdf",
+        path: "./path/file4",
+        source: "File4 data"
+      },
+      {
+        name: "file5",
+        type: "pdf",
+        path: "./path/file5",
+        source: "File5 data"
+      },
+      {
+        name: "file6",
+        type: "pdf",
+        path: "./path/file6",
+        source: "File6 data"
+      },
+      {
+        name: "file7",
+        type: "pdf",
+        path: "./path/file7",
+        error: {message:"File7 couldn't find"}
+      }
+    ]
   }
 
 
-  getDataByFile(file:string) :Observable<Object>{
-    return (this.data[file])
+
+  constructor() { }
+
+  getFiles(): Observable<FilesObj> {
+    return of(this.data);
   }
 
 
-  getData() {
+
+  getFile() {
     console.log("get Data");
     return ("source text")
   }
-  setData() {
-    console.log("submit Data");
+  postData(file:FileObj) {
+    console.log("submit Data: "+ JSON.stringify(file));
   }
 
-  modifyData() {
-    console.log("modify Data");
+  modifyData(file:FileObj) {
+    console.log("modify Data: " + JSON.stringify(file));
   }
 
-  removeData() {
-    console.log("remove Data");
+  removeData(file:FileObj) {
+    console.log("remove Data: "+ JSON.stringify(file));
   }
 
 }

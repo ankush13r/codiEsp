@@ -1,0 +1,613 @@
+
+<script>
+var vol = ''
+var num = ''
+
+var arrayLocal = new Array ()
+	
+			arrayLocal[0] = new Array ();arrayLocal[0][0] = '411';arrayLocal[0][1] = '94';arrayLocal[0][2] = '8';arrayLocal[0][3] = '01/08/2002';
+	
+			arrayLocal[1] = new Array ();arrayLocal[1][0] = '490';arrayLocal[1][1] = '94';arrayLocal[1][2] = '9';arrayLocal[1][3] = '01/09/2002';
+	
+			arrayLocal[2] = new Array ();arrayLocal[2][0] = '488';arrayLocal[2][1] = '94';arrayLocal[2][2] = '10';arrayLocal[2][3] = '01/10/2002';
+	
+			arrayLocal[3] = new Array ();arrayLocal[3][0] = '489';arrayLocal[3][1] = '94';arrayLocal[3][2] = '11';arrayLocal[3][3] = '01/11/2002';
+	
+			arrayLocal[4] = new Array ();arrayLocal[4][0] = '486';arrayLocal[4][1] = '94';arrayLocal[4][2] = '12';arrayLocal[4][3] = '01/12/2002';
+	
+			arrayLocal[5] = new Array ();arrayLocal[5][0] = '484';arrayLocal[5][1] = '95';arrayLocal[5][2] = '1';arrayLocal[5][3] = '01/01/2003';
+	
+			arrayLocal[6] = new Array ();arrayLocal[6][0] = '485';arrayLocal[6][1] = '95';arrayLocal[6][2] = '2';arrayLocal[6][3] = '05/03/2003';
+	
+			arrayLocal[7] = new Array ();arrayLocal[7][0] = '510';arrayLocal[7][1] = '95';arrayLocal[7][2] = '3';arrayLocal[7][3] = '30/03/2003';
+	
+			arrayLocal[8] = new Array ();arrayLocal[8][0] = '500';arrayLocal[8][1] = '95';arrayLocal[8][2] = '4';arrayLocal[8][3] = '24/04/2003';
+	
+			arrayLocal[9] = new Array ();arrayLocal[9][0] = '521';arrayLocal[9][1] = '95';arrayLocal[9][2] = '5';arrayLocal[9][3] = '31/05/2003';
+	
+			arrayLocal[10] = new Array ();arrayLocal[10][0] = '530';arrayLocal[10][1] = '95';arrayLocal[10][2] = '6';arrayLocal[10][3] = '20/06/2003';
+	
+			arrayLocal[11] = new Array ();arrayLocal[11][0] = '548';arrayLocal[11][1] = '95';arrayLocal[11][2] = '7';arrayLocal[11][3] = '01/07/2003';
+	
+			arrayLocal[12] = new Array ();arrayLocal[12][0] = '551';arrayLocal[12][1] = '95';arrayLocal[12][2] = '8';arrayLocal[12][3] = '01/08/2003';
+	
+			arrayLocal[13] = new Array ();arrayLocal[13][0] = '562';arrayLocal[13][1] = '95';arrayLocal[13][2] = '9';arrayLocal[13][3] = '20/09/2003';
+	
+			arrayLocal[14] = new Array ();arrayLocal[14][0] = '590';arrayLocal[14][1] = '95';arrayLocal[14][2] = '10';arrayLocal[14][3] = '24/11/2003';
+	
+			arrayLocal[15] = new Array ();arrayLocal[15][0] = '577';arrayLocal[15][1] = '95';arrayLocal[15][2] = '11';arrayLocal[15][3] = '25/11/2003';
+	
+			arrayLocal[16] = new Array ();arrayLocal[16][0] = '589';arrayLocal[16][1] = '95';arrayLocal[16][2] = '12';arrayLocal[16][3] = '26/12/2003';
+	
+			arrayLocal[17] = new Array ();arrayLocal[17][0] = '574';arrayLocal[17][1] = '95';arrayLocal[17][2] = '30070';arrayLocal[17][3] = '01/11/2003';
+	
+			arrayLocal[18] = new Array ();arrayLocal[18][0] = '605';arrayLocal[18][1] = '96';arrayLocal[18][2] = '1';arrayLocal[18][3] = '10/02/2004';
+	
+			arrayLocal[19] = new Array ();arrayLocal[19][0] = '608';arrayLocal[19][1] = '96';arrayLocal[19][2] = '2';arrayLocal[19][3] = '25/02/2004';
+	
+			arrayLocal[20] = new Array ();arrayLocal[20][0] = '619';arrayLocal[20][1] = '96';arrayLocal[20][2] = '3';arrayLocal[20][3] = '25/03/2004';
+	
+			arrayLocal[21] = new Array ();arrayLocal[21][0] = '637';arrayLocal[21][1] = '96';arrayLocal[21][2] = '5';arrayLocal[21][3] = '10/06/2004';
+	
+			arrayLocal[22] = new Array ();arrayLocal[22][0] = '641';arrayLocal[22][1] = '96';arrayLocal[22][2] = '6';arrayLocal[22][3] = '30/06/2004';
+	
+			arrayLocal[23] = new Array ();arrayLocal[23][0] = '645';arrayLocal[23][1] = '96';arrayLocal[23][2] = '7';arrayLocal[23][3] = '25/07/2004';
+	
+			arrayLocal[24] = new Array ();arrayLocal[24][0] = '656';arrayLocal[24][1] = '96';arrayLocal[24][2] = '8';arrayLocal[24][3] = '15/09/2004';
+	
+			arrayLocal[25] = new Array ();arrayLocal[25][0] = '662';arrayLocal[25][1] = '96';arrayLocal[25][2] = '9';arrayLocal[25][3] = '10/10/2004';
+	
+			arrayLocal[26] = new Array ();arrayLocal[26][0] = '669';arrayLocal[26][1] = '96';arrayLocal[26][2] = '10';arrayLocal[26][3] = '25/10/2004';
+	
+			arrayLocal[27] = new Array ();arrayLocal[27][0] = '830';arrayLocal[27][1] = '99';arrayLocal[27][2] = '1';arrayLocal[27][3] = '25/01/2007';
+	
+			arrayLocal[28] = new Array ();arrayLocal[28][0] = '832';arrayLocal[28][1] = '99';arrayLocal[28][2] = '2';arrayLocal[28][3] = '20/02/2007';
+	
+			arrayLocal[29] = new Array ();arrayLocal[29][0] = '844';arrayLocal[29][1] = '99';arrayLocal[29][2] = '3';arrayLocal[29][3] = '25/03/2007';
+	
+			arrayLocal[30] = new Array ();arrayLocal[30][0] = '850';arrayLocal[30][1] = '99';arrayLocal[30][2] = '4';arrayLocal[30][3] = '25/04/2007';
+	
+			arrayLocal[31] = new Array ();arrayLocal[31][0] = '868';arrayLocal[31][1] = '99';arrayLocal[31][2] = '5';arrayLocal[31][3] = '25/05/2007';
+	
+			arrayLocal[32] = new Array ();arrayLocal[32][0] = '880';arrayLocal[32][1] = '99';arrayLocal[32][2] = '6';arrayLocal[32][3] = '25/06/2007';
+	
+			arrayLocal[33] = new Array ();arrayLocal[33][0] = '885';arrayLocal[33][1] = '99';arrayLocal[33][2] = '7';arrayLocal[33][3] = '25/07/2007';
+	
+			arrayLocal[34] = new Array ();arrayLocal[34][0] = '889';arrayLocal[34][1] = '99';arrayLocal[34][2] = '8';arrayLocal[34][3] = '25/08/2007';
+	
+			arrayLocal[35] = new Array ();arrayLocal[35][0] = '903';arrayLocal[35][1] = '99';arrayLocal[35][2] = '9';arrayLocal[35][3] = '25/09/2007';
+	
+			arrayLocal[36] = new Array ();arrayLocal[36][0] = '904';arrayLocal[36][1] = '99';arrayLocal[36][2] = '10';arrayLocal[36][3] = '25/10/2007';
+	
+			arrayLocal[37] = new Array ();arrayLocal[37][0] = '930';arrayLocal[37][1] = '99';arrayLocal[37][2] = '11';arrayLocal[37][3] = '25/11/2007';
+	
+			arrayLocal[38] = new Array ();arrayLocal[38][0] = '935';arrayLocal[38][1] = '99';arrayLocal[38][2] = '12';arrayLocal[38][3] = '20/12/2007';
+	
+			arrayLocal[39] = new Array ();arrayLocal[39][0] = '943';arrayLocal[39][1] = '100';arrayLocal[39][2] = '1';arrayLocal[39][3] = '25/01/2008';
+	
+			arrayLocal[40] = new Array ();arrayLocal[40][0] = '952';arrayLocal[40][1] = '100';arrayLocal[40][2] = '2';arrayLocal[40][3] = '25/02/2008';
+	
+			arrayLocal[41] = new Array ();arrayLocal[41][0] = '966';arrayLocal[41][1] = '100';arrayLocal[41][2] = '3';arrayLocal[41][3] = '25/03/2008';
+	
+			arrayLocal[42] = new Array ();arrayLocal[42][0] = '967';arrayLocal[42][1] = '100';arrayLocal[42][2] = '4';arrayLocal[42][3] = '20/04/2008';
+	
+			arrayLocal[43] = new Array ();arrayLocal[43][0] = '981';arrayLocal[43][1] = '100';arrayLocal[43][2] = '5';arrayLocal[43][3] = '25/05/2008';
+	
+			arrayLocal[44] = new Array ();arrayLocal[44][0] = '984';arrayLocal[44][1] = '100';arrayLocal[44][2] = '6';arrayLocal[44][3] = '25/06/2008';
+	
+			arrayLocal[45] = new Array ();arrayLocal[45][0] = '990';arrayLocal[45][1] = '100';arrayLocal[45][2] = '7';arrayLocal[45][3] = '25/07/2008';
+	
+			arrayLocal[46] = new Array ();arrayLocal[46][0] = '997';arrayLocal[46][1] = '100';arrayLocal[46][2] = '8';arrayLocal[46][3] = '25/08/2008';
+	
+			arrayLocal[47] = new Array ();arrayLocal[47][0] = '1007';arrayLocal[47][1] = '100';arrayLocal[47][2] = '9';arrayLocal[47][3] = '25/09/2008';
+	
+			arrayLocal[48] = new Array ();arrayLocal[48][0] = '1012';arrayLocal[48][1] = '100';arrayLocal[48][2] = '10';arrayLocal[48][3] = '25/10/2008';
+	
+			arrayLocal[49] = new Array ();arrayLocal[49][0] = '1021';arrayLocal[49][1] = '100';arrayLocal[49][2] = '11';arrayLocal[49][3] = '25/11/2008';
+	
+			arrayLocal[50] = new Array ();arrayLocal[50][0] = '1022';arrayLocal[50][1] = '100';arrayLocal[50][2] = '12';arrayLocal[50][3] = '20/12/2008';
+	
+			arrayLocal[51] = new Array ();arrayLocal[51][0] = '1032';arrayLocal[51][1] = '101';arrayLocal[51][2] = '1';arrayLocal[51][3] = '25/01/2009';
+	
+			arrayLocal[52] = new Array ();arrayLocal[52][0] = '1031';arrayLocal[52][1] = '101';arrayLocal[52][2] = '2';arrayLocal[52][3] = '25/02/2009';
+	
+			arrayLocal[53] = new Array ();arrayLocal[53][0] = '1037';arrayLocal[53][1] = '101';arrayLocal[53][2] = '3';arrayLocal[53][3] = '25/03/2009';
+	
+			arrayLocal[54] = new Array ();arrayLocal[54][0] = '1042';arrayLocal[54][1] = '101';arrayLocal[54][2] = '4';arrayLocal[54][3] = '26/04/2009';
+	
+			arrayLocal[55] = new Array ();arrayLocal[55][0] = '1046';arrayLocal[55][1] = '101';arrayLocal[55][2] = '5';arrayLocal[55][3] = '25/05/2009';
+	
+			arrayLocal[56] = new Array ();arrayLocal[56][0] = '1055';arrayLocal[56][1] = '101';arrayLocal[56][2] = '6';arrayLocal[56][3] = '28/06/2009';
+	
+			arrayLocal[57] = new Array ();arrayLocal[57][0] = '1058';arrayLocal[57][1] = '101';arrayLocal[57][2] = '7';arrayLocal[57][3] = '30/07/2009';
+	
+			arrayLocal[58] = new Array ();arrayLocal[58][0] = '1063';arrayLocal[58][1] = '101';arrayLocal[58][2] = '8';arrayLocal[58][3] = '30/08/2009';
+	
+			arrayLocal[59] = new Array ();arrayLocal[59][0] = '1067';arrayLocal[59][1] = '101';arrayLocal[59][2] = '9';arrayLocal[59][3] = '25/09/2009';
+	
+			arrayLocal[60] = new Array ();arrayLocal[60][0] = '1073';arrayLocal[60][1] = '101';arrayLocal[60][2] = '10';arrayLocal[60][3] = '25/10/2009';
+	
+			arrayLocal[61] = new Array ();arrayLocal[61][0] = '1084';arrayLocal[61][1] = '101';arrayLocal[61][2] = '11';arrayLocal[61][3] = '30/11/2009';
+	
+			arrayLocal[62] = new Array ();arrayLocal[62][0] = '1087';arrayLocal[62][1] = '101';arrayLocal[62][2] = '12';arrayLocal[62][3] = '28/12/2009';
+	
+			arrayLocal[63] = new Array ();arrayLocal[63][0] = '1098';arrayLocal[63][1] = '102';arrayLocal[63][2] = '1';arrayLocal[63][3] = '30/01/2010';
+	
+			arrayLocal[64] = new Array ();arrayLocal[64][0] = '1102';arrayLocal[64][1] = '102';arrayLocal[64][2] = '2';arrayLocal[64][3] = '28/02/2010';
+	
+			arrayLocal[65] = new Array ();arrayLocal[65][0] = '1103';arrayLocal[65][1] = '102';arrayLocal[65][2] = '3';arrayLocal[65][3] = '28/03/2010';
+	
+			arrayLocal[66] = new Array ();arrayLocal[66][0] = '1106';arrayLocal[66][1] = '102';arrayLocal[66][2] = '4';arrayLocal[66][3] = '28/04/2010';
+	
+			arrayLocal[67] = new Array ();arrayLocal[67][0] = '1112';arrayLocal[67][1] = '102';arrayLocal[67][2] = '5';arrayLocal[67][3] = '30/05/2010';
+	
+			arrayLocal[68] = new Array ();arrayLocal[68][0] = '1120';arrayLocal[68][1] = '102';arrayLocal[68][2] = '6';arrayLocal[68][3] = '10/06/2010';
+	
+			arrayLocal[69] = new Array ();arrayLocal[69][0] = '1124';arrayLocal[69][1] = '102';arrayLocal[69][2] = '7';arrayLocal[69][3] = '10/07/2010';
+	
+			arrayLocal[70] = new Array ();arrayLocal[70][0] = '1127';arrayLocal[70][1] = '102';arrayLocal[70][2] = '8';arrayLocal[70][3] = '20/07/2010';
+	
+			arrayLocal[71] = new Array ();arrayLocal[71][0] = '1134';arrayLocal[71][1] = '102';arrayLocal[71][2] = '9';arrayLocal[71][3] = '15/09/2010';
+	
+			arrayLocal[72] = new Array ();arrayLocal[72][0] = '1135';arrayLocal[72][1] = '102';arrayLocal[72][2] = '10';arrayLocal[72][3] = '20/10/2010';
+	
+			arrayLocal[73] = new Array ();arrayLocal[73][0] = '1139';arrayLocal[73][1] = '102';arrayLocal[73][2] = '11';arrayLocal[73][3] = '25/11/2010';
+	
+			arrayLocal[74] = new Array ();arrayLocal[74][0] = '1144';arrayLocal[74][1] = '102';arrayLocal[74][2] = '12';arrayLocal[74][3] = '27/12/2010';
+	
+			arrayLocal[75] = new Array ();arrayLocal[75][0] = '1148';arrayLocal[75][1] = '103';arrayLocal[75][2] = '1';arrayLocal[75][3] = '30/01/2011';
+	
+			arrayLocal[76] = new Array ();arrayLocal[76][0] = '1157';arrayLocal[76][1] = '103';arrayLocal[76][2] = '2';arrayLocal[76][3] = '23/02/2011';
+	
+			arrayLocal[77] = new Array ();arrayLocal[77][0] = '1163';arrayLocal[77][1] = '103';arrayLocal[77][2] = '3';arrayLocal[77][3] = '28/03/2011';
+	
+			arrayLocal[78] = new Array ();arrayLocal[78][0] = '1172';arrayLocal[78][1] = '103';arrayLocal[78][2] = '4';arrayLocal[78][3] = '26/03/2011';
+	
+			arrayLocal[79] = new Array ();arrayLocal[79][0] = '1177';arrayLocal[79][1] = '103';arrayLocal[79][2] = '5';arrayLocal[79][3] = '26/05/2011';
+	
+			arrayLocal[80] = new Array ();arrayLocal[80][0] = '1182';arrayLocal[80][1] = '103';arrayLocal[80][2] = '6';arrayLocal[80][3] = '28/06/2011';
+	
+			arrayLocal[81] = new Array ();arrayLocal[81][0] = '1185';arrayLocal[81][1] = '103';arrayLocal[81][2] = '7';arrayLocal[81][3] = '08/07/2011';
+	
+			arrayLocal[82] = new Array ();arrayLocal[82][0] = '1191';arrayLocal[82][1] = '103';arrayLocal[82][2] = '8';arrayLocal[82][3] = '01/08/2011';
+	
+			arrayLocal[83] = new Array ();arrayLocal[83][0] = '1198';arrayLocal[83][1] = '103';arrayLocal[83][2] = '9';arrayLocal[83][3] = '27/09/2011';
+	
+			arrayLocal[84] = new Array ();arrayLocal[84][0] = '1203';arrayLocal[84][1] = '103';arrayLocal[84][2] = '10';arrayLocal[84][3] = '31/10/2011';
+	
+			arrayLocal[85] = new Array ();arrayLocal[85][0] = '1206';arrayLocal[85][1] = '103';arrayLocal[85][2] = '11';arrayLocal[85][3] = '25/11/2011';
+	
+			arrayLocal[86] = new Array ();arrayLocal[86][0] = '1212';arrayLocal[86][1] = '103';arrayLocal[86][2] = '12';arrayLocal[86][3] = '22/12/2011';
+	
+			arrayLocal[87] = new Array ();arrayLocal[87][0] = '1220';arrayLocal[87][1] = '104';arrayLocal[87][2] = '1';arrayLocal[87][3] = '31/01/2012';
+	
+			arrayLocal[88] = new Array ();arrayLocal[88][0] = '1226';arrayLocal[88][1] = '104';arrayLocal[88][2] = '2';arrayLocal[88][3] = '20/02/2012';
+	
+			arrayLocal[89] = new Array ();arrayLocal[89][0] = '1228';arrayLocal[89][1] = '104';arrayLocal[89][2] = '3';arrayLocal[89][3] = '21/03/2012';
+	
+			arrayLocal[90] = new Array ();arrayLocal[90][0] = '1229';arrayLocal[90][1] = '104';arrayLocal[90][2] = '4';arrayLocal[90][3] = '18/04/2012';
+	
+			arrayLocal[91] = new Array ();arrayLocal[91][0] = '1235';arrayLocal[91][1] = '104';arrayLocal[91][2] = '5';arrayLocal[91][3] = '22/05/2012';
+	
+			arrayLocal[92] = new Array ();arrayLocal[92][0] = '1238';arrayLocal[92][1] = '104';arrayLocal[92][2] = '6';arrayLocal[92][3] = '25/06/2012';
+	
+			arrayLocal[93] = new Array ();arrayLocal[93][0] = '1242';arrayLocal[93][1] = '104';arrayLocal[93][2] = '7';arrayLocal[93][3] = '26/07/2012';
+	
+			arrayLocal[94] = new Array ();arrayLocal[94][0] = '1245';arrayLocal[94][1] = '104';arrayLocal[94][2] = '8';arrayLocal[94][3] = '28/08/2012';
+	
+			arrayLocal[95] = new Array ();arrayLocal[95][0] = '1248';arrayLocal[95][1] = '104';arrayLocal[95][2] = '9';arrayLocal[95][3] = '30/09/2012';
+	
+			arrayLocal[96] = new Array ();arrayLocal[96][0] = '1250';arrayLocal[96][1] = '104';arrayLocal[96][2] = '10';arrayLocal[96][3] = '19/10/2012';
+	
+			arrayLocal[97] = new Array ();arrayLocal[97][0] = '1256';arrayLocal[97][1] = '104';arrayLocal[97][2] = '11';arrayLocal[97][3] = '29/12/2012';
+	
+			arrayLocal[98] = new Array ();arrayLocal[98][0] = '1260';arrayLocal[98][1] = '105';arrayLocal[98][2] = '1';arrayLocal[98][3] = '27/01/2013';
+	
+			arrayLocal[99] = new Array ();arrayLocal[99][0] = '1265';arrayLocal[99][1] = '105';arrayLocal[99][2] = '2';arrayLocal[99][3] = '25/02/2013';
+	
+			arrayLocal[100] = new Array ();arrayLocal[100][0] = '1267';arrayLocal[100][1] = '105';arrayLocal[100][2] = '3';arrayLocal[100][3] = '27/05/2013';
+	
+			arrayLocal[101] = new Array ();arrayLocal[101][0] = '1270';arrayLocal[101][1] = '105';arrayLocal[101][2] = '4';arrayLocal[101][3] = '08/04/2013';
+	
+			arrayLocal[102] = new Array ();arrayLocal[102][0] = '1272';arrayLocal[102][1] = '105';arrayLocal[102][2] = '5';arrayLocal[102][3] = '28/05/2013';
+	
+			arrayLocal[103] = new Array ();arrayLocal[103][0] = '1275';arrayLocal[103][1] = '105';arrayLocal[103][2] = '6';arrayLocal[103][3] = '28/07/2013';
+	
+			arrayLocal[104] = new Array ();arrayLocal[104][0] = '1282';arrayLocal[104][1] = '105';arrayLocal[104][2] = '7';arrayLocal[104][3] = '30/08/2013';
+	
+			arrayLocal[105] = new Array ();arrayLocal[105][0] = '1283';arrayLocal[105][1] = '105';arrayLocal[105][2] = '8';arrayLocal[105][3] = '01/09/2013';
+	
+			arrayLocal[106] = new Array ();arrayLocal[106][0] = '1290';arrayLocal[106][1] = '105';arrayLocal[106][2] = '9';arrayLocal[106][3] = '24/10/2013';
+	
+			arrayLocal[107] = new Array ();arrayLocal[107][0] = '1297';arrayLocal[107][1] = '105';arrayLocal[107][2] = '10';arrayLocal[107][3] = '30/12/2013';
+	
+			arrayLocal[108] = new Array ();arrayLocal[108][0] = '1298';arrayLocal[108][1] = '106';arrayLocal[108][2] = '1';arrayLocal[108][3] = '30/01/2014';
+	
+			arrayLocal[109] = new Array ();arrayLocal[109][0] = '1304';arrayLocal[109][1] = '106';arrayLocal[109][2] = '2';arrayLocal[109][3] = '27/02/2014';
+	
+			arrayLocal[110] = new Array ();arrayLocal[110][0] = '1308';arrayLocal[110][1] = '106';arrayLocal[110][2] = '3';arrayLocal[110][3] = '29/03/2014';
+	
+			arrayLocal[111] = new Array ();arrayLocal[111][0] = '1309';arrayLocal[111][1] = '106';arrayLocal[111][2] = '4';arrayLocal[111][3] = '29/04/2014';
+	
+			arrayLocal[112] = new Array ();arrayLocal[112][0] = '1314';arrayLocal[112][1] = '106';arrayLocal[112][2] = '5';arrayLocal[112][3] = '28/05/2014';
+	
+			arrayLocal[113] = new Array ();arrayLocal[113][0] = '1316';arrayLocal[113][1] = '106';arrayLocal[113][2] = '6';arrayLocal[113][3] = '28/06/2014';
+	
+			arrayLocal[114] = new Array ();arrayLocal[114][0] = '1320';arrayLocal[114][1] = '106';arrayLocal[114][2] = '7';arrayLocal[114][3] = '28/08/2014';
+	
+			arrayLocal[115] = new Array ();arrayLocal[115][0] = '1323';arrayLocal[115][1] = '106';arrayLocal[115][2] = '8';arrayLocal[115][3] = '19/12/2014';
+	
+			arrayLocal[116] = new Array ();arrayLocal[116][0] = '1325';arrayLocal[116][1] = '107';arrayLocal[116][2] = '1';arrayLocal[116][3] = '20/01/2015';
+	
+			arrayLocal[117] = new Array ();arrayLocal[117][0] = '1331';arrayLocal[117][1] = '107';arrayLocal[117][2] = '2';arrayLocal[117][3] = '09/02/2015';
+	
+			arrayLocal[118] = new Array ();arrayLocal[118][0] = '1334';arrayLocal[118][1] = '107';arrayLocal[118][2] = '3';arrayLocal[118][3] = '02/03/2015';
+	
+			arrayLocal[119] = new Array ();arrayLocal[119][0] = '1336';arrayLocal[119][1] = '107';arrayLocal[119][2] = '4';arrayLocal[119][3] = '01/04/2015';
+	
+			arrayLocal[120] = new Array ();arrayLocal[120][0] = '1338';arrayLocal[120][1] = '107';arrayLocal[120][2] = '5';arrayLocal[120][3] = '07/05/2015';
+	
+			arrayLocal[121] = new Array ();arrayLocal[121][0] = '1340';arrayLocal[121][1] = '107';arrayLocal[121][2] = '6';arrayLocal[121][3] = '01/06/2015';
+	
+			arrayLocal[122] = new Array ();arrayLocal[122][0] = '1343';arrayLocal[122][1] = '107';arrayLocal[122][2] = '7';arrayLocal[122][3] = '01/07/2015';
+	
+			arrayLocal[123] = new Array ();arrayLocal[123][0] = '1349';arrayLocal[123][1] = '107';arrayLocal[123][2] = '8';arrayLocal[123][3] = '31/07/2015';
+	
+			arrayLocal[124] = new Array ();arrayLocal[124][0] = '1350';arrayLocal[124][1] = '107';arrayLocal[124][2] = '9';arrayLocal[124][3] = '01/09/2015';
+			
+
+var posicion = 0;
+
+function dameHuecoLibre(){
+		posicion ++
+		return posicion;
+}
+	
+function borrarTodos (){		
+
+		var eFr = eval ('document.forms[0]');
+		posicion = eFr.selectNumero.length;
+		
+		/*este for No va con Macintosh!!
+		for (var i = posicion; i > -1; i --)			
+			eFr.selectNumero.options.remove (i);
+		*/	
+		while(eFr.selectNumero.options.length>0)
+			{
+				eFr.selectNumero.options.remove(0);
+			}			
+			
+		posicion = 1;
+		return;
+}
+		
+function sumarOption (eId, eText, pNum){	
+bw=new checkBrowser2()			
+		var posicionlibre = dameHuecoLibre();		
+		//var eFr = eval ('document.forms[0]');
+		var eFr=document.form1;						
+		//var elemento = document.createElement ("OPTION");	
+		//elemento.text = eText;
+		//elemento.value = eId;
+		//eFr.selectNumero.add (elemento, posicionlibre);			
+						
+		o = new Option(eText,eId,false);
+		n = eFr.selectNumero.options.length;
+		eFr.selectNumero.options[n] = o;
+		if (pNum == eId) {
+						
+			if (bw.ns4 || bw.ns5)
+				eFr.selectNumero.options[eFr.selectNumero.options.length-1].defaultSelected=true;
+			else
+				eFr.selectNumero.options.selectedIndex = eFr.selectNumero.options.length-1
+		}
+		return;
+}
+
+function cargarNumero(pNum) {
+
+bw=new checkBrowser2()
+var i = 0
+
+
+var auxTxt = '';	//14/11/01
+
+	borrarTodos();
+	
+	var eFr = eval ('document.forms[0]');
+	var aux = eFr.selectVolumen.value;
+			
+	while(i < arrayLocal.length){
+		if (aux == arrayLocal[i][1]) {
+			//14/11/01			
+			//sumarOption (arrayLocal[i][2], ' ' + arrayLocal[i][2] +'      ['+  String(arrayLocal[i][3]).substring(3,5) + ']',pNum)			
+			auxTxt = arrayLocal[i][2]
+			if (parseInt(auxTxt) > 30000){
+				auxTxt = parseInt(auxTxt) - 30000
+				//auxTxt = 'Sup. ' + String(auxTxt) +'  ['+  String(arrayLocal[i][3]).substring(3,5) + ']'
+				auxTxt = '      '+ arrayLocal[i][2]+''
+			}else{
+				//auxTxt = arrayLocal[i][2] +'      ['+  String(arrayLocal[i][3]).substring(3,5) + ']'
+				auxTxt = '      '+ arrayLocal[i][2]+''
+			}
+			//fin 14/11/01
+			sumarOption (arrayLocal[i][2], ' ' + auxTxt ,pNum)			
+			
+		}
+		i++
+	}
+	if(bw.nav=='ie5M'){
+		alert('sel '+ eFr.selectNumero.options.selectedIndex)
+		alert('len '+eFr.selectNumero.options.length)
+		if (eFr.selectNumero.options.selectedIndex >= eFr.selectNumero.options.length)
+			eFr.selectNumero.options.selectedIndex=0
+	}
+}
+	
+function obtenerFecha (){
+//obtiene la fecha del array definido en salComboSelector.asp a partir del volumen y el numero
+//búsqueda lineal. Optimizar!
+var retVal =''
+
+var eFr = eval ('document.forms[0]');						
+var auxNum = eFr.selectNumero.value;
+
+	for (var i = 0;i < arrayLocal.length;i++){
+		if (vol == arrayLocal[i][1] && auxNum == arrayLocal[i][2]) {
+			retVal = arrayLocal[i][3]
+			break;
+		}		
+	}//for
+
+	return retVal;
+}//obtenerFecha
+
+function obtenerIDNR (){
+//obtiene la fecha del array definido en salComboSelector.asp a partir del volumen y el numero
+//búsqueda lineal. Optimizar!
+var retVal =''
+
+var eFr = eval ('document.forms[0]');						
+var auxNum = eFr.selectNumero.value;
+
+	for (var i = 0;i < arrayLocal.length;i++){
+		if (vol == arrayLocal[i][1] && auxNum == arrayLocal[i][2]) {
+			retVal = arrayLocal[i][0]
+			break;
+		}		
+	}//for
+
+	return retVal;
+}//obtenerFecha
+
+function buscarNumeroRevista (pidRevista, pEspecialidad){
+//redirecciona al número indicado en el selector
+var aux = obtenerFecha ()
+var auxNum = obtenerIDNR ()//14/11/01
+
+	if (String(aux) != '')
+		//14/11/01
+		{
+		//window.location.href = "002.asp?IR="+pidRevista+"&fechaPublicacion="+aux+"&MS=true&IESP="+pEspecialidad	
+		window.location.href = "002.asp?IR="+pidRevista+"&fechaPublicacion="+aux+"&MS=true&IESP="+pEspecialidad+"&iDNR="+auxNum
+		
+		}
+		//fin 14/11/01
+	else
+		alert("No existen datos para el volumen y número indicados.")
+}//buscarNumeroRevista
+
+
+
+function checkBrowser2(){
+	this.ver=navigator.appVersion
+	this.dom=document.getElementById?1:0
+	this.ie6=(this.ver.indexOf("MSIE 6")>-1 && this.dom)?1:0;
+	this.ie5=(this.ver.indexOf("MSIE 5")>-1 && this.dom)?1:0;
+	this.ie5M=(this.ver.indexOf("Internet Explorer 5")>-1 && this.dom && this.ver.indexOf("Macintosh;")>-1)?1:0;
+	this.ie4=(document.all && !this.dom)?1:0;
+	this.ns5=(this.dom && parseInt(this.ver) >= 5) ?1:0;
+	this.ns4=(document.layers && !this.dom)?1:0;
+	this.bw=(this.ie5 || this.ie4 || this.ns4 || this.ns5)
+	
+	this.nav=''
+	this.nav=(this.ie4==1)?'ie4':this.nav
+	this.nav=(this.ie5==1)?'ie5':this.nav
+	this.nav=(this.ie5M==1)?'ie5M':this.nav
+	this.nav=(this.ie6==1)?'ie6':this.nav
+	this.nav=(this.ns4==1)?'ns4':this.nav
+	this.nav=(this.ns5==1)?'ns5':this.nav
+	return this
+}//checkBrowser2
+</script>
+<script language="javascript" src="../../scripts/cliente/scriptGeneral.js"></script>
+<HTML>
+<HEAD>
+<TITLE>WWW.GRUPOARAN.COM / EDICIONES</TITLE>
+<LINK REL="STYLESHEET" TYPE="TEXT/CSS" HREF="http://www.grupoaran.com/WEB/estilos/estilos_.css">
+</HEAD>
+
+<BODY LEFTMARGIN="0" TOPMARGIN="0" MARGINHEIGHT="0" MARGINWIDTH="0">
+<FORM id=form1 name=form1>
+<CENTER>
+<TABLE ALIGN="CENTER" WIDTH="757" CELLPADDING="0" CELLSPACING="0" BORDER="0">
+<TBODY><TR><TD CLASS="TDB" ALIGN="CENTER"><CENTER>
+<TABLE ALIGN="CENTER" WIDTH="757" CELLPADDING="0" CELLSPACING="0" BORDER="0">
+<TBODY><TR>
+
+<!-- cabecara y fecha-->
+	
+	
+
+<TABLE WIDTH=755 BORDER=0 CELLPADDING=0 CELLSPACING=0>
+	<TR>
+		<TD COLSPAN=2 WIDTH=750 HEIGHT=19>
+		<TABLE  WIDTH=750 HEIGHT=19 BORDER=0 CELLPADDING=0 CELLSPACING=0  background="http://www.grupoaran.com/WEB/images/corporativo//cabecero-total_01.jpg">
+			<tr>
+			<td  align=right class="tituloA" valign=bottom>
+				
+
+
+			Miércoles, 13 de noviembre de 2019&nbsp;&nbsp;&nbsp;11:36&nbsp;
+					
+			
+					</td>
+					</tr>
+					
+				
+					
+		</TABLE>
+		</TD>			
+		<TD ROWSPAN=3>
+			<IMG height=92 src="http://www.grupoaran.com/WEB/images/corporativo//cabecero-total_02.jpg" width=5></TD>
+	</TR>
+	<TR>
+		<TD COLSPAN=2>
+			<IMG height=50 src="http://www.grupoaran.com/WEB/images/corporativo//cabecero-total_03.jpg" width=750></TD>
+	</TR>
+	<TR>
+		<TD>
+			<IMG height=23 src="http://www.grupoaran.com/WEB/images/corporativo//cabecero-total_04.jpg" width=4></TD>
+		<TD WIDTH=746 HEIGHT=23>
+		<table WIDTH="100%" HEIGHT="20" CELLPADDING="0" CELLSPACING="0" BORDER="0">
+					<tbody>
+					<tr>
+				<TD CLASS="TDEM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="0" HEIGHT="0" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDEM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/sep.gif" BORDER="0" WIDTH="7" HEIGHT="10" HSPACE="0" VSPACE="0"></TD><TD  CLASS="TDBM"><CENTER><A CLASS="MENUP2" HREF="http://www.grupoaran.com/WEB/ediciones/revistas/001.ASP">Revistas</A></CENTER></TD><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/sep.gif" BORDER="0" WIDTH="7" HEIGHT="10" HSPACE="0" VSPACE="0"></TD><TD  CLASS="TDEM"><CENTER><A CLASS="MENUP1" HREF="http://www.grupoaran.com/WEB/comunicaciones/congresos/001.ASP">Congresos</A></CENTER></TD><TD CLASS="TDEM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/sep.gif" BORDER="0" WIDTH="7" HEIGHT="10" HSPACE="0" VSPACE="0"></TD><TD  CLASS="TDBM"><CENTER><A CLASS="MENUP1" HREF="http://www.grupoaran.com/WEB/ediciones/formacion/001.ASP">Formación</A></CENTER></TD><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/sep.gif" BORDER="0" WIDTH="7" HEIGHT="10" HSPACE="0" VSPACE="0"></TD><TD  CLASS="TDBM"><CENTER><A CLASS="MENUP1" HREF="http://www.grupoaran.com/WEB/ediciones/multimedia/001.ASP">Otras publicaciones</A></CENTER></TD><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/sep.gif" BORDER="0" WIDTH="7" HEIGHT="10" HSPACE="0" VSPACE="0"></TD><TD  CLASS="TDEM"><CENTER><A CLASS="MENUP1" HREF="http://www.grupoaran.com/WEB/networks/sociedades/001.ASP">Sociedades</A></CENTER></TD><TD CLASS="TDEM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/sep.gif" BORDER="0" WIDTH="7" HEIGHT="10" HSPACE="0" VSPACE="0"></TD><TD  CLASS="TDBM"><CENTER><A CLASS="MENUP1" HREF="http://www.grupoaran.com/WEB/ediciones/libros/001.ASP">Libros</A></CENTER></TD><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/sep.gif" BORDER="0" WIDTH="7" HEIGHT="10" HSPACE="0" VSPACE="0"></TD><TD  CLASS="TDEM"><CENTER><A CLASS="MENUP1" HREF="http://www.grupoaran.com/WEB/networks/actualidad/001.ASP">Actualidad on-line</A></CENTER></TD><TD CLASS="TDEM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/sep.gif" BORDER="0" WIDTH="7" HEIGHT="10" HSPACE="0" VSPACE="0"></TD>
+				
+					<td CLASS="TDEM">
+					</td>
+					</tr>
+					</tbody>
+					</table></TD>	
+	</TR>
+	<TR>
+		<TD COLSPAN=3>
+			<IMG height=21 src="http://www.grupoaran.com/WEB/images/corporativo//cabecero-total_06.jpg" width=755></TD>
+	</TR>
+</TABLE>
+<!-- fin cabecara y fecha-->	
+</TD></TR>
+
+
+<TD CLASS="TDB">
+<!---CENTRAL 755 ***************************-->
+<!---TAB-755 TABLA SIN SUBMENU COLUMNA 445-->
+<TABLE WIDTH="755" CELLPADDING="0" CELLSPACING="0" BORDER="0"><TBODY>
+
+<!--OJITO-->
+<!---755 MENU--><TR><!---MI--><TD CLASS="TDA" ROWSPAN="5">
+<!--OJITO-->
+
+
+<!---MENU IZQUIERDO-->
+<!---TABLA MENU 10/100-->
+<TABLE WIDTH="110" CELLPADDING="0" CELLSPACING="0" BORDER="0"><TBODY>
+<!---ADORNO FOTO-->
+<TR><TD CLASS="TDC" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/menui/Adorno4.jpg" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"><CENTER><FONT CLASS="NADA"><A CLASS="MENUSUP" HREF="http://www.grupoaran.com/index.ASP">inicio</A></CENTER></FONT></TD></TR><TR><TD CLASS="TDC" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/menui/Adorno4.jpg" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"><CENTER><FONT CLASS="NADA"><A CLASS="MENUSUP" HREF="http://www.grupoaran.com/WEB/contacto/contacto.asp">contacto</A></CENTER></FONT></TD></TR><script>
+function abreRegistro () {
+window.open('http://www.grupoaran.com/WEB/registro/registro.asp?Accion=ALTA',"registro","resizable=no, status=no,toolbar=no,scrollbars=yes,menubar=no,width=470,height=500, top=5,left=5");
+return;
+}
+</script>
+<TR><TD CLASS="TDC" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/menui/Adorno4.jpg" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"><CENTER><FONT CLASS="NADA"><A CLASS="MENUSUP" HREF="#" onclick="abreRegistro();">registro</A></CENTER></FONT></TD></TR><TR><TD CLASS="TDC" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/menui/Adorno4.jpg" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></TD></TR>
+<!---BUSCADOR-->
+<TR><TD CLASS="TDB" COLSPAN="2"><A HREF="http://www.grupoaran.com/WEB/Buscador/001.ASP"><IMG SRC="http://www.grupoaran.com/WEB/images/iconos/BUSCADOR.JPG" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></A></TD></TR>
+<!--BUSCADOR-->
+	<!---ESPACIO NEGRO--><TR><TD CLASS="TDC" HEIGHT="7" COLSPAN="2"></TD></TR>
+<!--ADORNO--><!--<TR><TD CLASS="TDB" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/iconos/ADORNO.JPG" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></TD></TR>-->
+	
+<!---LOGOS-->
+<!--<TR><TD CLASS="TDAM" COLSPAN="2" height="100%"><IMG SRC="http://www.grupoaran.com/WEB/images/corporativo/LOGO_ARAN.GIF" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></TD></TR>-->
+<!---LINEA AMARILLA--><!---<TR><TD CLASS="TDC" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/menui/LINEA.GIF" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></TD></TR>
+<!---ESPACIO NEGRO--><!---<TR><TD CLASS="TDCM" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="1" HEIGHT="5" HSPACE="0" VSPACE="0"></TD></TR>
+<!---LINEA AMARILLA--><!---<TR><TD CLASS="TDC" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/menui/LINEA.GIF" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></TD></TR>
+ 
+<!--<TR><TD CLASS="TDAM" COLSPAN="2"><A HREF=http://www.grupoaran.com/WEB/ediciones/001.ASP><IMG SRC="http://www.grupoaran.com/WEB/images/corporativo/logo_EDICIONES.gif" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></A></TD></TR>-->
+<!---LINEA AMARILLA--><!---<TR><TD CLASS="TDC" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/menui/LINEA.GIF" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></TD></TR>
+<!---ESPACIO NEGRO--><!---<TR><TD CLASS="TDCM" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="1" HEIGHT="5" HSPACE="0" VSPACE="0"></TD></TR>
+<!---LINEA AMARILLA--><!---<TR><TD CLASS="TDC" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/menui/LINEA.GIF" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></TD></TR>
+
+<!---LOGOS-->
+<!--<TR><TD CLASS="TDAM" COLSPAN="2"><A HREF=http://www.grupoaran.com/WEB/comunicaciones/001.ASP><IMG SRC="http://www.grupoaran.com/WEB/images/corporativo/logo_grupo.gif" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></A></TD></TR>-->
+<!---LINEA AMARILLA--><!---<TR><TD CLASS="TDC" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/menui/LINEA.GIF" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></TD></TR>
+<!---ESPACIO NEGRO--><!---<TR><TD CLASS="TDCM" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="1" HEIGHT="5" HSPACE="0" VSPACE="0"></TD></TR>
+<!---LINEA AMARILLA--><!---<TR><TD CLASS="TDC" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/menui/LINEA.GIF" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></TD></TR>
+
+<!---LOGOS-->
+<!--<TR><TD CLASS="TDAM" COLSPAN="2"><A HREF=http://www.grupoaran.com/WEB/networks/001.ASP><IMG SRC="http://www.grupoaran.com/WEB/images/corporativo/logo_networks.gif" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></A></TD></TR>-->
+<!---LINEA AMARILLA--><!---<TR><TD CLASS="TDC" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/menui/LINEA.GIF" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></TD></TR>
+<!---ESPACIO NEGRO--><!---<TR><TD CLASS="TDCM" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="1" HEIGHT="5" HSPACE="0" VSPACE="0"></TD></TR>
+<!---LINEA AMARILLA--><!---<TR><TD CLASS="TDC" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/menui/LINEA.GIF" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></TD></TR>
+
+<!--ADORNO--><!--<TR><TD CLASS="TDB" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/iconos/MENUB.GIF" BORDER="0" WIDTH="110" HEIGHT="15" HSPACE="0" VSPACE="0"></TD></TR>-->
+<!---ESPACIO NEGRO--><!---<TR><TD CLASS="TDCM" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="1" HEIGHT="7" HSPACE="0" VSPACE="0"></TD></TR>-->
+<!---Agenda-->
+<TR><!--<TD CLASS="TDCM"><IMG SRC="http://www.grupoaran.com/WEB/images/iconos/10.GIF" BORDER="0" WIDTH="10" HEIGHT="10" HSPACE="0" VSPACE="0"></TD>-->
+<TD CLASS="TDCM"><A CLASS="MENUPIA" HREF="http://www.grupoaran.com/WEB/Agenda/001.ASP"><IMG SRC="http://www.grupoaran.com/WEB/images/iconos/Agenda.GIF" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></A></TD></TR>
+<!---ESPACIO NEGRO-->
+<TR><TD CLASS="TDC" COLSPAN="2"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="1" HEIGHT="15" HSPACE="0" VSPACE="0"></TD></TR>	
+</TBODY></TABLE><!---MENU IZQUIERDO-->
+
+<BR><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="110" HEIGHT="14" VSPACE="0" HSPACE="0"></TD>
+
+<!--INICIO SUBMENU-->	
+	<TD CLASS="TDB"  COLSPAN="6"><TABLE WIDTH="645" CELLPADDING="0" CELLSPACING="0" BORDER="0"><TBODY><TR><TD CLASS="TDBM" COLSPAN="3"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="1" HEIGHT="14" VSPACE="2" HSPACE="2"></TD></TR><TR><TD CLASS="TDEM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="7" HEIGHT="14" VSPACE="2" HSPACE="2"></TD><TD CLASS="TDEM" WIDTH="631"><FONT CLASS="TITULOA"><a href ="002.asp?IR=33&fechaPublicacion=25/03/2004&MS=true&IESP=&VOl=96&NUM=3&iDNR=619" class="destacado">REVISTA ESPAÑOLA DE ENFERMEDADES DIGESTIVAS - English version</a></FONT></TD><TD CLASS="TDEM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="3" HEIGHT="10" VSPACE="2" HSPACE="2"><A HREF="javascript:if (window.history.length > 1) {window.history.back()}else {parent.history.back()};" class="destacado">Volver</A></TD></TR><TR><TD CLASS="TDA" COLSPAN="3"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FAZUL.JPG" BORDER="0" WIDTH="645" HEIGHT="1" HSPACE="0" VSPACE="0"></TD></TR><TR><TD CLASS="TDB" COLSPAN="3"><TABLE WIDTH="645" CELLPADDING="0" CELLSPACING="0" BORDER="0"><TBODY><TR><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="8" HEIGHT="8" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FAZUL.JPG" BORDER="0" WIDTH="2" HEIGHT="8" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDBM"><CENTER><A CLASS="MENUP" HREF="004.asp?IR=33&fechaPublicacion=25/03/2004&IDTA=159&IESP=&VOl=96&NUM=3&iDNR=619">&nbsp;&nbsp;&nbsp;Clinical note&nbsp;&nbsp;&nbsp;</A></CENTER></TD><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FAZUL.JPG" BORDER="0" WIDTH="2" HEIGHT="8" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDBM"><CENTER><A CLASS="MENUP" HREF="004.asp?IR=33&fechaPublicacion=25/03/2004&IDTA=172&IESP=&VOl=96&NUM=3&iDNR=619">&nbsp;&nbsp;&nbsp;Guide to Clinical Practice&nbsp;&nbsp;&nbsp;</A></CENTER></TD><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FAZUL.JPG" BORDER="0" WIDTH="2" HEIGHT="8" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDBM"><CENTER><A CLASS="MENUP" HREF="004.asp?IR=33&fechaPublicacion=25/03/2004&IDTA=157&IESP=&VOl=96&NUM=3&iDNR=619">&nbsp;&nbsp;&nbsp;Original papers&nbsp;&nbsp;&nbsp;</A></CENTER></TD><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FAZUL.JPG" BORDER="0" WIDTH="2" HEIGHT="8" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="15" HEIGHT="8" HSPACE="0" VSPACE="0"></TD></TR></TBODY></TABLE><TR><TD CLASS="TDA" COLSPAN="3"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FAZUL.JPG" BORDER="0" WIDTH="645" HEIGHT="1" HSPACE="0" VSPACE="0"></TD></TR><TR><TD CLASS="TDB" COLSPAN="3"><TABLE WIDTH="645" CELLPADDING="0" CELLSPACING="0" BORDER="0"><TBODY><TR><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="8" HEIGHT="8" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FAZUL.JPG" BORDER="0" WIDTH="2" HEIGHT="8" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDBM"><CENTER><A CLASS="MENUP" HREF="004.asp?IR=33&fechaPublicacion=25/03/2004&IDTA=160&IESP=&VOl=96&NUM=3&iDNR=619">&nbsp;&nbsp;&nbsp;Pictures in Digestive Pathology&nbsp;&nbsp;&nbsp;</A></CENTER></TD><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FAZUL.JPG" BORDER="0" WIDTH="2" HEIGHT="8" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDBM"><CENTER><A CLASS="MENUP" HREF="004.asp?IR=33&fechaPublicacion=25/03/2004&IDTA=158&IESP=&VOl=96&NUM=3&iDNR=619">&nbsp;&nbsp;&nbsp;Point of view&nbsp;&nbsp;&nbsp;</A></CENTER></TD><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FAZUL.JPG" BORDER="0" WIDTH="2" HEIGHT="8" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDBM"><CENTER><A CLASS="MENUP" HREF="004.asp?IR=33&fechaPublicacion=25/03/2004&IDTA=1&IESP=&VOl=96&NUM=3&iDNR=619">&nbsp;&nbsp;&nbsp;Editorial&nbsp;&nbsp;&nbsp;</A></CENTER></TD><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FAZUL.JPG" BORDER="0" WIDTH="2" HEIGHT="8" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="15" HEIGHT="8" HSPACE="0" VSPACE="0"></TD></TR></TBODY></TABLE><TR><TD CLASS="TDA" COLSPAN="3"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FAZUL.JPG" BORDER="0" WIDTH="645" HEIGHT="1" HSPACE="0" VSPACE="0"></TD></TR><TR><TD CLASS="TDB" COLSPAN="3"><TABLE WIDTH="645" CELLPADDING="0" CELLSPACING="0" BORDER="0"><TBODY><TR><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="8" HEIGHT="8" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FAZUL.JPG" BORDER="0" WIDTH="2" HEIGHT="8" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDBM"><CENTER><A CLASS="MENUP" HREF="004.asp?IR=33&fechaPublicacion=25/03/2004&IDTA=4&IESP=&VOl=96&NUM=3&iDNR=619">&nbsp;&nbsp;&nbsp;Cartas al Director&nbsp;&nbsp;&nbsp;</A></CENTER></TD><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FAZUL.JPG" BORDER="0" WIDTH="2" HEIGHT="8" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDBM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="15" HEIGHT="8" HSPACE="0" VSPACE="0"></TD></TR></TBODY></TABLE></TD></TR><TR><TD CLASS="TDA" COLSPAN="3"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FAZUL.JPG" BORDER="0" WIDTH="645" HEIGHT="1" HSPACE="0" VSPACE="0"></TD></TR></TBODY></TABLE><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="645" HEIGHT="1" VSPACE="0" HSPACE="0"></TD></TR><TR>	
+<!--FIN SUBMENU-->
+
+<!---45--><TD CLASS="TDB">&nbsp;</TD><!---445--><TD CLASS="TDB" COLSPAN="3">
+<!---interior-->
+<TABLE WIDTH="445" CELLPADDING="0" CELLSPACING="0" BORDER="0"><TBODY><TR><TD CLASS="TDB" COLSPAN="3"><IMG SRC="http://www.grupoaran.com/WEB/images/iconos/ICONO12.GIF" BORDER="0" WIDTH="445" HEIGHT="14" VSPACE="0" HSPACE="0"></TD></TR><TR><TD CLASS="TDB" COLSPAN="3">&nbsp;</TD></TR><TR><TD CLASS="TDB"COLSPAN="3"><TABLE WIDTH="445" CELLPADDING="0" CELLSPACING="0" BORDER="0"><TBODY><TR><TD CLASS="TDAM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="10" HEIGHT="1" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDAM"><FONT CLASS="TITULO">Descripción</FONT></TD><TD CLASS="TDAM"><IMG SRC="http://www.grupoaran.com/WEB/images/iconos/CUA-10.GIF" BORDER="0" HSPACE="2" VSPACE="2" WIDTH="10" HEIGHT="12"></TD></TR><TR><TD CLASS="TDB" colspan="2"><TABLE CELLPADDING="0" CELLSPACING="0" BORDER="0"><TBODY><TR><TD CLASS="TDB"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="1" HEIGHT="7" HSPACE="0" VSPACE="0">&nbsp;</TD><TD CLASS="TDB"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="10" HEIGHT="1" HSPACE="0" VSPACE="0"></td><TD CLASS="TDB"><BR><FONT class="TEXTOS"><b>Título:</b> Hermobilia secondary to chronic cholecystitis<br><A HREF="javascript:pidePassword('http://www.grupoaran.com/mrmUpdate/lecturaPDF.asp','?IdArt=456179&TO=RVN',true)" class="DESTACADO"><b>Ver documento completo en PDF.</b></A><br></FONT><BR></TD></TR></TBODY></TABLE></TD><TD CLASS="TDB" BACKGROUND="http://www.grupoaran.com/WEB/images/fondos/LAMAR.JPG"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="10" HEIGHT="1" HSPACE="2" VSPACE="2"></TD></TR><TR><TD CLASS="TDB"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="10" HEIGHT="1" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDB"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="421" HEIGHT="1" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDB" BACKGROUND="http://www.grupoaran.com/WEB/images/fondos/LAMAR.JPG"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="10" HEIGHT="7" HSPACE="2" VSPACE="0"></TD></TR><TR><TD CLASS="TDB" COLSPAN="3"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FAZUL.JPG" BORDER="0" WIDTH="441" HEIGHT="1" HSPACE="0" VSPACE="0"></TD></TR><TR><TD CLASS="TDB" COLSPAN="3">&nbsp;</TD></TR></TBODY></TABLE></TD></TR><TR><TD CLASS="TDB"COLSPAN="3"><TABLE WIDTH="445" CELLPADDING="0" CELLSPACING="0" BORDER="0"><TBODY><TR><TD CLASS="TDAM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="10" HEIGHT="1" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDAM"><FONT CLASS="TITULO">Autores</FONT></TD><TD CLASS="TDAM"><IMG SRC="http://www.grupoaran.com/WEB/images/iconos/CUA-10.GIF" BORDER="0" HSPACE="2" VSPACE="2" WIDTH="10" HEIGHT="12"></TD></TR><TR><TD CLASS="TDB" colspan="2"><TABLE CELLPADDING="0" CELLSPACING="0" BORDER="0"><TBODY><TR><TD CLASS="TDB"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="1" HEIGHT="7" HSPACE="0" VSPACE="0">&nbsp;</TD><TD CLASS="TDB"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="10" HEIGHT="1" HSPACE="0" VSPACE="0"></td><TD CLASS="TDB"><BR><FONT class="TEXTOS"><A href="http://www.grupoaran.com/WEB/Buscador/00MA.asp?IDAU=8174&text=Docobo Durántez, F.&IdPais=T&Method=EXACT&MS=true&IOrigen=456179" class="destacado">Docobo Durántez, F.</a>  <b>/</b> <A href="http://www.grupoaran.com/WEB/Buscador/00MA.asp?IDAU=20578&text=de Quinta Frutos, R.&IdPais=T&Method=EXACT&MS=true&IOrigen=456179" class="destacado">de Quinta Frutos, R.</a>  <b>/</b> <A href="http://www.grupoaran.com/WEB/Buscador/00MA.asp?IDAU=20579&text=Moles Morenilla, L.&IdPais=T&Method=EXACT&MS=true&IOrigen=456179" class="destacado">Moles Morenilla, L.</a>  <b>/</b> <A href="http://www.grupoaran.com/WEB/Buscador/00MA.asp?IDAU=20580&text=Soto Pradas, J. A.&IdPais=T&Method=EXACT&MS=true&IOrigen=456179" class="destacado">Soto Pradas, J. A.</a>  <b>/</b> <A href="http://www.grupoaran.com/WEB/Buscador/00MA.asp?IDAU=20581&text=Iriarte Calvo, J.&IdPais=T&Method=EXACT&MS=true&IOrigen=456179" class="destacado">Iriarte Calvo, J.</a>  <b>/</b> <A href="http://www.grupoaran.com/WEB/Buscador/00MA.asp?IDAU=20582&text=Vázquez Medina, A.&IdPais=T&Method=EXACT&MS=true&IOrigen=456179" class="destacado">Vázquez Medina, A.</a> </FONT><BR></TD></TR></TBODY></TABLE></TD><TD CLASS="TDB" BACKGROUND="http://www.grupoaran.com/WEB/images/fondos/LAMAR.JPG"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="10" HEIGHT="1" HSPACE="2" VSPACE="2"></TD></TR><TR><TD CLASS="TDB"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="10" HEIGHT="1" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDB"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="421" HEIGHT="1" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDB" BACKGROUND="http://www.grupoaran.com/WEB/images/fondos/LAMAR.JPG"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="10" HEIGHT="7" HSPACE="2" VSPACE="0"></TD></TR><TR><TD CLASS="TDB" COLSPAN="3"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FAZUL.JPG" BORDER="0" WIDTH="441" HEIGHT="1" HSPACE="0" VSPACE="0"></TD></TR><TR><TD CLASS="TDB" COLSPAN="3">&nbsp;</TD></TR></TBODY></TABLE></TD></TR><TR><TD CLASS="TDB"COLSPAN="3"><TABLE WIDTH="445" CELLPADDING="0" CELLSPACING="0" BORDER="0"><TBODY><TR><TD CLASS="TDAM"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="10" HEIGHT="1" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDAM"><FONT CLASS="TITULO">Summary</FONT></TD><TD CLASS="TDAM"><IMG SRC="http://www.grupoaran.com/WEB/images/iconos/CUA-10.GIF" BORDER="0" HSPACE="2" VSPACE="2" WIDTH="10" HEIGHT="12"></TD></TR><TR><TD CLASS="TDB" colspan="2"><TABLE CELLPADDING="0" CELLSPACING="0" BORDER="0"><TBODY><TR><TD CLASS="TDB"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="1" HEIGHT="7" HSPACE="0" VSPACE="0">&nbsp;</TD><TD CLASS="TDB"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="10" HEIGHT="1" HSPACE="0" VSPACE="0"></td><TD CLASS="TDB"><BR><FONT class="TEXTOS"><br /></FONT><BR></TD></TR></TBODY></TABLE></TD><TD CLASS="TDB" BACKGROUND="http://www.grupoaran.com/WEB/images/fondos/LAMAR.JPG"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="10" HEIGHT="1" HSPACE="2" VSPACE="2"></TD></TR><TR><TD CLASS="TDB"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="10" HEIGHT="1" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDB"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="421" HEIGHT="1" HSPACE="0" VSPACE="0"></TD><TD CLASS="TDB" BACKGROUND="http://www.grupoaran.com/WEB/images/fondos/LAMAR.JPG"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="10" HEIGHT="7" HSPACE="2" VSPACE="0"></TD></TR><TR><TD CLASS="TDB" COLSPAN="3"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FAZUL.JPG" BORDER="0" WIDTH="441" HEIGHT="1" HSPACE="0" VSPACE="0"></TD></TR><TR><TD CLASS="TDB" COLSPAN="3">&nbsp;</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<!---interior-->
+<BR><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="445" HEIGHT="1" VSPACE="0" HSPACE="0"></TD>
+<!---445--><!---45--><TD CLASS="TDB">&nbsp;</TD>	<!---MD--><TD CLASS="TDE">
+
+	
+
+<!---TABLA MENU 10/100 ****************************+MENU **********-->
+<!---TABLA MENU 10/100--><table WIDTH="110" CELLPADDING="0" CELLSPACING="0" BORDER="0"><tbody>
+<!---ADORNO FOTO--><tr><td CLASS="TDC" COLSPAN="2"><img SRC="http://www.grupoaran.com/WEB/images/menui/ADORNO2.JPG" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></td></tr>
+<!---ESPACIO negro 10--><tr><td CLASS="TDCM" COLSPAN="2"><img SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="1" HEIGHT="10" HSPACE="0" VSPACE="0"></td></tr>
+<!---SELECT---><tr><td CLASS="TDB" COLSPAN="2"><img SRC="http://www.grupoaran.com/WEB/images/iconos/SELECTOR.JPG" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></td></tr>
+<tr><td CLASS="TDAM" COLSPAN="2" ALIGN="RIGHT">
+<FONT CLASS="FORMULARIO">
+
+	<SELECT id="selectEspecialidades" class="SELECT110" name="selectEspecialidades" onchange="selectorEspecialidades(this.options[this.selectedIndex].value, '001.asp')"><option value="">Elija opción</option><option value="4">Anes.Reanimación</option><option value="42">CMA</option><option value="8">Dolor</option><option value="52">Ecografía Digest</option><option value="9">Far.Hospitalaria</option><option value="5">Geriatría</option><option value="10">Gestión Hospital</option><option value="11">Ginecología</option><option value="12">Hematología</option><option value="1">Inmunología</option><option value="13">Med. Familiar</option><option value="3">Med. Interna</option><option value="7">Med. Paliativa</option><option value="24">Nutrición</option><option value="14">Odontopediatría</option><option value="15">Oncología</option><option value="2">Patol. Digestiva</option><option value="16">Psiquiatría</option><option value="17">Reumatología</option><option value="37">Senología</option><option value="18">Urgencias</option><option value="t">Todas</option></select></font></td></tr><tr><td CLASS="TDAM" COLSPAN="2"><img SRC=http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="1" HEIGHT="15" HSPACE="0" VSPACE="0"></td></tr><tr><td CLASS="TDAM" COLSPAN="2" ALIGN="left"><FONT CLASS="Titulo">Volumen [Año]:</font></td></tr><tr><td CLASS="TDAM" COLSPAN="2" ALIGN="RIGHT"><FONT CLASS="FORMULARIO"><SELECT id="selectVolumen" class="SELECT110" name="selectVolumen" onchange="vol=this.options[this.selectedIndex].value;cargarNumero();"><option value="94">&nbsp;94 &nbsp;&nbsp;&nbsp;&nbsp;[2002]</option><option value="95">&nbsp;95 &nbsp;&nbsp;&nbsp;&nbsp;[2003]</option><option value="96" selected>&nbsp;96 &nbsp;&nbsp;&nbsp;&nbsp;[2004]</option><option value="99">&nbsp;99 &nbsp;&nbsp;&nbsp;&nbsp;[2007]</option><option value="100">&nbsp;100 &nbsp;&nbsp;&nbsp;&nbsp;[2008]</option><option value="101">&nbsp;101 &nbsp;&nbsp;&nbsp;&nbsp;[2009]</option><option value="102">&nbsp;102 &nbsp;&nbsp;&nbsp;&nbsp;[2010]</option><option value="103">&nbsp;103 &nbsp;&nbsp;&nbsp;&nbsp;[2011]</option><option value="104">&nbsp;104 &nbsp;&nbsp;&nbsp;&nbsp;[2012]</option><option value="105">&nbsp;105 &nbsp;&nbsp;&nbsp;&nbsp;[2013]</option><option value="106">&nbsp;106 &nbsp;&nbsp;&nbsp;&nbsp;[2014]</option><option value="107">&nbsp;107 &nbsp;&nbsp;&nbsp;&nbsp;[2015]</option></select></font></td></tr><tr><td CLASS="TDAM" COLSPAN="2" ALIGN="left"><FONT CLASS="Titulo">Número:</font></td></tr><tr><td CLASS="TDAM" COLSPAN="2" ALIGN="RIGHT"><FONT CLASS="FORMULARIO"><SELECT id="selectNumero" class="SELECT110" name="selectNumero" onchange="num=this.options[this.selectedIndex].value;"></select><script>cargarNumero(3);</script></font></td></tr><tr><td CLASS="TDAM" COLSPAN="2" ALIGN="RIGHT"><BR><A HREF="javascript:buscarNumeroRevista (33,,3)" class="MENUPIA"><b>BUSCAR</b></A>
+</font></td>
+</tr>
+<!---meses--->
+<tr><td CLASS="TDB" COLSPAN="2"><img SRC="http://www.grupoaran.com/WEB/images/iconos/MENUB.GIF" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></td></tr>
+<!---SELECT--->
+<!---ESPACIO azul--><tr><td CLASS="TDAM" COLSPAN="2"><img SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="1" HEIGHT="15" HSPACE="0" VSPACE="0"></td></tr>
+
+<!---ESPACIO azul 10--><tr><td CLASS="TDAM" COLSPAN="2"><img SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="1" HEIGHT="10" HSPACE="0" VSPACE="0"></td></tr>
+
+<tr><td CLASS="TDAM" ALIGN="RIGHT"><a CLASS="MENUPIA" HREF="005.asp?IR=33&fechaPublicacion=25/03/2004&tipo=P&IESP=&VOL=96&NUM=3&iDNR=619">Normas de publicación</a></td><td CLASS="TDAM2" ALIGN="center" valign="top"><img SRC="http://www.grupoaran.com/WEB/images/iconos/10_.GIF" BORDER="0" WIDTH="10" HEIGHT="10" HSPACE="2" VSPACE="2"></td></tr><tr><td CLASS="TDC" COLSPAN="2"><img SRC="http://www.grupoaran.com/WEB/images/menui/LINEA.GIF" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></td></tr>
+
+<!---LINEA AMARILLA--><tr><td CLASS="TDC" COLSPAN="2"><img SRC="http://www.grupoaran.com/WEB/images/menui/LINEA.GIF" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></td></tr>
+<!---ADORNO FOTO--><tr><td CLASS="TDC" COLSPAN="2"><img SRC="http://www.grupoaran.com/WEB/images/menui/ADORNO4.JPG" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></td></tr>
+<!---LINEA AMARILLA--><tr><td CLASS="TDC" COLSPAN="2"><img SRC="http://www.grupoaran.com/WEB/images/menui/LINEA.GIF" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></td></tr>
+<tr><td CLASS="TDAM" COLSPAN="2"><a href="http://www.adobe.es/products/acrobat/readstep2.html" target="_BLANK"><img SRC="http://www.grupoaran.com/images/banners/pdf.gif" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></a></td></tr><tr><td CLASS="TDC" COLSPAN="2"><img SRC="http://www.grupoaran.com/WEB/images/menui/LINEA.GIF" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></td></tr>
+<!---ADORNO FOTO--><tr><td CLASS="TDC" COLSPAN="2"><img SRC="http://www.grupoaran.com/WEB/images/menui/ADORNO4.JPG" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></td></tr>
+<!---LINEA AMARILLA--><tr><td CLASS="TDC" COLSPAN="2"><img SRC="http://www.grupoaran.com/WEB/images/menui/LINEA.GIF" BORDER="0" WIDTH="110" HSPACE="0" VSPACE="0"></td></tr>
+<!---ESPACIO AZUL--><tr><td CLASS="TDA" COLSPAN="2">&nbsp;<br><br><br></td></tr>
+
+<tr><td CLASS="TDAM" ALIGN="RIGHT"><a CLASS="MENUPIA" HREF="http://www.grupoaran.com/WEB/ediciones/revistas/001.ASP">Revistas</a></td><td CLASS="TDAM2" ALIGN="center" valign="top"><img SRC="http://www.grupoaran.com/WEB/images/iconos/10_.GIF" BORDER="0" WIDTH="10" HEIGHT="10" HSPACE="2" VSPACE="2"></td></tr><tr><td CLASS="TDAM" ALIGN="RIGHT"><a CLASS="MENUPIA" HREF="http://www.grupoaran.com/WEB/ediciones/formacion/001.ASP">Formación</a></td><td CLASS="TDAM2" ALIGN="center" valign="top"><img SRC="http://www.grupoaran.com/WEB/images/iconos/10_.GIF" BORDER="0" WIDTH="10" HEIGHT="10" HSPACE="2" VSPACE="2"></td></tr><tr><td CLASS="TDAM" ALIGN="RIGHT"><a CLASS="MENUPIA" HREF="http://www.grupoaran.com/WEB/ediciones/multimedia/001.ASP">Multimedia</a></td><td CLASS="TDAM2" ALIGN="center" valign="top"><img SRC="http://www.grupoaran.com/WEB/images/iconos/10_.GIF" BORDER="0" WIDTH="10" HEIGHT="10" HSPACE="2" VSPACE="2"></td></tr><tr><td CLASS="TDAM" ALIGN="RIGHT"><a CLASS="MENUPIA" HREF="http://www.grupoaran.com/WEB/ediciones/libros/001.ASP">Libros</a></td><td CLASS="TDAM2" ALIGN="center" valign="top"><img SRC="http://www.grupoaran.com/WEB/images/iconos/10_.GIF" BORDER="0" WIDTH="10" HEIGHT="10" HSPACE="2" VSPACE="2"></td></tr>
+
+<!---ESPACIO AZUL--><tr><td CLASS="TDA" COLSPAN="2">&nbsp;<br><br><br></td></tr>
+<!---TABLA MENU 10/100-->
+</tbody></table>
+
+<!---TABLA MENU 10/100 ****************************+MENU **********-->
+	</TD></TR><!---755-->
+	
+	
+	
+	<!---755 MARGEN BINF--><TR><TD CLASS="TDB">&nbsp;</TD><TD CLASS="TDB">&nbsp;</TD><TD CLASS="TDB">&nbsp;</TD><TD CLASS="TDB">&nbsp;</TD><TD CLASS="TDB">&nbsp;</TD><!---MD--><TD CLASS="TDE"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="110" HEIGHT="14" VSPACE="0" HSPACE="0"></TD></TR>
+	<!---755 MARGEN GINF TOPE--><TR><TD CLASS="TDB"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="45" HEIGHT="1" VSPACE="0" HSPACE="0"></TD><TD CLASS="TDG"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="208" HEIGHT="1" VSPACE="0" HSPACE="0"></TD><TD CLASS="TDB"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="29" HEIGHT="1" VSPACE="0" HSPACE="0"></TD><TD CLASS="TDG"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="208" HEIGHT="1" VSPACE="0" HSPACE="0"></TD><TD CLASS="TDB"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="45" HEIGHT="1" VSPACE="0" HSPACE="0"></TD><!---MD--><TD CLASS="TDE"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="110" HEIGHT="14" VSPACE="0" HSPACE="0"></TD></TR>
+	<!---755 MARGEN BINF--><TR><TD CLASS="TDB">&nbsp;</TD><TD CLASS="TDB">&nbsp;</TD><TD CLASS="TDB">&nbsp;</TD><TD CLASS="TDB">&nbsp;</TD><TD CLASS="TDB">&nbsp;</TD><!---MD--><TD CLASS="TDE"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FTRANS.GIF" BORDER="0" WIDTH="110" HEIGHT="14" VSPACE="0" HSPACE="0"></TD></TR></TBODY></TABLE><!---TAB-755 TABLA SIN SUBMENU COLUMNA 445-->
+<!---CENTRAL 755 ***************************--></TD></TR><TR><TD CLASS="TDA"><IMG SRC="http://www.grupoaran.com/WEB/images/fondos/FAZUL.JPG" BORDER="0" WIDTH="755" HEIGHT="1" VSPACE="0" HSPACE="0"></TD></TR><TR><TD CLASS="TDB" COLSPAN="3"><CENTER><A href="#"><IMG SRC="http://www.grupoaran.com/WEB/images/corporativo/007_LOGO.JPG" BORDER="0" WIDTH="140" HEIGHT="54" alt="Subir"></a><BR><FONT CLASS="COPYRIGHT">©Copyright. Todos los derechos reservados.<BR><BR><BR></FONT></CENTER></TD></TR></TBODY></TABLE></CENTER></TD></TR></TBODY></TABLE></FORM></BODY></HTML>
+
+<script>
+vol = '96'
+num = '3'
+</script>

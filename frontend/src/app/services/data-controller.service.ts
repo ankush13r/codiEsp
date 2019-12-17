@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Observable, BehaviorSubject, of } from 'rxjs';
+import { FileObj } from '../interfaces/file-obj';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { Observable, BehaviorSubject, of } from 'rxjs';
 export class DataControllerService {
   // Create a new variable type BehaviorSubject to share selected file between two components.
   // BehaviorSubject serves for synchronize shared data
-  private selectedFile = new BehaviorSubject<string>(null);
+  private selectedFile = new BehaviorSubject<FileObj>(null);
   private isFoundData = new BehaviorSubject<boolean>(null);
   private targetText = new BehaviorSubject<string>(null);
 
@@ -18,7 +19,7 @@ export class DataControllerService {
   getSelectedFile() {
     return (this.selectedFile.asObservable())
   }
-  setSelectedFile(file: string) {
+  setSelectedFile(file: FileObj) {
     this.selectedFile.next(file);
   }
 

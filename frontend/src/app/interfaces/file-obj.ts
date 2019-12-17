@@ -1,7 +1,14 @@
 export interface FileObj {
-    id:string;
     name:string;
     type:string;
-    source:any;
+    path:string;
+    source?:string;
     target?:string;
+    metaData?:{
+        location:string,
+        conationTime:number
+    };
+    error?:{
+        message:string
+    };
 }
