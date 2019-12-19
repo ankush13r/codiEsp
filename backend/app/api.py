@@ -22,29 +22,54 @@ import Constants
 from Utils import Documents
 
 
-OBJ_DOCUMENTS = Documents()
+
 
 app = Flask(__name__)
 
 # Put mongo uri into the app. config
-app.config['MONGO_URI'] = 'mongodb://mongo_admin:mongo_admin@84.88.52.79:27017/codiEsp'
+app.config['MONGO_URI'] = Constants.MONGO_URI
 app.config['SECRET_KEY'] = 'secretss'
-mongo = PyMongo(app) # Creating mongo from PyMongo by app.
+mongo = PyMongo(app)  # Creating mongo from PyMongo by app.
 # bcrypt = Bcrypt(app)
 # jwt = JWTManager(app)
 CORS(app)
 
+OBJ_DOCUMENTS = Documents()
+def getDocumentsObj():
+    OBJ_DOCUMENTS = Documents()
+
+
+def validPaginationArgs(args):
+    page = args.get("page")
+    per_page = args.get("perPage")
+
+    try:
+        page = abs(int(page))
+    except:
+        page = 1
+    
+    try:
+        per_page = abs(int(per_page))
+    except:
+        per_page = 10
+    
+    return page,per_page
+        
+
 @app.route('/docs/<type>', methods=['GET'])
 def get_docs(type):
-    print(OBJ_DOCUMENTS)
+    page,per_page = validPaginationArgs(request.args)
 
-    return jsonify({"data":"aaa"})
+    data = OBJ_DOCUMENTS.getFilesObj(type,page,per_page)
+    return jsonify(data)
+
 
 @app.route('/doc', methods=['POST'])
 def get_source():
-    path =request.json.get("path")
+    path = request.json.get("path")
+    if path and path in Documents:
+        pass
     return send_file(path)
-
 
 @app.before_request
 def setSession():
@@ -53,12 +78,11 @@ def setSession():
         session.permanent = True
         app.permanent_session_lifetime = timedelta(seconds=1)
 
-def getDocumentsObj():
-    OBJ_DOCUMENTS = Documents()
-    print(OBJ_DOCUMENTS.docs)
 
 if __name__ == '__main__':
     scheduler = BackgroundScheduler()
-    scheduler.add_job(func=getDocumentsObj, trigger="interval", seconds=10)
+    scheduler.add_job(func=getDocumentsObj, trigger="interval", days=10)
     scheduler.start()
-    app.run(host="127.0.0.1", port=4000, debug=True)
+    app.run(host="127.0.0.1", port=5000, debug=True)
+
+
