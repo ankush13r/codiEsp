@@ -12,7 +12,7 @@ import os, time
 
 from flask import Flask, jsonify, request, send_file, session, send_from_directory, safe_join, abort
 from flask_pymongo import PyMongo
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 from flask_jwt_extended import create_access_token
@@ -34,8 +34,7 @@ mongo = PyMongo(app)  # Creating mongo from PyMongo by app.
 
 # bcrypt = Bcrypt(app)
 # jwt = JWTManager(app)
-CORS(app)
-
+cors = CORS(app)
 
 
 def get_valid_pagination_args(args:dict):
@@ -66,8 +65,8 @@ def check_data_type(type):
     return (type in Constants.PATHS_TO_DIR.keys()) 
 
   
-@app.route("/docs/<data_type>/", methods=["GET"])
-@app.route("/docs/<data_type>", methods=["GET"])
+@app.route("/documents/<data_type>/", methods=["GET"])
+@app.route("/documents/<data_type>", methods=["GET"])
 def get_documents(data_type):
     data_type = data_type.strip()
     
@@ -80,7 +79,7 @@ def get_documents(data_type):
     return jsonify(data)
 
 
-@app.route("/docs/<data_type>/<name>", methods=["GET"])
+@app.route("/documents/<data_type>/<name>", methods=["GET"])
 def get_document(data_type,name):
     data_type = data_type.strip()
     name = name.strip()
@@ -88,8 +87,9 @@ def get_document(data_type,name):
 
     
 @app.route("/")
+@cross_origin()
 def home():
-    return "<h1>Welcome to codiEsp<h1>"
+    return {"data":"Welcome to codiEsp"}
 
 
 # @app.before_request

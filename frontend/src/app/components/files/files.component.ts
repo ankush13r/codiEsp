@@ -1,7 +1,7 @@
-import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import {DataControllerService} from '../../services/data-controller.service';
-import {ApiService} from "../../services/api.service"
+import { DataControllerService } from '../../services/data-controller.service';
+import { ApiService } from "../../services/api.service"
 import { FilesObj } from 'src/app/interfaces/files-obj';
 import { FileObj } from 'src/app/interfaces/file-obj';
 
@@ -12,29 +12,32 @@ import { FileObj } from 'src/app/interfaces/file-obj';
 })
 export class FilesComponent implements OnInit {
   title = "Files";
-  selectedFile :FileObj;
-  data : FilesObj
-  
-  constructor(private apiService: ApiService,private dataControllerService: DataControllerService) {
+  selectedFile: FileObj;
+  data: FilesObj = null;
+
+  constructor(private apiService: ApiService, private dataControllerService: DataControllerService) {
 
   }
 
   ngOnInit() {
-    this.getFiles(); 
+    this.getFiles();
     this.getSelectedFile();
   }
 
   getFiles() {
-    this.apiService.getFiles()
-      .subscribe(files => this.data = files);
+    this.apiService.getFiles().subscribe(result => {
+      this.data = result
+    });
   }
 
-  selectFile(file){
-    this.dataControllerService.setSelectedFile(file)      
+  selectFile(file) {
+    this.dataControllerService.setSelectedFile(file)
   }
-  getSelectedFile(){
+  getSelectedFile() {
     this.dataControllerService.getSelectedFile().subscribe(result => {
-      this.selectedFile = result}); 
+      this.selectedFile = result
+      console.log(result);
+    });
   }
 
 }

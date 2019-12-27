@@ -1,9 +1,12 @@
 import {FileObj} from './file-obj'
 
 export interface FilesObj {
-    totalRecords:number;
-    currentPage:number;
-    files:FileObj[];
+    currentPage: number,
+    totalRecords: number,
+    perPage: number,
+    error: {},
+    documents: FileObj[]
+
 }
 
 
