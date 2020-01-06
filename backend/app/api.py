@@ -21,14 +21,13 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from werkzeug.exceptions import BadRequest
 
 
-import Constants
-import Documents
+import constants, documents
 
 
 app = Flask(__name__)
 
 # Put mongo uri into the app. config
-app.config["MONGO_URI"] = Constants.MONGO_URI
+app.config["MONGO_URI"] = constants.MONGO_URI
 app.config["SECRET_KEY"] = "secret"
 mongo = PyMongo(app)  # Creating mongo from PyMongo by app.
 
@@ -62,7 +61,7 @@ def get_valid_pagination_args(args:dict):
     return page, per_page
 
 def check_data_type(type):
-    return (type in Constants.PATHS_TO_DIR.keys()) 
+    return (type in constants.PATHS_TO_DIR.keys()) 
 
   
 @app.route("/documents/<data_type>/", methods=["GET"])
@@ -74,16 +73,24 @@ def get_documents(data_type):
         abort(404)
         
     page, per_page = get_valid_pagination_args(request.args)
-    
-    data = Documents.get_data_list(data_type, page, per_page)
+    data = documents.get_data_list(data_type, page, per_page)
+    print("------------------------------------------")
+    print(data)
     return jsonify(data)
 
 
 @app.route("/documents/<data_type>/<name>", methods=["GET"])
 def get_document(data_type,name):
     data_type = data_type.strip()
-    name = name.strip()
-    
+    file_name = name.strip()
+    directory = constants.PATHS_TO_DIR.get(data_type)
+
+    if directory:
+        file_path = safe_join(directory, file_name)
+        if os.path.isfile(file_path):
+            return send_file(file_path)
+
+    abort(404)
 
     
 @app.route("/")

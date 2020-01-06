@@ -1,7 +1,7 @@
 
-import api
-import Constants
-import Documents
+from app import api
+from app import constants
+from app import documents
 
 
 def test_get_valid_pagination_args():
@@ -29,7 +29,7 @@ def test_get_valid_pagination_args():
 
 def test_check_data_type():
     # check data type if valid , passing a valid argument
-    assert api.check_data_type(Constants.TYPE_PDF) ==  True
+    assert api.check_data_type(constants.TYPE_PDF) ==  True
  
     # check data type if not valid , passing a invalid argument
     assert api.check_data_type("err") ==  False

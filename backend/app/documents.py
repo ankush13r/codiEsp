@@ -4,25 +4,25 @@
 import glob
 import os
 
-import Constants
+import constants
 
 
 def get_data_list(fileType: str, page: int = 1, per_page: int = 10):
 
     start = (int(page)-1) * int(per_page)
     end = int(start) + int(per_page)
-    path = Constants.PATHS_TO_DIR.get(fileType)
+    path = constants.PATHS_TO_DIR.get(fileType)
     # files = [os.path.abspath(file) for file in glob.glob(path)]
-
-    if (path):
+    
+    if (path) and os.path.isdir(path):
         files = os.listdir(path)
         error = None
     else:
         files = []
-        error = {"message":"Error 404: Bad request"}
+        error = {"message":"Error 404: Bad request, the path is wrong"}
     dataList = []
 
-    if fileType == Constants.TYPE_LINK:
+    if fileType == constants.TYPE_LINK:
         for file in files:
             file_path = os.path.join(path, file)
             with open(file_path) as f:
@@ -38,7 +38,7 @@ def get_data_list(fileType: str, page: int = 1, per_page: int = 10):
 
     for data in dataList[start:end]:
 
-        if fileType == Constants.TYPE_LINK:
+        if fileType == constants.TYPE_LINK:
             name = data["fileName"]
             link = data["link"]
         else:
@@ -63,3 +63,5 @@ def get_data_list(fileType: str, page: int = 1, per_page: int = 10):
         "error": error,
     }
     return data
+
+
