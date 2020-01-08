@@ -19,3 +19,27 @@ FilesObj = {
     files:FileObj[];
 }
 
+
+
+db.createUser(
+  {
+    user: "codiesp",
+    pwd: "codiesp",
+
+   "roles" : [
+		{
+			"role" : "userAdmin",
+			"db" : "codiEsp"
+		},
+		{
+			"role" : "dbAdmin",
+			"db" : "codiEsp"
+		},
+		{
+			"role" : "readWrite",
+			"db" : "codiEsp"
+		}
+	],
+
+  }
+)

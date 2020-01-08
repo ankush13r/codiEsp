@@ -8,10 +8,12 @@ TYPE_LINK = "link"
 TYPE_PDF = "pdf"
 
 PATHS_TO_DIR = {
-    "link": "../data/link/",
-    "html": "../data/html/",
-    "pdf": "../data/pdf/",
-    "text": "../data/text/",
+    TYPE_LINK: "../data/link/",
+    TYPE_HTML: "../data/html/",
+    TYPE_PDF: "../data/pdf/",
+    TYPE_TEXT: "../data/text/",
 }
 
-MONGO_URI = 'mongodb://mongo_admin:mongo_admin@84.88.52.79:27017/codiEsp'
+MONGO_URI = 'mongodb://codiesp:codiesp@84.88.52.79:27017/codiEsp'
+
+secret_key = 'secret    '
