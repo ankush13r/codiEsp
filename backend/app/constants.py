@@ -16,4 +16,4 @@ PATHS_TO_DIR = {
 
 MONGO_URI = 'mongodb://codiesp:codiesp@84.88.52.79:27017/codiEsp'
 
-secret_key = 'secret    '
+secret_key = 'secret'

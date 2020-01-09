@@ -8,7 +8,8 @@ https://www.youtube.com/watch?v=3DMMPA3uxBo
 
 from datetime import datetime, timedelta
 from bson.objectid import ObjectId
-import os, time
+import os
+import time
 
 from flask import Flask, jsonify, request, send_file, session, send_from_directory, safe_join, abort
 from flask_pymongo import PyMongo
@@ -20,8 +21,8 @@ from pymongo.errors import BulkWriteError, DuplicateKeyError
 from apscheduler.schedulers.background import BackgroundScheduler
 from werkzeug.exceptions import BadRequest
 
-
-import constants, documents
+import constants
+import documents
 
 
 app = Flask(__name__)
@@ -36,8 +37,8 @@ mongo = PyMongo(app)  # Creating mongo from PyMongo by app.
 cors = CORS(app)
 
 
-def get_valid_pagination_args(args:dict):
-    
+def get_valid_pagination_args(args: dict):
+
     try:
         page = args.get("page")
         per_page = args.get("perPage")
@@ -54,33 +55,33 @@ def get_valid_pagination_args(args:dict):
         except:
             per_page = 10
     except AttributeError as e:
-        print(e) ####################################Logging
+        print(e)  # Logging
         page = 1
         per_page = 10
 
     return page, per_page
 
+
 def check_data_type(type):
-    return (type in constants.PATHS_TO_DIR.keys()) 
+    return (type in constants.PATHS_TO_DIR.keys())
 
-
-@app.route("/documents/<data_type>/", methods=["GET"])
+# URL example = /documents/pdf
 @app.route("/documents/<data_type>", methods=["GET"])
 def get_documents(data_type):
     data_type = data_type.strip()
-    
+
     if not (check_data_type(data_type)):
         abort(404)
-        
+
     page, per_page = get_valid_pagination_args(request.args)
     data = documents.get_data_list(data_type, page, per_page)
     print("------------------------------------------")
     print(data)
     return jsonify(data)
 
-
+# URL example = /documents/pdf/file.pdf
 @app.route("/documents/<data_type>/<name>", methods=["GET"])
-def get_document(data_type,name):
+def get_document(data_type, name):
     data_type = data_type.strip()
     file_name = name.strip()
     directory_path = constants.PATHS_TO_DIR.get(data_type)
@@ -92,41 +93,83 @@ def get_document(data_type,name):
 
     abort(404)
 
-@app.route("/documents/<data_type>/<name>/save", methods=["POST"])
-def save_data(data_type,name):
+# URL example = /documents/pdf/file.pdf/add
+@app.route("/documents/<data_type>/<source>/add", methods=["POST"])
+def save_data(data_type, source):
+    """ A request must be similar to the next example,
+        those keys contain a interrogate symbole (?) are not required.
+
+        Request.json = {doc_id?: str,
+                        time: Date,
+                        clinical_case: str,
+                        meta_data: dict()
+                        }
+                        
+                        
+    """
     data_type = data_type.strip()
-    file_name = name.strip()
     directory_path = constants.PATHS_TO_DIR.get(data_type)
-    
-    doc_id = request.json.get("id")
-    time = request.json.get("time")
-    clinicl_case = request.json["clinical_case"]
-	meta_data = request.json["meta_data"]
 
-    data_to_save = dict({"clinicl_case":clinicl_case, "meta_data",meta_data})
-    
-    if doc_id:
-        data_to_save.update({"_id":doc_id})
-    
-    if time:
-        data_to_save.update({"time":time)
+    doc_id = request.json.get("doc_id")
+    time = request.json["time"]
+    clinical_case = request.json["clinical_case"]
+    meta_data = request.json["meta_data"]
 
- 
+    data_to_save = dict({"clinical_case": clinical_case,
+                         "directory_path": directory_path,
+                         "type": data_type,
+                         "meta_data": meta_data,
+                         })
 
     if data_type == constants.TYPE_LINK:
-        result = mongo.db.clinical_cases.save({"_id":"testing"})
-    elif data_type in constants.PATHS_TO_DIR.keys():
-        result = mongo.db.clinical_cases.save({"_id":"t111115", "name":"1223"})
+        data_to_save.update({"link": source})
 
-    print(result)
-    # print(doc_id)
-    return "ok"
+    elif data_type == constants.PATHS_TO_DIR.keys():
+        data_to_save.update({"name": source})
+
+    else:
+        return jsonify({"error":
+                        {"message": "Data type parameter of url is invalid, please check the url",
+                         "type": "invalid_parm"}
+                        })
+
+    result_to_send = {}
+    try:
+        if not doc_id:
+            data_to_save.update({"insert_time": time})
+            result = mongo.db.clinical_cases.insert_one(data_to_save)
+            result_to_send = {"inserted":
+                              {"id": str(result.inserted_id)}
+                              }
+        else:
+            data_to_save.update({"update_time": time})
+            data_to_save.update({"_id": ObjectId(doc_id)})
+            result = mongo.db.clinical_cases.replace_one(
+                {"_id": ObjectId(doc_id)}, data_to_save, upsert=True)
+            if result.upserted_id:
+                result_to_send = {"inserted":
+                                  {"id": str(result.upserted_id)}
+                                  }
+            else:
+                result_to_send = {"modified":
+                                  {"modified_count": str(
+                                      result.modified_count)}
+                                  }
+    except Exception as err:
+        mongo.db.errors.insert_one(
+            {"client_data": str(data_to_save), "error": str(err)})
+        result_to_send = {"error":
+                          {"message": str(err),
+                         "type": "mongo_exception"}
+                          }
+
+    return jsonify(result_to_send)
 
 
 @app.route("/")
 @cross_origin()
 def home():
-    return {"data":"Welcome to codiEsp"}
+    return {"data": "Welcome to codiEsp"}
 
 
 # @app.before_request
