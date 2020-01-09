@@ -5,7 +5,7 @@ import glob
 import os
 
 import constants
-
+from api import mongo
 
 def get_data_list(fileType: str, page: int = 1, per_page: int = 10):
 
@@ -38,17 +38,18 @@ def get_data_list(fileType: str, page: int = 1, per_page: int = 10):
 
     for data in dataList[start:end]:
 
-        if fileType == constants.TYPE_LINK:
+        if file_type == constants.TYPE_LINK:
             name = data["fileName"]
             link = data["link"]
         else:
             name = data 
             link = None
 
+        # mongo.db.clinical_case.find_one({"directory_path":path,"type":file_type})
         obj = {
             "name": name,
             "link": link,
-            "type": fileType,
+            "type": file_type,
             "path":path ,       
             "target": ""
         }

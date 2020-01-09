@@ -54,8 +54,8 @@ def get_valid_pagination_args(args: dict):
             per_page = abs(int(per_page))
         except:
             per_page = 10
-    except AttributeError as e:
-        print(e)  # Logging
+    except AttributeError as err:
+        print(err)  # Logging
         page = 1
         per_page = 10
 
@@ -75,8 +75,7 @@ def get_documents(data_type):
 
     page, per_page = get_valid_pagination_args(request.args)
     data = documents.get_data_list(data_type, page, per_page)
-    print("------------------------------------------")
-    print(data)
+
     return jsonify(data)
 
 # URL example = /documents/pdf/file.pdf
