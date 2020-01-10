@@ -82,19 +82,22 @@ def get_documents(data_type):
 @app.route("/documents/<data_type>/<name>", methods=["GET"])
 def get_document(data_type, name):
     data_type = data_type.strip()
-    file_name = name.strip()
-    directory_path = constants.PATHS_TO_DIR.get(data_type)
+    if data_type == constants.TYPE_LINK:
+        abort(404)
+    else:
+        file_name = name.strip()
+        directory_path = constants.PATHS_TO_DIR.get(data_type)
 
-    if directory_path:
-        file_path = safe_join(directory_path, file_name)
-        if os.path.isfile(file_path):
-            return send_file(file_path)
+        if directory_path:
+            file_path = safe_join(directory_path, file_name)
+            if os.path.isfile(file_path):
+                return send_file(file_path)
 
     abort(404)
 
-# URL example = /documents/pdf/file.pdf/add
-@app.route("/documents/<data_type>/<source>/add", methods=["POST"])
-def save_data(data_type, source):
+# URL example = /documents/data_type/file_name.pdf/add
+@app.route("/documents/<data_type>/<file_name>/add", methods=["POST"])
+def save_data(data_type, file_name):
     """ A request must be similar to the next example,
         those keys contain a interrogate symbole (?) are not required.
 
@@ -103,34 +106,35 @@ def save_data(data_type, source):
                         clinical_case: str,
                         meta_data: dict()
                         }
-                        
-                        
+
+
     """
     data_type = data_type.strip()
-    directory_path = constants.PATHS_TO_DIR.get(data_type)
+    file_name = file_name.strip()
+    directory = constants.PATHS_TO_DIR.get(data_type)
+    source_path = safe_join(directory, file_name.strip())
 
     doc_id = request.json.get("doc_id")
-    time = request.json["time"]
-    clinical_case = request.json["clinical_case"]
+    clinical_case = (request.json["clinical_case"]).strip()
+    time = (request.json["time"]).strip()
     meta_data = request.json["meta_data"]
-
-    data_to_save = dict({"clinical_case": clinical_case,
-                         "directory_path": directory_path,
-                         "type": data_type,
+    data_to_save = dict({"data_type": data_type,
+                         "source_path": source_path,
+                         "clinical_case": clinical_case,
                          "meta_data": meta_data,
                          })
 
+    data_to_save.update({})
+
     if data_type == constants.TYPE_LINK:
-        data_to_save.update({"link": source})
+        link = request.json["link"].strip()
+        data_to_save.update({"link": link})
 
-    elif data_type == constants.PATHS_TO_DIR.keys():
-        data_to_save.update({"name": source})
-
-    else:
-        return jsonify({"error":
-                        {"message": "Data type parameter of url is invalid, please check the url",
-                         "type": "invalid_parm"}
-                        })
+    # elif data_type != constants.PATHS_TO_DIR.keys():
+    #     return jsonify({"error":
+    #                     {"message": "Data type parameter of url is invalid, please check the url",
+    #                      "type": "invalid_parm"}
+    #                     })
 
     result_to_send = {}
     try:
@@ -140,11 +144,14 @@ def save_data(data_type, source):
             result_to_send = {"inserted":
                               {"id": str(result.inserted_id)}
                               }
+
         else:
+            doc_id = doc_id.strip()
             data_to_save.update({"update_time": time})
             data_to_save.update({"_id": ObjectId(doc_id)})
             result = mongo.db.clinical_cases.replace_one(
                 {"_id": ObjectId(doc_id)}, data_to_save, upsert=True)
+
             if result.upserted_id:
                 result_to_send = {"inserted":
                                   {"id": str(result.upserted_id)}
@@ -154,12 +161,14 @@ def save_data(data_type, source):
                                   {"modified_count": str(
                                       result.modified_count)}
                                   }
+
     except Exception as err:
         mongo.db.errors.insert_one(
             {"client_data": str(data_to_save), "error": str(err)})
+
         result_to_send = {"error":
                           {"message": str(err),
-                         "type": "mongo_exception"}
+                           "type": "mongo_exception"}
                           }
 
     return jsonify(result_to_send)

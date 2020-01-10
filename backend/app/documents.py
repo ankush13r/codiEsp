@@ -4,65 +4,78 @@
 import glob
 import os
 
+from flask import safe_join
+
 import constants
 from api import mongo
 
-def get_data_list(fileType: str, page: int = 1, per_page: int = 10):
+
+def get_data_list(file_type: str, page: int = 1, per_page: int = 10):
 
     start = (int(page)-1) * int(per_page)
     end = int(start) + int(per_page)
-    path = constants.PATHS_TO_DIR.get(fileType)
-    # files = [os.path.abspath(file) for file in glob.glob(path)]
-    
-    if (path) and os.path.isdir(path):
-        files = os.listdir(path)
+    dir_path = constants.PATHS_TO_DIR.get(file_type)
+    # files = [os.path.abspath(file) for file in glob.glob(dir_path)]
+
+    if dir_path and os.path.isdir(dir_path):
+        files = os.listdir(dir_path)
         error = None
     else:
         files = []
-        error = {"message":"Error 404: Bad request, the path is wrong"}
+        error = {"message": "Error 404: Bad request, the dir_path is wrong"}
     dataList = []
 
-    if fileType == constants.TYPE_LINK:
+    if file_type == constants.TYPE_LINK:
         for file in files:
-            file_path = os.path.join(path, file)
+            file_path = os.path.join(dir_path, file)
             with open(file_path) as f:
-                dataList += [{"fileName":file,"link":link.strip()} for link in f.readlines()]
+                dataList += [{"file_name": file, "link": link.strip()}
+                             for link in f.readlines()]
     else:
         dataList = files
 
-    file_obj_list = []
-    
-    #To debug if start and end of records works well in the loop for.
+    data_obj_list = []
+
+    # To debug if start and end of records works well in the loop for.
     # listTmp = [i for i in range(100)]
     # print(listTmp[start:end])
 
     for data in dataList[start:end]:
+        mongo_obj = None
 
         if file_type == constants.TYPE_LINK:
-            name = data["fileName"]
+            file_name = data["file_name"]
             link = data["link"]
+            
+            source_path = safe_join(dir_path, file_name.strip())
+            mongo_obj = mongo.db.clinical_cases.find_one({"source_path":source_path, "link":link})
         else:
-            name = data 
+            file_name = data
+            source_path = safe_join(dir_path, file_name.strip())
+            # First it will find if the document already had been inserted, 
+            mongo_obj = mongo.db.clinical_cases.find_one({"source_path":source_path})
             link = None
 
         # mongo.db.clinical_case.find_one({"directory_path":path,"type":file_type})
-        obj = {
-            "name": name,
+        data_obj = {
+            "file_name": file_name,
             "link": link,
-            "type": file_type,
-            "path":path ,       
-            "target": ""
+            "data_type": file_type,
+            "clinical_case": ""
         }
-        file_obj_list.append(obj)
+
+        if mongo_obj:
+            data_obj.update({"doc_id": str(mongo_obj["_id"]),
+                             "clinical_case": mongo_obj["clinical_case"]})
+
+        data_obj_list.append(data_obj)
 
     total_records = len(dataList)
     data = {
-        "documents": file_obj_list,
+        "documents": data_obj_list,
         "totalRecords": total_records,
         "currentPage": page,
         "perPage": per_page,
         "error": error,
     }
     return data
-
-

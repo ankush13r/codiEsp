@@ -5,9 +5,9 @@ import { TargetDataComponent} from '../components/target-data/target-data.compon
 
 
 const routes: Routes = [
-  { path: 'documents', component: FilesComponent },
   { path: '', redirectTo: '/documents', pathMatch: 'full' },
-  { path: 'file/:id', component: FilesComponent  },
+  { path: 'documents', component: FilesComponent },
+  { path: 'file/:id', component: FilesComponent },
   { path: 'file/:id', component: TargetDataComponent },
 ];
 
