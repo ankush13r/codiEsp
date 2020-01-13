@@ -6,13 +6,13 @@ import { FilesObj } from 'src/app/interfaces/files-obj';
 import { FileObj } from 'src/app/interfaces/file-obj';
 
 @Component({
-  selector: 'app-files',
-  templateUrl: './files.component.html',
-  styleUrls: ['./files.component.css']
+  selector: 'app-documents',
+  templateUrl: './documents.component.html',
+  styleUrls: ['./documents.component.css']
 })
-export class FilesComponent implements OnInit {
-  title = "Files";
-  selectedFile: FileObj;
+export class DocumentsComponent implements OnInit {
+  title = "Documents";
+  selectedDoc: FileObj;
   data: FilesObj = null;
 
   constructor(private apiService: ApiService, private dataControllerService: DataControllerService) {
@@ -21,7 +21,7 @@ export class FilesComponent implements OnInit {
 
   ngOnInit() {
     this.getFiles();
-    this.getSelectedFile();
+    this.getSelectedDoc();
   }
 
   getFiles() {
@@ -30,13 +30,12 @@ export class FilesComponent implements OnInit {
     });
   }
 
-  selectFile(file) {
+  selectDoc(file) {
     this.dataControllerService.setSelectedFile(file)
   }
-  getSelectedFile() {
+  getSelectedDoc() {
     this.dataControllerService.getSelectedFile().subscribe(result => {
-      this.selectedFile = result
-      console.log(result);
+      this.selectedDoc = result
     });
   }
 

@@ -6,9 +6,8 @@ import { HttpClientModule }    from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DataControllerComponent } from './components/parent/parent.component';
-import { FilesComponent } from './components/files/files.component';
-import { SourceDataComponent } from './components/source-data/source-data.component';
-import { TargetDataComponent } from './components/target-data/target-data.component';
+import { DocumentsComponent } from './components/documents/documents.component';
+import { clinicalCase } from './components/clinical-case/clinical-case.component';
 import { AppRoutingModule } from './routes/app-routing.module';
 
 
@@ -17,9 +16,8 @@ import { AppRoutingModule } from './routes/app-routing.module';
     AppComponent,
     NavbarComponent,
     DataControllerComponent,
-    FilesComponent,
-    SourceDataComponent,
-    TargetDataComponent,
+    DocumentsComponent,
+    clinicalCase,
     
   ],
   imports: [

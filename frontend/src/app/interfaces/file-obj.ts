@@ -1,11 +1,11 @@
 export interface FileObj {
-    name: String,
-    type: String,
-    path: String,
-    target: String,
-    source?: string,
+    file_name: String,
+    data_type: String,
+    clinical_case: string,
+    time?:String,
+    doc_id?:String,
     link?: String,
-    metaData?: {
+    meta_data?: {
         location: string,
         conationTime: number
     },

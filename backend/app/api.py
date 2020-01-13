@@ -95,29 +95,33 @@ def get_document(data_type, name):
 
     abort(404)
 
-# URL example = /documents/data_type/file_name.pdf/add
-@app.route("/documents/<data_type>/<file_name>/add", methods=["POST"])
-def save_data(data_type, file_name):
+# URL example = /documents/data_type/add
+@app.route("/documents/<data_type>/add", methods=["POST"])
+def save_data(data_type):
     """ A request must be similar to the next example,
         those keys contain a interrogate symbole (?) are not required.
 
         Request.json = {doc_id?: str,
+                        file_name: str,
                         time: Date,
                         clinical_case: str,
                         meta_data: dict()
                         }
 
-
     """
     data_type = data_type.strip()
-    file_name = file_name.strip()
     directory = constants.PATHS_TO_DIR.get(data_type)
+
+    request_data = request.json
+
+    doc_id = request_data.get("doc_id")
+    file_name = (request_data["file_name"]).strip()
+    clinical_case = (request_data["clinical_case"]).strip()
+    time = (request_data["time"]).strip()
+    meta_data = request_data["meta_data"]
+
     source_path = safe_join(directory, file_name.strip())
 
-    doc_id = request.json.get("doc_id")
-    clinical_case = (request.json["clinical_case"]).strip()
-    time = (request.json["time"]).strip()
-    meta_data = request.json["meta_data"]
     data_to_save = dict({"data_type": data_type,
                          "source_path": source_path,
                          "clinical_case": clinical_case,
@@ -127,7 +131,7 @@ def save_data(data_type, file_name):
     data_to_save.update({})
 
     if data_type == constants.TYPE_LINK:
-        link = request.json["link"].strip()
+        link = request_data["link"].strip()
         data_to_save.update({"link": link})
 
     # elif data_type != constants.PATHS_TO_DIR.keys():
@@ -141,9 +145,8 @@ def save_data(data_type, file_name):
         if not doc_id:
             data_to_save.update({"insert_time": time})
             result = mongo.db.clinical_cases.insert_one(data_to_save)
-            result_to_send = {"inserted":
-                              {"id": str(result.inserted_id)}
-                              }
+            request_data.update({"doc_id": str(result.inserted_id)})
+
 
         else:
             doc_id = doc_id.strip()
@@ -153,23 +156,18 @@ def save_data(data_type, file_name):
                 {"_id": ObjectId(doc_id)}, data_to_save, upsert=True)
 
             if result.upserted_id:
-                result_to_send = {"inserted":
-                                  {"id": str(result.upserted_id)}
-                                  }
-            else:
-                result_to_send = {"modified":
-                                  {"modified_count": str(
-                                      result.modified_count)}
-                                  }
+                request_data.update({"doc_id": str(result.inserted_id)})
+
+        result_to_send = request_data
 
     except Exception as err:
         mongo.db.errors.insert_one(
             {"client_data": str(data_to_save), "error": str(err)})
 
-        result_to_send = {"error":
-                          {"message": str(err),
-                           "type": "mongo_exception"}
-                          }
+        result_to_send = request_data.update({"error":
+                                              {"message": str(err),
+                                               "type": "mongo_exception"}
+                                              })
 
     return jsonify(result_to_send)
 

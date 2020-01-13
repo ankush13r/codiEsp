@@ -6,14 +6,24 @@ import { Observable, of, throwError } from 'rxjs';
 import { FilesObj } from '../interfaces/files-obj';
 import { FileObj } from '../interfaces/file-obj';
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': 'my-auth-token'
+  })
+}
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ApiService {
 
-  private docsUrl = 'http://127.0.0.1:5000/documents/html';
+  private docsUrl = 'http://127.0.0.1:5000/documents/link';
 
+  constructor(private http: HttpClient) {
+
+  }
 
   getFiles(): Observable<FilesObj> {
     return this.http.get<FilesObj>(this.docsUrl).pipe(
@@ -26,15 +36,34 @@ export class ApiService {
     console.log("get Data");
     return ("source text")
   }
-  postData(file: FileObj) {
-    console.log("submit Data: " + JSON.stringify(file));
+
+  // addClinicalCase(file: FileObj){ //  Observable<FileObj> 
+  //   var url = 'http://127.0.0.1:5000/documents/html/add';
+  //   console.log(file);
+  //   console.log("to post");
+    
+  //   var tmpVar =  this.http.post(url, file);
+  //     // .pipe(
+  //     //   retry(2),
+  //     //   catchError(this.handleError)
+  //     // );
+
+  //     console.log(tmpVar);
+
+  //     // return tmpVar;
+      
+  // }
+
+  addClinicalCase(file: FileObj): Observable<FileObj>{
+    return this.http.post<FileObj>('http://127.0.0.1:5000/documents/html/add', file)
   }
 
-  modifyData(file: FileObj) {
+
+  modifyClinicalCase(file: FileObj) {
     console.log("modify Data: " + JSON.stringify(file));
   }
 
-  removeData(file: FileObj) {
+  removeClinicalCase(file: FileObj) {
     console.log("remove Data: " + JSON.stringify(file));
   }
 
@@ -53,8 +82,7 @@ export class ApiService {
     return throwError(
       'Something bad happened; please try again later.');
   };
-  constructor(
-    private http: HttpClient) { }
+
 
 
 

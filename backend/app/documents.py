@@ -54,7 +54,7 @@ def get_data_list(file_type: str, page: int = 1, per_page: int = 10):
             source_path = safe_join(dir_path, file_name.strip())
             # First it will find if the document already had been inserted, 
             mongo_obj = mongo.db.clinical_cases.find_one({"source_path":source_path})
-            link = None
+            link = safe_join(constants.API_BASE_URI,file_type, file_name) 
 
         # mongo.db.clinical_case.find_one({"directory_path":path,"type":file_type})
         data_obj = {
