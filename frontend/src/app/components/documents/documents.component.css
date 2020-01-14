@@ -2,6 +2,7 @@
 
 
 div{
+    padding-bottom: 10px;
     height: 100%;
 }
 
@@ -11,6 +12,13 @@ ul{
 
 ul li{
     cursor: pointer;
+    border: 0;
+    border-bottom: 1px solid rgb(189, 189, 189);
+
+}
+
+ul li:last-child{
+    border: 0;
 }
 
 ul li:hover{
@@ -41,4 +49,8 @@ ul li:hover{
     transform: rotate(45deg);
  }
 
+ .pagination{
+     margin-top: 5px;
+     height: 70px;
+ }
 

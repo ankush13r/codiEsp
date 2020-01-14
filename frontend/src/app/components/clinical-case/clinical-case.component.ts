@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { DataControllerService } from '../../services/data-controller.service';
+import { DataShareService } from '../../services/data-share.service';
 import { ApiService } from 'src/app/services/api.service';
 import { FileObj } from 'src/app/interfaces/file-obj';
 
@@ -14,7 +14,7 @@ export class clinicalCase implements OnInit {
   document: FileObj = null;
 
   constructor(
-    private dataControllerService: DataControllerService,
+    private dataShareService: DataShareService,
     private apiService: ApiService
   ) { }
 
@@ -24,7 +24,7 @@ export class clinicalCase implements OnInit {
 
   getSelectedFile() {
     
-    this.dataControllerService.getSelectedFile().subscribe(result => {
+    this.dataShareService.getSelectedFile().subscribe(result => {
       if (this.document !== result) {
         this.document = result,
         console.log(result);

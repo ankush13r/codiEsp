@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 // import {DataControllerService} from '../../services/data-controller.service';
 
 
@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './parent.component.html',
   styleUrls: ['./parent.component.css']
 })
-export class DataControllerComponent implements OnInit {
+export class Parent implements OnInit {
 
-  selectedFile : string;
+  documents_types: String[] = ["pdf","html","link"]
+  selected_type: String;
+
   constructor() {
 
   }
@@ -18,6 +20,9 @@ export class DataControllerComponent implements OnInit {
 
   }
 
+  selectType(type){
+    this.selected_type = type;  
+  }
 
 
 

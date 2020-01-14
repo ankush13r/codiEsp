@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, retry } from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs';
 
@@ -19,14 +19,20 @@ const httpOptions = {
 
 export class ApiService {
 
-  private docsUrl = 'http://127.0.0.1:5000/documents/link';
+  private baseUrl = 'http://127.0.0.1:5000/documents/';
 
   constructor(private http: HttpClient) {
 
   }
 
-  getFiles(): Observable<FilesObj> {
-    return this.http.get<FilesObj>(this.docsUrl).pipe(
+  getDocuments(selected_type: string, index: string = "0", pageSize: string = "10"): Observable<FilesObj> {
+    var url = this.baseUrl + selected_type;
+
+    let params = new HttpParams()
+      .set("pageIndex", index)
+      .set("pageSize", pageSize);
+
+    return this.http.get<FilesObj>(url, { params: params }).pipe(
       retry(3), // retry a failed request up to 3 times      
       catchError(this.handleError) // then handle the error
     );
@@ -41,7 +47,7 @@ export class ApiService {
   //   var url = 'http://127.0.0.1:5000/documents/html/add';
   //   console.log(file);
   //   console.log("to post");
-    
+
   //   var tmpVar =  this.http.post(url, file);
   //     // .pipe(
   //     //   retry(2),
@@ -51,10 +57,10 @@ export class ApiService {
   //     console.log(tmpVar);
 
   //     // return tmpVar;
-      
+
   // }
 
-  addClinicalCase(file: FileObj): Observable<FileObj>{
+  addClinicalCase(file: FileObj): Observable<FileObj> {
     return this.http.post<FileObj>('http://127.0.0.1:5000/documents/html/add', file)
   }
 

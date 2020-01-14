@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChange } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 
-import { DataControllerService } from '../../services/data-controller.service';
+import { DataShareService } from '../../services/data-share.service';
 import { ApiService } from "../../services/api.service"
 import { FilesObj } from 'src/app/interfaces/files-obj';
 import { FileObj } from 'src/app/interfaces/file-obj';
@@ -15,28 +16,71 @@ export class DocumentsComponent implements OnInit {
   selectedDoc: FileObj;
   data: FilesObj = null;
 
-  constructor(private apiService: ApiService, private dataControllerService: DataControllerService) {
+  paginationEvent: PageEvent;
+
+  @Input() selected_type: string = null;
+  @Output() typeChanged = new EventEmitter()
+
+  constructor(private apiService: ApiService, private dataShareService: DataShareService) {
 
   }
 
   ngOnInit() {
-    this.getFiles();
     this.getSelectedDoc();
+    this.getPaginationEvent();
   }
 
-  getFiles() {
-    this.apiService.getFiles().subscribe(result => {
-      this.data = result
+  ngOnChanges(changes: SimpleChange) {
+    var currentValue = JSON.stringify(changes["selected_type"].currentValue);
+    var previousValue = JSON.stringify(changes["selected_type"].previousValue);
+
+    if (currentValue !== previousValue && currentValue != null) {
+      this.getDocuments();
+    }
+
+  }
+
+  getPaginationEvent() {
+    this.dataShareService.getPaginationEvent().subscribe(result => {
+      this.paginationEvent = result
+      
+      if (this.paginationEvent && this.selected_type) {
+        this.getDocuments();
+      }
     });
   }
 
-  selectDoc(file) {
-    this.dataControllerService.setSelectedFile(file)
+  getDocuments() {
+
+    if (this.paginationEvent) {
+      let index = (this.paginationEvent["pageIndex"]).toString();
+      let pageSize = (this.paginationEvent["pageSize"]).toString();
+
+      this.apiService.getDocuments(this.selected_type, index, pageSize).subscribe(result => {
+        this.data = result
+      });
+
+    } else {
+        this.apiService.getDocuments(this.selected_type).subscribe(result => {
+        this.data = result
+      });
+    }
   }
+
+  selectDoc(file) {
+    this.dataShareService.setSelectedFile(file)
+  }
+
   getSelectedDoc() {
-    this.dataControllerService.getSelectedFile().subscribe(result => {
+    this.dataShareService.getSelectedFile().subscribe(result => {
       this.selectedDoc = result
     });
   }
 
+  onTypeChange(type) {
+    this.typeChanged.emit(type);
+  }
+
+
 }
+

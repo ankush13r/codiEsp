@@ -1,4 +1,17 @@
-<div class="d-flex justify-content-between  mt-4  mainBox">
-    <app-documents class="files border border-info rounded"></app-documents>
-    <app-clinical-case class="box2 border border-info rounded"></app-clinical-case>
+<!--Link to use classes with condition 
+    https://stackoverflow.com/questions/35269179/angular-conditional-class-with-ngclass -->
+<div class="mt-4 mainBox">
+
+    <div class="d-flex justify-content-start">
+        <button class="btn m-2" *ngFor="let type of documents_types" (click)="selectType(type)"
+        [ngClass]="(selected_type == type)?'btn-primary':'btn-dark'">
+            {{type|uppercase}}
+        </button>
+    </div>
+
+    <div class="d-flex justify-content-between shadow">
+        <app-documents [selected_type]="selected_type" (typeChanged)="this.selected_type= $event"
+            class="files-app"></app-documents>
+        <app-clinical-case class="clinical-case-app flex-grow-1" ></app-clinical-case>
+    </div>
 </div>
