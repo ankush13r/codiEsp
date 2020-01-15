@@ -60,8 +60,9 @@ export class ApiService {
 
   // }
 
-  addClinicalCase(file: FileObj): Observable<FileObj> {
-    return this.http.post<FileObj>('http://127.0.0.1:5000/documents/html/add', file)
+  addClinicalCase(file: FileObj,selected_type: string): Observable<FileObj> {
+    var url = this.baseUrl + selected_type + "/add";
+    return this.http.post<FileObj>(url, file)
   }
 
 

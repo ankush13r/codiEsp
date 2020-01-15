@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { DataShareService } from '../../services/data-share.service';
 import { ApiService } from 'src/app/services/api.service';
@@ -9,9 +9,13 @@ import { FileObj } from 'src/app/interfaces/file-obj';
   templateUrl: './clinical-case.component.html',
   styleUrls: ['./clinical-case.component.css']
 })
+
+
+
 export class clinicalCase implements OnInit {
   title = "Clinical case"
   document: FileObj = null;
+  @Input() selected_type: string = null;
 
   constructor(
     private dataShareService: DataShareService,
@@ -43,7 +47,7 @@ export class clinicalCase implements OnInit {
       conationTime: 12345
     };
 
-    this.apiService.addClinicalCase(this.document).subscribe(result =>
+    this.apiService.addClinicalCase(this.document,this.selected_type).subscribe(result =>
       this.document.doc_id = result.doc_id      
     );
   }

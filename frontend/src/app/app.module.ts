@@ -6,6 +6,7 @@ import { HttpClientModule }    from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { Parent } from './components/parent/parent.component';
+
 import { DocumentsComponent } from './components/documents/documents.component';
 import { clinicalCase } from './components/clinical-case/clinical-case.component';
 import { AppRoutingModule } from './routes/app-routing.module';
@@ -21,7 +22,6 @@ import { MatPaginatorModule } from '@angular/material';
     DocumentsComponent,
     clinicalCase,
     PaginationComponent,
-    
   ],
   imports: [
     BrowserModule,
@@ -29,7 +29,7 @@ import { MatPaginatorModule } from '@angular/material';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

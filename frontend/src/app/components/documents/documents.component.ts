@@ -9,7 +9,7 @@ import { FileObj } from 'src/app/interfaces/file-obj';
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
-  styleUrls: ['./documents.component.css']
+  styleUrls: ['./documents.component.css'],
 })
 export class DocumentsComponent implements OnInit {
   title = "Documents";
@@ -27,7 +27,6 @@ export class DocumentsComponent implements OnInit {
 
   ngOnInit() {
     this.getSelectedDoc();
-    this.getPaginationEvent();
   }
 
   ngOnChanges(changes: SimpleChange) {
@@ -40,14 +39,13 @@ export class DocumentsComponent implements OnInit {
 
   }
 
-  getPaginationEvent() {
-    this.dataShareService.getPaginationEvent().subscribe(result => {
-      this.paginationEvent = result
-      
-      if (this.paginationEvent && this.selected_type) {
-        this.getDocuments();
-      }
-    });
+  getPaginationEvent(event) {
+    this.paginationEvent = event
+   
+    if (this.paginationEvent && this.selected_type) {
+      this.getDocuments();
+    }
+
   }
 
   getDocuments() {
@@ -61,7 +59,7 @@ export class DocumentsComponent implements OnInit {
       });
 
     } else {
-        this.apiService.getDocuments(this.selected_type).subscribe(result => {
+      this.apiService.getDocuments(this.selected_type).subscribe(result => {
         this.data = result
       });
     }

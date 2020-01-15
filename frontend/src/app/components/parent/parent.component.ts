@@ -10,7 +10,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class Parent implements OnInit {
 
   documents_types: String[] = ["pdf","html","link"]
-  selected_type: String;
+  selected_type: String = null;
 
   constructor() {
 

@@ -1,4 +1,4 @@
-import { Component, OnInit,SimpleChange } from '@angular/core';
+import { Component, OnInit, SimpleChange, Output, EventEmitter } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
 import { DataShareService } from '../../services/data-share.service';
@@ -14,10 +14,9 @@ export class PaginationComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
   // MatPaginator Output
-  
-  pageEvent: PageEvent;
+  @Output() pageEvent = new EventEmitter();
 
-  constructor(private dataShareService: DataShareService) { 
+  constructor(private dataShareService: DataShareService) {
 
   }
 
@@ -25,14 +24,15 @@ export class PaginationComponent implements OnInit {
     // this.getPaginationEvent();
   }
 
+
   setPageEvent(event) {
-    this.dataShareService.setPaginationEvent(event);
+    this.pageEvent.emit(event)
   }
 
-  getPaginationEvent() {
-    this.dataShareService.getPaginationEvent().subscribe(result => {
-      this.pageEvent = result
-    });
-  }
+  // getPaginationEvent() {
+  //   this.dataShareService.getPaginationEvent().subscribe(result => {
+  //     this.pageEvent = result
+  //   });
+  // }
 
 }

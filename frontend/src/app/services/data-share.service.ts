@@ -12,7 +12,7 @@ export class DataShareService {
   // Create a new variable type BehaviorSubject to share selected file between two components.
   // BehaviorSubject serves for synchronize shared data
   private selectedFile = new BehaviorSubject<FileObj>(null);
-  private paginationPageEvent = new BehaviorSubject<PageEvent>(null);
+  private totalRecords = new BehaviorSubject<FileObj>(null);
 
   constructor() { }
 
@@ -23,12 +23,7 @@ export class DataShareService {
     this.selectedFile.next(file);
   }
 
-  getPaginationEvent() {
-    return (this.paginationPageEvent.asObservable())
-  }
 
-  setPaginationEvent(event: PageEvent) {
-    this.paginationPageEvent.next(event);
-  }
+
 
 }
