@@ -1,0 +1,13 @@
+body,html{
+    margin: 0;
+    height: 100%;
+}
+
+.boxHeader{
+    background: rgb(49, 96, 167);
+    padding: 5px;
+    color: white;
+    text-align: center;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

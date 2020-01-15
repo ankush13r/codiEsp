@@ -40,15 +40,13 @@ cors = CORS(app)
 def get_valid_pagination_args(args: dict):
 
     try:
-        page = args.get("page")
-        per_page = args.get("perPage")
+        page = args.get("pageIndex")
+        per_page = args.get("pageSize")
 
         try:
             page = abs(int(page))
-            if page == 0:
-                page = 1
         except:
-            page = 1
+            page = 0
 
         try:
             per_page = abs(int(per_page))
@@ -58,7 +56,7 @@ def get_valid_pagination_args(args: dict):
         print(err)  # Logging
         page = 1
         per_page = 10
-
+    print(page, per_page)
     return page, per_page
 
 
@@ -128,7 +126,6 @@ def save_data(data_type):
                          "meta_data": meta_data,
                          })
 
-    data_to_save.update({})
 
     if data_type == constants.TYPE_LINK:
         link = request_data["link"].strip()
@@ -143,6 +140,7 @@ def save_data(data_type):
     result_to_send = {}
     try:
         if not doc_id:
+
             data_to_save.update({"insert_time": time})
             result = mongo.db.clinical_cases.insert_one(data_to_save)
             request_data.update({"doc_id": str(result.inserted_id)})
@@ -169,6 +167,7 @@ def save_data(data_type):
                                                "type": "mongo_exception"}
                                               })
 
+  
     return jsonify(result_to_send)
 
 

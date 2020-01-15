@@ -10,9 +10,9 @@ import constants
 from api import mongo
 
 
-def get_data_list(file_type: str, page: int = 1, per_page: int = 10):
+def get_data_list(file_type: str, page: int = 0, per_page: int = 10):
 
-    start = (int(page)-1) * int(per_page)
+    start = int(page) * int(per_page)
     end = int(start) + int(per_page)
     dir_path = constants.PATHS_TO_DIR.get(file_type)
     # files = [os.path.abspath(file) for file in glob.glob(dir_path)]
@@ -78,4 +78,5 @@ def get_data_list(file_type: str, page: int = 1, per_page: int = 10):
         "perPage": per_page,
         "error": error,
     }
+
     return data

@@ -1,0 +1,56 @@
+@import "../../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+
+div{
+    padding-bottom: 10px;
+    height: 100%;
+}
+
+ul{
+    overflow: auto;
+}
+
+ul li{
+    cursor: pointer;
+    border: 0;
+    border-bottom: 1px solid rgb(189, 189, 189);
+
+}
+
+ul li:last-child{
+    border: 0;
+}
+
+ul li:hover{
+    box-shadow: 0 0 0 200px rgba(0, 0, 0, 0.219) inset;
+ }
+
+ ul li:active{
+    margin-left:2px ;
+ }
+
+ 
+ 
+ .selected{
+     background: rgb(56, 56, 56);
+     color: white;
+ }
+
+ .check-mark::before{
+    content: '';
+    display: inline-block;
+    margin-right: 15px;
+    margin-left: 1px;
+    width: 12px;
+    height: 20px;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+    border-color: rgb(77, 196, 8);
+    transform: rotate(45deg);
+ }
+
+ .pagination{
+     margin-top: 5px;
+     height: 70px;
+ }
+
