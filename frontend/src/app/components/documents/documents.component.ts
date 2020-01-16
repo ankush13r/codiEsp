@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChange } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { ActivatedRoute } from '@angular/router';
 
 import { DataShareService } from '../../services/data-share.service';
 import { ApiService } from "../../services/api.service"
@@ -18,20 +19,27 @@ export class DocumentsComponent implements OnInit {
 
   paginationEvent: PageEvent;
 
-  @Input() selected_type: string = null;
+  data_type: string = null;
   @Output() typeChanged = new EventEmitter()
 
-  constructor(private apiService: ApiService, private dataShareService: DataShareService) {
+  constructor(private apiService: ApiService, private dataShareService: DataShareService, private route: ActivatedRoute) {
 
   }
 
   ngOnInit() {
+    this.getPathParams();
     this.getSelectedDoc();
   }
 
+  getPathParams() {
+    this.route.paramMap.subscribe(param => {
+      this.data_type = param.get("type");
+      this.getDocuments();
+    });
+  }
   ngOnChanges(changes: SimpleChange) {
-    var currentValue = JSON.stringify(changes["selected_type"].currentValue);
-    var previousValue = JSON.stringify(changes["selected_type"].previousValue);
+    var currentValue = JSON.stringify(changes["data_type"].currentValue);
+    var previousValue = JSON.stringify(changes["data_type"].previousValue);
 
     if (currentValue !== previousValue && currentValue != null) {
       this.getDocuments();
@@ -41,8 +49,8 @@ export class DocumentsComponent implements OnInit {
 
   getPaginationEvent(event) {
     this.paginationEvent = event
-   
-    if (this.paginationEvent && this.selected_type) {
+
+    if (this.paginationEvent && this.data_type) {
       this.getDocuments();
     }
 
@@ -54,19 +62,21 @@ export class DocumentsComponent implements OnInit {
       let index = (this.paginationEvent["pageIndex"]).toString();
       let pageSize = (this.paginationEvent["pageSize"]).toString();
 
-      this.apiService.getDocuments(this.selected_type, index, pageSize).subscribe(result => {
+      this.apiService.getDocuments(this.data_type, index, pageSize).subscribe(result => {
         this.data = result
       });
 
     } else {
-      this.apiService.getDocuments(this.selected_type).subscribe(result => {
+      this.apiService.getDocuments(this.data_type).subscribe(result => {
         this.data = result
       });
+
     }
   }
 
-  selectDoc(file) {
-    this.dataShareService.setSelectedFile(file)
+  selectDoc(document) {
+    var index = this.data.documents.indexOf(document)
+    this.dataShareService.setSelectedFile(this.data.documents[index])
   }
 
   getSelectedDoc() {

@@ -5,7 +5,6 @@ import { HttpClientModule }    from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { Parent } from './components/parent/parent.component';
 
 import { DocumentsComponent } from './components/documents/documents.component';
 import { clinicalCase } from './components/clinical-case/clinical-case.component';
@@ -18,7 +17,6 @@ import { MatPaginatorModule } from '@angular/material';
   declarations: [
     AppComponent,
     NavbarComponent,
-    Parent,
     DocumentsComponent,
     clinicalCase,
     PaginationComponent,

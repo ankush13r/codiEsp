@@ -2,11 +2,11 @@
     <h4 class="boxHeader">{{title}}</h4>
 
     <ul class="list-group" *ngIf="data">
-        <li class="list-group-item" *ngFor="let document of data.documents" 
+        <li class="list-group-item" *ngFor="let document of data.documents; let i = index"  
         [class.selected]="document === selectedDoc"
         [class.check-mark]="document.doc_id"
-
-            (click)="selectDoc(document)">
+            (click)="selectDoc(document)"
+            [routerLink]= "['', { outlets: { clinical_case: [i]}}]" routerLinkActive="" >
             <a href="{{document.link}}" ><span>{{document.file_name}}</span></a>
         </li>
     </ul>
