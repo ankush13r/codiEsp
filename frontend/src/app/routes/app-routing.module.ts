@@ -12,7 +12,7 @@ const routes: Routes = [
     component: DocumentsComponent,
   },
   {
-    path: ':link',
+    path: ':index',
     component: clinicalCase,
     outlet: 'clinical_case'
   },

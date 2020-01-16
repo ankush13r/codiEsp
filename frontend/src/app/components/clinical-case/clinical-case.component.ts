@@ -18,7 +18,6 @@ import { filter } from 'rxjs/operators';
 export class clinicalCase implements OnInit {
   title = "Clinical case"
   document: FileObj = null;
-  index;
   @Input() selected_type: string = null;
 
   constructor(
@@ -28,24 +27,9 @@ export class clinicalCase implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getPathParams();
     this.getSelectedFile();
   }
 
-  getPathParams() {
-    this.route.root.children.map(param =>
-      param.paramMap.subscribe(param => {
-        var link = param.get("type");
-        var type = param.get("link");
-        if (link){
-          console.log(link);
-        }
-        if (type){
-          console.log(type);
-        }
-
-      }))
-  }
   getSelectedFile() {
 
     this.dataShareService.getSelectedFile().subscribe(result => {
