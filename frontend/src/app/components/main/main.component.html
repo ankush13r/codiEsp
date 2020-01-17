@@ -1,0 +1,20 @@
+<div class="mt-4 mainBox">
+
+    <div class="d-flex justify-content-start">
+        <button class="m-2 p-2 pr-3 pl-3" *ngFor="let type of documents_types" (click)="selectType(type)"
+            [routerLink]="['documents',type]"
+            routerLinkActive="btn-active">
+            {{type|uppercase}}
+        </button>
+    </div>
+
+    <div class="d-flex justify-content-start shadow">
+        <div class="files-app">
+            <router-outlet></router-outlet>
+        </div>
+        <app-clinical-case-versions class="clinical-case-app mr-2 ml-2 flex-grow-1"></app-clinical-case-versions>
+
+        <app-clinical-case  class="clinical-case-app flex-grow-1"></app-clinical-case>
+    </div>
+
+</div>

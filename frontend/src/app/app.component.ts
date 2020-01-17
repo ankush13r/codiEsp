@@ -8,18 +8,13 @@ import { Component, OnInit, Input } from '@angular/core';
 export class AppComponent {
   title = 'frontend';
 
-  documents_types: String[] = ["pdf","html","link"]
-  selected_type: String = null;
+  documents_types: String[] = ["pdf", "html", "link"]
 
   constructor() {
 
   }
 
   ngOnInit() {
-
   }
 
-  selectType(type){
-    this.selected_type = type;  
-  }
 }

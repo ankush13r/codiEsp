@@ -9,7 +9,7 @@ import { DataShareService } from '../../services/data-share.service';
   styleUrls: ['./pagination.component.css']
 })
 export class PaginationComponent implements OnInit {
-  @Input() length;
+  @Input() length = 0;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
 

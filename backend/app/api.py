@@ -56,7 +56,6 @@ def get_valid_pagination_args(args: dict):
         print(err)  # Logging
         page = 1
         per_page = 10
-    print(page, per_page)
     return page, per_page
 
 
@@ -120,16 +119,6 @@ def save_data(data_type):
 
     source_path = safe_join(directory, file_name.strip())
 
-    data_to_save = dict({"data_type": data_type,
-                         "source_path": source_path,
-                         "clinical_case": clinical_case,
-                         "meta_data": meta_data,
-                         })
-
-
-    if data_type == constants.TYPE_LINK:
-        link = request_data["link"].strip()
-        data_to_save.update({"link": link})
 
     # elif data_type != constants.PATHS_TO_DIR.keys():
     #     return jsonify({"error":
@@ -140,27 +129,43 @@ def save_data(data_type):
     result_to_send = {}
     try:
         if not doc_id:
+            data_to_save = dict({"data_type": data_type,
+                                 "file_name": file_name,
+                                 "source_path": source_path,
+                                 "old_versions": [
+                                     {
+                                         "time": time,
+                                         "clinical_case": clinical_case,
+                                         "meta_data": meta_data
+                                     }],
+                                 "clinical_case": clinical_case,
+                                 })
 
-            data_to_save.update({"insert_time": time})
+            if data_type == constants.TYPE_LINK:
+                  link = request_data["link"].strip()
+                  data_to_save.update({"link": link})
+                  
             result = mongo.db.clinical_cases.insert_one(data_to_save)
             request_data.update({"doc_id": str(result.inserted_id)})
-
-
         else:
             doc_id = doc_id.strip()
-            data_to_save.update({"update_time": time})
-            data_to_save.update({"_id": ObjectId(doc_id)})
-            result = mongo.db.clinical_cases.replace_one(
-                {"_id": ObjectId(doc_id)}, data_to_save, upsert=True)
+            clinical_case_to_list = {"time": time,
+                                     "clinical_case": clinical_case,
+                                     "meta_data": meta_data
+                                     }
 
-            if result.upserted_id:
-                request_data.update({"doc_id": str(result.inserted_id)})
-
+            result = mongo.db.clinical_cases.update({"_id": ObjectId(doc_id)},
+                                           {"$addToSet": {"old_versions": clinical_case_to_list},
+                                            "$set": {"clinical_case": clinical_case}}
+                                            )
+            
+        old_versions = mongo.db.clinical_cases.find_one({"_id": ObjectId(request_data["doc_id"])},{"_id":0,"old_versions":1})
+        request_data.update(old_versions)
         result_to_send = request_data
-
     except Exception as err:
+        
         mongo.db.errors.insert_one(
-            {"client_data": str(data_to_save), "error": str(err)})
+            {"client_data": str(request_data), "error": str(err)})
 
         result_to_send = request_data.update({"error":
                                               {"message": str(err),

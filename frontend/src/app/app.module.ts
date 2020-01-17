@@ -12,6 +12,8 @@ import { AppRoutingModule } from './routes/app-routing.module';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material';
+import { MainComponent } from './components/main/main.component';
+import { ClinicalCaseVersionsComponent } from './components/clinical-case-versions/clinical-case-versions.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { MatPaginatorModule } from '@angular/material';
     DocumentsComponent,
     clinicalCase,
     PaginationComponent,
+    MainComponent,
+    ClinicalCaseVersionsComponent,
   ],
   imports: [
     BrowserModule,

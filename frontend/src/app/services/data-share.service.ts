@@ -13,6 +13,8 @@ export class DataShareService {
   // BehaviorSubject serves for synchronize shared data
   private selectedFile = new BehaviorSubject<FileObj>(null);
   private totalRecords = new BehaviorSubject<FileObj>(null);
+  private docType = new BehaviorSubject<String>(null);
+
 
   constructor() { }
 
@@ -22,7 +24,13 @@ export class DataShareService {
   setSelectedFile(file: FileObj) {
     this.selectedFile.next(file);
   }
-
+  
+  getDocType() {
+    return (this.docType.asObservable())
+  }
+  setDocType(type: String) {
+    this.docType.next(type);
+  }
 
 
 

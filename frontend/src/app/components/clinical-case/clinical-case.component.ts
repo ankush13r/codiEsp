@@ -18,7 +18,8 @@ import { filter } from 'rxjs/operators';
 export class clinicalCase implements OnInit {
   title = "Clinical case"
   document: FileObj = null;
-  @Input() selected_type: string = null;
+  selected_type: String = null;
+
 
   constructor(
     private dataShareService: DataShareService,
@@ -27,18 +28,41 @@ export class clinicalCase implements OnInit {
   ) { }
 
   ngOnInit() {
+    // this.getPathParams();
+    this.getSelectedType();
     this.getSelectedFile();
   }
 
-  getSelectedFile() {
+  getPathParams() {
+    this.route.root.children.map(param =>
+      param.paramMap.subscribe(param => {
+        var link = param.get("type");
+        var type = param.get("link");
+        if (link) {
+          console.log(link);
+        }
+        if (type) {
+          console.log(type);
+        }
 
+      }))
+  }
+
+  getSelectedType() {
+    this.dataShareService.getDocType().subscribe(result => {
+      if (this.selected_type != result) {
+        this.selected_type = result;
+      }
+    });
+  }
+
+  getSelectedFile() {
     this.dataShareService.getSelectedFile().subscribe(result => {
       if (this.document !== result) {
         this.document = result;
       }
     });
   }
-
 
   submitData() {
     ` must add time and meta_data into the sending object`
@@ -49,8 +73,10 @@ export class clinicalCase implements OnInit {
       conationTime: 12345
     };
 
-    this.apiService.addClinicalCase(this.document, this.selected_type).subscribe(result =>
-      this.document.doc_id = result.doc_id
+    this.apiService.addClinicalCase(this.document, this.selected_type).subscribe(result => {
+      this.document.doc_id = result.doc_id;
+      this.document.old_versions = result.old_versions;
+    }
     );
   }
   removeData() {

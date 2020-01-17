@@ -15,5 +15,8 @@ PATHS_TO_DIR = {
 }
 
 API_BASE_URI = "http://127.0.0.1:5000/documents"
-MONGO_URI = 'mongodb://codiesp:codiesp@84.88.52.79:27017/codiEsp'
+MONGO_URI = 'mongodb://localhost:27017/codiEsp'
+
+# MONGO_URI = 'mongodb://codiesp:codiesp@84.88.52.79:27017/codiEsp'
+
 secret_key = 'secret'

@@ -5,7 +5,7 @@
         <li class="list-group-item" *ngFor="let document of data.documents; let i = index"  
         [class.selected]="document === selectedDoc"
         [class.check-mark]="document.doc_id"
-            (click)="navigateClinicalCase(i)">
+            (click)="selectDoc(document)">
             <a href="{{document.link}}" ><span>{{document.file_name}}</span></a>
         </li>
     </ul>
@@ -13,4 +13,5 @@
     <div class="pagination">
         <app-pagination *ngIf="data" [length]="data.totalRecords" (pageEvent)="getPaginationEvent($event)"></app-pagination>
     </div>
+
 </div>

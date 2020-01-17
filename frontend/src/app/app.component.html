@@ -2,28 +2,4 @@
     https://stackoverflow.com/questions/35269179/angular-conditional-class-with-ngclass -->
 
 <app-navbar></app-navbar>
-
-<div class="mt-4 mainBox">
-    <div class="d-flex justify-content-start">
-        <button class="btn m-2 p-2 pr-3 pl-3" *ngFor="let type of documents_types" (click)="selectType(type)"
-            [ngClass]="(selected_type == type)?'btn-primary':'btn-dark'" [routerLink]="['documents',type]"
-            routerLinkActive="activate">
-            {{type|uppercase}}
-        </button>
-    </div>
-
-    <div class="d-flex justify-content-start shadow">
-        <div class="files-app" [class.flex-grow-1]="!clinicalCaseOutlet.isActivated">
-            <router-outlet></router-outlet>
-        </div>
-
-        <div class="clinical-case-app" [class.flex-grow-1]="clinicalCaseOutlet.isActivated">
-            <router-outlet #clinicalCaseOutlet="outlet" name="clinical_case"></router-outlet>
-        </div>
-
-
-        <!-- <app-documents [selected_type]="selected_type" (typeChanged)="this.selected_type=$event"
-                class="files-app"></app-documents>
-            <app-clinical-case [selected_type]="selected_type" class="clinical-case-app flex-grow-1" ></app-clinical-case> -->
-    </div>
-</div>
+<router-outlet></router-outlet>

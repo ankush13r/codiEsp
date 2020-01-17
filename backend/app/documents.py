@@ -66,7 +66,8 @@ def get_data_list(file_type: str, page: int = 0, per_page: int = 10):
 
         if mongo_obj:
             data_obj.update({"doc_id": str(mongo_obj["_id"]),
-                             "clinical_case": mongo_obj["clinical_case"]})
+                             "clinical_case": mongo_obj["clinical_case"],
+                             "old_versions" :mongo_obj.get("old_versions")})
 
         data_obj_list.append(data_obj)
 

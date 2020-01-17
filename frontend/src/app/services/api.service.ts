@@ -25,12 +25,18 @@ export class ApiService {
 
   }
 
-  getDocuments(selected_type: string, index: string = "0", pageSize: string = "10"): Observable<FilesObj> {
+  getDocuments(selected_type: String, index: number = 0, pageSize: number = 10): Observable<FilesObj> {
     var url = this.baseUrl + selected_type;
-
+   
+    if (!index){
+      index = 0;
+    }
+    if(!pageSize){
+      pageSize=10
+    }
     let params = new HttpParams()
-      .set("pageIndex", index)
-      .set("pageSize", pageSize);
+      .set("pageIndex", index.toString())
+      .set("pageSize", pageSize.toString());
 
     return this.http.get<FilesObj>(url, { params: params }).pipe(
       retry(3), // retry a failed request up to 3 times      
@@ -60,7 +66,7 @@ export class ApiService {
 
   // }
 
-  addClinicalCase(file: FileObj,selected_type: string): Observable<FileObj> {
+  addClinicalCase(file: FileObj,selected_type: String): Observable<FileObj> {   
     var url = this.baseUrl + selected_type + "/add";
     return this.http.post<FileObj>(url, file)
   }
