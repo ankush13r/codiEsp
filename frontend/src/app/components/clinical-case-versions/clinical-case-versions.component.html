@@ -1,6 +1,6 @@
 <div>
     <h4 class="boxHeader">{{title}}</h4>
     <div *ngIf="document">
-        <button class="ml-2 btn btn-dark" *ngFor="let item of document.old_versions;let i = index"> {{item}}</button>
+        <button class="ml-2 btn btn-dark" *ngFor="let item of document.old_versions;let i = index"> {{item.time}}</button>
     </div>
 </div>

@@ -23,11 +23,8 @@ export class ClinicalCaseVersionsComponent implements OnInit {
 
       if (this.document !== result && result) {
         this.document = result;
-        console.log(this.document);
         if (this.document.old_versions) {
-          this.document.old_versions = this.document.old_versions.sort((a, b) => (a["clinical_case"] > b["clinical_case"]) ? 1 : -1);
-          console.log("-------");
-          console.log(this.document);
+          this.document.old_versions.sort((a,b)=> a["time"]-b["time"])
         }
       }
     });

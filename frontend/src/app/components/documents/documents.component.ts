@@ -43,7 +43,7 @@ export class DocumentsComponent implements OnInit {
   getDocsType() {
     this.dataShareService.getDocType().subscribe(type => {
       this.selected_type = type
-      this.getDocuments()
+      this.getDocuments()      
     }
     )
   }

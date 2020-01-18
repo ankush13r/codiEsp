@@ -3,7 +3,7 @@ export interface FileObj {
     data_type: String,
     clinical_case: string,
     old_versions:[],
-    time?:String,
+    time?:any,
     doc_id?:String,
     link?: String,
     meta_data?: {

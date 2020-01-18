@@ -67,7 +67,9 @@ export class clinicalCase implements OnInit {
   submitData() {
     ` must add time and meta_data into the sending object`
 
-    this.document.time = "times"
+    var now = Date.now();
+    this.document.time = now;
+    
     this.document.meta_data = {
       location: "location",
       conationTime: 12345
