@@ -18,10 +18,10 @@ export class MainComponent implements OnInit {
     this.getDocsType();
   }
 
-  selectType(type) {
-    if(type!= this.selected_type)
-      this.dataShare.setDocType(type)
-  }
+  // selectType(type) {
+  //   if(type!= this.selected_type)
+  //     this.dataShare.setDocType(type)
+  // }
 
   getDocsType() {
     this.dataShare.getDocType().subscribe(type =>

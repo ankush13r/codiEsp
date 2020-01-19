@@ -1,6 +1,9 @@
-<div>
+<div class="border">
     <h4 class="boxHeader">{{title}}</h4>
     <div *ngIf="document">
-        <button class="ml-2 btn btn-dark" *ngFor="let item of document.old_versions;let i = index"> {{item.time}}</button>
+        <button class="ml-2 btn btn-dark" *ngFor="let item of document.old_versions;let i = index"> v.{{i}}</button>
     </div>
+    <div class="m-2 border">
+    </div>
+    <iframe name="frame" src="http://127.0.0.1:5000/documents/pdf/29756718.pdf" width="100%" height="100%" frameBorder="0" ></iframe>
 </div>

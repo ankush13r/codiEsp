@@ -42,27 +42,33 @@ def get_data_list(file_type: str, page: int = 0, per_page: int = 10):
 
     for data in dataList[start:end]:
         mongo_obj = None
-
+        data_obj = {}
         if file_type == constants.TYPE_LINK:
             file_name = data["file_name"]
             link = data["link"]
+            if link[-1]=="/":
+                data_obj.update({"link_name":(link.split("/")[-2])})
+            else:
+                data_obj.update({"link_name":(link.split("/")[-1])})
+                            
+            
             
             source_path = safe_join(dir_path, file_name.strip())
             mongo_obj = mongo.db.clinical_cases.find_one({"source_path":source_path, "link":link})
         else:
             file_name = data
             source_path = safe_join(dir_path, file_name.strip())
-            # First it will find if the document already had been inserted, 
+            # First of all it will check, if the document already had been inserted, 
             mongo_obj = mongo.db.clinical_cases.find_one({"source_path":source_path})
             link = safe_join(constants.API_BASE_URI,file_type, file_name) 
 
         # mongo.db.clinical_case.find_one({"directory_path":path,"type":file_type})
-        data_obj = {
+        data_obj.update({
             "file_name": file_name,
             "link": link,
             "data_type": file_type,
             "clinical_case": ""
-        }
+        })
 
         if mongo_obj:
             data_obj.update({"doc_id": str(mongo_obj["_id"]),
@@ -79,5 +85,6 @@ def get_data_list(file_type: str, page: int = 0, per_page: int = 10):
         "perPage": per_page,
         "error": error,
     }
-
+    
     return data
+

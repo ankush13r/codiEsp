@@ -61,7 +61,7 @@ export class DocumentsComponent implements OnInit {
     if (this.selected_type) {
       this.apiService.getDocuments(this.selected_type, this.pageIndex, this.pageLength).subscribe(result => {
         this.data = result
-        this.selectDoc(this.data.documents[0])
+        this.selectDoc(this.data.documents[0]);
       });
 
     }

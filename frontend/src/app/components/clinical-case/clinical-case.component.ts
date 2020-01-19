@@ -69,11 +69,7 @@ export class clinicalCase implements OnInit {
 
     var now = Date.now();
     this.document.time = now;
-    
-    this.document.meta_data = {
-      location: "location",
-      conationTime: 12345
-    };
+
 
     this.apiService.addClinicalCase(this.document, this.selected_type).subscribe(result => {
       this.document.doc_id = result.doc_id;

@@ -1,17 +1,34 @@
 <div class="d-flex flex-column">
     <h4 class="boxHeader">{{title}}</h4>
-
-    <ul class="list-group" *ngIf="data">
-        <li class="list-group-item" *ngFor="let document of data.documents; let i = index"  
-        [class.selected]="document === selectedDoc"
-        [class.check-mark]="document.doc_id"
-            (click)="selectDoc(document)">
-            <a href="{{document.link}}" ><span>{{document.file_name}}</span></a>
-        </li>
-    </ul>
+    <mat-list *ngIf="data">
+        <mat-nav-list>
+            <mat-list-item class="docsList" *ngFor="let document of data.documents; let i = index"
+                [class.selected]="document === selectedDoc"
+                (click)="selectDoc(document)">
+                <div class="marker" [class.marker-active]="document.doc_id"></div>   
+                <a href="{{document.link}}">
+                    <span *ngIf="document.data_type=='link'">{{document.link_name}}</span>
+                    <span *ngIf="document.data_type!='link'">{{document.file_name}}</span>
+                </a>
+                <button mat-icon-button > <mat-icon [color]="(document === selectedDoc)?'light':'primary'">open_in_new</mat-icon></button>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-list>
 
     <div class="pagination">
-        <app-pagination *ngIf="data" [length]="data.totalRecords" (pageEvent)="getPaginationEvent($event)"></app-pagination>
+        <app-pagination *ngIf="data" [length]="data.totalRecords" (pageEvent)="getPaginationEvent($event)">
+        </app-pagination>
     </div>
 
 </div>
+
+<!-- <ul class="list-group" *ngIf="data">
+    <li class="list-group-item" *ngFor="let document of data.documents; let i = index"
+        [class.selected]="document === selectedDoc" [class.check-mark]="document.doc_id"
+        (click)="selectDoc(document)">
+        <a href="{{document.link}}">
+            <span *ngIf="document.data_type=='link'">{{document.link_name}}</span>
+            <span *ngIf="document.data_type!='link'">{{document.file_name}}</span>
+        </a>
+    </li>
+</ul> -->

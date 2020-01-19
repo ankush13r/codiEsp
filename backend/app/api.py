@@ -112,9 +112,9 @@ def save_data(data_type):
     request_data = request.json
 
     doc_id = request_data.get("doc_id")
-    file_name = (request_data["file_name"]).strip()
+    file_name = (request_data["name"]).strip()
     clinical_case = (request_data["clinical_case"]).strip()
-    time = (request_data["time"]).strip()
+    time = request_data["time"]
     meta_data = request_data["meta_data"]
 
     source_path = safe_join(directory, file_name.strip())

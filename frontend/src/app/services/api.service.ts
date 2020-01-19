@@ -27,12 +27,12 @@ export class ApiService {
 
   getDocuments(selected_type: String, index: number = 0, pageSize: number = 10): Observable<FilesObj> {
     var url = this.baseUrl + selected_type;
-   
-    if (!index){
+
+    if (!index) {
       index = 0;
     }
-    if(!pageSize){
-      pageSize=10
+    if (!pageSize) {
+      pageSize = 10
     }
     let params = new HttpParams()
       .set("pageIndex", index.toString())
@@ -66,9 +66,13 @@ export class ApiService {
 
   // }
 
-  addClinicalCase(file: FileObj,selected_type: String): Observable<FileObj> {   
+  addClinicalCase(document: FileObj, selected_type: String): Observable<FileObj> {
+    document.meta_data = {
+      location: "location",
+      conationTime: 12345
+    };
     var url = this.baseUrl + selected_type + "/add";
-    return this.http.post<FileObj>(url, file)
+    return this.http.post<FileObj>(url, document)
   }
 
 

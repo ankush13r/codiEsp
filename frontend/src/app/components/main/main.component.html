@@ -1,14 +1,14 @@
 <div class="mt-4 mainBox">
-
-    <div class="d-flex justify-content-start">
-        <button class="m-2 p-2 pr-3 pl-3" *ngFor="let type of documents_types" (click)="selectType(type)"
-            [routerLink]="['documents',type]"
-            routerLinkActive="btn-active">
-            {{type|uppercase}}
-        </button>
-    </div>
-
-    <div class="d-flex justify-content-start shadow">
+    <nav mat-tab-nav-bar mat-align-tabs="left" >
+        <a mat-tab-link
+           *ngFor="let type of documents_types"
+           [routerLink]="['documents',type]"
+           routerLinkActive #routeLink="routerLinkActive"
+           [active]="routeLink.isActive">
+          {{type}}
+        </a>
+      </nav>
+    <div class="mt-2 d-flex justify-content-start shadow">
         <div class="files-app">
             <router-outlet></router-outlet>
         </div>
@@ -18,3 +18,4 @@
     </div>
 
 </div>
+
