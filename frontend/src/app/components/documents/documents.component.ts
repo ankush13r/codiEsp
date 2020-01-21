@@ -16,11 +16,13 @@ export class DocumentsComponent implements OnInit {
   title = "Documents";
   selectedDoc: FileObj;
   data: FilesObj = null;
-  pageIndex: number = null;
-  pageLength: number = null;
+  pageIndex: object = {};
+  pageLength: object = {};
   paginationEvent: PageEvent;
+  index = 0;
+  size = 10;
 
-  selected_type: String = null;
+  selected_type: string = null;
 
   constructor(private apiService: ApiService, private dataShareService: DataShareService, private route: ActivatedRoute) {
 
@@ -42,24 +44,27 @@ export class DocumentsComponent implements OnInit {
 
   getDocsType() {
     this.dataShareService.getDocType().subscribe(type => {
-      this.selected_type = type
-      this.getDocuments()      
-    }
-    )
+      this.selected_type = type;
+      this.getDocuments();
+    });
   }
 
   getPaginationEvent(event) {
     this.paginationEvent = event
     if (this.paginationEvent && this.selected_type) {
-      this.pageIndex = this.paginationEvent["pageIndex"];
-      this.pageLength = this.paginationEvent["pageSize"];
+      this.pageIndex[this.selected_type] = this.paginationEvent["pageIndex"];
+      this.pageLength[this.selected_type] = this.paginationEvent["pageSize"];
       this.getDocuments();
     }
   }
 
   getDocuments() {
     if (this.selected_type) {
-      this.apiService.getDocuments(this.selected_type, this.pageIndex, this.pageLength).subscribe(result => {
+      this.apiService.getDocuments(
+        this.selected_type,
+        this.pageIndex[this.selected_type],
+        this.pageLength[this.selected_type]
+      ).subscribe(result => {
         this.data = result
         this.selectDoc(this.data.documents[0]);
       });
@@ -72,12 +77,12 @@ export class DocumentsComponent implements OnInit {
   }
 
   getSelectedDoc() {
-    this.dataShareService.getSelectedFile().subscribe(result => {     
+    this.dataShareService.getSelectedFile().subscribe(result => {
       this.selectedDoc = result
     });
   }
 
-  newWindow(){
+  newWindow() {
     window.open((this.selectedDoc.link).toString(), "_blank")
   }
 

@@ -12,7 +12,7 @@ export class DataShareService {
   // Create a new variable type BehaviorSubject to share selected file between two components.
   // BehaviorSubject serves for synchronize shared data
   private selectedFile = new BehaviorSubject<FileObj>(null);
-  private docType = new BehaviorSubject<String>(null);
+  private docType = new BehaviorSubject<string>(null);
   private currentLat;
   private currentLong;
 
@@ -30,7 +30,7 @@ export class DataShareService {
   getDocType() {
     return (this.docType.asObservable())
   }
-  setDocType(type: String) {
+  setDocType(type: string) {
     this.docType.next(type);
   }
 

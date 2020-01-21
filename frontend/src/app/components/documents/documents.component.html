@@ -1,7 +1,7 @@
 <div class="h-100" fxLayout="column">
     <h4 class="boxHeader">{{title}}</h4>
-    <div fxFlex="94" fxLayout="column" fxLayoutAlign="space-between none">
-        <mat-list class="overflow-auto" *ngIf="data">
+    <div class="listBox" fxFlex="94" fxLayout="column" fxLayoutAlign="space-between none">
+        <mat-list class="matList" *ngIf="data">
             <mat-nav-list>
                 <mat-list-item class="docsList" *ngFor="let document of data.documents; let i = index"
                     [class.selected]="document === selectedDoc" (click)="selectDoc(document)">
@@ -19,7 +19,7 @@
         </mat-list>
 
         <div class="pagination">
-            <app-pagination *ngIf="data" [length]="data.totalRecords" (pageEvent)="getPaginationEvent($event)">
+            <app-pagination *ngIf="data" [pageIndex]="pageIndex[this.selected_type]" [pageSize]="pageLength[this.selected_type]" [length]="data.totalRecords" (pageEvent)="getPaginationEvent($event)">
             </app-pagination>
         </div>
     </div>

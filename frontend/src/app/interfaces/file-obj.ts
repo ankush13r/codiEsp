@@ -7,8 +7,7 @@ export interface FileObj {
     time?:any,
     doc_id?:String,
     link?: String,
-    si?:boolean,
-    no?:boolean,
+    yes_no?:string,
     meta_data?: {
         location: string,
         conationTime: number

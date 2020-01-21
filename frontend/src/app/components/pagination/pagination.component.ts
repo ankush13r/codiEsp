@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 
 import { DataShareService } from '../../services/data-share.service';
 
@@ -10,8 +9,9 @@ import { DataShareService } from '../../services/data-share.service';
 })
 export class PaginationComponent implements OnInit {
   @Input() length = 0;
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
+  @Input() pageIndex;
+  @Input() pageSize;
+  pageSizeOptions: number[] = [10, 25, 50, 100];
 
   // MatPaginator Output
   @Output() pageEvent = new EventEmitter();
