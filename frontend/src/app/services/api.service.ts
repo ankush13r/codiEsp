@@ -44,10 +44,7 @@ export class ApiService {
     );
   }
 
-  getFile() {
-    console.log("get Data");
-    return ("source text")
-  }
+ 
 
   // addClinicalCase(file: FileObj){ //  Observable<FileObj> 
   //   var url = 'http://127.0.0.1:5000/documents/html/add';

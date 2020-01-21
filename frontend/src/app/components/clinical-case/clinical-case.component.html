@@ -1,19 +1,15 @@
-<div>
+<div class="wh-100">
     <h4 class="boxHeader">{{title}}</h4>
-    <div *ngIf="document && !document.error">
-        <form #caseForm="ngForm" action="" (submit)="submitData()">
-            <div class="main">
-                <div class="divTextArea">
-                    <textarea name="clinicalCase" #clinicalCase="ngModel" type="textarea" class="textarea" required
-                        [(ngModel)]="document.clinical_case"></textarea>
-                </div>
-                <div class="d-flex justify-content-start mt-4">
-                    <!-- <button type="button" class="btn btn-outline-info" (click)="searchData()">Find</button> -->
-                    <!-- <button type="button" class="btn btn-outline-dark ml-4" (click)="modifyData()">Modify</button> -->
-                    <button type="submit" class="ml-4" mat-raised-button color="primary" [disabled]="!caseForm.valid">Submit</button>
-                    <button type="reset" class="ml-4" mat-raised-button color="warn" >clear</button>
-                </div>
-            </div>
-        </form>
-    </div>
+    <form fxLayout="column" class="wh-100" *ngIf="document && !document.error" #caseForm="ngForm" action=""
+        (submit)="submitData()">
+
+        <textarea fxFlex="70" class="divTextArea" name="clinicalCase" #clinicalCase="ngModel" type="textarea"
+            class="textarea" required [(ngModel)]="document.clinical_case"></textarea>
+        <div fxLayout="row" fxLayoutGap="20px" class="mt-4">
+            <!-- <button type="button" class="btn btn-outline-info" (click)="searchData()">Find</button> -->
+            <!-- <button type="button" class="btn btn-outline-dark ml-4" (click)="modifyData()">Modify</button> -->
+            <button type="submit" mat-raised-button color="primary" [disabled]="!caseForm.valid">Submit</button>
+            <button type="reset" mat-raised-button color="warn">clear</button>
+        </div>
+    </form>
 </div>

@@ -77,7 +77,9 @@ export class DocumentsComponent implements OnInit {
     });
   }
 
-
+  newWindow(){
+    window.open((this.selectedDoc.link).toString(), "_blank")
+  }
 
 
 }

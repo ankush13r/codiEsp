@@ -1,12 +1,12 @@
-
 .mainBox{
+    width: 99%;
+    height: auto;
+    box-shadow: 0 0 5px 0 ;
     margin: auto;
-    width: 90%;
-    height: 500px;
+    padding: 10px;
 }
-
-.files-app{
-    min-width: 30%;
+mwlResizable {
+    box-sizing: border-box; /*required for the enableGhostResize option to work */
 }
 
 button{
@@ -15,6 +15,12 @@ button{
 }
 
 .btn-active{
-  border-bottom: 2px solid;
+    background: rgb(216, 216, 216);
+    transition: 1s;
+}
+
+.contentBox{
+    height: 100%;
+    width: auto;
 }
 

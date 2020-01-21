@@ -1,4 +1,4 @@
-<div class="d-flex flex-column">
+<div class="d-flex flex-column position-relative">
     <h4 class="boxHeader">{{title}}</h4>
     <mat-list *ngIf="data">
         <mat-nav-list>
@@ -10,7 +10,7 @@
                     <span *ngIf="document.data_type=='link'">{{document.link_name}}</span>
                     <span *ngIf="document.data_type!='link'">{{document.file_name}}</span>
                 </a>
-                <button mat-icon-button > <mat-icon [color]="(document === selectedDoc)?'light':'primary'">open_in_new</mat-icon></button>
+                <button mat-icon-button (click)="newWindow()"> <mat-icon [color]="(document === selectedDoc)?'light':'primary'">open_in_new</mat-icon></button>
             </mat-list-item>
         </mat-nav-list>
     </mat-list>

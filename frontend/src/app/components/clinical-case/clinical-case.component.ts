@@ -38,12 +38,6 @@ export class clinicalCase implements OnInit {
       param.paramMap.subscribe(param => {
         var link = param.get("type");
         var type = param.get("link");
-        if (link) {
-          console.log(link);
-        }
-        if (type) {
-          console.log(type);
-        }
 
       }))
   }

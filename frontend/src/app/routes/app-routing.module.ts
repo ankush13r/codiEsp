@@ -25,7 +25,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: '**',
+    path: '',
     redirectTo: 'main/documents/pdf',
     pathMatch: 'full'
   }

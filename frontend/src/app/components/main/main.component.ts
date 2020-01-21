@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataShareService } from '../../services/data-share.service';
+import { ResizeEvent } from 'angular-resizable-element'
   
 @Component({
   selector: 'app-main',
@@ -27,5 +28,9 @@ export class MainComponent implements OnInit {
     this.dataShare.getDocType().subscribe(type =>
       this.selected_type = type
     )
+  }
+
+  onResizeEnd(event: ResizeEvent): void {
+    console.log('Element was resized', event);
   }
 }

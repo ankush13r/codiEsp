@@ -1,21 +1,42 @@
 <div class="mt-4 mainBox">
-    <nav mat-tab-nav-bar mat-align-tabs="left" >
-        <a mat-tab-link
-           *ngFor="let type of documents_types"
-           [routerLink]="['documents',type]"
-           routerLinkActive #routeLink="routerLinkActive"
-           [active]="routeLink.isActive">
-          {{type}}
+    <nav mat-tab-nav-bar mat-align-tabs="left">
+        <a mat-tab-link *ngFor="let type of documents_types" [routerLink]="['documents',type]" routerLinkActive
+            #routeLink="routerLinkActive" [active]="routeLink.isActive" [class.btn-active]="routeLink.isActive">
+            {{type}}
         </a>
-      </nav>
-    <div class="mt-2 d-flex justify-content-start shadow">
-        <div class="files-app">
-            <router-outlet></router-outlet>
-        </div>
-        <app-clinical-case-versions class="clinical-case-app mr-2 ml-2 flex-grow-1"></app-clinical-case-versions>
+    </nav>
+    <div fxLayout="row wrap" fxLayoutAlign="space-between none">
+        <div fxFlex="20" mwlResizable [enableGhostResize]="true" [resizeEdges]="{ left: true, right: true }"
+            (resizeEnd)="onResizeEnd($event)">
 
-        <app-clinical-case  class="clinical-case-app flex-grow-1"></app-clinical-case>
+            <div class="contentBox">
+                <router-outlet></router-outlet>
+            </div>
+
+        </div>
+
+        <div fxFlex="38" mwlResizable [enableGhostResize]="true" [resizeEdges]="{ right: true , left: true}"
+            (resizeEnd)="onResizeEnd($event)">
+
+            <div class="contentBox">
+                <app-clinical-case-versions></app-clinical-case-versions>
+            </div>
+
+        </div>
+
+        <div fxFlex="38" mwlResizable [enableGhostResize]="true" [resizeEdges]="{  right: true, left: true }"
+            (resizeEnd)="onResizeEnd($event)">
+
+            <div class="contentBox">
+                <app-clinical-case></app-clinical-case>
+            </div>
+
+        </div>
+
     </div>
 
 </div>
 
+
+
+<!-- class="mt-2 d-flex justify-content-start shadow" -->
