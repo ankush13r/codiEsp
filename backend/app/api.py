@@ -112,11 +112,12 @@ def save_data(data_type):
     request_data = request.json
 
     doc_id = request_data.get("doc_id")
-    file_name = (request_data["name"]).strip()
+    yes_no = request_data.get("yes_no")  
+    print(yes_no) 
+    file_name = request_data["file_name"]
     clinical_case = (request_data["clinical_case"]).strip()
     time = request_data["time"]
     meta_data = request_data["meta_data"]
-
     source_path = safe_join(directory, file_name.strip())
 
 
@@ -144,16 +145,19 @@ def save_data(data_type):
             if data_type == constants.TYPE_LINK:
                   link = request_data["link"].strip()
                   data_to_save.update({"link": link})
-                  
+            if yes_no:
+                data_to_save.update({"yes_no": yes_no})                  
             result = mongo.db.clinical_cases.insert_one(data_to_save)
             request_data.update({"doc_id": str(result.inserted_id)})
         else:
             doc_id = doc_id.strip()
             clinical_case_to_list = {"time": time,
                                      "clinical_case": clinical_case,
-                                     "meta_data": meta_data
+                                     "meta_data": meta_data,
+                                     
                                      }
-
+            if yes_no:
+                clinical_case_to_list.update({"yes_no": yes_no})
             result = mongo.db.clinical_cases.update({"_id": ObjectId(doc_id)},
                                            {"$addToSet": {"old_versions": clinical_case_to_list},
                                             "$set": {"clinical_case": clinical_case}}
