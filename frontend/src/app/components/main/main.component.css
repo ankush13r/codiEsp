@@ -1,13 +1,19 @@
 .mainBox{
     width: 99%;
-    height: auto;
-    box-shadow: 0 0 5px 0 ;
+    height: 80%;
+    border: 1px solid rgb(187, 187, 187);
     margin: auto;
     padding: 10px;
 }
-mwlResizable {
-    box-sizing: border-box; /*required for the enableGhostResize option to work */
+
+.contentParent{
+    margin-top: 2px;
+    position: relative;
+    height: 98%;
 }
+/* mwlResizable {
+    box-sizing: border-box; /*required for the enableGhostResize option to work 
+} */
 
 button{
     background-color: transparent;
@@ -15,12 +21,13 @@ button{
 }
 
 .btn-active{
-    background: rgb(216, 216, 216);
+    background: rgb(226, 226, 226);
     transition: 1s;
 }
 
 .contentBox{
-    height: 100%;
-    width: auto;
+    height: 95%;
 }
+
+
 

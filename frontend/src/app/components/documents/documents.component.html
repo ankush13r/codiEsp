@@ -1,23 +1,27 @@
-<div class="d-flex flex-column position-relative">
+<div class="h-100" fxLayout="column">
     <h4 class="boxHeader">{{title}}</h4>
-    <mat-list *ngIf="data">
-        <mat-nav-list>
-            <mat-list-item class="docsList" *ngFor="let document of data.documents; let i = index"
-                [class.selected]="document === selectedDoc"
-                (click)="selectDoc(document)">
-                <div class="marker" [class.marker-active]="document.doc_id"></div>   
-                <a href="{{document.link}}">
-                    <span *ngIf="document.data_type=='link'">{{document.link_name}}</span>
-                    <span *ngIf="document.data_type!='link'">{{document.file_name}}</span>
-                </a>
-                <button mat-icon-button (click)="newWindow()"> <mat-icon [color]="(document === selectedDoc)?'light':'primary'">open_in_new</mat-icon></button>
-            </mat-list-item>
-        </mat-nav-list>
-    </mat-list>
+    <div fxFlex="94" fxLayout="column" fxLayoutAlign="space-between none">
+        <mat-list class="overflow-auto" *ngIf="data">
+            <mat-nav-list>
+                <mat-list-item class="docsList" *ngFor="let document of data.documents; let i = index"
+                    [class.selected]="document === selectedDoc" (click)="selectDoc(document)">
+                    <div class="marker" [class.marker-active]="document.doc_id"></div>
+                    <button mat-icon-button (click)="newWindow()">
+                        <mat-icon [color]="(document === selectedDoc)?'light':'primary'">open_in_new</mat-icon>
+                    </button>
+                    <a href="{{document.link}}">
+                        <span *ngIf="document.data_type=='link'">{{document.link_name}}</span>
+                        <span *ngIf="document.data_type!='link'">{{document.file_name}}</span>
+                    </a>
 
-    <div class="pagination">
-        <app-pagination *ngIf="data" [length]="data.totalRecords" (pageEvent)="getPaginationEvent($event)">
-        </app-pagination>
+                </mat-list-item>
+            </mat-nav-list>
+        </mat-list>
+
+        <div class="pagination">
+            <app-pagination *ngIf="data" [length]="data.totalRecords" (pageEvent)="getPaginationEvent($event)">
+            </app-pagination>
+        </div>
     </div>
 
 </div>

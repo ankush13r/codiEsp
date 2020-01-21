@@ -19,6 +19,7 @@ export class ClinicalCaseVersionsComponent implements OnInit {
   safeUrl :SafeResourceUrl;
   textToShow: String;
   contentType: String;
+  index : number;
 
   constTypeLink: String = "link"
   constTypeText: String = "text"
@@ -34,8 +35,7 @@ export class ClinicalCaseVersionsComponent implements OnInit {
 
       if (this.document !== result && result) {
         this.document = result;
-        this.contentType = this.constTypeLink;
-        this.safeUrl= this.sanitizer.bypassSecurityTrustResourceUrl(this.document.link.toString());
+        this.showLink()
 
         if (this.document.old_versions) {
           this.document.old_versions.sort((a, b) => a["time"] - b["time"])
@@ -45,14 +45,15 @@ export class ClinicalCaseVersionsComponent implements OnInit {
   }
 
   showLink() {
+    this.index = null;
     this.contentType = this.constTypeLink;
     this.safeUrl= this.sanitizer.bypassSecurityTrustResourceUrl(this.document.link.toString());
 
   }
 
   showText(index) {
-    
     if (index < this.document.old_versions.length) {
+      this.index = index;
       this.contentType= this.constTypeText;
       this.textToShow = this.document.old_versions[index]["clinical_case"]
     } 

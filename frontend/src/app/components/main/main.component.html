@@ -5,38 +5,22 @@
             {{type}}
         </a>
     </nav>
-    <div fxLayout="row wrap" fxLayoutAlign="space-between none">
-        <div fxFlex="20" mwlResizable [enableGhostResize]="true" [resizeEdges]="{ left: true, right: true }"
-            (resizeEnd)="onResizeEnd($event)">
+    <div class="contentParent" fxLayout="row wrap" fxLayoutAlign="space-between none">
 
-            <div class="contentBox">
-                <router-outlet></router-outlet>
-            </div>
-
+        <div fxFlex="19" class="contentBox">
+            <router-outlet></router-outlet>
         </div>
-
-        <div fxFlex="38" mwlResizable [enableGhostResize]="true" [resizeEdges]="{ right: true , left: true}"
-            (resizeEnd)="onResizeEnd($event)">
-
-            <div class="contentBox">
-                <app-clinical-case-versions></app-clinical-case-versions>
-            </div>
-
+        <div fxFlex="50" class="contentBox">
+            <app-clinical-case-versions></app-clinical-case-versions>
         </div>
-
-        <div fxFlex="38" mwlResizable [enableGhostResize]="true" [resizeEdges]="{  right: true, left: true }"
-            (resizeEnd)="onResizeEnd($event)">
-
-            <div class="contentBox">
-                <app-clinical-case></app-clinical-case>
-            </div>
-
+        <div fxFlex="30" class="contentBox">
+            <app-clinical-case></app-clinical-case>
         </div>
-
     </div>
-
 </div>
 
-
-
+<!-- 
+<div fxFlex="38" mwlResizable [enableGhostResize]="true" [resizeEdges]="{  right: true, left: true }"
+    (resizeEnd)="onResizeEnd($event)">
+</div> -->
 <!-- class="mt-2 d-flex justify-content-start shadow" -->

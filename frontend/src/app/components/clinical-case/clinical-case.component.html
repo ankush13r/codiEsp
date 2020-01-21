@@ -2,13 +2,21 @@
     <h4 class="boxHeader">{{title}}</h4>
     <form fxLayout="column" class="wh-100" *ngIf="document && !document.error" #caseForm="ngForm" action=""
         (submit)="submitData()">
+        <mat-radio-group class="pt-1" aria-label="Select an option">
+            <mat-radio-button *ngFor="let item of radioBoxValues;let i = index" class="ml-4" value="i" [checked]="radioSelected === i"
+                (change)="onSelectionChange(i)">
+                <span class="font-weight-bolder">{{item | titlecase}}</span>
+            </mat-radio-button>
+            <mat-radio-button class="ml-4" value="-1" (change)="onSelectionChange(-1)">None</mat-radio-button>
+        </mat-radio-group>
 
         <textarea fxFlex="70" class="divTextArea" name="clinicalCase" #clinicalCase="ngModel" type="textarea"
             class="textarea" required [(ngModel)]="document.clinical_case"></textarea>
         <div fxLayout="row" fxLayoutGap="20px" class="mt-4">
             <!-- <button type="button" class="btn btn-outline-info" (click)="searchData()">Find</button> -->
             <!-- <button type="button" class="btn btn-outline-dark ml-4" (click)="modifyData()">Modify</button> -->
-            <button type="submit" mat-raised-button color="primary" [disabled]="!caseForm.valid">Submit</button>
+            <button type="submit" mat-raised-button color="primary"
+                [disabled]="!caseForm.valid || textError">Submit</button>
             <button type="reset" mat-raised-button color="warn">clear</button>
         </div>
     </form>
