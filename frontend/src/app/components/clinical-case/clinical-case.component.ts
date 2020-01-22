@@ -56,16 +56,18 @@ export class clinicalCase implements OnInit {
     this.dataShareService.getSelectedFile().subscribe(result => {
       if (this.document !== result) {
         this.document = result;       
-        if (this.document.old_versions[this.document.old_versions.length - 1]) {
+        if (this.document.old_versions) {         
           this.radioSelected = this.document.old_versions[this.document.old_versions.length - 1]["yes_no"];
-
+        }else{
+          this.radioSelected = undefined;
         }
       }
     });
   }
 
   submitData() {
-    ` must add time and meta_data into the sending object`
+    ` TODO -> add time and meta_data into the sending object`
+
 
     var now = Date.now();
     this.document.time = now;
@@ -76,6 +78,7 @@ export class clinicalCase implements OnInit {
     }
     );
   }
+
   removeData() {
     this.apiService.removeClinicalCase(this.document);
   }

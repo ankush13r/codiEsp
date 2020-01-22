@@ -2,7 +2,7 @@
     <h4 class="boxHeader">{{title}}</h4>
     <div class="" fxFlex fxLayout="column">
         <div *ngIf="document" class="border-bottom border-dark mb-1">
-            <button [class.btnActive]="contentType == constTypeLink && safeUrl" mat-button color="primary" class="mr-2"
+            <button [class.btnActive]="contentType == LINK && safeUrl" mat-button color="primary" class="mr-2"
                 (click)=" showLink()">Source</button>
 
             <button  mat-button color="primary" class="mr-2"
@@ -15,7 +15,7 @@
             {{textToShow}}
         </div>
 
-        <iframe *ngIf="contentType == constTypeLink && safeUrl" fxFlex name="frame" [src]="safeUrl" width="100%"
+        <iframe *ngIf="contentType == LINK && safeUrl" fxFlex name="frame" [src]="safeUrl" width="100%"
             height="100%" frameBorder="0">
             <p>The source is invalid</p>
         </iframe>

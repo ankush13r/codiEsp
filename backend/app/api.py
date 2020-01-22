@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 from bson.objectid import ObjectId
 import os
 import time
+import re
 
 from flask import Flask, jsonify, request, send_file, session, send_from_directory, safe_join, abort
 from flask_pymongo import PyMongo
@@ -75,20 +76,52 @@ def get_documents(data_type):
 
     return jsonify(data)
 
+def modifyText(content):
+    style = """"""
+    
+    for term in constants.START_CASE_TERMS:
+        found = re.search(term,content,flags=re.U| re.I)
+        if found:
+            content = re.sub(str(found.group()),'<span style="background:rgba(6, 247, 255, 0.5); padding:5px;">'+str(found.group())+'</span>',content)
+            break
+    for term in constants.END_CASE_TERMS:
+        found = re.search(term,content,flags=re.U| re.I)
+        if found:
+            content = re.sub(str(found.group()),'<span style="background:rgba(255, 6, 6, 0.5); padding:5px;">'+str(found.group())+'</span>',content)
+            break
+
+    return content
+
+
+def readFile(file_path):
+    with open(file_path,"r") as iFile:
+        content = iFile.read()
+        return content
+
+def getFilePath(data_type, name):
+    file_name = name.strip()
+    directory_path = constants.PATHS_TO_DIR.get(data_type)
+
+    if directory_path:
+        file_path = safe_join(directory_path, file_name)
+        if os.path.isfile(file_path):
+            return file_path
+    return False
+
 # URL example = /documents/pdf/file.pdf
 @app.route("/documents/<data_type>/<name>", methods=["GET"])
 def get_document(data_type, name):
+    isExistFile = False
     data_type = data_type.strip()
-    if data_type == constants.TYPE_LINK:
+    file_path = getFilePath(data_type,name)
+    if data_type == constants.TYPE_LINK or not file_path:
         abort(404)
+    elif data_type == constants.TYPE_HTML or data_type == constants.TYPE_TEXT:
+        content = readFile(file_path)
+        modified_content = modifyText(content)
+        return str(modified_content)
     else:
-        file_name = name.strip()
-        directory_path = constants.PATHS_TO_DIR.get(data_type)
-
-        if directory_path:
-            file_path = safe_join(directory_path, file_name)
-            if os.path.isfile(file_path):
-                return send_file(file_path)
+        return send_file(file_path)                
 
     abort(404)
 
@@ -113,7 +146,6 @@ def save_data(data_type):
 
     doc_id = request_data.get("doc_id")
     yes_no = request_data.get("yes_no")  
-    print(yes_no) 
     file_name = request_data["file_name"]
     clinical_case = (request_data["clinical_case"]).strip()
     time = request_data["time"]
@@ -146,7 +178,7 @@ def save_data(data_type):
                   link = request_data["link"].strip()
                   data_to_save.update({"link": link})
             if yes_no:
-                data_to_save.update({"yes_no": yes_no})                  
+                data_to_save["old_versions"][0].update({"yes_no": yes_no})                  
             result = mongo.db.clinical_cases.insert_one(data_to_save)
             request_data.update({"doc_id": str(result.inserted_id)})
         else:

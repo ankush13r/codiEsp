@@ -5,21 +5,27 @@
             <mat-nav-list>
                 <mat-list-item class="docsList" *ngFor="let document of data.documents; let i = index"
                     [class.selected]="document === selectedDoc" (click)="selectDoc(document)">
-                    <div class="marker" [class.marker-active]="document.doc_id"></div>
+                    <mat-slide-toggle [checked]="document.doc_id"></mat-slide-toggle>
                     <button mat-icon-button (click)="newWindow()">
                         <mat-icon [color]="(document === selectedDoc)?'light':'primary'">open_in_new</mat-icon>
                     </button>
-                    <a href="{{document.link}}">
+                    <div>
                         <span *ngIf="document.data_type=='link'">{{document.link_name}}</span>
                         <span *ngIf="document.data_type!='link'">{{document.file_name}}</span>
-                    </a>
+                    </div>
+                    <!-- <a href="{{document.link}}">
+                        <span *ngIf="document.data_type=='link'">{{document.link_name}}</span>
+                        <span *ngIf="document.data_type!='link'">{{document.file_name}}</span>
+                    </a> -->
 
                 </mat-list-item>
             </mat-nav-list>
         </mat-list>
 
         <div class="pagination">
-            <app-pagination *ngIf="data" [pageIndex]="pageIndex[this.selected_type]" [pageSize]="pageLength[this.selected_type]" [length]="data.totalRecords" (pageEvent)="getPaginationEvent($event)">
+            <app-pagination *ngIf="data" [pageIndex]="pageIndex[this.selected_type]"
+                [pageSize]="pageLength[this.selected_type]" [length]="data.totalRecords"
+                (pageEvent)="getPaginationEvent($event)">
             </app-pagination>
         </div>
     </div>

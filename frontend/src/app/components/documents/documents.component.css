@@ -18,7 +18,7 @@
     color: rgb(0, 0, 0);   
  }
 
- .marker{
+ /* .marker{
     width: 1.2em;
     height: 1.2em;
     border-radius: 50%;
@@ -28,7 +28,7 @@
  .marker-active{
      background-color: rgb(17, 98, 207) !important;
      box-shadow: 0 0 5px -1px rgb(17, 98, 207) ;
- }
+ } */
 
  .selected:hover{
     opacity: 0.95;

@@ -47,11 +47,11 @@ def get_data_list(file_type: str, page: int = 0, per_page: int = 10):
             file_name = data["file_name"]
             link = data["link"]
             if link[-1]=="/":
-                data_obj.update({"link_name":(link.split("/")[-2])})
+                link_name = link.split("/")[-2][0:22]
+                data_obj.update({"link_name":link_name})
             else:
-                data_obj.update({"link_name":(link.split("/")[-1])})
-                            
-            
+                link_name = link.split("/")[-1][0:22]
+                data_obj.update({"link_name":link_name})          
             
             source_path = safe_join(dir_path, file_name.strip())
             mongo_obj = mongo.db.clinical_cases.find_one({"source_path":source_path, "link":link})

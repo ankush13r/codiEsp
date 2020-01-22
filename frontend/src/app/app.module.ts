@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatPaginatorModule, MatTabsModule, MatListModule, MatIconModule,
   MatButtonModule, MatSlideToggleModule, MatRadioModule,
-  MatSidenavModule,MatDividerModule,
+  MatSidenavModule,MatDividerModule,MatToolbarModule
 } from '@angular/material';
 import { ResizableModule } from 'angular-resizable-element';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -47,7 +47,8 @@ import { ClinicalCaseVersionsComponent } from './components/clinical-case-versio
     MatButtonModule,
     MatSlideToggleModule,
     MatRadioModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatToolbarModule
 
   ],
   providers: [],

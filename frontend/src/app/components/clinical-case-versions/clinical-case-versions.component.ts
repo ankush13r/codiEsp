@@ -21,7 +21,7 @@ export class ClinicalCaseVersionsComponent implements OnInit {
   contentType: String;
   index : number;
 
-  constTypeLink: String = "link"
+  LINK: String = "link"
   constTypeText: String = "text"
 
   constructor(private dataShareService: DataShareService, private sanitizer: DomSanitizer) { }
@@ -46,9 +46,8 @@ export class ClinicalCaseVersionsComponent implements OnInit {
 
   showLink() {
     this.index = null;
-    this.contentType = this.constTypeLink;
+    this.contentType = this.LINK;
     this.safeUrl= this.sanitizer.bypassSecurityTrustResourceUrl(this.document.link.toString());
-
   }
 
   showText(index) {
