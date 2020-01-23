@@ -3,7 +3,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
 import { Pipe, PipeTransform } from '@angular/core';
 
 import { DataShareService } from '../../services/data-share.service';
-import { FileObj } from 'src/app/interfaces/file-obj';
+import { Document } from 'src/app/interfaces/document';
 
 
 
@@ -15,7 +15,7 @@ import { FileObj } from 'src/app/interfaces/file-obj';
 
 export class ClinicalCaseVersionsComponent implements OnInit {
   title = "All versions"
-  document: FileObj;
+  document: Document;
   safeUrl :SafeResourceUrl;
   textToShow: String;
   contentType: String;
@@ -37,8 +37,8 @@ export class ClinicalCaseVersionsComponent implements OnInit {
         this.document = result;
         this.showLink()
 
-        if (this.document.old_versions) {
-          this.document.old_versions.sort((a, b) => a["time"] - b["time"])
+        if (this.document.versions) {
+          this.document.versions.sort((a, b) => a["time"] - b["time"])
         }
       }
     });
@@ -51,10 +51,10 @@ export class ClinicalCaseVersionsComponent implements OnInit {
   }
 
   showText(index) {
-    if (index < this.document.old_versions.length) {
+    if (index < this.document.versions.length) {
       this.index = index;
       this.contentType= this.constTypeText;
-      this.textToShow = this.document.old_versions[index]["clinical_case"]
+      this.textToShow = this.document.versions[index]["clinical_case"]
     } 
   }
 }

@@ -4,8 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { DataShareService } from '../../services/data-share.service';
 import { ApiService } from "../../services/api.service"
-import { FilesObj } from 'src/app/interfaces/files-obj';
-import { FileObj } from 'src/app/interfaces/file-obj';
+import { ApiSchema } from 'src/app/interfaces/apiSchema';
+import { Document } from 'src/app/interfaces/document';
 
 @Component({
   selector: 'app-documents',
@@ -14,8 +14,8 @@ import { FileObj } from 'src/app/interfaces/file-obj';
 })
 export class DocumentsComponent implements OnInit {
   title = "Documents";
-  selectedDoc: FileObj;
-  data: FilesObj = null;
+  selectedDoc: Document;
+  data: ApiSchema = null;
   pageIndex: object = {};
   pageLength: object = {};
   paginationEvent: PageEvent;

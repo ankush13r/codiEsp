@@ -1,7 +1,7 @@
-<div class="h-100" fxLayout="column">
-    <h4 class="boxHeader">{{title}}</h4>
+<div class="wh-100" fxLayout="column">
+    <app-title title="title"></app-title>
     <div class="listBox" fxFlex="94" fxLayout="column" fxLayoutAlign="space-between none">
-        <mat-list class="matList" *ngIf="data">
+        <mat-list *ngIf="data">
             <mat-nav-list>
                 <mat-list-item class="docsList" *ngFor="let document of data.documents; let i = index"
                     [class.selected]="document === selectedDoc" (click)="selectDoc(document)">

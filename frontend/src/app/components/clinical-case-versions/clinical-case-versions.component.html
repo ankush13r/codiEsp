@@ -1,12 +1,12 @@
 <div class="hw-100" fxLayout="column">
-    <h4 class="boxHeader">{{title}}</h4>
+    <app-title [title]="title"></app-title>
     <div class="" fxFlex fxLayout="column">
-        <div *ngIf="document" class="border-bottom border-dark mb-1">
+        <div *ngIf="document" class="border-bottom my-1 pb-1">
             <button [class.btnActive]="contentType == LINK && safeUrl" mat-button color="primary" class="mr-2"
                 (click)=" showLink()">Source</button>
 
             <button  mat-button color="primary" class="mr-2"
-                *ngFor="let item of document.old_versions;let i = index" (click)=" showText(i)"
+                *ngFor="let item of document?.versions;let i = index" (click)=" showText(i)"
                 [class.btnActive]="i == index">
                 v.{{i}}
             </button>

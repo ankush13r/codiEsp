@@ -1,11 +1,11 @@
-import {FileObj} from './file-obj'
+import {Document} from './document'
 
-export interface FilesObj {
+export interface ApiSchema {
     currentPage: number,
     totalRecords: number,
     perPage: number,
     error: {},
-    documents: FileObj[]
+    documents: Document[]
 
 }
 

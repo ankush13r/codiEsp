@@ -1,24 +1,45 @@
 <div class="wh-100">
-    <h4 class="boxHeader">{{title}}</h4>
+    <app-title [title]="title"></app-title>
     <form fxLayout="column" class="wh-100" *ngIf="document && !document.error" #caseForm="ngForm" action=""
         (submit)="submitData()">
+        <!-- <mat-form-field>
+            <mat-label>Select Version</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let item of document?.versions; let i = index" >
+                v.{{i}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field> -->
+        <mat-form-field class="text-center" color="warn">
+            <mat-label>Versions</mat-label>
+            <mat-select  [(value)]="selected_version" (selectionChange)="onSelectionChange($event)" name="food">
+                <mat-option >None</mat-option >
+                <mat-option *ngFor="let version of document?.versions; let i = index" [value]="version">
+                   {{version.time | date:"medium"}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
         <mat-radio-group name="yes_no" class="p-1" aria-label="Select an option">
             <mat-radio-button name="yes_no" *ngFor="let item of radioBoxValues" class="ml-4" value="{{item}}"
-            [checked]="item === radioSelected"
-                (change)="radioSelected = item">
+                [checked]="item === selected_version?.yes_no" (change)="radioSelected = item">
                 <span class="font-weight-bolder">{{item | titlecase}}</span>
             </mat-radio-button>
             <mat-radio-button class="ml-4" value="-1" (change)="radioSelected = null">None</mat-radio-button>
         </mat-radio-group>
 
-        <textarea fxFlex="70" class="divTextArea" name="clinicalCase" #clinicalCase="ngModel" type="textarea"
-            class="textarea" required [(ngModel)]="document.clinical_case"></textarea>
-        <div fxLayout="row" fxLayoutGap="20px" class="mt-4">
-            <!-- <button type="button" class="btn btn-outline-info" (click)="searchData()">Find</button> -->
-            <!-- <button type="button" class="btn btn-outline-dark ml-4" (click)="modifyData()">Modify</button> -->
+        <textarea fxFlex="65" class="textarea" name="clinicalCase" #clinicalCase="ngModel" type="textarea"
+            (ngModelChange)="existVersion($event)" required [(ngModel)]="document.clinical_case">
+        </textarea>
+
+        <div fxLayout="row" fxLayoutGap="20px" class="mt-2">
             <button type="submit" mat-raised-button color="primary"
-                [disabled]="!caseForm.valid">Submit</button>
+                [disabled]="!caseForm.valid || this.selected_version">Submit</button>
+
             <button type="reset" mat-raised-button color="warn">clear</button>
         </div>
+        <!-- <div class="mt-4" *ngIf="clinicalCase.touched && this.version_exist_index != -1">
+                <span class="text-danger">Already exist as version {{version_exist_index}}</span>
+        </div> -->
     </form>
 </div>

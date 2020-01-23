@@ -10,9 +10,7 @@
     margin-top: 5px;
  }
 
- .matList{
-     overflow-y: auto;
- }
+
 .docsList:hover{
     background: rgb(235, 235, 235);
     color: rgb(0, 0, 0);   

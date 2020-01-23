@@ -136,6 +136,7 @@ def save_data(data_type):
                         time: Date,
                         clinical_case: str,
                         meta_data: dict()
+                        yes_no: str
                         }
 
     """
@@ -165,7 +166,7 @@ def save_data(data_type):
             data_to_save = dict({"data_type": data_type,
                                  "file_name": file_name,
                                  "source_path": source_path,
-                                 "old_versions": [
+                                 "versions": [
                                      {
                                          "time": time,
                                          "clinical_case": clinical_case,
@@ -178,7 +179,7 @@ def save_data(data_type):
                   link = request_data["link"].strip()
                   data_to_save.update({"link": link})
             if yes_no:
-                data_to_save["old_versions"][0].update({"yes_no": yes_no})                  
+                data_to_save["versions"][0].update({"yes_no": yes_no})                  
             result = mongo.db.clinical_cases.insert_one(data_to_save)
             request_data.update({"doc_id": str(result.inserted_id)})
         else:
@@ -191,12 +192,12 @@ def save_data(data_type):
             if yes_no:
                 clinical_case_to_list.update({"yes_no": yes_no})
             result = mongo.db.clinical_cases.update({"_id": ObjectId(doc_id)},
-                                           {"$addToSet": {"old_versions": clinical_case_to_list},
+                                           {"$addToSet": {"versions": clinical_case_to_list},
                                             "$set": {"clinical_case": clinical_case}}
                                             )
             
-        old_versions = mongo.db.clinical_cases.find_one({"_id": ObjectId(request_data["doc_id"])},{"_id":0,"old_versions":1})
-        request_data.update(old_versions)
+        versions = mongo.db.clinical_cases.find_one({"_id": ObjectId(request_data["doc_id"])},{"_id":0,"versions":1})
+        request_data.update(versions)
         result_to_send = request_data
     except Exception as err:
         

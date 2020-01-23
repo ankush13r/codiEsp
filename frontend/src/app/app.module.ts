@@ -7,10 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatPaginatorModule, MatTabsModule, MatListModule, MatIconModule,
   MatButtonModule, MatSlideToggleModule, MatRadioModule,
-  MatSidenavModule,MatDividerModule,MatToolbarModule
+  MatSidenavModule,MatDividerModule,MatToolbarModule,MatSelectModule
+
 } from '@angular/material';
+
 import { ResizableModule } from 'angular-resizable-element';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -20,6 +23,7 @@ import { AppRoutingModule } from './routes/app-routing.module';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { MainComponent } from './components/main/main.component';
 import { ClinicalCaseVersionsComponent } from './components/clinical-case-versions/clinical-case-versions.component';
+import { TitleComponent } from './components/shared-com/title/title.component';
 
 @NgModule({
   declarations: [
@@ -30,12 +34,14 @@ import { ClinicalCaseVersionsComponent } from './components/clinical-case-versio
     PaginationComponent,
     MainComponent,
     ClinicalCaseVersionsComponent,
+    TitleComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    
     BrowserAnimationsModule,
     FlexLayoutModule,
     ResizableModule,
@@ -48,7 +54,9 @@ import { ClinicalCaseVersionsComponent } from './components/clinical-case-versio
     MatSlideToggleModule,
     MatRadioModule,
     MatSidenavModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSnackBarModule,
+    MatSelectModule,
 
   ],
   providers: [],

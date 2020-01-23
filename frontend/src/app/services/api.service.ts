@@ -3,8 +3,8 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { catchError, retry } from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs';
 
-import { FilesObj } from '../interfaces/files-obj';
-import { FileObj } from '../interfaces/file-obj';
+import { ApiSchema } from '../interfaces/apiSchema';
+import { Document } from '../interfaces/document';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -25,7 +25,7 @@ export class ApiService {
 
   }
 
-  getDocuments(selected_type: String, index: number = 0, pageSize: number = 10): Observable<FilesObj> {
+  getDocuments(selected_type: String, index: number = 0, pageSize: number = 10): Observable<ApiSchema> {
     var url = this.baseUrl + selected_type;
 
     if (!index) {
@@ -38,7 +38,7 @@ export class ApiService {
       .set("pageIndex", index.toString())
       .set("pageSize", pageSize.toString());
 
-    return this.http.get<FilesObj>(url, { params: params }).pipe(
+    return this.http.get<ApiSchema>(url, { params: params }).pipe(
       retry(3), // retry a failed request up to 3 times      
       catchError(this.handleError) // then handle the error
     );
@@ -46,7 +46,7 @@ export class ApiService {
 
  
 
-  // addClinicalCase(file: FileObj){ //  Observable<FileObj> 
+  // addClinicalCase(file: Document){ //  Observable<Document> 
   //   var url = 'http://127.0.0.1:5000/documents/html/add';
   //   console.log(file);
   //   console.log("to post");
@@ -63,21 +63,21 @@ export class ApiService {
 
   // }
 
-  addClinicalCase(document: FileObj, selected_type: String): Observable<FileObj> {
+  addClinicalCase(document: Document, selected_type: String): Observable<Document> {
     document.meta_data = {
       location: "location",
       conationTime: 12345
     };
     var url = this.baseUrl + selected_type + "/add";
-    return this.http.post<FileObj>(url, document)
+    return this.http.post<Document>(url, document)
   }
 
 
-  modifyClinicalCase(file: FileObj) {
+  modifyClinicalCase(file: Document) {
     console.log("modify Data: " + JSON.stringify(file));
   }
 
-  removeClinicalCase(file: FileObj) {
+  removeClinicalCase(file: Document) {
     console.log("remove Data: " + JSON.stringify(file));
   }
 

@@ -7,7 +7,7 @@ from api import mongo
 #             data_to_save = dict({"data_type": data_type,
 #                                  "file_name": file_name,
 #                                  "source_path": source_path,
-#                                  "all_versions": [
+#                                  "versions": [
 #                                      {
 #                                          "time": time,
 #                                          "clinical_case": clinical_case,
@@ -31,7 +31,7 @@ from api import mongo
 #                                      }
 
 #             result = mongo.db.clinical_cases.update({"_id": ObjectId(doc_id)},
-#                                            {"$addToSet": {"all_versions": clinical_case_to_list},
+#                                            {"$addToSet": {"versions": clinical_case_to_list},
 #                                             "$set": {"clinical_case": clinical_case}}
 #                                             )
 

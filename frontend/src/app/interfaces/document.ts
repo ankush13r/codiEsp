@@ -1,8 +1,8 @@
-export interface FileObj {
+export interface Document {
     file_name: String,
     data_type: String,
     clinical_case: string,
-    old_versions:[],
+    versions:[],
     link_name:String,
     time?:any,
     doc_id?:String,
