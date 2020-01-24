@@ -145,7 +145,7 @@ def save_data(data_type):
 
     request_data = request.json
 
-    doc_id = request_data.get("doc_id")
+    doc_id = request_data.get("id")
     yes_no = request_data.get("yes_no")  
     file_name = request_data["file_name"]
     clinical_case = (request_data["clinical_case"]).strip()
@@ -232,3 +232,12 @@ if __name__ == "__main__":
     # scheduler.add_job(func=function, trigger="interval", days=5)
     # scheduler.start()
     app.run(host="127.0.0.1", port=5000, debug=True)
+
+
+#-----------------------------------------
+# @app.route("/documents/<data_type>/add", methods=["POST"])
+def save_data(data_type):
+    data_type = data_type.strip()
+    directory = constants.PATHS_TO_DIR.get(data_type)
+
+    doc_id = request.json[];

@@ -94,7 +94,7 @@ export class clinicalCase implements OnInit {
       this.document.time = now;
       this.document["yes_no"] = this.radioSelected;
       this.apiService.addClinicalCase(this.document, this.selected_type).subscribe(result => {
-        this.document.doc_id = result.doc_id;
+        this.document.id = result.id;
         this.document.versions = result.versions;
         this.openSnackBar("Added successfuly", "OK");
         this.selected_version = this.document.versions[this.document.versions.length - 1]

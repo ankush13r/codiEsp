@@ -5,7 +5,7 @@
             <mat-nav-list>
                 <mat-list-item class="docsList" *ngFor="let document of data.documents; let i = index"
                     [class.selected]="document === selectedDoc" (click)="selectDoc(document)">
-                    <mat-slide-toggle [checked]="document.doc_id"></mat-slide-toggle>
+                    <mat-slide-toggle [checked]="document.id"></mat-slide-toggle>
                     <button mat-icon-button (click)="newWindow()">
                         <mat-icon [color]="(document === selectedDoc)?'light':'primary'">open_in_new</mat-icon>
                     </button>
@@ -34,7 +34,7 @@
 
 <!-- <ul class="list-group" *ngIf="data">
     <li class="list-group-item" *ngFor="let document of data.documents; let i = index"
-        [class.selected]="document === selectedDoc" [class.check-mark]="document.doc_id"
+        [class.selected]="document === selectedDoc" [class.check-mark]="document.id"
         (click)="selectDoc(document)">
         <a href="{{document.link}}">
             <span *ngIf="document.data_type=='link'">{{document.link_name}}</span>
