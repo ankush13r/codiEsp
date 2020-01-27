@@ -4,15 +4,16 @@
         <mat-list *ngIf="data">
             <mat-nav-list>
                 <mat-list-item class="docsList" *ngFor="let document of data.documents; let i = index"
-                    [class.selected]="document === selectedDoc" (click)="selectDoc(document)">
+                    [class.selected]="document === selected_document" (click)="selectDocument(document)">
                     <mat-slide-toggle [checked]="document.id"></mat-slide-toggle>
                     <button mat-icon-button (click)="newWindow()">
-                        <mat-icon [color]="(document === selectedDoc)?'light':'primary'">open_in_new</mat-icon>
+                        <mat-icon [color]="(document === selected_document)?'light':'primary'">open_in_new</mat-icon>
                     </button>
                     <div>
                         <span *ngIf="document.data_type=='link'">{{document.link_name}}</span>
                         <span *ngIf="document.data_type!='link'">{{document.file_name}}</span>
                     </div>
+                    
                     <!-- <a href="{{document.link}}">
                         <span *ngIf="document.data_type=='link'">{{document.link_name}}</span>
                         <span *ngIf="document.data_type!='link'">{{document.file_name}}</span>

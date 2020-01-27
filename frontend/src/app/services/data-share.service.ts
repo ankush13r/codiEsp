@@ -20,21 +20,23 @@ export class DataShareService {
   constructor() {
   }
 
-  getSelectedFile() {
+  observeDocument() {
     return (this.selectedFile.asObservable())
   }
-  setSelectedFile(file: Document) {
+  selectDocument(file: Document) {
     this.selectedFile.next(file);
   }
 
-  getDocType() {
+  observeDocumentType() {
     return (this.docType.asObservable())
   }
-  setDocType(type: string) {
+  selectDocumentType(type: string) {
     this.docType.next(type);
   }
 
 
+
+  //################################
   findMe() {
 
     if (navigator.geolocation) {

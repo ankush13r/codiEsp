@@ -14,7 +14,7 @@ import { Document } from 'src/app/interfaces/document';
 })
 export class DocumentsComponent implements OnInit {
   title = "Documents";
-  selectedDoc: Document;
+  selected_document: Document;
   data: ApiSchema = null;
   pageIndex: object = {};
   pageLength: object = {};
@@ -31,19 +31,19 @@ export class DocumentsComponent implements OnInit {
   ngOnInit() {
     this.getDocsType();
     this.getPathParams();
-    this.getSelectedDoc();
+    this.observeDocument();
   }
 
   getPathParams() {
     this.route.paramMap.subscribe(param => {
       if (param.get("type") && param.get("type") != this.selected_type) {
-        this.dataShareService.setDocType(param.get("type"));
+        this.dataShareService.selectDocumentType(param.get("type"));
       }
     });
   }
 
   getDocsType() {
-    this.dataShareService.getDocType().subscribe(type => {
+    this.dataShareService.observeDocumentType().subscribe(type => {
       this.selected_type = type;
       this.getDocuments();
     });
@@ -66,24 +66,26 @@ export class DocumentsComponent implements OnInit {
         this.pageLength[this.selected_type]
       ).subscribe(result => {
         this.data = result
-        this.selectDoc(this.data.documents[0]);
+        this.selectDocument(this.data.documents[0]);
       });
-
     }
   }
 
-  selectDoc(document) {
-    this.dataShareService.setSelectedFile(document)
+  selectDocument(selected_document) {
+    this.dataShareService.selectDocument(selected_document)
+
   }
 
-  getSelectedDoc() {
-    this.dataShareService.getSelectedFile().subscribe(result => {
-      this.selectedDoc = result
+  observeDocument() {
+    this.dataShareService.observeDocument().subscribe(result => {
+      this.selected_document = result
     });
   }
 
+
+
   newWindow() {
-    window.open((this.selectedDoc.link).toString(), "_blank")
+    window.open((this.selected_document.link).toString(), "_blank")
   }
 
 

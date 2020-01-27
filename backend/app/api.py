@@ -76,27 +76,31 @@ def get_documents(data_type):
 
     return jsonify(data)
 
+
 def modifyText(content):
     style = """"""
-    
+
     for term in constants.START_CASE_TERMS:
-        found = re.search(term,content,flags=re.U| re.I)
+        found = re.search(term, content, flags=re.U | re.I)
         if found:
-            content = re.sub(str(found.group()),'<span style="background:rgba(6, 247, 255, 0.5); padding:5px;">'+str(found.group())+'</span>',content)
+            content = re.sub(str(found.group(
+            )), '<span style="background:rgba(6, 247, 255, 0.5); padding:5px;">'+str(found.group())+'</span>', content)
             break
     for term in constants.END_CASE_TERMS:
-        found = re.search(term,content,flags=re.U| re.I)
+        found = re.search(term, content, flags=re.U | re.I)
         if found:
-            content = re.sub(str(found.group()),'<span style="background:rgba(255, 6, 6, 0.5); padding:5px;">'+str(found.group())+'</span>',content)
+            content = re.sub(str(found.group(
+            )), '<span style="background:rgba(255, 6, 6, 0.5); padding:5px;">'+str(found.group())+'</span>', content)
             break
 
     return content
 
 
 def readFile(file_path):
-    with open(file_path,"r") as iFile:
+    with open(file_path, "r") as iFile:
         content = iFile.read()
         return content
+
 
 def getFilePath(data_type, name):
     file_name = name.strip()
@@ -113,7 +117,7 @@ def getFilePath(data_type, name):
 def get_document(data_type, name):
     isExistFile = False
     data_type = data_type.strip()
-    file_path = getFilePath(data_type,name)
+    file_path = getFilePath(data_type, name)
     if data_type == constants.TYPE_LINK or not file_path:
         abort(404)
     elif data_type == constants.TYPE_HTML or data_type == constants.TYPE_TEXT:
@@ -121,9 +125,72 @@ def get_document(data_type, name):
         modified_content = modifyText(content)
         return str(modified_content)
     else:
-        return send_file(file_path)                
+        return send_file(file_path)
 
     abort(404)
+
+
+@app.route("/documents/clinical_cases", methods=["POST"])
+def get_cases():
+    print(request.json)
+    return jsonify([
+        {
+            "_id": "id_12788",
+            "case_id": 1,
+            "clinical_case": "caso clinico",
+            "time": 1245413,
+            "yes_no": "yes",
+            "meta_data": {},
+            "user_id": "u_124541",
+            "source_id": "s_45454",
+            "versions": [
+                {
+                    "id": 1,
+                    "clinical_case": "caso clinico1.1",
+                    "time": 1245413,
+                    "yes_no": "yes",
+                    "meta_data": {},
+                    "user_id": "u_124541",
+                },
+                {
+                    "id": 1,
+                    "clinical_case": "caso clinico1.2",
+                    "time": 1245413,
+                    "yes_no": "yes",
+                    "meta_data": {},
+                    "user_id": "u_124541",
+                }
+            ]
+        }, {
+            "_id": "id_3566",
+            "case_id": 2,
+            "clinical_case": "caso clinico2",
+            "time": 2245413,
+            "yes_no": "yes2",
+            "meta_data": {},
+            "user_id": "u_224541",
+            "source_id": "s_25454",
+            "versions": [
+                {
+                    "id": 1,
+                    "clinical_case": "caso clinico2.1",
+                    "time": 1245413,
+                    "yes_no": "yes",
+                    "meta_data": {},
+                    "user_id": "u_124541",
+                },
+                {
+                    "id": 1,
+                    "clinical_case": "caso clinico2.2",
+                    "time": 1245413,
+                    "yes_no": "yes",
+                    "meta_data": {},
+                    "user_id": "u_124541",
+                }
+            ]
+        }
+    ])
+
 
 # URL example = /documents/data_type/add
 @app.route("/documents/<data_type>/add", methods=["POST"])
@@ -146,13 +213,12 @@ def save_data(data_type):
     request_data = request.json
 
     doc_id = request_data.get("id")
-    yes_no = request_data.get("yes_no")  
+    yes_no = request_data.get("yes_no")
     file_name = request_data["file_name"]
     clinical_case = (request_data["clinical_case"]).strip()
     time = request_data["time"]
     meta_data = request_data["meta_data"]
     source_path = safe_join(directory, file_name.strip())
-
 
     # elif data_type != constants.PATHS_TO_DIR.keys():
     #     return jsonify({"error":
@@ -176,10 +242,10 @@ def save_data(data_type):
                                  })
 
             if data_type == constants.TYPE_LINK:
-                  link = request_data["link"].strip()
-                  data_to_save.update({"link": link})
+                link = request_data["link"].strip()
+                data_to_save.update({"link": link})
             if yes_no:
-                data_to_save["versions"][0].update({"yes_no": yes_no})                  
+                data_to_save["versions"][0].update({"yes_no": yes_no})
             result = mongo.db.clinical_cases.insert_one(data_to_save)
             request_data.update({"doc_id": str(result.inserted_id)})
         else:
@@ -187,20 +253,21 @@ def save_data(data_type):
             clinical_case_to_list = {"time": time,
                                      "clinical_case": clinical_case,
                                      "meta_data": meta_data,
-                                     
+
                                      }
             if yes_no:
                 clinical_case_to_list.update({"yes_no": yes_no})
             result = mongo.db.clinical_cases.update({"_id": ObjectId(doc_id)},
-                                           {"$addToSet": {"versions": clinical_case_to_list},
-                                            "$set": {"clinical_case": clinical_case}}
-                                            )
-            
-        versions = mongo.db.clinical_cases.find_one({"_id": ObjectId(request_data["doc_id"])},{"_id":0,"versions":1})
+                                                    {"$addToSet": {"versions": clinical_case_to_list},
+                                                     "$set": {"clinical_case": clinical_case}}
+                                                    )
+
+        versions = mongo.db.clinical_cases.find_one(
+            {"_id": ObjectId(request_data["doc_id"])}, {"_id": 0, "versions": 1})
         request_data.update(versions)
         result_to_send = request_data
     except Exception as err:
-        
+
         mongo.db.errors.insert_one(
             {"client_data": str(request_data), "error": str(err)})
 
@@ -209,7 +276,6 @@ def save_data(data_type):
                                                "type": "mongo_exception"}
                                               })
 
-  
     return jsonify(result_to_send)
 
 
@@ -234,10 +300,10 @@ if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)
 
 
-#-----------------------------------------
+# -----------------------------------------
 # @app.route("/documents/<data_type>/add", methods=["POST"])
-def save_data(data_type):
-    data_type = data_type.strip()
-    directory = constants.PATHS_TO_DIR.get(data_type)
+# def save_data(data_type):
+#     data_type = data_type.strip()
+#     directory = constants.PATHS_TO_DIR.get(data_type)
 
-    doc_id = request.json[];
+#     doc_id = request.json[];

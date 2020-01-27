@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, retry } from 'rxjs/operators';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
 
 import { ApiSchema } from '../interfaces/apiSchema';
-import { Document } from '../interfaces/document';
+import { Document, TmpDocument } from '../interfaces/document';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -20,6 +20,7 @@ const httpOptions = {
 export class ApiService {
 
   private baseUrl = 'http://127.0.0.1:5000/documents/';
+  private clinical_cases = new BehaviorSubject<TmpDocument>(null);
 
   constructor(private http: HttpClient) {
 
@@ -44,24 +45,20 @@ export class ApiService {
     );
   }
 
- 
+  requestClinicalCases(document) {
+    var url = this.baseUrl + "clinical_cases";
+    let body = document
+    return this.http.post<TmpDocument>(url, body).pipe(
+      retry(3), // retry a failed request up to 3 times      
+      catchError(this.handleError) // then handle the error
+    ).subscribe((result: TmpDocument) =>
+      this.clinical_cases.next(result)
+    );
+  }
 
-  // addClinicalCase(file: Document){ //  Observable<Document> 
-  //   var url = 'http://127.0.0.1:5000/documents/html/add';
-  //   console.log(file);
-  //   console.log("to post");
-
-  //   var tmpVar =  this.http.post(url, file);
-  //     // .pipe(
-  //     //   retry(2),
-  //     //   catchError(this.handleError)
-  //     // );
-
-  //     console.log(tmpVar);
-
-  //     // return tmpVar;
-
-  // }
+  getClinicalCasesObservable(){
+    return this.clinical_cases.asObservable();
+  }
 
   addClinicalCase(document: Document, selected_type: String): Observable<Document> {
     document.meta_data = {

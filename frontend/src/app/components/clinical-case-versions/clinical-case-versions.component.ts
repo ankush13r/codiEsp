@@ -27,22 +27,21 @@ export class ClinicalCaseVersionsComponent implements OnInit {
   constructor(private dataShareService: DataShareService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.getSelectedFile();
+    this.observeDocument();
   }
 
-  getSelectedFile() {
-    this.dataShareService.getSelectedFile().subscribe(result => {
-
+  observeDocument() {
+    this.dataShareService.observeDocument().subscribe(result => {
       if (this.document !== result && result) {
         this.document = result;
         this.showLink()
-
         if (this.document.versions) {
           this.document.versions.sort((a, b) => a["time"] - b["time"])
         }
       }
     });
   }
+
 
   showLink() {
     this.index = null;

@@ -17,13 +17,14 @@ import { Document } from 'src/app/interfaces/document';
 
 export class clinicalCase implements OnInit {
   title = "Clinical case"
-  document: Document = null;
+  document: any = null;
   selected_type: string = null;
   error: boolean = false;
   radioBoxValues = ["si", "no"];
   radioSelected: string = null;
+  selected_case: any;
   selected_version;
-
+  tmpDoc: any;
   constructor(
     private _snackBar: MatSnackBar,
     private dataShareService: DataShareService,
@@ -33,57 +34,60 @@ export class clinicalCase implements OnInit {
 
   ngOnInit() {
     // this.getPathParams();
-    this.getSelectedType();
-    this.getSelectedFile();
+    this.observeDocumentType();
+    this.observeDocument();
   }
 
+  observeDocumentType() {
+    this.dataShareService.observeDocumentType().subscribe(result => {
 
-  getPathParams() {
-    this.route.root.children.map(param =>
-      param.paramMap.subscribe(param => {
-        var link = param.get("type");
-        var type = param.get("link");
-      }))
-  }
-
-  getSelectedType() {
-    this.dataShareService.getDocType().subscribe(result => {
-      if (this.selected_type != result) {
-        this.selected_type = result;
-      }
+      this.selected_type = result;
+      console.log("debug: type");
+      console.log(result);
+      console.log("end->type");
     });
   }
 
-  getSelectedFile() {
-    this.dataShareService.getSelectedFile().subscribe(result => {
-      if (this.document !== result) {
-        this.document = result;
-        if (this.document.versions) {
-          this.existVersion(this.document.clinical_case)
-        } else {
-          this.selected_version = null;
-        }
+
+  observeDocument() {
+    this.dataShareService.observeDocument().subscribe(result => {
+      this.document = result
+      if (this.document) {
+        this.selected_case = this.document.clinical_cases[this.document.clinical_cases.length - 1];
+        this.selected_version = this.selected_case.versions[this.selected_case.versions.length - 1]
       }
+      console.log("debug: Document");
+      console.log(result);
+      console.log("end-> Document");
     });
   }
 
-  onSelectionChange(event){
-    if(event.value){
-      this.document.clinical_case = event.value["clinical_case"] 
-    }else{
-      this.document.clinical_case = this.document["temp_clinical_case"];  
-    }    
+
+  onCaseChange(value) {
+      this.selected_version = this.selected_case.versions[this.selected_case.versions.length - 1]
+  }
+
+  onVersionChange(event) {
+    console.log(this.selected_case);
     
-
+    if (event.value) {
+      this.selected_case.clinical_case = event.value["clinical_case"]
+    } else {
+      this.selected_case.clinical_case = this.selected_case["tmpText"];
+    }
   }
 
   existVersion(event) {
-    this.document.clinical_case = event.trim();   
-    this.document["temp_clinical_case"] = this.document.clinical_case;
-    if (this.document.versions) {
-      this.selected_version  = this.document.versions.find((v) => v['clinical_case'] === this.document.clinical_case);
+    
+    this.document.clinical_case = event.trim();
+    this.selected_case.clinical_case = event;    
+    this.selected_case["tmpText"] = event.value;
+    if (this.selected_case.versions) {
+      this.selected_version = this.selected_case.versions.find((v) => v['clinical_case'] == event);
     }
   }
+
+
   submitData() {
     ` TODO -> add time and meta_data into the sending object`
     this.document.clinical_case = this.document.clinical_case.trim()
@@ -102,13 +106,6 @@ export class clinicalCase implements OnInit {
     }
   }
 
-  removeData() {
-    this.apiService.removeClinicalCase(this.document);
-  }
-  modifyData() {
-    this.apiService.modifyClinicalCase(this.document);
-  }
-
 
   openSnackBar(message: string, action: string = null, style = ['snackbar-style']) {
     this._snackBar.open(message, action, {
@@ -118,3 +115,20 @@ export class clinicalCase implements OnInit {
   }
 
 }
+
+
+
+// removeData() {
+  // this.apiService.removeClinicalCase(this.document);
+// }
+// modifyData() {
+  // this.apiService.modifyClinicalCase(this.document);
+// }
+
+  // getPathParams() {
+  //   this.route.root.children.map(param =>
+  //     param.paramMap.subscribe(param => {
+  //       var link = param.get("type");
+  //       var type = param.get("link");
+  //     }))
+  // }

@@ -10,15 +10,27 @@
               </mat-option>
             </mat-select>
           </mat-form-field> -->
-        <mat-form-field class="text-center" color="warn">
-            <mat-label>Versions</mat-label>
-            <mat-select  [(value)]="selected_version" (selectionChange)="onSelectionChange($event)" name="food">
-                <mat-option >None</mat-option >
-                <mat-option *ngFor="let version of document?.versions; let i = index" [value]="version">
-                   {{version.time | date:"medium"}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+        <div class="w-100 d-flex">
+
+            <mat-form-field class="text-center" color="primary">
+                <mat-label class="text-primary">Case</mat-label>
+                <mat-select [(value)]="selected_case" (selectionChange)="onCaseChange($event)" name="case">
+                    <mat-option *ngFor="let case of document.clinical_cases; let i = index" [value]="case">
+                        case - {{i}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="text-center ml-4 flex-fill" color="warn">
+                <mat-label class="text-primary">Version</mat-label>
+                <mat-select [(value)]="selected_version" (selectionChange)="onVersionChange($event)" name="version">
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let version of selected_case?.versions; let i = index" [value]="version">
+                        {{version.time | date:"medium"}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
 
         <mat-radio-group name="yes_no" class="p-1" aria-label="Select an option">
             <mat-radio-button name="yes_no" *ngFor="let item of radioBoxValues" class="ml-4" value="{{item}}"
@@ -27,9 +39,9 @@
             </mat-radio-button>
             <mat-radio-button class="ml-4" value="-1" (change)="radioSelected = null">None</mat-radio-button>
         </mat-radio-group>
-
+        
         <textarea fxFlex="65" class="textarea" name="clinicalCase" #clinicalCase="ngModel" type="textarea"
-            (ngModelChange)="existVersion($event)" required [(ngModel)]="document.clinical_case">
+            (ngModelChange)="existVersion($event)" required [(ngModel)]="selected_case.clinical_case">
         </textarea>
 
         <div fxLayout="row" fxLayoutGap="20px" class="mt-2">

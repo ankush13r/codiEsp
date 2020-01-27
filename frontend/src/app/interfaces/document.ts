@@ -33,7 +33,6 @@ export interface TmpDocument {
     language:string;
     licence:any;
     source?:any;
-    clinical_cases:ClinicalCase[];
 }
 
 

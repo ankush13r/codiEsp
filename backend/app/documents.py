@@ -46,35 +46,73 @@ def get_data_list(file_type: str, page: int = 0, per_page: int = 10):
         if file_type == constants.TYPE_LINK:
             file_name = data["file_name"]
             link = data["link"]
-            if link[-1]=="/":
+            if link[-1] == "/":
                 link_name = link.split("/")[-2][0:22]
-                data_obj.update({"link_name":link_name})
+                data_obj.update({"link_name": link_name})
             else:
                 link_name = link.split("/")[-1][0:22]
-                data_obj.update({"link_name":link_name})          
-            
+                data_obj.update({"link_name": link_name})
+
             source_path = safe_join(dir_path, file_name.strip())
-            mongo_obj = mongo.db.clinical_cases.find_one({"source_path":source_path, "link":link})
+            mongo_obj = mongo.db.clinical_cases.find_one(
+                {"source_path": source_path, "link": link})
         else:
             file_name = data
             source_path = safe_join(dir_path, file_name.strip())
-            # First of all it will check, if the document already had been inserted, 
-            mongo_obj = mongo.db.clinical_cases.find_one({"source_path":source_path})
-            link = safe_join(constants.API_BASE_URI,file_type, file_name) 
+            # First of all it will check, if the document already had been inserted,
+            mongo_obj = mongo.db.clinical_cases.find_one(
+                {"source_path": source_path})
+            link = safe_join(constants.API_BASE_URI, file_type, file_name)
 
         # mongo.db.clinical_case.find_one({"directory_path":path,"type":file_type})
         data_obj.update({
             "file_name": file_name,
             "link": link,
             "data_type": file_type,
-            "clinical_case": ""
+            "clinical_cases": [
+                {"mongo_id": "1111",
+                 "case_id": 1,
+                 "clinical_case": "aaaaaaa",
+                 "yes_no": "si",
+                 "versions": [
+                     {"id": 1,
+                      "clinical_case": "fsdfsdfsdfsd",
+                      "yes_no": "si",
+                      "time": 124884578 },
+                     {"id": 2,
+                      "clinical_case": "adfdsfsdfs",
+                      "yes_no": "si",
+                      "time":45121247 }
+                 ]},
+                {"mongo_id": "2222",
+                 "case_id": 2,
+                 "yes_no": "no",
+                 "clinical_case": "ddddddd",
+
+                 "versions": [
+                     {"id": 1,
+                      "clinical_case": "sfsdfsfs",
+                      "yes_no": "si",
+                      "time": 10512124 }
+                 ]
+                 }
+            ]
         })
 
         if mongo_obj:
             data_obj.update({"id": str(mongo_obj["_id"]),
-                             "clinical_case": mongo_obj["clinical_case"],
-                             "versions" :mongo_obj.get("versions"),
-                             "yes_no" :mongo_obj.get("yes_no")})
+                             "clinical_case": [{"mongo_id": "1111",
+                                                "case_id": 1,
+                                                "clinical_case": mongo_obj["clinical_case"],
+                                                "yes_no": mongo_obj.get("yes_no"),
+                                                "versions": mongo_obj.get("versions"),
+                                                },
+                                               {"mongo_id": "2222",
+                                                "case_id": 2,
+                                                "clinical_case": "ssss",
+                                                "yes_no": "no",
+                                                }
+                                               ]})
 
         data_obj_list.append(data_obj)
 
@@ -86,6 +124,5 @@ def get_data_list(file_type: str, page: int = 0, per_page: int = 10):
         "perPage": per_page,
         "error": error,
     }
-    
-    return data
 
+    return data
