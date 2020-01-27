@@ -1,4 +1,0 @@
-class ClinicalCase{
-    id:string;
-    
-}

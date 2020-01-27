@@ -1,4 +1,3 @@
-import {ClinicalCase} from "./clinical-case"
 
 export interface Document {
     file_name: String;
@@ -16,10 +15,46 @@ export interface Document {
     };
 }
 
+export interface Response{
+    currentPage: number,
+    totalRecords: number,
+    perPage: number,
+    error?: object,
+    documents: TmpDocument[]
+}
+
 export interface TmpDocument {
+    mongo_id:string;
+    name: string;
+    path: string;
+    link: string;
+    format: string;
+    doc_class: string;
+    language:string;
+    licence:any;
+    source?:any;
+    clinical_cases:ClinicalCase[];
+}
+
+
+export interface ClinicalCase{
+    mongo_id:string;
+    id:number;
+    clinical_case:string;
+    time:number;
+    yes_no:string;
+    meta_data?:any;
+    user_id:string;
+    source_id:string;
+    versions:Version[];
+
+}
+
+export interface Version{
     id:string;
-    file_name: String;
-    data_type: String;
-    link_name:String;
-    clinical_case?: ClinicalCase[]
+    clinical_case:string;
+    time:number;
+    yes_no:string;
+    meta_data?:any;
+    user_id:string;
 }
