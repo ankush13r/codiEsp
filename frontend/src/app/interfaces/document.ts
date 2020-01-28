@@ -1,6 +1,6 @@
 
 export interface Document {
-    file_name: String;
+    name: String;
     data_type: String;
     clinical_case: string;
     versions:[];

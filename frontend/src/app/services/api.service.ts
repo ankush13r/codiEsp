@@ -56,7 +56,7 @@ export class ApiService {
     );
   }
 
-  getClinicalCasesObservable(){
+  getClinicalCasesObservable() {
     return this.clinical_cases.asObservable();
   }
 
@@ -65,8 +65,14 @@ export class ApiService {
       location: "location",
       conationTime: 12345
     };
+
     var url = this.baseUrl + selected_type + "/add";
     return this.http.post<Document>(url, document)
+  }
+
+  createNewCase(id: string) {
+    var url = this.baseUrl + "new_case";
+    return this.http.post<Document>(url, { _id: id });
   }
 
 

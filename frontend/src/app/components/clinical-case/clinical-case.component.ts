@@ -25,6 +25,7 @@ export class clinicalCase implements OnInit {
   selected_case: any;
   selected_version;
   tmpDoc: any;
+
   constructor(
     private _snackBar: MatSnackBar,
     private dataShareService: DataShareService,
@@ -51,25 +52,25 @@ export class clinicalCase implements OnInit {
 
   observeDocument() {
     this.dataShareService.observeDocument().subscribe(result => {
-      this.document = result
-      if (this.document) {
+      this.document = result;
+      if (this.document && this.document.clinical_cases.length > 0) {
         this.selected_case = this.document.clinical_cases[this.document.clinical_cases.length - 1];
-        this.selected_version = this.selected_case.versions[this.selected_case.versions.length - 1]
+        this.selected_version = this.selected_case.versions[this.selected_case.versions.length - 1];
       }
-      console.log("debug: Document");
+      console.log("debug: clinical-case Document");
       console.log(result);
-      console.log("end-> Document");
+      console.log("end-> clinical-case Document");
     });
   }
 
 
   onCaseChange(value) {
-      this.selected_version = this.selected_case.versions[this.selected_case.versions.length - 1]
+    this.selected_version = this.selected_case.versions[this.selected_case.versions.length - 1]
   }
 
   onVersionChange(event) {
     console.log(this.selected_case);
-    
+
     if (event.value) {
       this.selected_case.clinical_case = event.value["clinical_case"]
     } else {
@@ -78,16 +79,20 @@ export class clinicalCase implements OnInit {
   }
 
   existVersion(event) {
-    
     this.document.clinical_case = event.trim();
-    this.selected_case.clinical_case = event;    
+    this.selected_case.clinical_case = event;
     this.selected_case["tmpText"] = event.value;
     if (this.selected_case.versions) {
       this.selected_version = this.selected_case.versions.find((v) => v['clinical_case'] == event);
     }
   }
 
+  newCase() {
+    this.apiService.createNewCase(this.document._id).subscribe(result => {  
+      this.document.clinical_cases.push(result)
+    })
 
+  }
   submitData() {
     ` TODO -> add time and meta_data into the sending object`
     this.document.clinical_case = this.document.clinical_case.trim()

@@ -71,8 +71,8 @@ export class DocumentsComponent implements OnInit {
     }
   }
 
-  selectDocument(selected_document) {
-    this.dataShareService.selectDocument(selected_document)
+  selectDocument(document) {
+    this.dataShareService.selectDocument(document)
 
   }
 

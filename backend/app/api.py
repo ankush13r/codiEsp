@@ -73,7 +73,7 @@ def get_documents(data_type):
 
     page, per_page = get_valid_pagination_args(request.args)
     data = documents.get_data_list(data_type, page, per_page)
-
+    data = documents.getDocuments(data_type, page, per_page)
     return jsonify(data)
 
 
@@ -130,9 +130,32 @@ def get_document(data_type, name):
     abort(404)
 
 
+def getNextSec(name):
+
+    return 0;
+
+@app.route("/documents/new_case", methods=["POST"])
+def create_new_case():
+    try:
+        doc_id = request.json
+
+        case = {
+            "clinical_case":"",
+            "case_id":getNextSec("clinical_cases"),
+            "source_id": doc_id,
+            "versions": []
+        }
+        mongo_id = mongo.db.clinical_cases.insert(case)
+        result =  mongo.db.clinical_cases.find_one(mongo_id)
+        result.update({"_id":str(result["_id"])})
+    except Exception as err:
+        abort(404)
+
+    return jsonify(result)
+
 @app.route("/documents/clinical_cases", methods=["POST"])
 def get_cases():
-    print(request.json)
+    
     return jsonify([
         {
             "_id": "id_12788",

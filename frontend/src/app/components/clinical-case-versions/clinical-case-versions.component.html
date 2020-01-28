@@ -2,21 +2,35 @@
     <app-title [title]="title"></app-title>
     <div class="" fxFlex fxLayout="column">
         <div *ngIf="document" class="border-bottom my-1 pb-1">
-            <button [class.btnActive]="contentType == LINK && safeUrl" mat-button color="primary" class="mr-2"
-                (click)=" showLink()">Source</button>
+            <div>
+                <button [class.btnActive]="contentType == LINK && safeUrl" mat-button color="primary" class="mr-2"
+                    (click)=" showLink()">Source</button>
 
-            <button  mat-button color="primary" class="mr-2"
-                *ngFor="let item of document?.versions;let i = index" (click)=" showText(i)"
-                [class.btnActive]="i == index">
-                v.{{i}}
-            </button>
-        </div>
-        <div *ngIf="contentType == constTypeText && textToShow" class="divContent" fxFlex>
+                <mat-form-field *ngIf="this.document['clinical_cases'].length > 0" class="text-center" color="primary">
+                    <mat-label class="text-primary">Case</mat-label>
+                    <mat-select [(value)]="selected_case" (selectionChange)="onCaseChange($event)" name="case">
+                        <mat-option *ngFor="let case of document.clinical_cases; let i = index" [value]="case">
+                            case - {{i}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="selected_case?.versions" class="text-center ml-4 flex-fill" color="warn">
+                    <mat-label class="text-primary">Version</mat-label>
+                    <mat-select [(value)]="selected_version" (selectionChange)="onVersionChange($event)" name="version">
+                        <mat-option *ngFor="let version of selected_case?.versions; let i = index" [value]="version">
+                            {{version.time | date:"medium"}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>              
+        <div *ngIf="contentType == TEXT && textToShow" class="divContent" fxFlex>
             {{textToShow}}
         </div>
 
-        <iframe *ngIf="contentType == LINK && safeUrl" fxFlex name="frame" [src]="safeUrl" width="100%"
-            height="100%" frameBorder="0">
+        <iframe *ngIf="contentType == LINK && safeUrl" fxFlex name="frame" [src]="safeUrl" width="100%" height="100%"
+            frameBorder="0">
             <p>The source is invalid</p>
         </iframe>
     </div>

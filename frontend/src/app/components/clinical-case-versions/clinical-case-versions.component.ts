@@ -14,16 +14,19 @@ import { Document } from 'src/app/interfaces/document';
 })
 
 export class ClinicalCaseVersionsComponent implements OnInit {
-  title = "All versions"
+  title = "Source"
   document: Document;
   safeUrl :SafeResourceUrl;
   textToShow: String;
   contentType: String;
   index : number;
+  selected_case:any;
+  selected_version:any;
+
 
   LINK: String = "link"
-  constTypeText: String = "text"
-
+  TEXT: String = "text"
+  
   constructor(private dataShareService: DataShareService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
@@ -32,18 +35,40 @@ export class ClinicalCaseVersionsComponent implements OnInit {
 
   observeDocument() {
     this.dataShareService.observeDocument().subscribe(result => {
-      if (this.document !== result && result) {
-        this.document = result;
+      if (result && this.document !== result ) {
+        this.document = result;      
         this.showLink()
-        if (this.document.versions) {
+        if (this.document["clinical_cases"] && this.document["clinical_cases"].length > 0) {  
+          console.log("version sorting");
+                 
           this.document.versions.sort((a, b) => a["time"] - b["time"])
         }
       }
+      console.log("debug: clinical-case-version Document");
+      console.log(result);
+      console.log("end-> clinical-case-version Document");
     });
   }
 
 
+onCaseChange(value) {
+    this.selected_version = this.selected_case.versions[this.selected_case.versions.length - 1]
+    if(this.selected_version){
+      this.contentType= this.TEXT;
+      this.textToShow = this.selected_version["clinical_case"]   
+    }
+}
+
+onVersionChange(event) {
+  
+  if (event.value) {
+    this.contentType= this.TEXT;
+    this.textToShow = event.value["clinical_case"]   
+  } 
+}
   showLink() {
+    console.log(this.document);
+    
     this.index = null;
     this.contentType = this.LINK;
     this.safeUrl= this.sanitizer.bypassSecurityTrustResourceUrl(this.document.link.toString());
@@ -52,7 +77,7 @@ export class ClinicalCaseVersionsComponent implements OnInit {
   showText(index) {
     if (index < this.document.versions.length) {
       this.index = index;
-      this.contentType= this.constTypeText;
+      this.contentType= this.TEXT;
       this.textToShow = this.document.versions[index]["clinical_case"]
     } 
   }

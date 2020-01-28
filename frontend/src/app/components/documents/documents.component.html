@@ -11,12 +11,12 @@
                     </button>
                     <div>
                         <span *ngIf="document.data_type=='link'">{{document.link_name}}</span>
-                        <span *ngIf="document.data_type!='link'">{{document.file_name}}</span>
+                        <span *ngIf="document.data_type!='link'">{{document.name}}</span>
                     </div>
                     
                     <!-- <a href="{{document.link}}">
                         <span *ngIf="document.data_type=='link'">{{document.link_name}}</span>
-                        <span *ngIf="document.data_type!='link'">{{document.file_name}}</span>
+                        <span *ngIf="document.data_type!='link'">{{document.name}}</span>
                     </a> -->
 
                 </mat-list-item>
@@ -39,7 +39,7 @@
         (click)="selectDoc(document)">
         <a href="{{document.link}}">
             <span *ngIf="document.data_type=='link'">{{document.link_name}}</span>
-            <span *ngIf="document.data_type!='link'">{{document.file_name}}</span>
+            <span *ngIf="document.data_type!='link'">{{document.name}}</span>
         </a>
     </li>
 </ul> -->
