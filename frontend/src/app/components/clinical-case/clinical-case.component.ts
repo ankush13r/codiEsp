@@ -21,8 +21,8 @@ export class clinicalCase implements OnInit {
   selected_type: string = null;
   error: boolean = false;
   radioBoxValues = ["si", "no"];
-  radioSelected: string = null;
   selected_case: any;
+  new_version: object = {}
   selected_version;
   tmpDoc: any;
 
@@ -41,11 +41,7 @@ export class clinicalCase implements OnInit {
 
   observeDocumentType() {
     this.dataShareService.observeDocumentType().subscribe(result => {
-
       this.selected_type = result;
-      console.log("debug: type");
-      console.log(result);
-      console.log("end->type");
     });
   }
 
@@ -53,60 +49,89 @@ export class clinicalCase implements OnInit {
   observeDocument() {
     this.dataShareService.observeDocument().subscribe(result => {
       this.document = result;
-      if (this.document && this.document.clinical_cases.length > 0) {
-        this.selected_case = this.document.clinical_cases[this.document.clinical_cases.length - 1];
-        this.selected_version = this.selected_case.versions[this.selected_case.versions.length - 1];
+      if (this.document) {
+        if (this.document.clinical_cases.length == 0) {
+          this.newCase();
+        } else {
+          this.selected_case = this.document.clinical_cases[this.document.clinical_cases.length - 1];
+          this.selected_version = -1;
+        }
+        if (!this.selected_case.new_version) {
+          this.selected_case.new_version = {}
+        }
       }
-      console.log("debug: clinical-case Document");
-      console.log(result);
-      console.log("end-> clinical-case Document");
-    });
+    })
   }
 
-
   onCaseChange(value) {
-    this.selected_version = this.selected_case.versions[this.selected_case.versions.length - 1]
+    this.selected_version = -1;
+    if (this.selected_case.new_version) {
+      this.new_version = this.selected_case.new_version;
+    } else {
+      this.new_version = {};
+    }
   }
 
   onVersionChange(event) {
-    console.log(this.selected_case);
-
-    if (event.value) {
-      this.selected_case.clinical_case = event.value["clinical_case"]
+    if (event.value && event.value != -1) {
+      this.new_version.clinical_case = event.value["clinical_case"]
     } else {
-      this.selected_case.clinical_case = this.selected_case["tmpText"];
+      this.new_version = this.selected_case.new_version
     }
+    console.log(this.new_version);
+
   }
 
-  existVersion(event) {
-    this.document.clinical_case = event.trim();
-    this.selected_case.clinical_case = event;
-    this.selected_case["tmpText"] = event.value;
+  onChangeText(event) {
+    this.new_version.clinical_case = event.trim();
+    this.selected_case["tmpText"] = event.trim();
     if (this.selected_case.versions) {
-      this.selected_version = this.selected_case.versions.find((v) => v['clinical_case'] == event);
+      var found = this.selected_case.versions.find((v) => v['clinical_case'] == event.trim());
+      this.selected_version = found ? found : -1;
     }
+    console.log(this.selected_case.new_version);
+
+
   }
 
   newCase() {
-    this.apiService.createNewCase(this.document._id).subscribe(result => {  
-      this.document.clinical_cases.push(result)
-    })
 
+    if (Array.isArray(this.document.clinical_cases)) {
+      console.log("ss");
+      var exist_new = (this.document.clinical_cases.filter((v) => v['new'])).find(bool => bool = true);
+      if (!exist_new) {
+        this.apiService.createNewCase(this.document._id).subscribe(result => {
+          this.document.clinical_cases.push(result)
+          this.selected_case = this.document.clinical_cases[this.document.clinical_cases.length - 1];
+        });
+      }
+    } else {
+      this.apiService.createNewCase(this.document._id).subscribe(result => {
+        this.document.clinical_cases = [result]
+        this.selected_case = this.document.clinical_cases[0]
+      });
+    }
   }
+
+
   submitData() {
     ` TODO -> add time and meta_data into the sending object`
-    this.document.clinical_case = this.document.clinical_case.trim()
+
     const style = ["error-snack-bar"]
 
-    if (!this.selected_version) {
+    if (!this.selected_version || this.selected_version == -1) {
+      console.log(this.selected_case);
+
       var now = Date.now();
-      this.document.time = now;
-      this.document["yes_no"] = this.radioSelected;
-      this.apiService.addClinicalCase(this.document, this.selected_type).subscribe(result => {
-        this.document.id = result.id;
-        this.document.versions = result.versions;
+      this.selected_case.time = now;
+      this.selected_case["yes_no"] = this.radioSelected;
+      this.apiService.addClinicalCase(this.selected_case, this.selected_type).subscribe(result => {
+        this.selected_case.versions = result.versions;
+
+        console.log(result);
+
+        this.selected_version = this.selected_case.versions[this.selected_case.versions.length - 1]
         this.openSnackBar("Added successfuly", "OK");
-        this.selected_version = this.document.versions[this.document.versions.length - 1]
       });
     }
   }

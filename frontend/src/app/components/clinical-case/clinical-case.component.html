@@ -21,10 +21,10 @@
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field *ngIf=" selected_case?.versions.length > 0" class="text-center ml-4 flex-fill" color="warn">
+            <mat-form-field *ngIf="selected_case" class="text-center ml-4 flex-fill" color="warn">
                 <mat-label class="text-primary">Version</mat-label>
                 <mat-select [(value)]="selected_version" (selectionChange)="onVersionChange($event)" name="version">
-                    <mat-option>Actual</mat-option>
+                    <mat-option [value]="-1">Actual</mat-option>
                     <mat-option *ngFor="let version of selected_case?.versions; let i = index" [value]="version">
                         {{version.time | date:"medium"}}
                     </mat-option>
@@ -34,23 +34,24 @@
 
         <mat-radio-group name="yes_no" class="p-1" aria-label="Select an option">
             <mat-radio-button name="yes_no" *ngFor="let item of radioBoxValues" class="ml-4" value="{{item}}"
-                [checked]="item === selected_version?.yes_no" (change)="radioSelected = item">
+                [checked]="item === new_version?.yes_no" (change)="new_version.yes_no = item">
                 <span class="font-weight-bolder">{{item | titlecase}}</span>
             </mat-radio-button>
             <mat-radio-button class="ml-4" value="-1" (change)="radioSelected = null">None</mat-radio-button>
         </mat-radio-group>
 
         <div *ngIf="!selected_case" fxFlex="65" class="textarea bg-light p-4">
-           <p> To create a case, click on "New case" button </p>
+            <p> To create a case, click on "New case" button </p>
         </div>
-        <textarea *ngIf="selected_case" fxFlex="65" class="textarea" name="clinicalCase" #clinicalCase="ngModel" type="textarea"
-            (ngModelChange)="existVersion($event)" required [(ngModel)]="selected_case.version">
+        <textarea *ngIf="selected_case" fxFlex="65" class="textarea" name="clinicalCase"
+            #clinicalCase="ngModel" type="textarea" (ngModelChange)="onChangeText($event)" required
+            [(ngModel)]="new_version.clinical_case">
         </textarea>
 
         <div fxLayout="row" fxLayoutAlign="space-between">
             <div fxLayout="row" fxLayoutGap="20px" class="mt-2">
                 <button type="submit" mat-raised-button color="primary"
-                    [disabled]="!caseForm.valid || this.selected_version">Submit</button>
+                    [disabled]="!caseForm.valid || this.selected_version != -1">Submit</button>
                 <button type="reset" mat-raised-button color="warn">clear</button>
             </div>
             <div fxLayout="row" fxLayoutGap="20px" class="mt-2">

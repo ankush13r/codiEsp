@@ -38,15 +38,11 @@ export class ClinicalCaseVersionsComponent implements OnInit {
       if (result && this.document !== result ) {
         this.document = result;      
         this.showLink()
-        if (this.document["clinical_cases"] && this.document["clinical_cases"].length > 0) {  
-          console.log("version sorting");
-                 
-          this.document.versions.sort((a, b) => a["time"] - b["time"])
+        if (this.document["clinical_cases"] && this.document["clinical_cases"].length > 0) {                  
+          // this.document.versions.sort((a, b) => a["time"] - b["time"])
         }
       }
-      console.log("debug: clinical-case-version Document");
-      console.log(result);
-      console.log("end-> clinical-case-version Document");
+    
     });
   }
 
@@ -67,7 +63,6 @@ onVersionChange(event) {
   } 
 }
   showLink() {
-    console.log(this.document);
     
     this.index = null;
     this.contentType = this.LINK;

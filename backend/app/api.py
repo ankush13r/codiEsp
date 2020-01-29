@@ -132,30 +132,35 @@ def get_document(data_type, name):
 
 def getNextSec(name):
 
-    return 0;
+    return 0
+
 
 @app.route("/documents/new_case", methods=["POST"])
 def create_new_case():
     try:
-        doc_id = request.json
+        doc_id = request.json["_id"]
 
         case = {
-            "clinical_case":"",
-            "case_id":getNextSec("clinical_cases"),
-            "source_id": doc_id,
-            "versions": []
+            "clinical_case": "",
+            "case_id": getNextSec("clinical_cases"),
+            "source_id": ObjectId(doc_id),
+            "versions": [],
+            "new": True
         }
         mongo_id = mongo.db.clinical_cases.insert(case)
-        result =  mongo.db.clinical_cases.find_one(mongo_id)
-        result.update({"_id":str(result["_id"])})
+        result = mongo.db.clinical_cases.find_one(mongo_id)
+        result.update({"_id": str(result["_id"]),
+                       "source_id": str(result["source_id"])})
+
     except Exception as err:
         abort(404)
 
     return jsonify(result)
 
+
 @app.route("/documents/clinical_cases", methods=["POST"])
 def get_cases():
-    
+
     return jsonify([
         {
             "_id": "id_12788",
@@ -215,6 +220,28 @@ def get_cases():
     ])
 
 
+def validMongoQuery(json):
+
+    _id = ObjectId(json["_id"])
+    source_id = ObjectId(json["source_id"])
+    caseText = json["clinical_case"]
+    time = int(json["time"])
+    yes_no = json["yes_no"]
+
+    user_id = 'json["user_id"]'
+    lang = 'json["lang"]'
+    loc = 'json["location"]'
+    
+    caseObj = {"clinical_case": caseText, "time": time,
+               "yes_no": yes_no, "lang": lang, "user_id": user_id, "location": loc}
+    updateQuery = {
+        "$addToSet": {"versions": caseObj},
+        "$set": caseObj,
+        "$unset": {"new": 1}
+    }
+
+    return _id, updateQuery
+
 # URL example = /documents/data_type/add
 @app.route("/documents/<data_type>/add", methods=["POST"])
 def save_data(data_type):
@@ -230,74 +257,33 @@ def save_data(data_type):
                         }
 
     """
-    data_type = data_type.strip()
-    directory = constants.PATHS_TO_DIR.get(data_type)
 
-    request_data = request.json
-
-    doc_id = request_data.get("id")
-    yes_no = request_data.get("yes_no")
-    file_name = request_data["file_name"]
-    clinical_case = (request_data["clinical_case"]).strip()
-    time = request_data["time"]
-    meta_data = request_data["meta_data"]
-    source_path = safe_join(directory, file_name.strip())
-
-    # elif data_type != constants.PATHS_TO_DIR.keys():
-    #     return jsonify({"error":
-    #                     {"message": "Data type parameter of url is invalid, please check the url",
-    #                      "type": "invalid_parm"}
-    #                     })
-
-    result_to_send = {}
     try:
-        if not doc_id:
-            data_to_save = dict({"data_type": data_type,
-                                 "file_name": file_name,
-                                 "source_path": source_path,
-                                 "versions": [
-                                     {
-                                         "time": time,
-                                         "clinical_case": clinical_case,
-                                         "meta_data": meta_data
-                                     }],
-                                 "clinical_case": clinical_case,
-                                 })
-
-            if data_type == constants.TYPE_LINK:
-                link = request_data["link"].strip()
-                data_to_save.update({"link": link})
-            if yes_no:
-                data_to_save["versions"][0].update({"yes_no": yes_no})
-            result = mongo.db.clinical_cases.insert_one(data_to_save)
-            request_data.update({"doc_id": str(result.inserted_id)})
-        else:
-            doc_id = doc_id.strip()
-            clinical_case_to_list = {"time": time,
-                                     "clinical_case": clinical_case,
-                                     "meta_data": meta_data,
-
-                                     }
-            if yes_no:
-                clinical_case_to_list.update({"yes_no": yes_no})
-            result = mongo.db.clinical_cases.update({"_id": ObjectId(doc_id)},
-                                                    {"$addToSet": {"versions": clinical_case_to_list},
-                                                     "$set": {"clinical_case": clinical_case}}
-                                                    )
-
-        versions = mongo.db.clinical_cases.find_one(
-            {"_id": ObjectId(request_data["doc_id"])}, {"_id": 0, "versions": 1})
-        request_data.update(versions)
-        result_to_send = request_data
-    except Exception as err:
-
-        mongo.db.errors.insert_one(
-            {"client_data": str(request_data), "error": str(err)})
-
-        result_to_send = request_data.update({"error":
-                                              {"message": str(err),
-                                               "type": "mongo_exception"}
+        _id, updateQuery = validMongoQuery(request.json)
+        
+        result = mongo.db.clinical_cases.update({"_id": _id}, updateQuery)
+        if result["nModified"] > 0:
+            mongoObj = mongo.db.clinical_cases.find_one({"_id": _id})
+            mongoObj.update({"_id": str(mongoObj["_id"]),
+                                              "source_id": str(mongoObj["source_id"])
                                               })
+            result_to_send = mongoObj
+
+        else:
+            result_to_send = request.json.update({"error":
+                                                  {"message": "Couldn't update, maybe the mongo _id is invalid.",
+                                                   "type": "mongo_exception"}
+                                                  })
+
+
+    except Exception as err:
+        print(err)
+        mongo.db.errors.insert_one({"client_data": str(request.json),
+                                    "error": str(err)})
+
+        result_to_send = request.json.update({"error": {"message": str(err),
+                                                        "type": "mongo_exception"}})
+
 
     return jsonify(result_to_send)
 

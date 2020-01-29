@@ -143,9 +143,10 @@ def getDocuments(file_type: str, page: int = 0, per_page: int = 10):
     error = None
     documents = mongo_documents[start:end]
     for document in documents:
-        
+
         if document["format"] != "link":
-            link = safe_join(constants.API_BASE_URI, document["format"], document["name"])
+            link = safe_join(constants.API_BASE_URI,
+                             document["format"], document["name"])
         else:
             link = document["link"]
 
@@ -156,11 +157,11 @@ def getDocuments(file_type: str, page: int = 0, per_page: int = 10):
             case.update({
                 "_id": str(case["_id"]),
                 "source_id": str(case["source_id"]),
-                
+
             })
 
         document.update({"_id": str(document["_id"]),
-        "link":link,
+                         "link": link,
                          "clinical_cases": clinical_cases})
 
     data = {
