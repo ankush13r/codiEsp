@@ -11,6 +11,7 @@ from bson.objectid import ObjectId
 import os
 import time
 import re
+import copy
 
 from flask import Flask, jsonify, request, send_file, session, send_from_directory, safe_join, abort
 from flask_pymongo import PyMongo
@@ -72,7 +73,7 @@ def get_documents(data_type):
         abort(404)
 
     page, per_page = get_valid_pagination_args(request.args)
-    data = documents.get_data_list(data_type, page, per_page)
+    # data = documents.get_data_list(data_type, page, per_page)
     data = documents.getDocuments(data_type, page, per_page)
     return jsonify(data)
 
@@ -158,89 +159,38 @@ def create_new_case():
     return jsonify(result)
 
 
-@app.route("/documents/clinical_cases", methods=["POST"])
-def get_cases():
-
-    return jsonify([
-        {
-            "_id": "id_12788",
-            "case_id": 1,
-            "clinical_case": "caso clinico",
-            "time": 1245413,
-            "yes_no": "yes",
-            "meta_data": {},
-            "user_id": "u_124541",
-            "source_id": "s_45454",
-            "versions": [
-                {
-                    "id": 1,
-                    "clinical_case": "caso clinico1.1",
-                    "time": 1245413,
-                    "yes_no": "yes",
-                    "meta_data": {},
-                    "user_id": "u_124541",
-                },
-                {
-                    "id": 1,
-                    "clinical_case": "caso clinico1.2",
-                    "time": 1245413,
-                    "yes_no": "yes",
-                    "meta_data": {},
-                    "user_id": "u_124541",
-                }
-            ]
-        }, {
-            "_id": "id_3566",
-            "case_id": 2,
-            "clinical_case": "caso clinico2",
-            "time": 2245413,
-            "yes_no": "yes2",
-            "meta_data": {},
-            "user_id": "u_224541",
-            "source_id": "s_25454",
-            "versions": [
-                {
-                    "id": 1,
-                    "clinical_case": "caso clinico2.1",
-                    "time": 1245413,
-                    "yes_no": "yes",
-                    "meta_data": {},
-                    "user_id": "u_124541",
-                },
-                {
-                    "id": 1,
-                    "clinical_case": "caso clinico2.2",
-                    "time": 1245413,
-                    "yes_no": "yes",
-                    "meta_data": {},
-                    "user_id": "u_124541",
-                }
-            ]
-        }
-    ])
-
-
 def validMongoQuery(json):
 
-    _id = ObjectId(json["_id"])
+    _id = json.get("_id")
+
+    if _id:
+        _id = ObjectId(_id)
+
     source_id = ObjectId(json["source_id"])
     caseText = json["clinical_case"]
     time = int(json["time"])
-    yes_no = json["yes_no"]
+    user_id = json["user_id"]
+    loc = json["location"]
 
-    user_id = 'json["user_id"]'
-    lang = 'json["lang"]'
-    loc = 'json["location"]'
-    
     caseObj = {"clinical_case": caseText, "time": time,
-               "yes_no": yes_no, "lang": lang, "user_id": user_id, "location": loc}
-    updateQuery = {
-        "$addToSet": {"versions": caseObj},
-        "$set": caseObj,
-        "$unset": {"new": 1}
-    }
+               "user_id": user_id, "location": loc}
 
-    return _id, updateQuery
+    yes_no = json.get("yes_no")
+    if yes_no:
+        caseObj.update({"yes_no": yes_no})
+
+    if _id:
+        version = copy.deepcopy(caseObj)
+        caseObj.update({"source_id":version})
+        query = {
+            "$addToSet": {"versions": caseObj},
+            "$set": caseObj,
+        }
+    else:
+        query = copy.deepcopy(caseObj)
+        query.update({"versions": [caseObj],"source_id":source_id})
+
+    return _id, query
 
 # URL example = /documents/data_type/add
 @app.route("/documents/<data_type>/add", methods=["POST"])
@@ -259,32 +209,33 @@ def save_data(data_type):
     """
 
     try:
-        _id, updateQuery = validMongoQuery(request.json)
-        
-        result = mongo.db.clinical_cases.update({"_id": _id}, updateQuery)
-        if result["nModified"] > 0:
+        isNew = False
+    
+        _id, query = validMongoQuery(request.json)
+        if _id:
+
+            result = mongo.db.clinical_cases.update({"_id": _id}, query)
+            
+        else:
+            _id = mongo.db.clinical_cases.save(query)
+            isNew = True
+
+        if isNew or result["nModified"] > 0:
             mongoObj = mongo.db.clinical_cases.find_one({"_id": _id})
             mongoObj.update({"_id": str(mongoObj["_id"]),
-                                              "source_id": str(mongoObj["source_id"])
-                                              })
+                             "source_id": str(mongoObj["source_id"])
+                             })
             result_to_send = mongoObj
-
         else:
-            result_to_send = request.json.update({"error":
-                                                  {"message": "Couldn't update, maybe the mongo _id is invalid.",
-                                                   "type": "mongo_exception"}
-                                                  })
-
+            
+            abort(400, "Couldn't update, maybe the mongo _id is invalid.")
 
     except Exception as err:
-        print(err)
+        print("Error:", err)
         mongo.db.errors.insert_one({"client_data": str(request.json),
                                     "error": str(err)})
-
-        result_to_send = request.json.update({"error": {"message": str(err),
-                                                        "type": "mongo_exception"}})
-
-
+        
+        abort(400, str(err))
     return jsonify(result_to_send)
 
 

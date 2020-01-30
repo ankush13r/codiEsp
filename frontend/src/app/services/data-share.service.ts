@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
 import { Observable, BehaviorSubject, of } from 'rxjs';
-import { Document } from '../interfaces/document';
+import { Document } from '../modules/document';
 
 
 @Injectable({
@@ -11,7 +11,7 @@ import { Document } from '../interfaces/document';
 export class DataShareService {
   // Create a new variable type BehaviorSubject to share selected file between two components.
   // BehaviorSubject serves for synchronize shared data
-  private selectedFile = new BehaviorSubject<Document>(null);
+  private selectedDocument = new BehaviorSubject<Document>(null);
   private docType = new BehaviorSubject<string>(null);
   private currentLat;
   private currentLong;
@@ -21,10 +21,10 @@ export class DataShareService {
   }
 
   observeDocument() {
-    return (this.selectedFile.asObservable())
+    return (this.selectedDocument.asObservable())
   }
   selectDocument(file: Document) {
-    this.selectedFile.next(file);
+    this.selectedDocument.next(file);
   }
 
   observeDocumentType() {

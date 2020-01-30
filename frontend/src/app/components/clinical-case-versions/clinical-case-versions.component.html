@@ -5,26 +5,10 @@
             <div>
                 <button [class.btnActive]="contentType == LINK && safeUrl" mat-button color="primary" class="mr-2"
                     (click)=" showLink()">Source</button>
-
-                <mat-form-field *ngIf="this.document['clinical_cases'].length > 0" class="text-center" color="primary">
-                    <mat-label class="text-primary">Case</mat-label>
-                    <mat-select [(value)]="selected_case" (selectionChange)="onCaseChange($event)" name="case">
-                        <mat-option *ngFor="let case of document.clinical_cases; let i = index" [value]="case">
-                            case - {{i}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-                <mat-form-field *ngIf="selected_case?.versions" class="text-center ml-4 flex-fill" color="warn">
-                    <mat-label class="text-primary">Version</mat-label>
-                    <mat-select [(value)]="selected_version" (selectionChange)="onVersionChange($event)" name="version">
-                        <mat-option *ngFor="let version of selected_case?.versions; let i = index" [value]="version">
-                            {{version.time | date:"medium"}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+                <button [class.btnActive]="contentType == LINK && safeUrl" mat-button color="primary" class="mr-2"
+                    (click)=" showLink()">Target</button>
             </div>
-        </div>              
+        </div>
         <div *ngIf="contentType == TEXT && textToShow" class="divContent" fxFlex>
             {{textToShow}}
         </div>

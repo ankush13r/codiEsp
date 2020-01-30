@@ -4,8 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 
 import { DataShareService } from '../../services/data-share.service';
 import { ApiService } from "../../services/api.service"
-import { ApiSchema } from 'src/app/interfaces/apiSchema';
-import { Document } from 'src/app/interfaces/document';
+
+import { ApiResponse } from '../../modules/apiResponse';
+import {Document} from '../../modules/document'
 
 @Component({
   selector: 'app-documents',
@@ -14,8 +15,8 @@ import { Document } from 'src/app/interfaces/document';
 })
 export class DocumentsComponent implements OnInit {
   title = "Documents";
-  selected_document: Document;
-  data: ApiSchema = null;
+  selectedDocument: Document;
+  apiResponse: ApiResponse = null;
   pageIndex: object = {};
   pageLength: object = {};
   paginationEvent: PageEvent;
@@ -65,8 +66,8 @@ export class DocumentsComponent implements OnInit {
         this.pageIndex[this.selected_type],
         this.pageLength[this.selected_type]
       ).subscribe(result => {
-        this.data = result
-        this.selectDocument(this.data.documents[0]);
+        this.apiResponse = result
+        this.selectDocument(this.apiResponse.$documents[0]);
       });
     }
   }
@@ -78,14 +79,14 @@ export class DocumentsComponent implements OnInit {
 
   observeDocument() {
     this.dataShareService.observeDocument().subscribe(result => {
-      this.selected_document = result
+      this.selectedDocument = result
     });
   }
 
 
 
   newWindow() {
-    window.open((this.selected_document.link).toString(), "_blank")
+    window.open((this.selectedDocument.$link).toString(), "_blank")
   }
 
 

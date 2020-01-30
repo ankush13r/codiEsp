@@ -2,9 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, retry } from 'rxjs/operators';
 import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { ApiSchema } from '../interfaces/apiSchema';
-import { Document, TmpDocument } from '../interfaces/document';
+
+import { ApiResponse } from '../modules/apiResponse';
+import { ClinicalCase } from '../modules/clinicalCase';
+
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -20,13 +23,12 @@ const httpOptions = {
 export class ApiService {
 
   private baseUrl = 'http://127.0.0.1:5000/documents/';
-  private clinical_cases = new BehaviorSubject<TmpDocument>(null);
 
   constructor(private http: HttpClient) {
 
   }
 
-  getDocuments(selected_type: String, index: number = 0, pageSize: number = 10): Observable<ApiSchema> {
+  getDocuments(selected_type: String, index: number = 0, pageSize: number = 10): Observable<ApiResponse> {
     var url = this.baseUrl + selected_type;
 
     if (!index) {
@@ -39,35 +41,28 @@ export class ApiService {
       .set("pageIndex", index.toString())
       .set("pageSize", pageSize.toString());
 
-    return this.http.get<ApiSchema>(url, { params: params }).pipe(
-      retry(3), // retry a failed request up to 3 times      
-      catchError(this.handleError) // then handle the error
+
+    return this.http.get<ApiResponse>(url, { params: params }).pipe(
+      map(data => new ApiResponse().deserialize(data))
     );
+
+
+
+    // this.http.get<ApiSchema>(url, { params: params }).pipe(
+    //   retry(3), // retry a failed request up to 3 times      
+    //   catchError(this.handleError) // then handle the error
+    // );
+
   }
 
-  requestClinicalCases(document) {
-    var url = this.baseUrl + "clinical_cases";
-    let body = document
-    return this.http.post<TmpDocument>(url, body).pipe(
-      retry(3), // retry a failed request up to 3 times      
-      catchError(this.handleError) // then handle the error
-    ).subscribe((result: TmpDocument) =>
-      this.clinical_cases.next(result)
-    );
-  }
 
-  getClinicalCasesObservable() {
-    return this.clinical_cases.asObservable();
-  }
-
-  addClinicalCase(document: Document, selected_type: String): Observable<Document> {
-    document.meta_data = {
-      location: "location",
-      conationTime: 12345
-    };
+  addClinicalCase(document: any, selected_type: String): Observable<ClinicalCase> {
+    document.location = "location";
 
     var url = this.baseUrl + selected_type + "/add";
-    return this.http.post<Document>(url, document)
+    return this.http.post<Document>(url, document).pipe(
+      map(data => new ClinicalCase().deserialize(data))
+    );
   }
 
   createNewCase(id: string) {
