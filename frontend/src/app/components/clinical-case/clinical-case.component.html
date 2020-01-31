@@ -6,8 +6,8 @@
             <mat-form-field class="text-center" color="primary">
                 <mat-label class="text-primary">Case</mat-label>
                 <mat-select [(value)]="selectedCase" (selectionChange)="onCaseChange($event)" name="case">
-                    <mat-option *ngFor="let case of document.$clinical_cases; let i = index" [value]="case">
-                        case - {{i}}
+                    <mat-option *ngFor="let case of document.$clinical_cases" [value]="case">
+                        {{case.$case_id || case.$case_id == 0? case.$case_id:"New"}} - case
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -16,27 +16,32 @@
                 <mat-label class="text-primary">Version</mat-label>
                 <mat-select [(value)]="selectedCaseVersion" (selectionChange)="onVersionChange($event)" name="version">
                     <mat-option [value]="selectedCase.$newCaseVersion">Actual</mat-option>
-                    <mat-option *ngFor="let version of selectedCase?.$versions; let i = index" [value]="version">
-                        {{version.$time | date:"medium"}}
+                    <mat-option *ngFor="let version of selectedCase?.$versions" [value]="version">
+                        {{version.$id}} - {{version.$time | date:"medium"}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
 
-        <mat-radio-group *ngIf="selectedCase" name="yes_no" class="p-1" aria-label="Select an option">
-            <mat-radio-button name="yes_no" *ngFor="let item of radioBoxValues" class="ml-4" value="{{item}}"
-                [checked]="selectedCaseVersion?.$yes_no == item" (change)="selectedCase.$newCaseVersion.$yes_no = item">
-                <span class="font-weight-bolder">{{item | titlecase}}</span>
-            </mat-radio-button>
-            <mat-radio-button class="ml-4" value="-1" (change)="selectedCase.$newCaseVersion.$yes_no = null">None
-            </mat-radio-button>
-        </mat-radio-group>
+        <div  fxLayout="row" fxLayoutAlign="space-around center" >
+            <mat-radio-group *ngIf="selectedCase" name="yes_no" class="p-1" aria-label="Select an option">
+                <mat-radio-button name="yes_no" *ngFor="let item of radioBoxValues" class="ml-4" value="{{item}}"
+                    [checked]="selectedCaseVersion?.$yes_no == item"
+                    (change)="selectedCase.$newCaseVersion.$yes_no = item">
+                    <span class="font-weight-bolder">{{item | titlecase}}</span>
+                </mat-radio-button>
+                <mat-radio-button class="ml-4" value="-1" (change)="selectedCase.$newCaseVersion.$yes_no = null">None
+                </mat-radio-button>
+            </mat-radio-group>
+            <button type="button" mat-button color="accent" class="mb-2" (click)="showTarget(true)">show target</button>
+        </div>
+
 
 
         <textarea *ngIf="selectedCase" fxFlex="65" class="textarea" name="clinicalCase" #clinicalCase="ngModel"
             type="textarea" [disabled]="!canModify" (ngModelChange)="onChangeText($event)" required
             [(ngModel)]="auxText">
-    </textarea>
+        </textarea>
 
         <div fxLayout="row" fxLayoutAlign="space-between">
             <div fxLayout="row" fxLayoutGap="20px" class="mt-2">
@@ -52,7 +57,6 @@
                 <button type="button" mat-raised-button>Finish</button>
             </div>
         </div>
-
 
     </form>
 </div>

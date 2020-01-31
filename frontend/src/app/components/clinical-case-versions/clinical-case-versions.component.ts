@@ -3,7 +3,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
 import { Pipe, PipeTransform } from '@angular/core';
 
 import { DataShareService } from '../../services/data-share.service';
-import { Document } from 'src/app/interfaces/document';
+import { Document } from '../../modules/document';
 
 
 
@@ -16,64 +16,49 @@ import { Document } from 'src/app/interfaces/document';
 export class ClinicalCaseVersionsComponent implements OnInit {
   title = "Source"
   document: Document;
-  safeUrl :SafeResourceUrl;
-  textToShow: String;
+  safeUrl: SafeResourceUrl;
+  auxText: String;
   contentType: String;
-  index : number;
-  selected_case:any;
-  selected_version:any;
+
 
 
   LINK: String = "link"
   TEXT: String = "text"
-  
+
   constructor(private dataShareService: DataShareService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.observeDocument();
+    this.observeAuxText();
   }
 
   observeDocument() {
     this.dataShareService.observeDocument().subscribe(result => {
-      if (result && this.document !== result ) {
-        this.document = result;      
+      if (result && this.document !== result) {
+        this.document = result;
         this.showLink()
-        if (this.document["clinical_cases"] && this.document["clinical_cases"].length > 0) {                  
+        if (this.document["clinical_cases"] && this.document["clinical_cases"].length > 0) {
           // this.document.versions.sort((a, b) => a["time"] - b["time"])
         }
       }
-    
+
     });
   }
 
 
-onCaseChange(value) {
-    this.selected_version = this.selected_case.versions[this.selected_case.versions.length - 1]
-    if(this.selected_version){
-      this.contentType= this.TEXT;
-      this.textToShow = this.selected_version["clinical_case"]   
-    }
-}
+  observeAuxText(){
+    this.dataShareService.observeAuxText().subscribe(result => 
+      this.auxText = result
+    );
+  }
 
-onVersionChange(event) {
-  
-  if (event.value) {
-    this.contentType= this.TEXT;
-    this.textToShow = event.value["clinical_case"]   
-  } 
-}
   showLink() {
-    
-    this.index = null;
     this.contentType = this.LINK;
-    this.safeUrl= this.sanitizer.bypassSecurityTrustResourceUrl(this.document.link.toString());
+    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.document.$link);
   }
 
-  showText(index) {
-    if (index < this.document.versions.length) {
-      this.index = index;
-      this.contentType= this.TEXT;
-      this.textToShow = this.document.versions[index]["clinical_case"]
-    } 
+  showText() {
+    this.contentType = this.TEXT;
   }
+
 }

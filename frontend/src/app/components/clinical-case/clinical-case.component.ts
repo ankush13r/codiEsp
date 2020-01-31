@@ -28,7 +28,7 @@ export class clinicalCase implements OnInit {
   selectedCaseVersion: Version = null;
   canModify = true;
   auxText: string = null;
-
+  toAsync:boolean = false;
 
   constructor(
     private _snackBar: MatSnackBar,
@@ -60,7 +60,6 @@ export class clinicalCase implements OnInit {
 
   arrangeView() {
     this.selectedCase = this.document.$clinical_cases[this.document.$clinical_cases.length - 1];
-    console.log(this.selectedCase);
 
     this.selectedCaseVersion = this.selectedCase.$newCaseVersion;
     this.auxText = this.selectedCaseVersion.$clinical_case;
@@ -69,7 +68,6 @@ export class clinicalCase implements OnInit {
   onCaseChange(event) {
     this.selectedCaseVersion = this.selectedCase.$newCaseVersion;
     this.auxText = this.selectedCaseVersion.$clinical_case;
-
   }
 
   onVersionChange(event) {
@@ -92,10 +90,12 @@ export class clinicalCase implements OnInit {
     if (this.selectedCase.$versions) {
       version = this.selectedCase.$versions.find((v) => v.$clinical_case.toLowerCase() == text.toLowerCase());
     }
-
-    this.selectedCaseVersion = version ? version : this.selectedCase.$newCaseVersion;;
-
+    this.selectedCaseVersion = version ? version : this.selectedCase.$newCaseVersion;
+    if(this.toAsync){
+      this.showTarget();
+    }
   }
+
 
   newCase() {
     var isNew = this.document.$clinical_cases.find((cases) => cases.$isNew == true);
@@ -103,15 +103,24 @@ export class clinicalCase implements OnInit {
     if (!isNew) {
       this.document.$clinical_cases.push(new ClinicalCase().deserialize({ isNew: true }))
       this.selectedCase = this.document.$clinical_cases[this.document.$clinical_cases.length - 1]
+    }else{
+      this.openSnackBar("Error: New case is already opened", "OK");
+      this.selectedCase = isNew;
     }
+  }
 
+  showTarget(toShow:boolean= false){
+    this.dataShareService.changeAuxText(this.auxText);
+    this.toAsync = (this.selectedCaseVersion == this.selectedCase.$newCaseVersion);
+    if(toShow){
+      this.dataShareService.setTypeText();
+    }
   }
 
   onSubmit() {
     const style = ["error-snack-bar"]
 
     this.selectedCase.$isNew = null;
-
 
     if (this.selectedCaseVersion == this.selectedCase.$newCaseVersion) {
       var now = Date.now();
@@ -126,9 +135,10 @@ export class clinicalCase implements OnInit {
       }
 
       this.apiService.addClinicalCase(jsonToSubmit, this.docType).subscribe(result => {
+        this.selectedCase.$_id = result.$_id
+        this.selectedCase.$case_id = result.$case_id
         this.selectedCase.$versions = result.$versions;
-
-       
+        this.selectedCaseVersion = this.selectedCase.$versions[this.selectedCase.$versions.length - 1]
         this.openSnackBar("Added successfully", "OK");
       });
     } else {

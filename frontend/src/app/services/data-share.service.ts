@@ -13,6 +13,10 @@ export class DataShareService {
   // BehaviorSubject serves for synchronize shared data
   private selectedDocument = new BehaviorSubject<Document>(null);
   private docType = new BehaviorSubject<string>(null);
+  private auxText = new BehaviorSubject<string>(null);
+  private targetType = new BehaviorSubject<string>(null);
+
+
   private currentLat;
   private currentLong;
 
@@ -26,6 +30,7 @@ export class DataShareService {
   selectDocument(file: Document) {
     this.selectedDocument.next(file);
   }
+ 
 
   observeDocumentType() {
     return (this.docType.asObservable())
@@ -34,7 +39,21 @@ export class DataShareService {
     this.docType.next(type);
   }
 
+  setTargetType(){
+    this.targetType.next("TEXT");
+  }
 
+
+  observeTargetType() {
+    return (this.targetType.asObservable())
+  }
+
+  observeAuxText() {
+    return (this.auxText.asObservable())
+  }
+  changeAuxText(text: string) {
+    this.auxText.next(text);
+  }
 
   //################################
   findMe() {

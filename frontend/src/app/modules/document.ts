@@ -14,7 +14,9 @@ export class Document {
   deserialize(input: any): this {
 
     Object.assign(this, input);
+   
     if(input.clinical_cases && Array.isArray(input.clinical_cases) && input.clinical_cases.length > 0){
+      input.clinical_cases.sort((a,b)=> a.case_id - b.case_id)
       this.clinical_cases = input.clinical_cases.map(clinical_case => new ClinicalCase().deserialize(clinical_case));
     }else{
       this.clinical_cases = [new ClinicalCase()]
