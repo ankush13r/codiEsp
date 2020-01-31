@@ -18,11 +18,11 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DocumentsComponent } from './components/documents/documents.component';
-import { clinicalCase } from './components/clinical-case/clinical-case.component';
+import { clinicalCase } from './components/target/target.component';
 import { AppRoutingModule } from './routes/app-routing.module';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { MainComponent } from './components/main/main.component';
-import { ClinicalCaseVersionsComponent } from './components/clinical-case-versions/clinical-case-versions.component';
+import { ClinicalCaseVersionsComponent } from './components/preview/preview.component';
 import { TitleComponent } from './components/shared-com/title/title.component';
 
 @NgModule({

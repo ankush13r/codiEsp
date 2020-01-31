@@ -11,9 +11,9 @@ import { Version } from '../../modules/version';
 
 
 @Component({
-  selector: 'app-clinical-case',
-  templateUrl: './clinical-case.component.html',
-  styleUrls: ['./clinical-case.component.css']
+  selector: 'app-target',
+  templateUrl: './target.component.html',
+  styleUrls: ['./target.component.css']
 })
 
 
@@ -113,7 +113,7 @@ export class clinicalCase implements OnInit {
     this.dataShareService.changeAuxText(this.auxText);
     this.toAsync = (this.selectedCaseVersion == this.selectedCase.$newCaseVersion);
     if(toShow){
-      this.dataShareService.setTypeText();
+      // this.dataShareService.setTypeText();
     }
   }
 

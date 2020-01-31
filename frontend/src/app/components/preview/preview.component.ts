@@ -8,9 +8,9 @@ import { Document } from '../../modules/document';
 
 
 @Component({
-  selector: 'app-clinical-case-versions',
-  templateUrl: './clinical-case-versions.component.html',
-  styleUrls: ['./clinical-case-versions.component.css']
+  selector: 'app-preview',
+  templateUrl: './preview.component.html',
+  styleUrls: ['./preview.component.css']
 })
 
 export class ClinicalCaseVersionsComponent implements OnInit {

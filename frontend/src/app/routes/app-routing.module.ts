@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DocumentsComponent } from '../components/documents/documents.component';
 import { MainComponent } from '../components/main/main.component';
 
-import { clinicalCase } from '../components/clinical-case/clinical-case.component';
+import { clinicalCase } from '../components/target/target.component';
 
 
 
