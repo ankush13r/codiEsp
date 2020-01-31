@@ -159,8 +159,37 @@ def create_new_case():
     return jsonify(result)
 
 
-def validMongoQuery(json):
+def getCaseID(source_id):
+    new_case_id = 0
+    results = list(mongo.db.clinical_cases.find(
+        {"source_id": source_id}, {"_id": 0, "case_id": 1}))
+    case_ids = [result.get("case_id") for result in results]
 
+    try:
+        maxNum = max(case_ids)
+        new_case_id = maxNum + 1
+    except:
+        pass
+
+    return new_case_id
+
+
+def getVersionID(_id):
+    new_v_id = 0
+    results = mongo.db.clinical_cases.find_one(
+        {"_id": _id}, {"_id": 0, "versions": 1})
+    v_ids = [result["id"] for result in results["versions"]]
+    try:
+        maxNum = max(v_ids)
+        new_v_id = maxNum + 1
+    except:
+        pass
+
+    return new_v_id
+
+
+def validMongoQuery(json):
+    v_id = 0
     _id = json.get("_id")
 
     if _id:
@@ -180,15 +209,23 @@ def validMongoQuery(json):
         caseObj.update({"yes_no": yes_no})
 
     if _id:
+        v_id = getVersionID(_id)
         version = copy.deepcopy(caseObj)
-        caseObj.update({"source_id":version})
+        version.update({"id": v_id})
+
+        caseObj.update({"source_id": source_id})
         query = {
-            "$addToSet": {"versions": caseObj},
+            "$addToSet": {"versions": version},
             "$set": caseObj,
         }
     else:
-        query = copy.deepcopy(caseObj)
-        query.update({"versions": [caseObj],"source_id":source_id})
+        case_id = getCaseID(source_id)
+        version = copy.deepcopy(caseObj)
+        version.update({"id": 0})
+
+        caseObj.update(
+            {"versions": [version], "source_id": source_id, "case_id": case_id})
+        query = caseObj
 
     return _id, query
 
@@ -210,31 +247,34 @@ def save_data(data_type):
 
     try:
         isNew = False
-    
-        _id, query = validMongoQuery(request.json)
-        if _id:
 
+        _id, query = validMongoQuery(request.json)
+
+        if _id:
             result = mongo.db.clinical_cases.update({"_id": _id}, query)
-            
         else:
             _id = mongo.db.clinical_cases.save(query)
             isNew = True
 
         if isNew or result["nModified"] > 0:
             mongoObj = mongo.db.clinical_cases.find_one({"_id": _id})
+            
+            mongo.db.documents.update({"_id": mongoObj["source_id"]}, {
+                                      "$set": {"state": 0}})
+
             mongoObj.update({"_id": str(mongoObj["_id"]),
                              "source_id": str(mongoObj["source_id"])
                              })
             result_to_send = mongoObj
         else:
-            
+
             abort(400, "Couldn't update, maybe the mongo _id is invalid.")
 
     except Exception as err:
         print("Error:", err)
         mongo.db.errors.insert_one({"client_data": str(request.json),
                                     "error": str(err)})
-        
+
         abort(400, str(err))
     return jsonify(result_to_send)
 

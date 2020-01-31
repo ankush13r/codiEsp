@@ -7,6 +7,7 @@ import { ApiService } from '../../services/api.service';
 import { Document } from '../../modules/document';
 import { ClinicalCase } from '../../modules/clinicalCase';
 import { Version } from '../../modules/version';
+import { on } from 'cluster';
 
 
 
@@ -52,6 +53,8 @@ export class clinicalCase implements OnInit {
   observeDocument() {
     this.dataShareService.observeDocument().subscribe(result => {
       if (result) {
+        console.log("sssss");
+        
         this.document = result;
         this.arrangeView();
       }
@@ -60,9 +63,8 @@ export class clinicalCase implements OnInit {
 
   arrangeView() {
     this.selectedCase = this.document.$clinical_cases[this.document.$clinical_cases.length - 1];
-
     this.selectedCaseVersion = this.selectedCase.$newCaseVersion;
-    this.auxText = this.selectedCaseVersion.$clinical_case;
+    this.onChangeText(this.selectedCaseVersion.$clinical_case);
   }
 
   onCaseChange(event) {
@@ -88,7 +90,7 @@ export class clinicalCase implements OnInit {
     this.selectedCase.$newCaseVersion.$clinical_case = text;
 
     if (this.selectedCase.$versions) {
-      version = this.selectedCase.$versions.find((v) => v.$clinical_case.toLowerCase() == text.toLowerCase());
+      version = this.findEqualVersion(text);
     }
     this.selectedCaseVersion = version ? version : this.selectedCase.$newCaseVersion;
     if(this.toAsync){
@@ -96,6 +98,7 @@ export class clinicalCase implements OnInit {
     }
   }
 
+  findEqualVersion = (text)=> this.selectedCase.$versions.find((v) => v.$clinical_case.toLowerCase() == text.toLowerCase());
 
   newCase() {
     var isNew = this.document.$clinical_cases.find((cases) => cases.$isNew == true);
@@ -109,11 +112,11 @@ export class clinicalCase implements OnInit {
     }
   }
 
-  showTarget(toShow:boolean= false){
-    this.dataShareService.changeAuxText(this.auxText);
+  showTarget(preview:boolean= false){
+    this.dataShareService.changeAuxText(this.selectedCase.$newCaseVersion.$clinical_case);
     this.toAsync = (this.selectedCaseVersion == this.selectedCase.$newCaseVersion);
-    if(toShow){
-      // this.dataShareService.setTypeText();
+    if(preview){
+      this.dataShareService.previewTarget(true);
     }
   }
 

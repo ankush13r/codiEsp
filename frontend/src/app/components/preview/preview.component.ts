@@ -30,7 +30,9 @@ export class ClinicalCaseVersionsComponent implements OnInit {
   ngOnInit() {
     this.observeDocument();
     this.observeAuxText();
+    this.observePreviewTarget();
   }
+
 
   observeDocument() {
     this.dataShareService.observeDocument().subscribe(result => {
@@ -50,6 +52,15 @@ export class ClinicalCaseVersionsComponent implements OnInit {
     this.dataShareService.observeAuxText().subscribe(result => 
       this.auxText = result
     );
+  }
+
+
+  observePreviewTarget(){
+    this.dataShareService.observePreviewTarget().subscribe(result=>{
+      if(result){
+        this.showText();
+      }
+    })
   }
 
   showLink() {

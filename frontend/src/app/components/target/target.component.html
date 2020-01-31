@@ -6,8 +6,8 @@
             <mat-form-field class="text-center" color="primary">
                 <mat-label class="text-primary">Case</mat-label>
                 <mat-select [(value)]="selectedCase" (selectionChange)="onCaseChange($event)" name="case">
-                    <mat-option *ngFor="let case of document.$clinical_cases" [value]="case">
-                        {{case.$case_id || case.$case_id == 0? case.$case_id:"New"}} - case
+                    <mat-option *ngFor="let case of document.$clinical_cases; let i = index" [value]="case">
+                        {{i+1}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -15,9 +15,9 @@
             <mat-form-field *ngIf="selectedCase" class="text-center ml-4 flex-fill" color="warn">
                 <mat-label class="text-primary">Version</mat-label>
                 <mat-select [(value)]="selectedCaseVersion" (selectionChange)="onVersionChange($event)" name="version">
-                    <mat-option [value]="selectedCase.$newCaseVersion">Actual</mat-option>
-                    <mat-option *ngFor="let version of selectedCase?.$versions" [value]="version">
-                        {{version.$id}} - {{version.$time | date:"medium"}}
+                    <mat-option [value]="selectedCase.$newCaseVersion">new</mat-option>
+                    <mat-option *ngFor="let version of selectedCase?.$versions;let i = index" [value]="version">
+                        {{i+1}} - {{version.$time ? (version.$time  | date:"medium") : 'new'}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -33,7 +33,7 @@
                 <mat-radio-button class="ml-4" value="-1" (change)="selectedCase.$newCaseVersion.$yes_no = null">None
                 </mat-radio-button>
             </mat-radio-group>
-            <button type="button" mat-button color="accent" class="mb-2" (click)="showTarget(true)">show target</button>
+            <button type="button" mat-button color="accent" class="mb-2" (click)="showTarget(true)">Preview</button>
         </div>
 
 
@@ -43,14 +43,13 @@
             [(ngModel)]="auxText">
         </textarea>
 
-        <div fxLayout="row" fxLayoutAlign="space-between">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
             <div fxLayout="row" fxLayoutGap="20px" class="mt-2">
                 <button *ngIf="!canModify" (click)="canModify = !canModify" type="button" mat-raised-button
-                    color="primary">Modify</button>
-
+                    color="primary">Edit</button>
                 <button *ngIf="canModify" type="submit" mat-raised-button color="primary"
                     [disabled]="!caseForm.valid || selectedCaseVersion != selectedCase?.$newCaseVersion">Submit</button>
-                <button type="reset" mat-raised-button color="warn">clear</button>
+                <button type="reset" mat-raised-button color="warn">Clear</button>
             </div>
             <div fxLayout="row" fxLayoutGap="20px" class="mt-2">
                 <button type="button" mat-raised-button (click)="newCase()">New case</button>

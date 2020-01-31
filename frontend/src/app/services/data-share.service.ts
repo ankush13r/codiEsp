@@ -14,7 +14,7 @@ export class DataShareService {
   private selectedDocument = new BehaviorSubject<Document>(null);
   private docType = new BehaviorSubject<string>(null);
   private auxText = new BehaviorSubject<string>(null);
-  private targetType = new BehaviorSubject<string>(null);
+  private preview = new BehaviorSubject<bool>(null);
 
 
   private currentLat;
@@ -39,13 +39,12 @@ export class DataShareService {
     this.docType.next(type);
   }
 
-  setTargetType(){
-    this.targetType.next("TEXT");
+  previewTarget(bool:boolean){
+    this.preview.next(bool);
   }
 
-
-  observeTargetType() {
-    return (this.targetType.asObservable())
+  observePreviewTarget() {
+    return (this.preview.asObservable())
   }
 
   observeAuxText() {
