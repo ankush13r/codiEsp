@@ -7,7 +7,6 @@ import { ApiService } from '../../services/api.service';
 import { Document } from '../../modules/document';
 import { ClinicalCase } from '../../modules/clinicalCase';
 import { Version } from '../../modules/version';
-import { on } from 'cluster';
 
 
 
@@ -29,13 +28,12 @@ export class clinicalCase implements OnInit {
   selectedCaseVersion: Version = null;
   canModify = true;
   auxText: string = null;
-  toAsync:boolean = false;
+  toAsync: boolean = false;
 
   constructor(
     private _snackBar: MatSnackBar,
     private dataShareService: DataShareService,
     private apiService: ApiService,
-    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -53,8 +51,6 @@ export class clinicalCase implements OnInit {
   observeDocument() {
     this.dataShareService.observeDocument().subscribe(result => {
       if (result) {
-        console.log("sssss");
-        
         this.document = result;
         this.arrangeView();
       }
@@ -66,6 +62,7 @@ export class clinicalCase implements OnInit {
     this.selectedCaseVersion = this.selectedCase.$newCaseVersion;
     this.onChangeText(this.selectedCaseVersion.$clinical_case);
   }
+
 
   onCaseChange(event) {
     this.selectedCaseVersion = this.selectedCase.$newCaseVersion;
@@ -93,12 +90,12 @@ export class clinicalCase implements OnInit {
       version = this.findEqualVersion(text);
     }
     this.selectedCaseVersion = version ? version : this.selectedCase.$newCaseVersion;
-    if(this.toAsync){
+    if (this.toAsync) {
       this.showTarget();
     }
   }
 
-  findEqualVersion = (text)=> this.selectedCase.$versions.find((v) => v.$clinical_case.toLowerCase() == text.toLowerCase());
+  findEqualVersion = (text) => this.selectedCase.$versions.find((v) => v.$clinical_case.toLowerCase() == text.toLowerCase());
 
   newCase() {
     var isNew = this.document.$clinical_cases.find((cases) => cases.$isNew == true);
@@ -106,16 +103,16 @@ export class clinicalCase implements OnInit {
     if (!isNew) {
       this.document.$clinical_cases.push(new ClinicalCase().deserialize({ isNew: true }))
       this.selectedCase = this.document.$clinical_cases[this.document.$clinical_cases.length - 1]
-    }else{
+    } else {
       this.openSnackBar("Error: New case is already opened", "OK");
       this.selectedCase = isNew;
     }
   }
 
-  showTarget(preview:boolean= false){
+  showTarget(preview: boolean = false) {
     this.dataShareService.changeAuxText(this.selectedCase.$newCaseVersion.$clinical_case);
     this.toAsync = (this.selectedCaseVersion == this.selectedCase.$newCaseVersion);
-    if(preview){
+    if (preview) {
       this.dataShareService.previewTarget(true);
     }
   }
@@ -127,7 +124,7 @@ export class clinicalCase implements OnInit {
 
     if (this.selectedCaseVersion == this.selectedCase.$newCaseVersion) {
       var now = Date.now();
-      
+
       var jsonToSubmit = {
         _id: this.selectedCase.$_id,
         yes_no: this.selectedCase.$newCaseVersion.$yes_no,
@@ -148,6 +145,30 @@ export class clinicalCase implements OnInit {
       this.openSnackBar("Error: You must select actual version of case.", "OK", style);
     }
   }
+
+  nextCase(){
+
+    
+  }
+
+  previousCase(){
+
+
+  }
+
+  onPaste() {
+    try {
+      navigator.clipboard.readText().then(
+        clipText => this.onChangeText(clipText)
+      );
+    } catch{
+      console.log("Not supported with the browser");
+    }
+
+
+  }
+
+
 
   openSnackBar(message: string, action: string = null, style = ['snackbar-style']) {
     this._snackBar.open(message, action, {

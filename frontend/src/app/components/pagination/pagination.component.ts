@@ -8,7 +8,7 @@ import { DataShareService } from '../../services/data-share.service';
   styleUrls: ['./pagination.component.css']
 })
 export class PaginationComponent implements OnInit {
-  @Input() length = 0;
+  @Input() length;
   @Input() pageIndex;
   @Input() pageSize;
   pageSizeOptions: number[] = [10, 25, 50, 100];
@@ -28,6 +28,8 @@ export class PaginationComponent implements OnInit {
   setPageEvent(event) {
     this.pageEvent.emit(event)
   }
+
+
 
   // getPaginationEvent() {
   //   this.dataShareService.getPaginationEvent().subscribe(result => {

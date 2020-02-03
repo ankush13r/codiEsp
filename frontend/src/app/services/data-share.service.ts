@@ -14,7 +14,7 @@ export class DataShareService {
   private selectedDocument = new BehaviorSubject<Document>(null);
   private docType = new BehaviorSubject<string>(null);
   private auxText = new BehaviorSubject<string>(null);
-  private preview = new BehaviorSubject<bool>(null);
+  private preview = new BehaviorSubject<boolean>(null);
 
 
   private currentLat;

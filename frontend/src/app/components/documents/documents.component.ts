@@ -17,7 +17,7 @@ export class DocumentsComponent implements OnInit {
   title = "Documents";
   selectedDocument: Document;
   apiResponse: ApiResponse = null;
-  pageIndex: object = {};
+  pageIndex: object = {pdf:0,html:0,link:0};
   pageLength: object = {};
   paginationEvent: PageEvent;
   index = 0;
@@ -50,13 +50,20 @@ export class DocumentsComponent implements OnInit {
     });
   }
 
-  getPaginationEvent(event) {
-    this.paginationEvent = event
-    if (this.paginationEvent && this.selected_type) {
-      this.pageIndex[this.selected_type] = this.paginationEvent["pageIndex"];
-      this.pageLength[this.selected_type] = this.paginationEvent["pageSize"];
+ 
+  setPageEvent(event){
+    this.pageIndex[this.selected_type] = event.pageIndex;
+    this.pageLength[this.selected_type] = event.pageSize;
+    this.getDocuments();
+  }
+
+  onChangeIndex(event){
+    var value = event.target.value.trim();
+    if(value && !isNaN(value) && parseInt(value) > 0){
+      this.pageIndex[this.selected_type] = parseInt(value) -1 ;
       this.getDocuments();
     }
+    
   }
 
   getDocuments() {

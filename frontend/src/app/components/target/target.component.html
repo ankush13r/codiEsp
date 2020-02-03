@@ -23,7 +23,7 @@
             </mat-form-field>
         </div>
 
-        <div  fxLayout="row" fxLayoutAlign="space-around center" >
+        <div fxLayout="row" fxLayoutAlign="space-between center">
             <mat-radio-group *ngIf="selectedCase" name="yes_no" class="p-1" aria-label="Select an option">
                 <mat-radio-button name="yes_no" *ngFor="let item of radioBoxValues" class="ml-4" value="{{item}}"
                     [checked]="selectedCaseVersion?.$yes_no == item"
@@ -34,6 +34,9 @@
                 </mat-radio-button>
             </mat-radio-group>
             <button type="button" mat-button color="accent" class="mb-2" (click)="showTarget(true)">Preview</button>
+            <button type="button" mat-icon-button class="mb-2" (click)="onPaste()">
+                <mat-icon>note_add</mat-icon>
+            </button>
         </div>
 
 
@@ -55,6 +58,14 @@
                 <button type="button" mat-raised-button (click)="newCase()">New case</button>
                 <button type="button" mat-raised-button>Finish</button>
             </div>
+        </div>
+        <div class="mt-2">
+            <button type="button" mat-icon-button (click)="nextCase()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <button type="button" mat-icon-button (click)="previousCase()">
+                <mat-icon>arrow_forward</mat-icon>
+            </button>
         </div>
 
     </form>

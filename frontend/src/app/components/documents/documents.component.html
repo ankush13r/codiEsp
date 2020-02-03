@@ -1,26 +1,35 @@
-<div class="wh-100" fxLayout="column">
+<div class="h-100 w-100" fxLayout="column">
     <app-title title="title"></app-title>
-    <div class="listBox" fxFlex="94" fxLayout="column" fxLayoutAlign="space-between none">
-        <mat-list *ngIf="apiResponse">
-            <mat-nav-list>
-                <mat-list-item class="docsList" *ngFor="let document of apiResponse.$documents; let i = index"
-                    [class.selected]="document === selectedDocument" (click)="selectDocument(document)">
-                    <mat-slide-toggle [checked]="document.$state"></mat-slide-toggle>
-                    <button mat-icon-button (click)="newWindow()">
-                        <mat-icon [color]="(document === selectedDocument)?'light':'primary'">open_in_new</mat-icon>
-                    </button>
-                    <div>
+    <div fxFlex=94 fxLayout="column" fxLayoutAlign="space-between none">
+
+        <mat-list *ngIf="apiResponse" class="listBox">
+            <mat-list-item class="docsList" *ngFor="let document of apiResponse.$documents; let i = index"
+                [class.selected]="document === selectedDocument" (click)="selectDocument(document)">
+                <div class="w-100" fxLayout="row" fxLayoutAlign="space-between center">
+                    <mat-slide-toggle class="mr-4" [checked]="document.$state"
+                        [color]="(document.$state=='1')?'primary':''">
+                    </mat-slide-toggle>
+                    <div fxFlex>
                         <span>{{document.$name}}</span>
                     </div>
-                </mat-list-item>
-            </mat-nav-list>
+                    <button mat-icon-button (click)="newWindow()">
+                        <mat-icon [color]="(document === selectedDocument)?'light':''">open_in_new</mat-icon>
+                    </button>
+                </div>
+            </mat-list-item>
         </mat-list>
 
-        <div class="pagination">
-            <app-pagination *ngIf="apiResponse" [pageIndex]="pageIndex[this.selected_type]"
-                [pageSize]="pageLength[this.selected_type]" [length]="apiResponse.$totalRecords"
-                (pageEvent)="getPaginationEvent($event)">
-            </app-pagination>
+
+        <div *ngIf="apiResponse" class="w-100" fxLayout="row" fxLayoutAlign="space-around start">
+
+            <input fxFlex="18" class="mx-1" [value]="pageIndex[this.selected_type] + 1" (change)="onChangeIndex($event)"
+                pattern="[0-9]*">
+
+            <mat-paginator class="p-0 m-0" [length]="apiResponse.$totalRecords"
+                [pageIndex]="pageIndex[this.selected_type]" [pageSize]="this.pageLength[this.selected_type]"
+                [pageSizeOptions]="[10,25,50,100]" (page)="setPageEvent($event)">
+                <!--showFirstLastButtons="true"-->
+            </mat-paginator>
         </div>
     </div>
 

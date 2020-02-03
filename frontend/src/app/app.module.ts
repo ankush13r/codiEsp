@@ -1,7 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {MatInputModule} from '@angular/material/input'; 
+
 import { HttpClientModule } from '@angular/common/http';
+import { ClipboardModule } from 'ngx-clipboard';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -39,8 +42,10 @@ import { TitleComponent } from './components/shared-com/title/title.component';
   imports: [
     BrowserModule,
     FormsModule,
+    MatInputModule,
     AppRoutingModule,
     HttpClientModule,
+    ClipboardModule,
     
     BrowserAnimationsModule,
     FlexLayoutModule,
