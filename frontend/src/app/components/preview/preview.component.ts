@@ -1,4 +1,4 @@
-import { Component, OnInit, SecurityContext } from '@angular/core';
+import { Component, OnInit, SecurityContext, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
 import { Pipe, PipeTransform } from '@angular/core';
 
@@ -10,16 +10,18 @@ import { Document } from '../../modules/document';
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
-  styleUrls: ['./preview.component.css']
+  styleUrls: ['./preview.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 
-export class ClinicalCaseVersionsComponent implements OnInit {
+export class PreviewComponent implements OnInit {
+
   title = "Source"
   document: Document;
   safeUrl: SafeResourceUrl;
   auxText: String;
   contentType: String;
-
+  baseUrl = 'http://127.0.0.1:5000/documents/';
 
 
   LINK: String = "link"
@@ -47,17 +49,50 @@ export class ClinicalCaseVersionsComponent implements OnInit {
     });
   }
 
+  parse_text(text:string) {
+    var textList = text.split("")
 
-  observeAuxText(){
-    this.dataShareService.observeAuxText().subscribe(result => 
-      this.auxText = result
+    var newText = ""
+    let found = false;
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] == "\n") {
+        newText +=  "<mark>\n</mark>"
+      }else{
+        newText +=text[i]
+      }
+  
+    }
+    return newText
+  }
+  // if (text[i] == "\n") {
+  //   if (found == false) {
+  //     newText += "<mark>";
+  //   }
+  //   newText += text[i];
+  //   found = true;
+  // } else {
+  //   if (found == true) {
+  //     newText += "</mark>";
+  //     found = false;
+  //   }
+  //   newText += text[i]
+
+  // }
+  observeAuxText() {
+    this.dataShareService.observeAuxText().subscribe(result => {
+      
+      if (result) {
+        this.auxText = this.parse_text(result);
+      }
+
+    }
+
     );
   }
 
-
-  observePreviewTarget(){
-    this.dataShareService.observePreviewTarget().subscribe(result=>{
-      if(result){
+  observePreviewTarget() {
+    this.dataShareService.observePreviewTarget().subscribe(result => {
+      if (result) {
         this.showText();
       }
     })
@@ -65,7 +100,10 @@ export class ClinicalCaseVersionsComponent implements OnInit {
 
   showLink() {
     this.contentType = this.LINK;
-    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.document.$link);
+    if (this.document.$format == "link")
+      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.document.$link);
+    else
+      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.baseUrl + this.document.$format + "/" + this.document.$_id);
   }
 
   showText() {

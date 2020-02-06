@@ -28,6 +28,12 @@ export class ApiService {
 
   }
 
+
+  getTypes():Observable<string[]> {
+    var url = this.baseUrl + "types" 
+    return this.http.get<string[]>(url);
+
+  }
   getDocuments(selected_type: String, index: number = 0, pageSize: number = 10): Observable<ApiResponse> {
     var url = this.baseUrl + selected_type;
 

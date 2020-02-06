@@ -41,17 +41,17 @@
 
 
 
-        <textarea *ngIf="selectedCase" fxFlex="65" class="textarea" name="clinicalCase" #clinicalCase="ngModel"
-            type="textarea" [disabled]="!canModify" (ngModelChange)="onChangeText($event)" required
-            [(ngModel)]="auxText">
+        <textarea *ngIf="selectedCase" fxFlex="65" class="textarea" name="clinicalCase" type="textarea"
+            [disabled]="selectedCaseVersion != selectedCase?.$newCaseVersion" required
+            [(ngModel)]="this.selectedCaseVersion.$clinical_case" (ngModelChange)="onChangeText($event)">
         </textarea>
 
         <div fxLayout="row wrap" fxLayoutAlign="space-between">
             <div fxLayout="row" fxLayoutGap="20px" class="mt-2">
-                <button *ngIf="!canModify" (click)="canModify = !canModify" type="button" mat-raised-button
-                    color="primary">Edit</button>
-                <button *ngIf="canModify" type="submit" mat-raised-button color="primary"
-                    [disabled]="!caseForm.valid || selectedCaseVersion != selectedCase?.$newCaseVersion">Submit</button>
+                <button *ngIf="selectedCaseVersion != selectedCase?.$newCaseVersion" (click)="onModify()" type="button"
+                    mat-raised-button color="primary">Edit</button>
+                <button *ngIf="selectedCaseVersion == selectedCase?.$newCaseVersion" type="submit" mat-raised-button
+                    color="primary" [disabled]="!caseForm.valid  ">Submit</button>
                 <button type="reset" mat-raised-button color="warn">Clear</button>
             </div>
             <div fxLayout="row" fxLayoutGap="20px" class="mt-2">

@@ -26,9 +26,7 @@ export class clinicalCase implements OnInit {
   document: Document = null;
   selectedCase: ClinicalCase = null;
   selectedCaseVersion: Version = null;
-  canModify = true;
   auxText: string = null;
-  toAsync: boolean = false;
 
   constructor(
     private _snackBar: MatSnackBar,
@@ -60,7 +58,7 @@ export class clinicalCase implements OnInit {
   arrangeView() {
     this.selectedCase = this.document.$clinical_cases[this.document.$clinical_cases.length - 1];
     this.selectedCaseVersion = this.selectedCase.$newCaseVersion;
-    this.onChangeText(this.selectedCaseVersion.$clinical_case);
+
   }
 
 
@@ -72,46 +70,37 @@ export class clinicalCase implements OnInit {
   onVersionChange(event) {
     this.selectedCaseVersion = event.value;
     this.auxText = this.selectedCaseVersion.$clinical_case;
-    if (this.selectedCaseVersion != this.selectedCase.$newCaseVersion) {
-      this.canModify = false;
-    } else {
-      this.canModify = true;
-    }
+
   }
 
   onChangeText(event) {
-    var version = null;
-    var text = "";
-    if (event)
-      text = event.trim()
-    this.selectedCase.$newCaseVersion.$clinical_case = text;
-
-    if (this.selectedCase.$versions) {
-      version = this.findEqualVersion(text);
-    }
-    this.selectedCaseVersion = version ? version : this.selectedCase.$newCaseVersion;
-    if (this.toAsync) {
+ 
       this.showTarget();
-    }
+    
   }
+  onModify() {
+    this.selectedCase.$newCaseVersion.$clinical_case = this.selectedCaseVersion.$clinical_case;
+    this.selectedCaseVersion = this.selectedCase.$newCaseVersion;
+  }
+
 
   findEqualVersion = (text) => this.selectedCase.$versions.find((v) => v.$clinical_case.toLowerCase() == text.toLowerCase());
 
   newCase() {
     var isNew = this.document.$clinical_cases.find((cases) => cases.$isNew == true);
 
+
     if (!isNew) {
       this.document.$clinical_cases.push(new ClinicalCase().deserialize({ isNew: true }))
       this.selectedCase = this.document.$clinical_cases[this.document.$clinical_cases.length - 1]
     } else {
       this.openSnackBar("Error: New case is already opened", "OK");
-      this.selectedCase = isNew;
+      // this.selectedCase = isNew;
     }
   }
 
   showTarget(preview: boolean = false) {
     this.dataShareService.changeAuxText(this.selectedCase.$newCaseVersion.$clinical_case);
-    this.toAsync = (this.selectedCaseVersion == this.selectedCase.$newCaseVersion);
     if (preview) {
       this.dataShareService.previewTarget(true);
     }
@@ -119,16 +108,18 @@ export class clinicalCase implements OnInit {
 
   onSubmit() {
     const style = ["error-snack-bar"]
-
+    var text = (this.selectedCase.$newCaseVersion.$clinical_case).trim();
     this.selectedCase.$isNew = null;
 
-    if (this.selectedCaseVersion == this.selectedCase.$newCaseVersion) {
+    // Finding if the matching text exist in any other version
+    var found = this.findEqualVersion(text);
+    if (!found) {
       var now = Date.now();
 
       var jsonToSubmit = {
         _id: this.selectedCase.$_id,
         yes_no: this.selectedCase.$newCaseVersion.$yes_no,
-        clinical_case: this.selectedCase.$newCaseVersion.$clinical_case,
+        clinical_case: text,
         time: now,
         source_id: this.document.$_id,
         user_id: null
@@ -142,16 +133,17 @@ export class clinicalCase implements OnInit {
         this.openSnackBar("Added successfully", "OK");
       });
     } else {
-      this.openSnackBar("Error: You must select actual version of case.", "OK", style);
+      this.selectedCaseVersion = found;
+      this.openSnackBar("Error: Already exist.", "OK", style);
     }
   }
 
-  nextCase(){
+  nextCase() {
 
-    
+
   }
 
-  previousCase(){
+  previousCase() {
 
 
   }

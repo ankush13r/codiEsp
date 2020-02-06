@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataShareService } from '../../services/data-share.service';
 import { ResizeEvent } from 'angular-resizable-element'
+import { ApiService } from '../../services/api.service';
   
 @Component({
   selector: 'app-main',
@@ -8,21 +9,30 @@ import { ResizeEvent } from 'angular-resizable-element'
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  documents_types: String[] = ["pdf", "html", "link"]
+  documents_types: String[] = null;
   selected_type: String;
 
-  constructor(private dataShare: DataShareService) {
+  constructor(private dataShare: DataShareService, private apiService:ApiService) {
 
   }
 
   ngOnInit() {
     this.getDocsType();
+    this.getTypes();
   }
 
   // selectType(type) {
   //   if(type!= this.selected_type)
   //     this.dataShare.selectDocumentType(type)
   // }
+
+
+  getTypes(){
+    this.apiService.getTypes().subscribe(result=>{
+      this.documents_types = result      
+    }
+      )
+  }
 
   getDocsType() {
     this.dataShare.observeDocumentType().subscribe(type =>
