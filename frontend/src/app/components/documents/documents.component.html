@@ -6,7 +6,7 @@
 
                 <mat-list *ngIf="api_response">
                     <mat-list-item class="docsList" *ngFor="let document of api_response.$documents; let i = index"
-                        [class.selected]="document === selected_document" (click)="selectDocument(document)"
+                        [class.selected]="document === selected_document" (click)="selectDocument(i)"
                         (dblclick)="newWindow(document)">
                         <div class="w-100" fxLayout="row" fxLayoutAlign="space-between center">
                             <mat-slide-toggle [checked]="document.$state" [color]="(document.$state=='1')?'primary':''">
@@ -23,9 +23,10 @@
                 </mat-list>
 
                 <div *ngIf="api_response" class="w-100" fxLayout="row" fxLayoutAlign="space-around start">
-
-                    <input fxFlex="18" class="mx-1" [value]="pageIndex[this.selected_type] + 1 || 1"
-                        (change)="onChangeIndex($event)" pattern="[0-9]*">
+                    <mat-form-field fxFlex="16" class="mx-1" >
+                        <input name="indexInput" matInput #indexInput="ngModel" [ngModel]="pageIndex[this.selected_type] + 1 || 1"
+                            (change)="onChangeIndex($event)" pattern="^[0-9]+$" type="number" required> 
+                    </mat-form-field>
 
                     <mat-paginator class="p-0 m-0" [length]="api_response.$totalRecords"
                         [pageIndex]="pageIndex[this.selected_type]" [pageSize]="this.pageLength[this.selected_type]"
@@ -44,7 +45,7 @@
             <mat-icon *ngIf="!drawer.opened">chevron_right</mat-icon>
         </button>
         <app-preview fxFlex class="mx-1"></app-preview>
-        <app-target fxFlex="45"></app-target>
+        <app-target (next_previous)="onNextPrevious($event)" fxFlex="45"></app-target>
     </mat-drawer-content>
 
 </mat-drawer-container>

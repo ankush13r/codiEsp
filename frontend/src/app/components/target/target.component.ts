@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, RootRenderer } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewEncapsulation, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -13,7 +13,8 @@ import { Version } from '../../modules/version';
 @Component({
   selector: 'app-target',
   templateUrl: './target.component.html',
-  styleUrls: ['./target.component.css']
+  styleUrls: ['./target.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 
 
@@ -21,6 +22,9 @@ import { Version } from '../../modules/version';
 export class clinicalCase implements OnInit {
   title = "Clinical case"
   radioBoxValues: string[] = ["yes", "no"]
+  @Output() next_previous = new EventEmitter<number>();
+
+  @ViewChild('backTextarea',null) backTextarea: ElementRef;
 
   docType: string = null;
   document: Document = null;
@@ -64,20 +68,36 @@ export class clinicalCase implements OnInit {
 
   onCaseChange(event) {
     this.selectedCaseVersion = this.selectedCase.$newCaseVersion;
-    this.auxText = this.selectedCaseVersion.$clinical_case;
+    this.parse_text(this.selectedCaseVersion.$clinical_case);
   }
 
   onVersionChange(event) {
     this.selectedCaseVersion = event.value;
-    this.auxText = this.selectedCaseVersion.$clinical_case;
+    this.parse_text(this.selectedCaseVersion.$clinical_case);
+
 
   }
 
   onChangeText(event) {
- 
-      this.showTarget();
-    
+    this.parse_text(event);
   }
+
+  parse_text(text: string) {
+    var textList = text.split("")
+
+    var newText = ""
+    let found = false;
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] == "\n") {
+        newText += "<mark>\n</mark>"
+      } else {
+        newText += text[i]
+      }
+
+    }
+    this.auxText = newText + "\n"
+  }
+
   onModify() {
     this.selectedCase.$newCaseVersion.$clinical_case = this.selectedCaseVersion.$clinical_case;
     this.selectedCaseVersion = this.selectedCase.$newCaseVersion;
@@ -139,13 +159,19 @@ export class clinicalCase implements OnInit {
   }
 
   nextCase() {
-    
-
+    this.next_previous.emit(1);
   }
 
   previousCase() {
+    this.next_previous.emit(-1);
+  }
 
-
+  @HostListener("scroll", ['$event'])
+  onScroll(event) {
+   
+    let scrollOffset = event.srcElement.scrollTop;
+    this.backTextarea.nativeElement.scrollTop = scrollOffset
+  
   }
 
   onPaste() {

@@ -22,8 +22,7 @@ export class DocumentsComponent implements OnInit {
   pageIndex: object = {};
   pageLength: object = {};
   paginationEvent: PageEvent;
-  index = 0;
-  size = 10;
+  index: number = 0;
 
   selected_type: string = null;
   baseUrl = 'http://127.0.0.1:5000/documents/';
@@ -60,7 +59,7 @@ export class DocumentsComponent implements OnInit {
     this.dataShareService.observeDocumentType().subscribe(type => {
       this.selected_type = type;
 
-      this.getDocuments();
+      this.getDocuments(0);
     });
   }
 
@@ -68,34 +67,42 @@ export class DocumentsComponent implements OnInit {
   setPageEvent(event) {
     this.pageIndex[this.selected_type] = event.pageIndex;
     this.pageLength[this.selected_type] = event.pageSize;
-    this.getDocuments();
+    this.getDocuments(0);
   }
 
   onChangeIndex(event) {
     var value = event.target.value.trim();
     if (value && !isNaN(value) && parseInt(value) > 0) {
       this.pageIndex[this.selected_type] = parseInt(value) - 1;
-      this.getDocuments();
+      this.getDocuments(0);
     }
 
   }
 
-  getDocuments() {
+  getDocuments(index = null) {
+    
     this.cookies.set("pageIndex", JSON.stringify(this.pageIndex))
     if (this.selected_type) {
       this.apiService.getDocuments(
         this.selected_type,
         this.pageIndex[this.selected_type],
         this.pageLength[this.selected_type]
+
       ).subscribe(result => {
-        this.api_response = result
-        this.selectDocument(this.api_response.$documents[0]);
+      this.api_response = result
+        if (index || index == 0) {
+          this.selectDocument(index);
+        } else {
+          this.selectDocument(this.api_response.$documents.length - 1);
+        }
+
       });
     }
   }
 
-  selectDocument(document) {
-    this.dataShareService.selectDocument(document)
+  selectDocument(index: number) {
+    this.index = index;
+    this.dataShareService.selectDocument(this.api_response.$documents[index])
 
   }
 
@@ -105,6 +112,25 @@ export class DocumentsComponent implements OnInit {
     });
   }
 
+  onNextPrevious(value: number) {
+    var tmpIndex = this.index + value;
+    
+    if (this.api_response.$perPage <= tmpIndex || tmpIndex < 0) {
+      
+      if (tmpIndex < 0 && this.pageIndex && this.pageIndex[this.selected_type] > 0) {
+        this.pageIndex[this.selected_type] = this.pageIndex[this.selected_type] - 1;
+        this.getDocuments();
+        
+      } else if (this.api_response.$perPage <= tmpIndex && this.pageIndex[this.selected_type] +1 < (this.api_response.$totalRecords/this.api_response.$perPage)) {        
+        this.pageIndex[this.selected_type] = this.pageIndex[this.selected_type] + 1;
+        this.getDocuments(0);        
+      }         
+    } else {
+      
+      this.selectDocument(tmpIndex)
+    }
+
+  }
 
 
   newWindow(document) {
@@ -113,7 +139,7 @@ export class DocumentsComponent implements OnInit {
       url = document.$link
     else
       url = this.baseUrl + document.$format + "/" + document.$_id;
-    
+
     window.open((url).toString(), "_blank")
 
   }

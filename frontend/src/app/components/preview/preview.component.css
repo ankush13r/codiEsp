@@ -20,7 +20,6 @@
 
 .markLine{
     background-color: red;
-    padding: 10px;
 }
 
 .content mark{
@@ -29,5 +28,4 @@
     border-right: 0.1em solid;
     border-color: rgba(0, 162, 255, 0.692);
     background:  rgba(0, 162, 255, 0.692);
-
 }

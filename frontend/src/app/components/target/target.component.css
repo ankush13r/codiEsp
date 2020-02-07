@@ -2,9 +2,34 @@
     height: 100%;
     width: 100%;
 }
-.textarea{
+.textarea, .textAreaBacks{
     resize: none;
     border: 1px solid rgb(184, 184, 184);
-    padding: 15px;
+    padding: 1em 1em 0 1em;
     font-family: 'monospace';
+    position: absolute;
+    background: transparent;
+    overflow-y: auto;
+}
+
+.textarea{
+    z-index: 999;
+}
+
+.textAreaParent{
+    width: 98%;
+    padding: 1px;
+    position: relative;
+} 
+.textAreaBacks{
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.textAreaBacks mark{
+    margin-left: 0.2em;
+    box-sizing: border-box;
+    border-right: 0.1em solid;
+    border-color: rgba(0, 162, 255, 0.692);
+    background:  rgba(0, 162, 255, 0.692);
 }
