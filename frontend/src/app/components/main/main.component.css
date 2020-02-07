@@ -6,11 +6,7 @@
     padding: 10px;
 }
 
-.contentParent{
-    margin-top: 2px;
-    position: relative;
-    height: 98%;
-}
+
 /* mwlResizable {
     box-sizing: border-box; /*required for the enableGhostResize option to work 
 } */

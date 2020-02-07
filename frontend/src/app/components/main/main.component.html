@@ -1,22 +1,18 @@
-<div *ngIf="documents_types" class="mt-4 mainBox">
-    <nav mat-tab-nav-bar mat-align-tabs="left"  color="warn">
-        <a mat-tab-link *ngFor="let type of documents_types" [routerLink]="['documents',type]" routerLinkActive
-            #routeLink="routerLinkActive" [active]="routeLink.isActive" [class.btn-active]="routeLink.isActive">
-            {{type}}
-        </a>
-    </nav>
-    <div class="contentParent" fxLayout="row wrap" fxLayoutGap="0.3em">
-
-        <div fxFlex="15" class="contentBox">
-            <router-outlet></router-outlet>
-        </div>
-        <div fxFlex="50" class="contentBox">
-            <app-preview></app-preview>
-        </div>
-        <div fxFlex class="contentBox">
-            <app-target></app-target>
-        </div>
+<div *ngIf="documents_types" class="mt-4 mainBox " fxLayout="column">
+    <div>
+        <nav mat-tab-nav-bar mat-align-tabs="left" color="warn">
+            <a mat-tab-link *ngFor="let type of documents_types" [routerLink]="['documents',type]" routerLinkActive
+                #routeLink="routerLinkActive" [active]="routeLink.isActive" [class.btn-active]="routeLink.isActive">
+                {{type}}
+            </a>
+        </nav>
     </div>
+
+    <div fxFlex class="mt-2">
+        <router-outlet></router-outlet>
+    </div>
+
+
 </div>
 <!-- 
 <div fxFlex="38" mwlResizable [enableGhostResize]="true" [resizeEdges]="{  right: true, left: true }"

@@ -5,8 +5,19 @@
     overflow-x: auto;
 }
 
+.drawer{
+    margin-top: 0.1em;
+    max-width: 20em;
+}
+.sideButton{
+    position: absolute;
+    font-size: larger;
+    top: 0.33em;
+    left: 0.5em;
+    border: 0.1em solid rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
 
-
+}
 .docsList:hover{
     background: rgb(235, 235, 235);
     color: rgb(0, 0, 0);   

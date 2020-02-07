@@ -1,7 +1,7 @@
-<div class="wh-100">
+<div class="h-100" fxLayout="column">
     <app-title [title]="title"></app-title>
-    <form fxLayout="column" class="wh-100" *ngIf="document" #caseForm="ngForm" action="" (submit)="onSubmit()">
-        <div class="w-100 d-flex">
+    <form fxLayout="column" fxFlex *ngIf="document" #caseForm="ngForm" action="" (submit)="onSubmit()">
+        <div class="d-flex">
 
             <mat-form-field class="text-center" color="primary">
                 <mat-label class="text-primary">Case</mat-label>
@@ -46,8 +46,8 @@
             [(ngModel)]="this.selectedCaseVersion.$clinical_case" (ngModelChange)="onChangeText($event)">
         </textarea>
 
-        <div fxLayout="row wrap" fxLayoutAlign="space-between">
-            <div fxLayout="row" fxLayoutGap="20px" class="mt-2">
+        <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="2em">
+            <div fxLayout="row" fxLayoutGap="1.2em" class="mt-2">
                 <button *ngIf="selectedCaseVersion != selectedCase?.$newCaseVersion" (click)="onModify()" type="button"
                     mat-raised-button color="primary">Edit</button>
                 <button *ngIf="selectedCaseVersion == selectedCase?.$newCaseVersion" type="submit" mat-raised-button
@@ -55,35 +55,31 @@
                 <button type="reset" mat-raised-button color="warn">Clear</button>
             </div>
             <div fxLayout="row" fxLayoutGap="20px" class="mt-2">
-                <button type="button" mat-raised-button (click)="newCase()">New case</button>
-                <button type="button" mat-raised-button>Finish</button>
+                <button type="button" mat-raised-button (click)="newCase()">
+                    <mat-icon>add</mat-icon>
+                    <span class="p-2">New case</span>
+
+                </button>
+                <button type="button" mat-raised-button>
+                    <mat-icon>done</mat-icon>
+                    <span class="p-2">Finish</span>
+                </button>
             </div>
-        </div>
-        <div class="mt-2">
-            <button type="button" mat-icon-button (click)="nextCase()">
-                <mat-icon>arrow_back</mat-icon>
-            </button>
-            <button type="button" mat-icon-button (click)="previousCase()">
-                <mat-icon>arrow_forward</mat-icon>
-            </button>
+
+            <div class="mt-2 mr-4" fxLayout="row" fxLayoutGap="20px">
+                <button type="button" mat-raised-button  (click)="previousCase()">
+                    <mat-icon>chevron_left</mat-icon>
+                    <span class="p-2"> </span>
+                </button>
+                <button type="button" mat-raised-button (click)="nextCase()">
+                    <span class="p-2"> </span>
+                    <mat-icon>chevron_right</mat-icon>
+                </button>
+
+            </div>
+
         </div>
 
     </form>
 </div>
 
-<!-- <div class="mt-4" *ngIf="clinicalCase.touched && this.version_exist_index != -1">
-                <span class="text-danger">Already exist as version {{version_exist_index}}</span>
-        </div> -->
-<!-- 
- <div class="w-100 d-flex">
-
-     
-        <div *ngIf="!selected_case" fxFlex="65" class="textarea bg-light p-4">
-            <p> To create a case, click on "New case" button </p>
-        </div>
-       
-
-
-
-
- -->

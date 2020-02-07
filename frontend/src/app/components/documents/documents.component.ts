@@ -7,7 +7,6 @@ import { DataShareService } from '../../services/data-share.service';
 import { ApiService } from "../../services/api.service"
 import { ApiResponse } from '../../modules/apiResponse';
 import { Document } from '../../modules/document'
-import { url } from 'inspector';
 
 @Component({
   selector: 'app-documents',
@@ -16,8 +15,10 @@ import { url } from 'inspector';
 })
 export class DocumentsComponent implements OnInit {
   title = "Documents";
-  selectedDocument: Document;
-  apiResponse: ApiResponse = null;
+  showFiller = false;
+
+  selected_document: Document;
+  api_response: ApiResponse = null;
   pageIndex: object = {};
   pageLength: object = {};
   paginationEvent: PageEvent;
@@ -87,8 +88,8 @@ export class DocumentsComponent implements OnInit {
         this.pageIndex[this.selected_type],
         this.pageLength[this.selected_type]
       ).subscribe(result => {
-        this.apiResponse = result
-        this.selectDocument(this.apiResponse.$documents[0]);
+        this.api_response = result
+        this.selectDocument(this.api_response.$documents[0]);
       });
     }
   }
@@ -100,7 +101,7 @@ export class DocumentsComponent implements OnInit {
 
   observeDocument() {
     this.dataShareService.observeDocument().subscribe(result => {
-      this.selectedDocument = result
+      this.selected_document = result
     });
   }
 
