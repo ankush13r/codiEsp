@@ -14,6 +14,7 @@ PATHS_TO_DIR = {
     TYPE_TEXT: "../data/text/",
 }
 
+formats= ["xml","pdf","text","link","html"]
 
 API_BASE_URI = "http://127.0.0.1:5000/documents"
 MONGO_URI = 'mongodb://localhost:27017/codiEsp'
@@ -38,4 +39,4 @@ START_CASE_TERMS = ["caso [0-9]",
 
                     ]
 END_CASE_TERMS = []
-secret_key = 'secret'
+

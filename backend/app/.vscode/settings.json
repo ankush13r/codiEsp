@@ -33,5 +33,6 @@
         "typescriptreact",
         "yaml",
         "yml"
-    ]
+    ],
+    "python.pythonPath": "/home/ankush/anaconda3/bin/python"
 }

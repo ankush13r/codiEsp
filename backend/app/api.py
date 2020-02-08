@@ -10,8 +10,6 @@ from datetime import datetime, timedelta
 from bson.objectid import ObjectId
 import os
 import time
-import re
-import copy
 
 from flask import Flask, jsonify, request, send_file, session, send_from_directory, safe_join, abort
 from flask_pymongo import PyMongo
@@ -24,232 +22,78 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from werkzeug.exceptions import BadRequest
 
 import constants
-import documents
-
+import utils
 
 app = Flask(__name__)
 
 # Put mongo uri into the app. config
 app.config["MONGO_URI"] = constants.MONGO_URI
-app.config["SECRET_KEY"] = constants.secret_key
+app.config["SECRET_KEY"] = "145754578dfdfdf"
 mongo = PyMongo(app)  # Creating mongo from PyMongo by app.
 
 # bcrypt = Bcrypt(app)
 # jwt = JWTManager(app)
 cors = CORS(app)
 
+@app.route("/documents/types", methods=["GET"])
+def get_types():
+    result =  list(mongo.db.documents.distinct("type"))
 
-def get_valid_pagination_args(args: dict):
+    return jsonify(result)
 
-    try:
-        page = args.get("pageIndex")
-        per_page = args.get("pageSize")
-
-        try:
-            page = abs(int(page))
-        except:
-            page = 0
-
-        try:
-            per_page = abs(int(per_page))
-        except:
-            per_page = 10
-    except AttributeError as err:
-        print(err)  # Logging
-        page = 1
-        per_page = 10
-    return page, per_page
-
-
-def check_data_type(type):
-    return (type in constants.PATHS_TO_DIR.keys())
 
 # URL example = /documents/pdf
 @app.route("/documents/<data_type>", methods=["GET"])
 def get_documents(data_type):
     data_type = data_type.strip()
 
-    if not (check_data_type(data_type)):
+    if format == "link":
         abort(404)
 
-    page, per_page = get_valid_pagination_args(request.args)
-    # data = documents.get_data_list(data_type, page, per_page)
-    data = documents.getDocuments(data_type, page, per_page)
+    page, per_page = utils.get_valid_pagination_args(request.args)
+    data = utils.get_documents(data_type, page, per_page)
     return jsonify(data)
 
 
-def modifyText(content):
-    style = """"""
-
-    for term in constants.START_CASE_TERMS:
-        found = re.search(term, content, flags=re.U | re.I)
-        if found:
-            content = re.sub(str(found.group(
-            )), '<span style="background:rgba(6, 247, 255, 0.5); padding:5px;">'+str(found.group())+'</span>', content)
-            break
-    for term in constants.END_CASE_TERMS:
-        found = re.search(term, content, flags=re.U | re.I)
-        if found:
-            content = re.sub(str(found.group(
-            )), '<span style="background:rgba(255, 6, 6, 0.5); padding:5px;">'+str(found.group())+'</span>', content)
-            break
-
-    return content
-
-
-def readFile(file_path):
-    with open(file_path, "r") as iFile:
-        content = iFile.read()
-        return content
-
-
-def getFilePath(data_type, name):
-    file_name = name.strip()
-    directory_path = constants.PATHS_TO_DIR.get(data_type)
-
-    if directory_path:
-        file_path = safe_join(directory_path, file_name)
-        if os.path.isfile(file_path):
-            return file_path
-    return False
-
 # URL example = /documents/pdf/file.pdf
-@app.route("/documents/<data_type>/<name>", methods=["GET"])
-def get_document(data_type, name):
-    isExistFile = False
+@app.route("/documents/<data_type>/<_id>", methods=["GET"])
+def get_document(data_type, _id):
     data_type = data_type.strip()
-    file_path = getFilePath(data_type, name)
+    file_path = mongo.db.documents.find_one({"_id":ObjectId(_id)})["path"]
+    
+    # If document format is link, then send a error
     if data_type == constants.TYPE_LINK or not file_path:
         abort(404)
+        
+    #If document format is text of html, then it will give css style to text and send as string.
     elif data_type == constants.TYPE_HTML or data_type == constants.TYPE_TEXT:
-        content = readFile(file_path)
-        modified_content = modifyText(content)
+        content = utils.read_file(file_path)
+        modified_content = utils.modifyText(content)
         return str(modified_content)
+
+    #Otherwise sent file. It maybe like pdf, etc.
     else:
         return send_file(file_path)
 
-    abort(404)
 
+@app.route("/documents/finish", methods=["PUT"])
+def get_document():
+    _id = object(request.json["_id"])
 
-def getNextSec(name):
-
-    return 0
-
-
-@app.route("/documents/new_case", methods=["POST"])
-def create_new_case():
-    try:
-        doc_id = request.json["_id"]
-
-        case = {
-            "clinical_case": "",
-            "case_id": getNextSec("clinical_cases"),
-            "source_id": ObjectId(doc_id),
-            "versions": [],
-            "new": True
-        }
-        mongo_id = mongo.db.clinical_cases.insert(case)
-        result = mongo.db.clinical_cases.find_one(mongo_id)
-        result.update({"_id": str(result["_id"]),
-                       "source_id": str(result["source_id"])})
-
-    except Exception as err:
-        abort(404)
-
-    return jsonify(result)
-
-
-def getCaseID(source_id):
-    new_case_id = 0
-    results = list(mongo.db.clinical_cases.find(
-        {"source_id": source_id}, {"_id": 0, "case_id": 1}))
-    case_ids = [result.get("case_id") for result in results]
-
-    try:
-        maxNum = max(case_ids)
-        new_case_id = maxNum + 1
-    except:
-        pass
-
-    return new_case_id
-
-
-def getVersionID(_id):
-    new_v_id = 0
-    results = mongo.db.clinical_cases.find_one(
-        {"_id": _id}, {"_id": 0, "versions": 1})
-    v_ids = [result["id"] for result in results["versions"]]
-    try:
-        maxNum = max(v_ids)
-        new_v_id = maxNum + 1
-    except:
-        pass
-
-    return new_v_id
-
-
-def validMongoQuery(json):
-    v_id = 0
-    _id = json.get("_id")
-
-    if _id:
-        _id = ObjectId(_id)
-
-    source_id = ObjectId(json["source_id"])
-    caseText = json["clinical_case"]
-    time = int(json["time"])
-    user_id = json["user_id"]
-    loc = json["location"]
-
-    caseObj = {"clinical_case": caseText, "time": time,
-               "user_id": user_id, "location": loc}
-
-    yes_no = json.get("yes_no")
-    if yes_no:
-        caseObj.update({"yes_no": yes_no})
-
-    if _id:
-        v_id = getVersionID(_id)
-        version = copy.deepcopy(caseObj)
-        version.update({"id": v_id})
-
-        caseObj.update({"source_id": source_id})
-        query = {
-            "$addToSet": {"versions": version},
-            "$set": caseObj,
-        }
-    else:
-        case_id = getCaseID(source_id)
-        version = copy.deepcopy(caseObj)
-        version.update({"id": 0})
-
-        caseObj.update(
-            {"versions": [version], "source_id": source_id, "case_id": case_id})
-        query = caseObj
-
-    return _id, query
+    mongo.db.documents.update({"_id":_id, },
+                              {"$set": {"state": 0}})
 
 # URL example = /documents/data_type/add
-@app.route("/documents/<data_type>/add", methods=["POST"])
-def save_data(data_type):
+@app.route("/documents/add", methods=["POST"])
+def save_data():
     """ A request must be similar to the next example,
         those keys contain a interrogate symbole (?) are not required.
-
-        Request.json = {doc_id?: str,
-                        file_name: str,
-                        time: Date,
-                        clinical_case: str,
-                        meta_data: dict()
-                        yes_no: str
-                        }
-
     """
 
     try:
         isNew = False
 
-        _id, query = validMongoQuery(request.json)
-
+        _id, query = utils.valid_mongo_query(request.json)
         if _id:
             result = mongo.db.clinical_cases.update({"_id": _id}, query)
         else:
@@ -285,12 +129,6 @@ def home():
     return {"data": "Welcome to codiEsp"}
 
 
-# @app.before_request
-# def setSession():
-#     if not session.get("logged_in"):
-#         session["logged_in"] = True
-#         session.permanent = True
-#         app.permanent_session_lifetime = timedelta(seconds=1)
 
 
 if __name__ == "__main__":
@@ -300,10 +138,57 @@ if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)
 
 
-# -----------------------------------------
+
+
+
+
+
+
+# -----------------------------------------------------------------------
+#------------------------------------------------------------------------
+
 # @app.route("/documents/<data_type>/add", methods=["POST"])
 # def save_data(data_type):
 #     data_type = data_type.strip()
 #     directory = constants.PATHS_TO_DIR.get(data_type)
 
 #     doc_id = request.json[];
+
+
+
+
+
+
+# @app.before_request
+# def setSession():
+#     if not session.get("logged_in"):
+#         session["logged_in"] = True
+#         session.permanent = True
+#         app.permanent_session_lifetime = timedelta(seconds=1)
+
+
+
+
+
+
+# @app.route("/documents/new_case", methods=["POST"])
+# def create_new_case():
+    # try:
+        # doc_id = request.json["_id"]
+# 
+        # case = {
+            # "clinical_case": "",
+            # "case_id": getNextSec("clinical_cases"),
+            # "source_id": ObjectId(doc_id),
+            # "versions": [],
+            # "new": True
+        # }
+        # mongo_id = mongo.db.clinical_cases.insert(case)
+        # result = mongo.db.clinical_cases.find_one(mongo_id)
+        # result.update({"_id": str(result["_id"]),
+                    #    "source_id": str(result["source_id"])})
+# 
+    # except Exception as err:
+        # abort(404)
+# 
+    # return jsonify(result)
