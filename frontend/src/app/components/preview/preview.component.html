@@ -1,4 +1,4 @@
-<div class="h-100 w-100" fxLayout="column">
+<div class="h-100 w-100 " fxLayout="column" >
     <app-title [title]="title"></app-title>
     <div class="" fxFlex fxLayout="column">
         <div *ngIf="document" class="border-bottom my-1 pb-1">
@@ -9,14 +9,18 @@
                     (click)="showText()">Target</button>
             </div>
         </div>
-        <div *ngIf="contentType == TEXT && auxText" class="divContent" fxFlex>
-            <div class="content" style="white-space: pre-wrap;" [innerHTML]="auxText"></div>
+        <div *ngIf="contentType == TEXT && auxText" class="p-1 overflow-auto" fxFlex>
+            <div class="content"  [innerHTML]="auxText"></div>
         </div>
 
         <iframe *ngIf="contentType == LINK && safeUrl" fxFlex name="frame" [src]="safeUrl" width="100%" height="100%"
-        class="p-3"
-            frameBorder="0">
-            <p>The source is invalid</p>
+        class="p-3" frameBorder="0">
+            <p>Page Not Found</p>
         </iframe>
+
+        <!-- <object width="100%" height="100%" [data]="safeUrl"></object>  -->
+        <!-- <embed width="100%" height="100%" [src]="safeUrl"> -->
+
     </div>
 </div>
+

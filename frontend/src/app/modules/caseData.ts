@@ -5,8 +5,6 @@ export class CaseData{
     private location:string;
     private time:number;
 
-
-
     /**
      * Getter $clinical_case
      * @return {string}

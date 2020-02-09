@@ -14,14 +14,17 @@ export class ClinicalCase extends CaseData implements Deserializable {
     constructor() {
         super();
         this.newCaseVersion = new Version();
+        this.versions = []
     }
 
     deserialize(input: any): this {
         Object.assign(this, input);
-
+        
         if (input.versions) {
             input.versions.sort((a,b)=> a.id - b.id)
             this.versions = input.versions.map(version => new Version().deserialize(version));
+        }else{
+            this.versions = []
         }
 
         return this;

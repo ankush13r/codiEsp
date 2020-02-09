@@ -29,7 +29,7 @@ export class MainComponent implements OnInit {
 
   getTypes(){
     this.apiService.getTypes().subscribe(result=>{
-      this.documents_types = result      
+      this.documents_types = result 
     }
       )
   }

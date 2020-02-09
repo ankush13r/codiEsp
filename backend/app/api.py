@@ -77,11 +77,19 @@ def get_document(data_type, _id):
 
 
 @app.route("/documents/finish", methods=["PUT"])
-def get_document():
-    _id = object(request.json["_id"])
+def finish_document():
+    _id = ObjectId(request.json["_id"])
 
-    mongo.db.documents.update({"_id":_id, },
-                              {"$set": {"state": 0}})
+    try:
+        result = mongo.db.documents.update({"_id":_id, },
+                              {"$set": {"state": 1}})
+        
+        return jsonify({"data":result["nModified"]})
+    
+    except Exception as err:
+        abort(304,{"error": result})
+        
+        
 
 # URL example = /documents/data_type/add
 @app.route("/documents/add", methods=["POST"])

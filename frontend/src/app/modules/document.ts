@@ -9,18 +9,27 @@ export class Document {
   private state: string;
   private clinical_cases: ClinicalCase[];
 
+  constructor() {
+    var tmpCase = new ClinicalCase();
+    tmpCase.$isNew = true;
+    this.clinical_cases = [tmpCase]
+  }
 
-	
   deserialize(input: any): this {
 
     Object.assign(this, input);
-   
-    if(input.clinical_cases && Array.isArray(input.clinical_cases) && input.clinical_cases.length > 0){
-      input.clinical_cases.sort((a,b)=> a.case_id - b.case_id)
+
+    if (input.clinical_cases && Array.isArray(input.clinical_cases) && input.clinical_cases.length > 0) {
+      input.clinical_cases.sort((a, b) => a.case_id - b.case_id)
       this.clinical_cases = input.clinical_cases.map(clinical_case => new ClinicalCase().deserialize(clinical_case));
-    }else{
-      this.clinical_cases = [new ClinicalCase()]
+
+    } else {
+      var tmpCase = new ClinicalCase();
+      tmpCase.$isNew = true;
+      this.clinical_cases = [tmpCase]
     }
+
+
 
     return this;
   }
@@ -36,97 +45,97 @@ export class Document {
 	 * @access	public
 	 * @return	mixed
 	 */
-	public get $_id(): string {
-		return this._id;
-	}
+  public get $_id(): string {
+    return this._id;
+  }
 
-    /**
-     * Getter $name
-     * @return {string}
-     */
-	public get $name(): string {
-		return this.name;
-	}
+  /**
+   * Getter $name
+   * @return {string}
+   */
+  public get $name(): string {
+    return this.name;
+  }
 
-    /**
-     * Getter $link
-     * @return {string}
-     */
-	public get $link(): string {
-		return this.link;
-	}
+  /**
+   * Getter $link
+   * @return {string}
+   */
+  public get $link(): string {
+    return this.link;
+  }
 
-    /**
-     * Getter $format
-     * @return {string}
-     */
-	public get $format(): string {
-		return this.format;
-	}
+  /**
+   * Getter $format
+   * @return {string}
+   */
+  public get $format(): string {
+    return this.format;
+  }
 
-    /**
-     * Getter $state
-     * @return {string}
-     */
-	public get $state(): string {
-		return this.state;
-	}
+  /**
+   * Getter $state
+   * @return {string}
+   */
+  public get $state(): string {
+    return this.state;
+  }
 
-    /**
-     * Getter $clinical_cases
-     * @return {ClinicalCase[]}
-     */
-	public get $clinical_cases(): ClinicalCase[] {
-		return this.clinical_cases;
-	}
+  /**
+   * Getter $clinical_cases
+   * @return {ClinicalCase[]}
+   */
+  public get $clinical_cases(): ClinicalCase[] {
+    return this.clinical_cases;
+  }
 
-    /**
-     * Setter id
-     * @param {string} value
-     */
-	public set $_id(value: string) {
-		this._id = value;
-	}
+  /**
+   * Setter id
+   * @param {string} value
+   */
+  public set $_id(value: string) {
+    this._id = value;
+  }
 
-    /**
-     * Setter $name
-     * @param {string} value
-     */
-	public set $name(value: string) {
-		this.name = value;
-	}
+  /**
+   * Setter $name
+   * @param {string} value
+   */
+  public set $name(value: string) {
+    this.name = value;
+  }
 
-    /**
-     * Setter $link
-     * @param {string} value
-     */
-	public set $link(value: string) {
-		this.link = value;
-	}
+  /**
+   * Setter $link
+   * @param {string} value
+   */
+  public set $link(value: string) {
+    this.link = value;
+  }
 
-    /**
-     * Setter $format
-     * @param {string} value
-     */
-	public set $format(value: string) {
-		this.format = value;
-	}
+  /**
+   * Setter $format
+   * @param {string} value
+   */
+  public set $format(value: string) {
+    this.format = value;
+  }
 
-    /**
-     * Setter $state
-     * @param {string} value
-     */
-	public set $state(value: string) {
-		this.state = value;
-	}
+  /**
+   * Setter $state
+   * @param {string} value
+   */
+  public set $state(value: string) {
+    this.state = value;
+  }
 
-    /**
-     * Setter $clinical_cases
-     * @param {ClinicalCase[]} value
-     */
-	public set $clinical_cases(value: ClinicalCase[]) {
-		this.clinical_cases = value;
-	}
+  /**
+   * Setter $clinical_cases
+   * @param {ClinicalCase[]} value
+   */
+  public set $clinical_cases(value: ClinicalCase[]) {
+    this.clinical_cases = value;
+  }
 
 
 }

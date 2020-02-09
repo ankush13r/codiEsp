@@ -16,7 +16,7 @@ import { Document } from '../../modules/document';
 
 export class PreviewComponent implements OnInit {
 
-  title = "Source"
+  title = "Preview"
   document: Document;
   safeUrl: SafeResourceUrl;
   auxText: String;
