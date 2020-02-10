@@ -69,16 +69,13 @@ def check_data_type(type):
 def get_documents(data_type):
     data_type = data_type.strip()
 
-    if not (check_data_type(data_type)):
-        abort(404)
-
     page, per_page = get_valid_pagination_args(request.args)
     # data = documents.get_data_list(data_type, page, per_page)
     data = documents.getDocuments(data_type, page, per_page)
     return jsonify(data)
 
 
-def modifyText(content):
+def modifyText(content, data_format):
     style = """"""
 
     for term in constants.START_CASE_TERMS:
@@ -93,8 +90,10 @@ def modifyText(content):
             content = re.sub(str(found.group(
             )), '<span style="background:rgba(255, 6, 6, 0.5); padding:5px;">'+str(found.group())+'</span>', content)
             break
+    if data_format == constants.TYPE_HTML:
+        return content
 
-    return content
+    return '<span style="white-space: pre-wrap;">'+ content +'</span>'
 
 
 def readFile(file_path):
@@ -113,22 +112,38 @@ def getFilePath(data_type, name):
             return file_path
     return False
 
+
+@app.route("/documents/types", methods=["GET"])
+def get_types():
+    result = mongo.db.documents.distinct("dataType")
+    return jsonify(result)
+
+
 # URL example = /documents/pdf/file.pdf
-@app.route("/documents/<data_type>/<name>", methods=["GET"])
-def get_document(data_type, name):
-    isExistFile = False
-    data_type = data_type.strip()
-    file_path = getFilePath(data_type, name)
-    if data_type == constants.TYPE_LINK or not file_path:
-        abort(404)
-    elif data_type == constants.TYPE_HTML or data_type == constants.TYPE_TEXT:
-        content = readFile(file_path)
-        modified_content = modifyText(content)
-        return str(modified_content)
+@app.route("/documents/<data_format>/<_id>", methods=["GET"])
+def get_document(data_format, _id):
+
+    obj = mongo.db.documents.find_one({"_id":ObjectId(_id)})
+    file_path = obj["path"]
+    if obj:
+        print(obj)
     else:
+        abort(404, "Invalid id, no data found")
+    if data_format == constants.TYPE_LINK :
+        abort(404,"Ivalid format, we don't provide links")
+    elif data_format == constants.TYPE_PDF:
         return send_file(file_path)
 
-    abort(404)
+    elif data_format in [constants.TYPE_HTML, constants.TYPE_TEXT]:
+        content = readFile(file_path)
+        modified_content = modifyText(content,data_format)
+        return str(modified_content)
+
+    elif data_format == constants.TYPE_TEXT:
+        return send_file(file_path)
+
+    else:
+        abort(404, "Error:  Data format is invalid. -> " + data_format)
 
 
 def getNextSec(name):
@@ -234,7 +249,6 @@ def validMongoQuery(json):
 def save_data(data_type):
     """ A request must be similar to the next example,
         those keys contain a interrogate symbole (?) are not required.
-
         Request.json = {doc_id?: str,
                         file_name: str,
                         time: Date,
@@ -242,7 +256,6 @@ def save_data(data_type):
                         meta_data: dict()
                         yes_no: str
                         }
-
     """
 
     try:
@@ -258,7 +271,7 @@ def save_data(data_type):
 
         if isNew or result["nModified"] > 0:
             mongoObj = mongo.db.clinical_cases.find_one({"_id": _id})
-            
+
             mongo.db.documents.update({"_id": mongoObj["source_id"]}, {
                                       "$set": {"state": 0}})
 

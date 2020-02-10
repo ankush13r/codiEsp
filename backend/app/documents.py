@@ -10,11 +10,11 @@ import constants
 from api import mongo
 
 
-def get_data_list(file_type: str, page: int = 0, per_page: int = 10):
+def get_data_list(data_type: str, page: int = 0, per_page: int = 10):
 
     start = int(page) * int(per_page)
     end = int(start) + int(per_page)
-    dir_path = constants.PATHS_TO_DIR.get(file_type)
+    dir_path = constants.PATHS_TO_DIR.get(data_type)
     # files = [os.path.abspath(file) for file in glob.glob(dir_path)]
 
     if dir_path and os.path.isdir(dir_path):
@@ -25,7 +25,7 @@ def get_data_list(file_type: str, page: int = 0, per_page: int = 10):
         error = {"message": "Error 404: Bad request, the dir_path is wrong"}
     dataList = []
 
-    if file_type == constants.TYPE_LINK:
+    if data_type == constants.TYPE_LINK:
         for file in files:
             file_path = os.path.join(dir_path, file)
             with open(file_path) as f:
@@ -43,7 +43,7 @@ def get_data_list(file_type: str, page: int = 0, per_page: int = 10):
     for data in dataList[start:end]:
         mongo_obj = None
         data_obj = {}
-        if file_type == constants.TYPE_LINK:
+        if data_type == constants.TYPE_LINK:
             file_name = data["file_name"]
             link = data["link"]
             if link[-1] == "/":
@@ -62,13 +62,13 @@ def get_data_list(file_type: str, page: int = 0, per_page: int = 10):
             # First of all it will check, if the document already had been inserted,
             mongo_obj = mongo.db.clinical_cases.find_one(
                 {"source_path": source_path})
-            link = safe_join(constants.API_BASE_URI, file_type, file_name)
+            link = safe_join(constants.API_BASE_URI, data_type, file_name)
 
-        # mongo.db.clinical_case.find_one({"directory_path":path,"type":file_type})
+        # mongo.db.clinical_case.find_one({"directory_path":path,"type":data_type})
         data_obj.update({
             "file_name": file_name,
             "link": link,
-            "data_type": file_type,
+            "data_type": data_type,
             "clinical_cases": [
                 {"mongo_id": "1111",
                  "case_id": 1,
@@ -128,16 +128,16 @@ def get_data_list(file_type: str, page: int = 0, per_page: int = 10):
     return data
 
 
-def getDocuments(file_type: str, page: int = 0, per_page: int = 10):
+def getDocuments(data_type: str, page: int = 0, per_page: int = 10):
     start = int(page) * int(per_page)
     end = int(start) + int(per_page)
-
     # To debug if start and end of records works well in the loop for.
     # listTmp = [i for i in range(100)]
     # print(listTmp[start:end])
 
     mongo_documents = list(mongo.db.documents.find(
-        {"format": file_type}).sort("name", 1))
+        {"dataType": data_type}).sort("name", 1))
+        
     total_records = len(mongo_documents)
 
     error = None
