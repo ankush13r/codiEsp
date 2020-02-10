@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/home/ankush/.local/share/virtualenvs/backend-SfZ1gfeD/bin/python",
+    "python.pythonPath": "/home/ankush/.local/share/virtualenvs/backend-nExfx_rI/bin/python",
     "cSpell.enabledLanguageIds": [
         "asciidoc",
         "c",
@@ -23,7 +23,6 @@
         "php",
         "plaintext",
         "pug",
-        "python",
         "restructuredtext",
         "rust",
         "scala",
@@ -34,5 +33,8 @@
         "yaml",
         "yml"
     ],
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
+    "python.linting.banditEnabled": false,
+    "python.linting.flake8Enabled": false,
+    "python.linting.pylintEnabled": true
 }

@@ -1,29 +1,7 @@
-.mainBox{
-    width: 99%;
-    height: 80%;
-    border: 1px solid rgb(187, 187, 187);
-    margin: auto;
-    padding: 10px;
-}
 
 
-/* mwlResizable {
-    box-sizing: border-box; /*required for the enableGhostResize option to work 
-} */
-
-button{
-    background-color: transparent;
-    border: 0;
-}
-
-.btn-active{
+.link-active{
     background: rgb(226, 226, 226);
     transition: 1s;
 }
-
-.contentBox{
-    height: 95%;
-}
-
-
 

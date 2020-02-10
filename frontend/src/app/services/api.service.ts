@@ -29,8 +29,8 @@ export class ApiService {
   }
 
 
-  getTypes():Observable<string[]> {
-    var url = this.baseUrl + "types" 
+  getTypes(): Observable<string[]> {
+    var url = this.baseUrl + "types"
     return this.http.get<string[]>(url);
 
   }
@@ -49,32 +49,35 @@ export class ApiService {
 
 
     return this.http.get<ApiResponse>(url, { params: params }).pipe(
+      retry(3), // retry a failed request up to 3 times      
+      catchError(this.handleError), // then handle the error
       map(data => new ApiResponse().deserialize(data))
     );
-
-
-
-    // this.http.get<ApiSchema>(url, { params: params }).pipe(
-    //   retry(3), // retry a failed request up to 3 times      
-    //   catchError(this.handleError) // then handle the error
-    // );
 
   }
 
 
-  addClinicalCase(document: any, selected_type: String): Observable<ClinicalCase> {
+  addClinicalCase(document: any): Observable<ClinicalCase> {
     document.location = "location";
 
-    var url = this.baseUrl + selected_type + "/add";
+    var url = this.baseUrl + "add";
     return this.http.post<Document>(url, document).pipe(
+      catchError(this.handleError),
       map(data => new ClinicalCase().deserialize(data))
     );
   }
 
-  createNewCase(id: string) {
-    var url = this.baseUrl + "new_case";
-    return this.http.post<Document>(url, { _id: id });
+  finishDocument(_id: string) {
+    var url = this.baseUrl + "finish";
+    return this.http.put<any>(url, { "_id": _id }).pipe(
+      catchError(this.handleError)
+    )
+
   }
+
+
+
+
 
 
   modifyClinicalCase(file: Document) {
@@ -105,3 +108,8 @@ export class ApiService {
 
 
 }
+
+// createNewCase(id: string) {
+  //   var url = this.baseUrl + "new_case";
+  //   return this.http.post<Document>(url, { _id: id });
+  // }

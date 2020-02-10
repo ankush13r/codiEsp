@@ -5,7 +5,7 @@
 
             <mat-form-field class="text-center" color="primary">
                 <mat-label class="text-primary">Case</mat-label>
-                <mat-select [(value)]="selectedCase" (selectionChange)="onCaseChange($event)" name="case">
+                <mat-select [(ngModel)]="selectedCase" (selectionChange)="selectNewVersion(true)" name="case">
                     <mat-option *ngFor="let case of document.$clinical_cases; let i = index" [value]="case">
                         {{i+1}}
                     </mat-option>
@@ -25,7 +25,7 @@
 
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <mat-radio-group *ngIf="selectedCase" name="yes_no" class="p-1" aria-label="Select an option">
-                <mat-radio-button name="yes_no" *ngFor="let item of radioBoxValues" class="ml-4" value="{{item}}"
+                <mat-radio-button name="yes_no" *ngFor="let item of yesNoValues" class="ml-4" value="{{item}}"
                     [checked]="selectedCaseVersion?.$yes_no == item"
                     (change)="selectedCase.$newCaseVersion.$yes_no = item">
                     <span class="font-weight-bolder">{{item | titlecase}}</span>
@@ -33,6 +33,7 @@
                 <mat-radio-button class="ml-4" value="-1" (change)="selectedCase.$newCaseVersion.$yes_no = null">None
                 </mat-radio-button>
             </mat-radio-group>
+
             <button type="button" mat-button color="accent" class="mb-2" (click)="showTarget(true)">Preview</button>
             <button type="button" mat-icon-button class="mb-2" (click)="onPaste()">
                 <mat-icon>note_add</mat-icon>
@@ -52,37 +53,38 @@
             </div>
         </div>
 
-        <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="2em">
+        <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="4em" class="m-1">
             <div fxLayout="row" fxLayoutGap="1.2em" class="mt-2">
-                <button *ngIf="selectedCaseVersion != selectedCase?.$newCaseVersion" (click)="onModify()" type="button"
+                <button *ngIf="selectedCaseVersion != selectedCase?.$newCaseVersion" (click)="onEdit()" type="button"
                     mat-raised-button color="primary">Edit</button>
                 <button *ngIf="selectedCaseVersion == selectedCase?.$newCaseVersion" type="submit" mat-raised-button
                     color="primary" [disabled]="!caseForm.valid  ">Submit</button>
-                <button type="reset" mat-raised-button color="warn">Clear</button>
+                <button type="button" mat-raised-button color="warn" (click)="onEdit(true)">Clear</button>
             </div>
-            <div fxLayout="row" fxLayoutGap="20px" class="mt-2">
-                <button type="button" mat-raised-button (click)="newCase()">
+            
+            <div class="mt-2" fxLayout="row" fxLayoutGap="0.2em">
+                <button type="button" mat-icon-button (click)="previousCase()">
+                    <mat-icon>arrow_back</mat-icon>
+                    <span class="p-2"> </span>
+                </button>
+                <button type="button" mat-icon-button (click)="nextCase()">
+                    <span class="p-2"> </span>
+                    <mat-icon>arrow_forward</mat-icon>
+                </button>
+
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="1em" class="mt-2">
+                <button type="button" mat-raised-button (click)="onNewCase()">
                     <mat-icon>add</mat-icon>
                     <span class="p-2">New case</span>
 
                 </button>
-                <button type="button" mat-raised-button>
-                    <mat-icon>done</mat-icon>
+                <button type="button" mat-raised-button [disabled]="document?.$state == '1' || document?.$clinical_cases.length == 0" (click)="onFinish()">
+                    <mat-icon>done_all</mat-icon>
                     <span class="p-2">Finish</span>
                 </button>
-            </div>
-
-            <div class="mt-2 mr-4" fxLayout="row" fxLayoutGap="20px">
-                <button type="button" mat-raised-button (click)="previousCase()">
-                    <mat-icon>chevron_left</mat-icon>
-                    <span class="p-2"> </span>
-                </button>
-                <button type="button" mat-raised-button (click)="nextCase()">
-                    <span class="p-2"> </span>
-                    <mat-icon>chevron_right</mat-icon>
-                </button>
-
-            </div>
+            </div>       
 
         </div>
 

@@ -2,28 +2,36 @@
     height: 100%;
     width: 100%;
 }
+
+.textAreaParent{
+    background:white;
+    width: 98%;
+    position: relative;
+} 
+
 .textarea, .textAreaBacks{
     resize: none;
     border: 1px solid rgb(184, 184, 184);
     padding: 1em 1em 0 1em;
-    font-family: 'monospace';
     position: absolute;
+    top:0;
     background: transparent;
-    overflow-y: auto;
+    white-space: break-spaces;  
+    word-wrap: break-word;
+    overflow: auto;
+    font-family: 'Roboto Mono', monospace;
+
+
 }
 
 .textarea{
     z-index: 999;
 }
 
-.textAreaParent{
-    width: 98%;
-    padding: 1px;
-    position: relative;
-} 
+
 .textAreaBacks{
-    word-wrap: break-word;
-    white-space: pre-wrap;
+    white-space: break-spaces;
+    color: transparent;
 }
 
 .textAreaBacks mark{

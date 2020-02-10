@@ -20,3 +20,5 @@ font-family: Roboto, "Helvetica Neue", sans-serif;
 background: rgb(255, 0, 0);
 color: white;
 }
+
+button:focus {outline:0;}

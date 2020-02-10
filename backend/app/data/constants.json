@@ -1,0 +1,18 @@
+{
+    "flask": {
+        "flaskBaseUrl": "http://127.0.0.1:5000/documents"
+    },
+    "mongo": {
+        "mongoBaseUrl": "//localhost:27017",
+        "dataBase": "codiEsp",
+        "colDocs": "documents",
+        "colCases": "clinical_case"
+    },
+    "format": {
+        "text": "text",
+        "html": "html",
+        "link": "link",
+        "pdf": "pdf",
+        "xml": "pdf"
+    }
+}

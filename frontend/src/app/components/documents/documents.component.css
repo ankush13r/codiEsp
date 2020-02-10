@@ -4,20 +4,25 @@
 .listBox{
     overflow-x: auto;
 }
-
+.matList{
+    overflow-y: auto;
+}
 .drawer{
-    margin-top: 0.1em;
+    margin-top: 0.0em;
     max-width: 20em;
 }
-.sideButton{
-    position: absolute;
-    font-size: larger;
-    top: 0.33em;
-    left: 0.5em;
-    border: 0.1em solid rgb(255, 255, 255);
-    color: rgb(255, 255, 255);
 
+.slideButton{
+    position: absolute;
+    top: 0.3em;
+    left: 0.5em;
 }
+
+.slideButton  mat-icon{
+    color:white;
+}
+
+
 .docsList:hover{
     background: rgb(235, 235, 235);
     color: rgb(0, 0, 0);   
@@ -34,7 +39,6 @@
      background-color: rgb(17, 98, 207) !important;
      box-shadow: 0 0 5px -1px rgb(17, 98, 207) ;
  } */
-
  .selected:hover{
     opacity: 0.95;
  }

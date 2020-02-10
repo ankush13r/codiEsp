@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output, ViewEncapsulation, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewEncapsulation, HostListener, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -9,6 +9,7 @@ import { ClinicalCase } from '../../modules/clinicalCase';
 import { Version } from '../../modules/version';
 
 
+const errorStyle = ["error-snack-bar"]
 
 @Component({
   selector: 'app-target',
@@ -19,17 +20,21 @@ import { Version } from '../../modules/version';
 
 
 
-export class clinicalCase implements OnInit {
+export class clinicalCase implements OnInit, OnChanges {
   title = "Clinical case"
-  radioBoxValues: string[] = ["yes", "no"]
-  @Output() next_previous = new EventEmitter<number>();
+  yesNoValues: string[] = ["yes", "no"]
 
-  @ViewChild('backTextarea',null) backTextarea: ElementRef;
+  @Output() nextOrPrevious = new EventEmitter<number>();
+  @ViewChild('backTextarea', null) backTextarea: ElementRef;
+  @Input() document: Document;
 
-  docType: string = null;
-  document: Document = null;
+  //Case selected by user.
   selectedCase: ClinicalCase = null;
+
+  //case version selected by user.
   selectedCaseVersion: Version = null;
+
+  // Temporal text of user input textarea.
   auxText: string = null;
 
   constructor(
@@ -39,85 +44,90 @@ export class clinicalCase implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.observeDocumentType();
-    this.observeDocument();
-  }
 
-  observeDocumentType() {
-    this.dataShareService.observeDocumentType().subscribe(result => {
-      this.docType = result;
-    });
   }
 
 
-  observeDocument() {
-    this.dataShareService.observeDocument().subscribe(result => {
-      if (result) {
-        this.document = result;
-        this.arrangeView();
+  ngOnChanges(changes: SimpleChanges) {
+
+    for (const propName in changes) {
+
+      if (changes.hasOwnProperty(propName)) {
+        if (propName == 'document' && this.document) {
+          this.selectLastCase();
+        }
+
       }
-    })
+    }
   }
 
-  arrangeView() {
+  selectLastCase() {
     this.selectedCase = this.document.$clinical_cases[this.document.$clinical_cases.length - 1];
-    this.selectedCaseVersion = this.selectedCase.$newCaseVersion;
-
+    this.selectNewVersion(true);
   }
 
 
-  onCaseChange(event) {
-    this.selectedCaseVersion = this.selectedCase.$newCaseVersion;
-    this.parse_text(this.selectedCaseVersion.$clinical_case);
-  }
+  
+  
 
   onVersionChange(event) {
     this.selectedCaseVersion = event.value;
-    this.parse_text(this.selectedCaseVersion.$clinical_case);
-
-
+    this.getAuxText(this.selectedCaseVersion.$clinical_case);
   }
 
   onChangeText(event) {
-    this.parse_text(event);
+    this.getAuxText(event);
   }
 
-  parse_text(text: string) {
-    var textList = text.split("")
+  onEdit(clear: boolean=false) {
 
-    var newText = ""
-    let found = false;
-    for (let i = 0; i < text.length; i++) {
-      if (text[i] == "\n") {
-        newText += "<mark>\n</mark>"
-      } else {
-        newText += text[i]
-      }
+    if (clear)
+      this.selectedCase.$newCaseVersion.$clinical_case = ""
+    else
+      this.selectedCase.$newCaseVersion.$clinical_case = this.selectedCaseVersion.$clinical_case;
 
-    }
-    this.auxText = newText + "\n"
-  }
-
-  onModify() {
-    this.selectedCase.$newCaseVersion.$clinical_case = this.selectedCaseVersion.$clinical_case;
-    this.selectedCaseVersion = this.selectedCase.$newCaseVersion;
+    this.selectNewVersion();
   }
 
 
-  findEqualVersion = (text) => this.selectedCase.$versions.find((v) => v.$clinical_case.toLowerCase() == text.toLowerCase());
+  onNewCase() {
+    var newCase = this.document.$clinical_cases.find((cases) => cases.$isNew == true);
 
-  newCase() {
-    var isNew = this.document.$clinical_cases.find((cases) => cases.$isNew == true);
-
-
-    if (!isNew) {
+    if (!newCase) {
       this.document.$clinical_cases.push(new ClinicalCase().deserialize({ isNew: true }))
       this.selectedCase = this.document.$clinical_cases[this.document.$clinical_cases.length - 1]
     } else {
-      this.openSnackBar("Error: New case is already opened", "OK");
-      // this.selectedCase = isNew;
+      this.selectedCase = newCase;
+      this.openSnackBar("Error: New case is already created", "OK", errorStyle);
     }
+    this.selectNewVersion(true);
   }
+
+  onFinish() {
+
+    this.apiService.finishDocument(this.document.$_id).subscribe(result => {
+      if (result.data == 1) {
+        this.document.$state = "1";
+      }
+
+    })
+  }
+  nextCase() {
+    this.nextOrPrevious.emit(1);
+  }
+
+  previousCase() {
+    this.nextOrPrevious.emit(-1);
+  }
+
+  @HostListener("scroll", ['$event'])
+  onScroll(event) {
+
+    let scrollOffset = event.srcElement.scrollTop;
+    this.backTextarea.nativeElement.scrollTop = scrollOffset
+
+  }
+
 
   showTarget(preview: boolean = false) {
     this.dataShareService.changeAuxText(this.selectedCase.$newCaseVersion.$clinical_case);
@@ -126,8 +136,19 @@ export class clinicalCase implements OnInit {
     }
   }
 
+
+  onPaste() {
+    try {
+      navigator.clipboard.readText().then(
+        clipText => this.onChangeText(clipText)
+      );
+    } catch{
+      console.info("Not supported with the browser");
+    }
+  }
+
   onSubmit() {
-    const style = ["error-snack-bar"]
+
     var text = (this.selectedCase.$newCaseVersion.$clinical_case).trim();
     this.selectedCase.$isNew = null;
 
@@ -145,53 +166,59 @@ export class clinicalCase implements OnInit {
         user_id: null
       }
 
-      this.apiService.addClinicalCase(jsonToSubmit, this.docType).subscribe(result => {
+      this.apiService.addClinicalCase(jsonToSubmit).subscribe(result => {
         this.selectedCase.$_id = result.$_id
         this.selectedCase.$case_id = result.$case_id
         this.selectedCase.$versions = result.$versions;
+        this.document.$state = "0";
         this.selectedCaseVersion = this.selectedCase.$versions[this.selectedCase.$versions.length - 1]
         this.openSnackBar("Added successfully", "OK");
       });
     } else {
       this.selectedCaseVersion = found;
-      this.openSnackBar("Error: Already exist.", "OK", style);
+      this.openSnackBar("Error: Already exist.", "OK", errorStyle);
     }
   }
 
-  nextCase() {
-    this.next_previous.emit(1);
-  }
 
-  previousCase() {
-    this.next_previous.emit(-1);
-  }
+  //Functions as utils, those are called by other functions.
+  //--------------------------------------------------------
 
-  @HostListener("scroll", ['$event'])
-  onScroll(event) {
-   
-    let scrollOffset = event.srcElement.scrollTop;
-    this.backTextarea.nativeElement.scrollTop = scrollOffset
-  
-  }
+  findEqualVersion = (text) => this.selectedCase.$versions.find((v) => v.$clinical_case.toLowerCase() == text.toLowerCase());
+ 
 
-  onPaste() {
-    try {
-      navigator.clipboard.readText().then(
-        clipText => this.onChangeText(clipText)
-      );
-    } catch{
-      console.log("Not supported with the browser");
+  selectNewVersion(getAuxText = false) {
+    this.selectedCaseVersion = this.selectedCase.$newCaseVersion;
+    if (getAuxText) {
+      this.getAuxText(this.selectedCaseVersion.$clinical_case);
+
     }
 
+  }
 
+  getAuxText(text: string) {
+    if (!text) {
+      this.auxText = null;
+      return null;
+    }
+
+    var newText = ""
+    for (let i = 0; i < text.length; i++) {
+
+      if (text[i] == "\n")
+        newText += "<mark>\n</mark>"
+      else
+        newText += text[i]
+    }
+
+    this.auxText = newText + "\n"
   }
 
 
-
-  openSnackBar(message: string, action: string = null, style = ['snackbar-style']) {
+  openSnackBar(message: string, action: string = null, errorStyle = ['snackbar-errorStyle']) {
     this._snackBar.open(message, action, {
       duration: 2000,
-      panelClass: style
+      panelClass: errorStyle
     });
   }
 }
@@ -218,7 +245,7 @@ export class clinicalCase implements OnInit {
 //   submitData() {
 //     ` TODO -> add time and meta_data into the sending object`
 
-//     const style = ["error-snack-bar"]
+//     const errorStyle = ["error-snack-bar"]
 
 //     if (!this.selected_version || this.selected_version == -1) {
 //       console.log(this.clinical_case);
@@ -238,10 +265,10 @@ export class clinicalCase implements OnInit {
 //   }
 
 
-//   openSnackBar(message: string, action: string = null, style = ['snackbar-style']) {
+//   openSnackBar(message: string, action: string = null, errorStyle = ['snackbar-errorStyle']) {
 //     this._snackBar.open(message, action, {
 //       duration: 2000,
-//       panelClass: style
+//       panelClass: errorStyle
 //     });
 //   }
 
