@@ -110,7 +110,7 @@ export class DocumentsComponent implements OnInit {
 
   onNextPrevious(value: number) {
     var tmpDocIndex = this.index + value;
-
+    
     
     // If TmpDocIndex is greater than 0 and less than total length, it means TmpDocIndex is in range of documents list. 
     if (0 <= tmpDocIndex && tmpDocIndex < this.api_response.$documents.length) {
@@ -127,7 +127,7 @@ export class DocumentsComponent implements OnInit {
       //If tmpDocIndex is greater than api response's perPage value and pageIndex is no last page value. 
       // (this.pageIndex[this.doc_type] + 1 || 0)  If pagIndex[this.doc_type] is null of undefined than it wil choose 1
       } else if (tmpDocIndex >= this.api_response.$perPage  && (this.pageIndex[this.doc_type] + 1 || 1) < (this.api_response.$totalRecords / this.api_response.$perPage)) {
-        this.pageIndex[this.doc_type] = this.pageIndex[this.doc_type] + 1;
+        this.pageIndex[this.doc_type] = this.pageIndex[this.doc_type] + 1 || 1;
         this.getDocuments(0);
 
       }

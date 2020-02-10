@@ -5,10 +5,10 @@ import { ApiService } from '../../services/api.service';
   
 @Component({
   selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  templateUrl: './main-text-extractor.component.html',
+  styleUrls: ['./main-text-extractor.component.css']
 })
-export class MainComponent implements OnInit {
+export class MainTextExtractorComponent implements OnInit {
   documents_types: String[] = null;
   selected_type: String;
 

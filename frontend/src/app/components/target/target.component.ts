@@ -20,7 +20,7 @@ const errorStyle = ["error-snack-bar"]
 
 
 
-export class clinicalCase implements OnInit, OnChanges {
+export class TargetComponent implements OnInit, OnChanges {
   title = "Clinical case"
   yesNoValues: string[] = ["yes", "no"]
 
@@ -140,7 +140,11 @@ export class clinicalCase implements OnInit, OnChanges {
   onPaste() {
     try {
       navigator.clipboard.readText().then(
-        clipText => this.onChangeText(clipText)
+        clipText => {
+          this.selectedCase.$newCaseVersion.$clinical_case = clipText;
+          this.getAuxText(clipText)
+          this.selectNewVersion();
+        }
       );
     } catch{
       console.info("Not supported with the browser");

@@ -42,7 +42,7 @@
 
 
 
-        <div fxFlex="65" class="textAreaParent">
+        <div fxFlex="50" class="textAreaParent">
             <textarea *ngIf="selectedCase" class="textarea h-100 w-100" name="clinicalCase" type="textarea"
                 [disabled]="selectedCaseVersion != selectedCase?.$newCaseVersion" required
                 [(ngModel)]="this.selectedCaseVersion.$clinical_case" (ngModelChange)="onChangeText($event)"
@@ -52,8 +52,11 @@
 
             </div>
         </div>
+        <div  fxFlex class="border">
 
-        <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="4em" class="m-1">
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="3em" class="m-1">
             <div fxLayout="row" fxLayoutGap="1.2em" class="mt-2">
                 <button *ngIf="selectedCaseVersion != selectedCase?.$newCaseVersion" (click)="onEdit()" type="button"
                     mat-raised-button color="primary">Edit</button>
@@ -62,7 +65,7 @@
                 <button type="button" mat-raised-button color="warn" (click)="onEdit(true)">Clear</button>
             </div>
             
-            <div class="mt-2" fxLayout="row" fxLayoutGap="0.2em">
+            <div class="mt-2" fxLayout="row" fxLayoutGap="0.05em">
                 <button type="button" mat-icon-button (click)="previousCase()">
                     <mat-icon>arrow_back</mat-icon>
                     <span class="p-2"> </span>
@@ -74,13 +77,13 @@
 
             </div>
 
-            <div fxLayout="row" fxLayoutGap="1em" class="mt-2">
+            <div fxLayout="row" fxLayoutGap="0.5em" class="mt-2">
                 <button type="button" mat-raised-button (click)="onNewCase()">
                     <mat-icon>add</mat-icon>
-                    <span class="p-2">New case</span>
+                    <span class="p-2">New</span>
 
                 </button>
-                <button type="button" mat-raised-button [disabled]="document?.$state == '1' || document?.$clinical_cases.length == 0" (click)="onFinish()">
+                <button type="button" mat-raised-button [disabled]="document?.$state != '0'" (click)="onFinish()">
                     <mat-icon>done_all</mat-icon>
                     <span class="p-2">Finish</span>
                 </button>

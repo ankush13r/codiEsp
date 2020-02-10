@@ -1,32 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DocumentsComponent } from '../components/documents/documents.component';
-import { MainComponent } from '../components/main/main.component';
+import { MainTextExtractorComponent } from '../components/main-text-extractor/main-text-extractor.component';
 
-import { clinicalCase } from '../components/target/target.component';
+import { TargetComponent } from '../components/target/target.component';
 
 
 
 const routes: Routes = [
   //<---- child components declared here
   {
-    path: 'main',
-    component: MainComponent,
+    path: 'documents',
+    component: MainTextExtractorComponent,
     children: [
       {
-        path: 'documents/:type',
+        path: ':type',
         component: DocumentsComponent,
-      },
-      {
-        path: ':case',
-        component: clinicalCase,
-        outlet: 'case'
       },
     ]
   },
   {
     path: '',
-    redirectTo: 'main/documents/pdf',
+    redirectTo: 'documents/pdf',
     pathMatch: 'full'
   }
 ];

@@ -5,19 +5,18 @@
 
 .textAreaParent{
     background:white;
-    width: 98%;
     position: relative;
 } 
 
 .textarea, .textAreaBacks{
     resize: none;
     border: 1px solid rgb(184, 184, 184);
-    padding: 1em 1em 0 1em;
+    padding: 0.5em 0.5em 0 0.5em;
     position: absolute;
     top:0;
     background: transparent;
-    white-space: break-spaces;  
-    word-wrap: break-word;
+    white-space: pre-line;  
+    word-wrap: normal;
     overflow: auto;
     font-family: 'Roboto Mono', monospace;
 
@@ -26,18 +25,18 @@
 
 .textarea{
     z-index: 999;
+    padding-right: 0.55em;
 }
 
 
 .textAreaBacks{
-    white-space: break-spaces;
+    padding-right: 0.4em;
     color: transparent;
 }
 
 .textAreaBacks mark{
-    margin-left: 0.2em;
-    box-sizing: border-box;
-    border-right: 0.1em solid;
-    border-color: rgba(0, 162, 255, 0.692);
-    background:  rgba(0, 162, 255, 0.692);
+    padding: 0;
+    margin: 0;
+    border: 0.13em solid;
+    border-color: rgb(0, 162, 255);
 }

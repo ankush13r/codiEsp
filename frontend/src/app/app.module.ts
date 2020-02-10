@@ -20,23 +20,23 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DocumentsComponent } from './components/documents/documents.component';
-import { clinicalCase } from './components/target/target.component';
+import { TargetComponent } from './components/target/target.component';
 import { AppRoutingModule } from './routes/app-routing.module';
 import { PaginationComponent } from './components/pagination/pagination.component';
-import { MainComponent } from './components/main/main.component';
+import { MainTextExtractorComponent } from './components/main-text-extractor/main-text-extractor.component';
 import { PreviewComponent } from './components/preview/preview.component';
-import { TitleComponent } from './components/shared-com/title/title.component';
+import { SubTitleComponent } from './components/sub-title/sub-title.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     DocumentsComponent,
-    clinicalCase,
+    TargetComponent,
     PaginationComponent,
-    MainComponent,
+    MainTextExtractorComponent,
     PreviewComponent,
-    TitleComponent,
+    SubTitleComponent,
   ],
   imports: [
     BrowserModule,
