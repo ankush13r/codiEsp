@@ -169,11 +169,10 @@ def get_documents(file_type: str, page: int = 0, per_page: int = 10):
     # print(listTmp[start:end])
 
     mongo_documents = list(mongo.db.documents.find(
-        {"type": file_type}).sort("name", 1))
+        {"dataType": file_type}).sort("name", 1))
     total_records = len(mongo_documents)
     error = None
     documents = mongo_documents[start:end]
-    print(documents[1:10])
     for document in documents:
         if document["format"] != "link":
             link = safe_join(constants.API_BASE_URI,

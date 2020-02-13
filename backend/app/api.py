@@ -38,6 +38,11 @@ mongo = PyMongo(app)
 #Enabled cors.
 cors = CORS(app)
 
+@app.route("/documents/hpo")
+def get_hpo():
+    hpo = list(mongo.db.hpo.find({},{"_id":0}))
+    return jsonify(hpo)
+
 @app.route("/documents/types", methods=["GET"])
 def get_types():
     """Return a list of documents types.
@@ -45,8 +50,7 @@ def get_types():
     :return: A list of all types of documents available in mongoDB.
     :rtype: List
     """
-    result =  list(mongo.db.documents.distinct("type"))
-
+    result =  list(mongo.db.documents.distinct("dataType"))
     return jsonify(result)
 
 

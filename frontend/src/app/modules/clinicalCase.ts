@@ -26,7 +26,7 @@ export class ClinicalCase extends CaseData implements Deserializable {
         }else{
             this.versions = []
         }
-
+                
         return this;
     }
 

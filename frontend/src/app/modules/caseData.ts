@@ -1,9 +1,12 @@
 export class CaseData{
     private clinical_case:string;
     private yes_no:string;
+    private hpoCodes:String[];
     private user_id:string;
     private location:string;
     private time:number;
+
+
 
     /**
      * Getter $clinical_case
@@ -19,6 +22,14 @@ export class CaseData{
      */
 	public get $yes_no(): string {
 		return this.yes_no;
+	}
+
+    /**
+     * Getter $hpoCodes
+     * @return {String[]}
+     */
+	public get $hpoCodes(): String[] {
+		return this.hpoCodes;
 	}
 
     /**
@@ -39,9 +50,9 @@ export class CaseData{
 
     /**
      * Getter $time
-     * @return {any}
+     * @return {number}
      */
-	public get $time(): any {       
+	public get $time(): number {
 		return this.time;
 	}
 
@@ -62,6 +73,14 @@ export class CaseData{
 	}
 
     /**
+     * Setter $hpoCodes
+     * @param {String[]} value
+     */
+	public set $hpoCodes(value: String[]) {
+		this.hpoCodes = value;
+	}
+
+    /**
      * Setter $user_id
      * @param {string} value
      */
@@ -79,10 +98,10 @@ export class CaseData{
 
     /**
      * Setter $time
-     * @param {any} value
+     * @param {number} value
      */
-	public set $time(value: any) {
+	public set $time(value: number) {
 		this.time = value;
 	}
-
+  
 }

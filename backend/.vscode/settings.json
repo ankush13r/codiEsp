@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/home/ankush/.local/share/virtualenvs/backend-nExfx_rI/bin/python",
+    "python.pythonPath": "/home/ankush/.local/share/virtualenvs/backend-SfZ1gfeD/bin/python",
     "cSpell.enabledLanguageIds": [
         "asciidoc",
         "c",
@@ -23,6 +23,7 @@
         "php",
         "plaintext",
         "pug",
+        "python",
         "restructuredtext",
         "rust",
         "scala",

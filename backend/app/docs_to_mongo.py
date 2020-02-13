@@ -135,22 +135,22 @@ def get_data(files, data_format):
                 jsonObj = get_file_json(file, data_format)
                 save_to_mongo(jsonObj)
 
+
 def main(files, data_format):
 
     get_data(files, data_format)
 
 
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         prog='docs_to_mongo', usage='%(prog)s -d [/example/folder | folder/* ] -f [link, text, html , xml]')
-    parser.add_argument('-d', '--data', metavar='', nargs='+', type=str, required=True,
+    parser.add_argument('-i', '--input', metavar='', nargs='+', type=str, required=True,
                         help="[N] folders of files or just files. If it receives folder/s it will get all files recursively.")
     parser.add_argument('-f', '--format', type=str,
-                        metavar=constants.FORMATS, required=True, help="fromat for files")
+                        metavar=constants.FORMATS, choices=constants.FORMATS, required=True, help="fromat for files")
 
     args = parser.parse_args()
-    files = args.data
+    files = args.input
     data_format = args.format
 
     main(files, data_format)

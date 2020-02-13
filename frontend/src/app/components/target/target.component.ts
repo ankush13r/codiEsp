@@ -28,6 +28,8 @@ export class TargetComponent implements OnInit, OnChanges {
   @ViewChild('backTextarea', null) backTextarea: ElementRef;
   @Input() document: Document;
 
+  hpoData :any = null;
+
   //Case selected by user.
   selectedCase: ClinicalCase = null;
 
@@ -44,7 +46,10 @@ export class TargetComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
-
+    //Receiving hpo data list.
+    this.apiService.getHPO().subscribe(result =>{
+      this.hpoData = result;     
+    })
   }
 
 

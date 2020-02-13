@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { CookieService } from 'ngx-cookie-service';
@@ -10,8 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatPaginatorModule, MatTabsModule, MatListModule, MatIconModule,
   MatButtonModule, MatSlideToggleModule, MatRadioModule,
-  MatSidenavModule,MatDividerModule,MatToolbarModule,MatSelectModule
-
+  MatSidenavModule,MatDividerModule,MatToolbarModule,MatSelectModule,
+  MatChipsModule,MatAutocompleteModule
 } from '@angular/material';
 
 import { ResizableModule } from 'angular-resizable-element';
@@ -26,6 +26,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { MainTextExtractorComponent } from './components/main-text-extractor/main-text-extractor.component';
 import { PreviewComponent } from './components/preview/preview.component';
 import { SubTitleComponent } from './components/sub-title/sub-title.component';
+import { ChipsListComponent } from './components/chips-list/chips-list.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,8 @@ import { SubTitleComponent } from './components/sub-title/sub-title.component';
     MainTextExtractorComponent,
     PreviewComponent,
     SubTitleComponent,
+    ChipsListComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,7 @@ import { SubTitleComponent } from './components/sub-title/sub-title.component';
     AppRoutingModule,
     HttpClientModule,
     ClipboardModule,
+    ReactiveFormsModule,
     
     BrowserAnimationsModule,
     FlexLayoutModule,
@@ -61,6 +65,8 @@ import { SubTitleComponent } from './components/sub-title/sub-title.component';
     MatToolbarModule,
     MatSnackBarModule,
     MatSelectModule,
+    MatChipsModule,
+    MatAutocompleteModule,
 
   ],
   providers: [CookieService],

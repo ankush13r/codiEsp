@@ -7,7 +7,7 @@
                 <mat-list *ngIf="api_response" class="matList">
                     <mat-list-item class="docsList" *ngFor="let auxDocument of api_response.$documents; let i = index"
                         [class.selected]="auxDocument === document" (click)="selectDocument(i)"
-                        (dblclick)="newWindow(auxDocument)">
+                        (dblclick)="newWindow(auxDocument)" (contextmenu)="onRightClick()">
                         <div class="w-100" fxLayout="row" fxLayoutAlign="space-between center">
                             <mat-slide-toggle [checked]="auxDocument.$state"
                                 [color]="(auxDocument.$state=='1')?'primary':''">

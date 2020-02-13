@@ -4,9 +4,17 @@ import {Deserializable} from './deserializable'
 export class Version extends CaseData implements Deserializable {
     private id:number;
 
+    constructor(){
+      super();
+      this.$hpoCodes = [];
+    }
+
     deserialize(input: any): this {
         Object.assign(this, input);
-    
+
+        if(!this.$hpoCodes)
+          this.$hpoCodes = [];
+          
         return this;
       }
 

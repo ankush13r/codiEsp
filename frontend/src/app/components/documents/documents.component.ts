@@ -62,6 +62,10 @@ export class DocumentsComponent implements OnInit {
     });
   }
 
+  onRightClick(){
+    console.log("ssss");
+    
+  }
 
   setPageEvent(event) {
     this.pageIndex[this.doc_type] = event.pageIndex;

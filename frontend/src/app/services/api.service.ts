@@ -31,9 +31,12 @@ export class ApiService {
 
   getTypes(): Observable<string[]> {
     var url = this.baseUrl + "types"
-    return this.http.get<string[]>(url);
-
+    return this.http.get<string[]>(url).pipe(
+      retry(3), // retry a failed request up to 3 times      
+      catchError(this.handleError), // then handle the error
+    );
   }
+
   getDocuments(selected_type: String, index: number = 0, pageSize: number = 10): Observable<ApiResponse> {
     var url = this.baseUrl + selected_type;
 
@@ -72,10 +75,14 @@ export class ApiService {
     return this.http.put<any>(url, { "_id": _id }).pipe(
       catchError(this.handleError)
     )
-
   }
 
-
+  getHPO() {
+    var url = this.baseUrl + "hpo";
+    return this.http.get<any>(url).pipe(
+      catchError(this.handleError)
+    )
+  }
 
 
 

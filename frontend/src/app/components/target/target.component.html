@@ -2,9 +2,8 @@
     <app-title [title]="title"></app-title>
     <form fxLayout="column" fxFlex *ngIf="document" #caseForm="ngForm" action="" (submit)="onSubmit()">
         <div class="d-flex">
-
-            <mat-form-field class="text-center" color="primary">
-                <mat-label class="text-primary">Case</mat-label>
+            <mat-form-field class="text-center" color="accent" >
+                <mat-label class="text-accent">Case</mat-label>
                 <mat-select [(ngModel)]="selectedCase" (selectionChange)="selectNewVersion(true)" name="case">
                     <mat-option *ngFor="let case of document.$clinical_cases; let i = index" [value]="case">
                         {{i+1}}
@@ -12,7 +11,8 @@
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field *ngIf="selectedCase" class="text-center ml-4 flex-fill" color="warn">
+            <!-- matBadge="8" matBadgePosition="before" matBadgeColor="accent" -->
+            <mat-form-field *ngIf="selectedCase" class="text-center ml-4 flex-fill" color="accent">
                 <mat-label class="text-primary">Version</mat-label>
                 <mat-select [(value)]="selectedCaseVersion" (selectionChange)="onVersionChange($event)" name="version">
                     <mat-option [value]="selectedCase.$newCaseVersion">new</mat-option>
@@ -33,7 +33,6 @@
                 <mat-radio-button class="ml-4" value="-1" (change)="selectedCase.$newCaseVersion.$yes_no = null">None
                 </mat-radio-button>
             </mat-radio-group>
-
             <button type="button" mat-button color="accent" class="mb-2" (click)="showTarget(true)">Preview</button>
             <button type="button" mat-icon-button class="mb-2" (click)="onPaste()">
                 <mat-icon>note_add</mat-icon>
@@ -45,19 +44,16 @@
         <div fxFlex="50" class="textAreaParent">
             <textarea *ngIf="selectedCase" class="textarea h-100 w-100" name="clinicalCase" type="textarea"
                 [disabled]="selectedCaseVersion != selectedCase?.$newCaseVersion" required
-                [(ngModel)]="this.selectedCaseVersion.$clinical_case" (ngModelChange)="onChangeText($event)"
+                [(ngModel)]="selectedCaseVersion.$clinical_case" (ngModelChange)="onChangeText($event)"
                 (scroll)="onScroll($event)">
             </textarea>
-            <div class="textAreaBacks h-100 w-100" #backTextarea [innerHTML]="auxText">
-
-            </div>
+            <div class="textAreaBacks h-100 w-100" #backTextarea [innerHTML]="auxText"></div>
         </div>
-        <div  fxFlex class="border">
-
+        <div  fxFlex class="">
+            <app-chips-list *ngIf="hpoData && selectedCaseVersion" [dataList]="hpoData" [selectedValues]="selectedCaseVersion?.$hpoData" class="w-100"></app-chips-list>
         </div>
-
-        <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="3em" class="m-1">
-            <div fxLayout="row" fxLayoutGap="1.2em" class="mt-2">
+        <div fxFlex="15" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="3em" class="m-1 pt-4">
+            <div fxLayout="row" fxLayoutGap="1.2em" >
                 <button *ngIf="selectedCaseVersion != selectedCase?.$newCaseVersion" (click)="onEdit()" type="button"
                     mat-raised-button color="primary">Edit</button>
                 <button *ngIf="selectedCaseVersion == selectedCase?.$newCaseVersion" type="submit" mat-raised-button
@@ -65,7 +61,7 @@
                 <button type="button" mat-raised-button color="warn" (click)="onEdit(true)">Clear</button>
             </div>
             
-            <div class="mt-2" fxLayout="row" fxLayoutGap="0.05em">
+            <div fxLayout="row" fxLayoutGap="0.05em">
                 <button type="button" mat-icon-button (click)="previousCase()">
                     <mat-icon>arrow_back</mat-icon>
                     <span class="p-2"> </span>
@@ -77,7 +73,7 @@
 
             </div>
 
-            <div fxLayout="row" fxLayoutGap="0.5em" class="mt-2">
+            <div fxLayout="row" fxLayoutGap="0.5em" >
                 <button type="button" mat-raised-button (click)="onNewCase()">
                     <mat-icon>add</mat-icon>
                     <span class="p-2">New</span>
