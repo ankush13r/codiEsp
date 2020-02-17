@@ -1,8 +1,8 @@
-<div class="h-100" fxLayout="column">
+<div class="h-100 " fxLayout="column">
     <app-title [title]="title"></app-title>
-    <form fxLayout="column" fxFlex *ngIf="document" #caseForm="ngForm" action="" (submit)="onSubmit()">
-        <div class="d-flex">
-            <mat-form-field class="text-center" color="accent" >
+    <form fxLayout="column" fxFlex  *ngIf="document" #caseForm="ngForm" action="" (submit)="onSubmit()">
+        <div  fxLayout="row">
+            <mat-form-field class="text-center" color="accent">
                 <mat-label class="text-accent">Case</mat-label>
                 <mat-select [(ngModel)]="selectedCase" (selectionChange)="selectNewVersion(true)" name="case">
                     <mat-option *ngFor="let case of document.$clinical_cases; let i = index" [value]="case">
@@ -23,8 +23,8 @@
             </mat-form-field>
         </div>
 
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-            <mat-radio-group *ngIf="selectedCase" name="yes_no" class="p-1" aria-label="Select an option">
+        <div fxFle="0" class="border" fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-radio-group *ngIf="selectedCase" name="yes_no"  aria-label="Select an option , yes or no">
                 <mat-radio-button name="yes_no" *ngFor="let item of yesNoValues" class="ml-4" value="{{item}}"
                     [checked]="selectedCaseVersion?.$yes_no == item"
                     (change)="selectedCase.$newCaseVersion.$yes_no = item">
@@ -39,8 +39,6 @@
             </button>
         </div>
 
-
-
         <div fxFlex="50" class="textAreaParent">
             <textarea *ngIf="selectedCase" class="textarea h-100 w-100" name="clinicalCase" type="textarea"
                 [disabled]="selectedCaseVersion != selectedCase?.$newCaseVersion" required
@@ -49,18 +47,18 @@
             </textarea>
             <div class="textAreaBacks h-100 w-100" #backTextarea [innerHTML]="auxText"></div>
         </div>
-        <div  fxFlex class="">
-            <app-chips-list *ngIf="hpoData && selectedCaseVersion" [dataList]="hpoData" [selectedValues]="selectedCaseVersion?.$hpoData" class="w-100"></app-chips-list>
-        </div>
-        <div fxFlex="15" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="3em" class="m-1 pt-4">
-            <div fxLayout="row" fxLayoutGap="1.2em" >
+        <app-chips-list *ngIf="selectedCaseVersion" fxFlex="20" class="p-1 h-100 "
+            [selectedValues]="selectedCaseVersion.$hpoCodes" ></app-chips-list>
+      
+            <div fxFlex="15" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="3em" class="m-1 pt-4">
+            <div fxLayout="row" fxLayoutGap="1.2em">
                 <button *ngIf="selectedCaseVersion != selectedCase?.$newCaseVersion" (click)="onEdit()" type="button"
                     mat-raised-button color="primary">Edit</button>
                 <button *ngIf="selectedCaseVersion == selectedCase?.$newCaseVersion" type="submit" mat-raised-button
                     color="primary" [disabled]="!caseForm.valid  ">Submit</button>
                 <button type="button" mat-raised-button color="warn" (click)="onEdit(true)">Clear</button>
             </div>
-            
+
             <div fxLayout="row" fxLayoutGap="0.05em">
                 <button type="button" mat-icon-button (click)="previousCase()">
                     <mat-icon>arrow_back</mat-icon>
@@ -73,7 +71,7 @@
 
             </div>
 
-            <div fxLayout="row" fxLayoutGap="0.5em" >
+            <div fxLayout="row" fxLayoutGap="0.5em">
                 <button type="button" mat-raised-button (click)="onNewCase()">
                     <mat-icon>add</mat-icon>
                     <span class="p-2">New</span>
@@ -83,7 +81,7 @@
                     <mat-icon>done_all</mat-icon>
                     <span class="p-2">Finish</span>
                 </button>
-            </div>       
+            </div>
 
         </div>
 

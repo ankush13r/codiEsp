@@ -45,12 +45,7 @@ export class TargetComponent implements OnInit, OnChanges {
     private apiService: ApiService,
   ) { }
 
-  ngOnInit() {
-    //Receiving hpo data list.
-    this.apiService.getHPO().subscribe(result =>{
-      this.hpoData = result;     
-    })
-  }
+  ngOnInit() {  }
 
 
   ngOnChanges(changes: SimpleChanges) {
@@ -69,6 +64,7 @@ export class TargetComponent implements OnInit, OnChanges {
   selectLastCase() {
     this.selectedCase = this.document.$clinical_cases[this.document.$clinical_cases.length - 1];
     this.selectNewVersion(true);
+    
   }
 
 

@@ -1,0 +1,14 @@
+.chipsFormField{
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.chipsInput{
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.chipsDiv{
+    overflow-x: hidden;
+    overflow-y: auto;
+}

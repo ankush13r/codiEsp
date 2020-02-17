@@ -35,8 +35,15 @@
 }
 
 .textAreaBacks mark{
+
     padding: 0;
     margin: 0;
+    background-color: brown;
     border: 0.13em solid;
     border-color: rgb(0, 162, 255);
+}
+
+.chipsApp{
+    width: 99%;
+    margin:auto;
 }
