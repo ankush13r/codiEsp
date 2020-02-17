@@ -69,35 +69,55 @@ def read_file(file_path):
 
 
 def modifyText(content):
+    """Method to modify the text received as parameter and return it modified.
+     It modifies the text by adding it some html style as highlights(background).
+     It serves to show user that where start or end the important information in the text.
+     All regex are saved in mongoDB.
+    """
 
+    # Regex for find first occurrence (information starting) and modify it, giving html style class.
     if constants.START_CASE_TERMS:
         joined = "|".join(constants.START_CASE_TERMS)
         terms = f'({joined})'
-        regex = re.compile(f'({terms})', flags=re.I|re.U|re.S)
-        content = regex.sub(r'<span style="background:rgba(43, 218, 252, 1);  padding:5px;">\1</span>', content,1)
+        regex = re.compile(f'({terms})', flags=re.I | re.U | re.S)
+        content = regex.sub(
+            r'<span style="background:rgba(43, 218, 252, 1);  padding:5px;">\1</span>', content, 1)
 
+    # Regex for find end of the information in text and modify it, giving html style class.
     if constants.END_CASE_TERMS:
-            joined = "|".join(constants.END_CASE_TERMS)
-            terms = f'({joined})'
-            regex = re.compile(f'({terms})', flags=re.I|re.U|re.S)
-            content = regex.sub(r'<span style="background:rgba(255, 6, 6, 0.5); padding:5px;">\1</span>', content,1)
+        joined = "|".join(constants.END_CASE_TERMS)
+        terms = f'({joined})'
+        regex = re.compile(f'({terms})', flags=re.I | re.U | re.S)
+        content = regex.sub(
+            r'<span style="background:rgba(255, 6, 6, 0.5); padding:5px;">\1</span>', content, 1)
 
-    if  ["caso [0-9]"]:
-            joined = "|".join(["caso [0-9]"])
-            terms = f'({joined})'
-            regex = re.compile(f'({terms})', flags=re.I|re.U|re.S)
-            content = regex.sub(r'<span style="background:rgba(43, 218, 252, 0.5); padding:5px;">\1</span>', content)
+    # Regex for find all frequencies in the text and after give them html style class.
+    if ["caso [0-9]"]:
+        joined = "|".join(["caso [0-9]"])
+        terms = f'({joined})'
+        regex = re.compile(f'({terms})', flags=re.I | re.U | re.S)
+        content = regex.sub(
+            r'<span style="background:rgba(43, 218, 252, 0.5); padding:5px;">\1</span>', content)
 
+    # Html style to preserve break lines as they are, because normalky break lines are chopped in html (web).
     return f"<span style='white-space:pre-line'>{content}</span>"
 
 
+
 def get_case_id(source_id):
+    """ Function to create new case id by source_id, because a source can have more than one clinical case.
+        So first of all it will get ids of all clinical cases related to the source_id, received as parameter. 
+        And after it will create a new id and return it.
+    """
     new_case_id = 0
-    results = list(mongo.db.clinical_cases.find(
-        {"source_id": source_id}, {"_id": 0, "case_id": 1}))
-    case_ids = [result.get("case_id") for result in results]
+     #get all clinical cases related to the source_id received as parameter
+    results = list(mongo.db.clinical_cases.find({"source_id": source_id}, {"_id": 0, "case_id": 1}))
 
     try:
+        #All clinical cases ids, it may empty if there is no result
+        case_ids = [result.get("case_id") for result in results]
+
+        #New id is maximum number + 1 from ids list, if the ids list is empty than new id is 0.
         maxNum = max(case_ids)
         new_case_id = maxNum + 1
     except:
@@ -107,11 +127,22 @@ def get_case_id(source_id):
 
 
 def get_version_id(_id):
+    """ Function to create new clinical case's version id by case, because a clinical case can have more than one version.
+        So first of all it will get ids of all versions related to the _id of clinical case, received as parameter. 
+        And after it will create a new id and return it.
+    """
     new_v_id = 0
-    results = mongo.db.clinical_cases.find_one(
-        {"_id": _id}, {"_id": 0, "versions": 1})
-    v_ids = [result["id"] for result in results["versions"]]
+
+    #get all versions related to the case id received as parameter.
+    results = mongo.db.clinical_cases.find_one({"_id": _id}, {"_id": 0, "versions": 1})
+    
+
+    
     try:
+        #All versions ids, it may empty if there is no result
+        v_ids = [result["id"] for result in results["versions"]]
+        
+        #New id is maximum number + 1 from ids list, if the ids list is empty than new id is 0.
         maxNum = max(v_ids)
         new_v_id = maxNum + 1
     except:

@@ -130,7 +130,7 @@ def save_data():
     try:
         isNew = False
 
-        _id, query = utils.valid_mongo_query(request.json)
+        _id, query = utils.valid    _mongo_query(request.json)
         if _id:
             result = mongo.db.clinical_cases.update({"_id": _id}, query)
         else:
