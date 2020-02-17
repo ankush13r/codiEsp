@@ -1,11 +1,12 @@
-<div class="w-100 h-100   chipsDiv mt-2 custom-border" >
-    <input matInput class="chipsInput m-0 p-1 w-100 bg-light"
+<div class="w-100 h-100 chipsDiv mt-2 mat-primary-outline" (click)="input.focus()">
+    <input matInput class="chipsInput m-0 p-1 w-100 bg-light" #input
+    *ngIf="!disabled"
     placeholder="New term ...."
     #chipsInput
     [formControl]="formCtrl"
     [matAutocomplete]="auto"
     [matChipInputFor]="chipList"> 
-  <mat-chip-list #chipList aria-label="Selected Value">
+  <mat-chip-list #chipList aria-label="Selected Value" >
       <mat-chip
         *ngFor="let value of selectedValues | reverse"
         [selectable]="selectable"
@@ -18,8 +19,9 @@
     </mat-chip-list>
    
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-      <mat-option *ngFor="let value of filteredValues | async" [value]="value">
+      <mat-option *ngFor="let value of filteredValues | async" [value]="value" [class.mat-accent-color]="isSelected(value.id)">
         {{value.name}}<span *ngFor="let synonym of value.synonyms">, {{synonym}}</span>
       </mat-option>
     </mat-autocomplete>
 </div>
+

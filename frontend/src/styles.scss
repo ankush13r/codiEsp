@@ -1,108 +1,131 @@
+// Import library functions for theme creation.
+@import "~@angular/material/theming";
+
+// Include non-theme styles for core.
+@include mat-core();
+
+// Define your application's custom theme.
+$primary: mat-palette($mat-indigo);
+$accent: mat-palette($mat-pink, A200, A100, A400);
+$theme: mat-light-theme($primary, $accent);
+
+// Include theme styles for Angular Material components.
+@include angular-material-theme($theme);
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+html,body,div,span,applet,object,
+iframe,h1,h2,h3,h4,h5,
+h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,
+del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,
+sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,
+legend,table,caption,tbody,tfoot,thead,tr,th,td,article,
+aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,
+menu,nav,output,ruby,section,summary,time,mark,audio,video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
 }
 body {
-	line-height: 1.6;
+  line-height: 1.6;
 }
-ol, ul {
-	list-style: none;
+ol,
+ul {
+  list-style: none;
 }
-blockquote, q {
-	quotes: none;
+blockquote,
+q {
+  quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
-body,html{
-    margin: 0;
-    height: 100%;
-}
-/*********************/
-@import '~@angular/material/theming';
-
-// Define a custom mixin that takes in the current theme
-@mixin theme-color-grabber($theme) {
-  // Parse the theme and create variables for each color in the pallete
-  $primary: map-get($theme, primary);
-  $accent: map-get($theme, accent);
-  $warn: map-get($theme, warn);
-  // Create theme specfic styles
-  .primaryColorBG {
-    background-color: mat-color($primary);
-  }
-  .accentColorBG {
-    background-color: mat-color($accent);
-  }
-  .warnColorBG {
-    background-color: mat-color($warn);
-  }
+body,
+html {
+  margin: 0;
+  height: 100%;
 }
 
-*{
+* {
   box-sizing: border-box;
 }
 
-body { 
-margin: 0; 
-font-family: Roboto, "Helvetica Neue", sans-serif;
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .snackbar-style {
-    color: white;
-    
-  }
-
-.error-snack-bar{
-background: rgb(255, 0, 0);
-color: white;
+  color: white;
 }
 
-button:focus {outline:0;}
-
-.custom-border{
-  box-shadow: 0.015em -0.015em 0 0.05em rgb(184, 184, 184);
-  border-radius: 0.2em;
+.error-snack-bar {
+  background: rgb(255, 0, 0);
+  color: white;
 }
 
-.custom-border:hover{
-  box-shadow: 0.015em -0.015em  0 0.1em rgb(0, 0, 0);
+button:focus {
+  outline: 0;
 }
 
-.custom-border:focus-within{
-  box-shadow: 0.015em -0.015em  0 0.1em rgb(0, 0, 0);
-  
+.mat-primary-color {
+  color: mat-color($primary);
 }
+
+.mat-primary-bg {
+  background-color: mat-color($primary);
+}
+
+.mat-primary-outline, .mat-accent-outline{
+  outline: 0.01em solid  rgb(184, 184, 184);
+  transition: 0.1s;
+}
+.mat-primary-outline:hover, .mat-accent-outline:hover {
+  outline: 0.15em solid rgba(0,0,0);
+}
+.mat-primary-outline:focus-within {
+  outline: 0.15em solid mat-color($primary);
+}
+
+.mat-accent-outline:focus-within {
+  outline: 1em solid mat-color($accent);
+}
+.mat-accent-color {
+  color: mat-color($accent);
+}
+
+.mat-accent-bg {
+  background-color: mat-color($accent);
+}
+
+
+

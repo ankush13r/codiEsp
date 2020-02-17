@@ -7,6 +7,8 @@ import { DataShareService } from '../../services/data-share.service';
 import { ApiService } from "../../services/api.service"
 import { ApiResponse } from '../../modules/apiResponse';
 import { Document } from '../../modules/document'
+import { ToolTip } from '../../interfaces/tool-tip'
+
 
 @Component({
   selector: 'app-documents',
@@ -16,7 +18,7 @@ import { Document } from '../../modules/document'
 export class DocumentsComponent implements OnInit {
   title = "Documents";
   showFiller = false;
-
+  toolTip:ToolTip= {value:"Double click to open in new window",position:"above", class:"tooltip-dark"}
   document: Document;
   api_response: ApiResponse = null;
   pageIndex: object = {};

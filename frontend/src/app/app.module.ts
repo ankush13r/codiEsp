@@ -11,7 +11,7 @@ import {
   MatPaginatorModule, MatTabsModule, MatListModule, MatIconModule,
   MatButtonModule, MatSlideToggleModule, MatRadioModule,
   MatSidenavModule,MatDividerModule,MatToolbarModule,MatSelectModule,
-  MatChipsModule,MatAutocompleteModule
+  MatChipsModule,MatAutocompleteModule,MatTooltipModule
 } from '@angular/material';
 
 import { ResizableModule } from 'angular-resizable-element';
@@ -22,7 +22,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { DocumentsComponent } from './components/documents/documents.component';
 import { TargetComponent } from './components/target/target.component';
 import { AppRoutingModule } from './routes/app-routing.module';
-import { PaginationComponent } from './components/pagination/pagination.component';
 import { MainTextExtractorComponent } from './components/main-text-extractor/main-text-extractor.component';
 import { PreviewComponent } from './components/preview/preview.component';
 import { SubTitleComponent } from './components/sub-title/sub-title.component';
@@ -37,7 +36,6 @@ import { ReversePipe } from './pipes/reverse.pipe';
     NavbarComponent,
     DocumentsComponent,
     TargetComponent,
-    PaginationComponent,
     MainTextExtractorComponent,
     PreviewComponent,
     SubTitleComponent,
@@ -70,6 +68,7 @@ import { ReversePipe } from './pipes/reverse.pipe';
     MatSelectModule,
     MatChipsModule,
     MatAutocompleteModule,
+    MatTooltipModule,
 
   ],
   providers: [CookieService],

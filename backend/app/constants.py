@@ -21,7 +21,7 @@ API_BASE_URI = "http://127.0.0.1:5000/documents"
 MONGO_URI = 'mongodb://localhost:27017/codiEsp'
 
 # MONGO_URI = 'mongodb://codiesp:codiesp@84.88.52.79:27017/codiEsp'
-START_CASE_TERMS = ["caso [0-9]",
+START_CASE_TERMS = [
                     "Describimos el caso",
                     "Presentamos el caso",
                     "Se presenta el caso",

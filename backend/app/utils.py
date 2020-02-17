@@ -40,8 +40,6 @@ FILE_CONST = "./data/constants.json"
 #     return get_content
 
 
-
-
 def get_valid_pagination_args(args: dict):
 
     try:
@@ -72,24 +70,28 @@ def read_file(file_path):
 
 def modifyText(content):
 
-    for term in constants.START_CASE_TERMS:
-        found = re.search(term, content, flags=re.U | re.I)
-        if found:
-            content = re.sub(str(found.group(
-            )), '<span style="background:rgba(6, 247, 255, 0.5); padding:5px;">'+str(found.group())+'</span>', content)
-            break
+    if constants.START_CASE_TERMS:
+        joined = "|".join(constants.START_CASE_TERMS)
+        terms = f'({joined})'
+        regex = re.compile(f'({terms})', flags=re.I|re.U|re.S)
+        content = regex.sub(r'<span style="background:rgba(43, 218, 252, 1);  padding:5px;">\1</span>', content,1)
 
-    for term in constants.END_CASE_TERMS:
-        found = re.search(term, content, flags=re.U | re.I)
-        if found:
-            content = re.sub(str(found.group(
-            )), '<span style="background:rgba(255, 6, 6, 0.5); padding:5px;">'+str(found.group())+'</span>', content)
-            break
+    if constants.END_CASE_TERMS:
+            joined = "|".join(constants.END_CASE_TERMS)
+            terms = f'({joined})'
+            regex = re.compile(f'({terms})', flags=re.I|re.U|re.S)
+            content = regex.sub(r'<span style="background:rgba(255, 6, 6, 0.5); padding:5px;">\1</span>', content,1)
 
-    return content
+    if  ["caso [0-9]"]:
+            joined = "|".join(["caso [0-9]"])
+            terms = f'({joined})'
+            regex = re.compile(f'({terms})', flags=re.I|re.U|re.S)
+            content = regex.sub(r'<span style="background:rgba(43, 218, 252, 0.5); padding:5px;">\1</span>', content)
+
+    return f"<span style='white-space:pre-line'>{content}</span>"
 
 
-def get_caseI_id(source_id):
+def get_case_id(source_id):
     new_case_id = 0
     results = list(mongo.db.clinical_cases.find(
         {"source_id": source_id}, {"_id": 0, "case_id": 1}))
@@ -130,9 +132,11 @@ def valid_mongo_query(json):
     time = int(json["time"])
     user_id = json["user_id"]
     loc = json["location"]
+    hpoCodes = json["hpoCodes"]
+    print(json["hpoCodes"])
 
     caseObj = {"clinical_case": caseText, "time": time,
-               "user_id": user_id, "location": loc}
+               "user_id": user_id, "location": loc, "hpoCodes": hpoCodes}
 
     yes_no = json.get("yes_no")
     if yes_no:
@@ -149,7 +153,7 @@ def valid_mongo_query(json):
             "$set": caseObj,
         }
     else:
-        case_id = get_caseI_id(source_id)
+        case_id = get_case_id(source_id)
         version = copy.deepcopy(caseObj)
         version.update({"id": 0})
 

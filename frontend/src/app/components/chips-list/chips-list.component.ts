@@ -6,7 +6,11 @@ import { MatChipInputEvent } from '@angular/material/chips';
 
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+
 import * as hpo from "../../../assets/hpo/hpo_es.json";
+
+import { Hpo } from '../../interfaces/hpo';
+
 
 /**
  * @title Chips Autocomplete
@@ -23,9 +27,11 @@ export class ChipsListComponent implements OnInit {
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   formCtrl = new FormControl();
-  filteredValues: Observable<object[]>;
-  @Input() selectedValues: string[] = [];
-  allHpo: any;
+  filteredValues: Observable<Hpo[]>;
+  @Input() selectedValues: Hpo[] = [];
+  @Input() disabled: boolean;
+
+  allHpo: Hpo[];
 
   @ViewChild('chipsInput', null) chipsInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', null) matAutocomplete: MatAutocomplete;
@@ -38,14 +44,13 @@ export class ChipsListComponent implements OnInit {
     //pipe create an observable, than it can be synchronized be html
     this.allHpo = hpo["default"];
 
-
     this.filteredValues = this.formCtrl.valueChanges.pipe(
       startWith(null),
       map((value: string | null) => value && value.length > 3 ? this._filter(value) : null));
   }
 
 
-  remove(value: string): void {
+  remove(value: Hpo): void {
     //Remove the element by value
     const index = this.selectedValues.indexOf(value);
     //If value exists
@@ -65,13 +70,18 @@ export class ChipsListComponent implements OnInit {
     this.formCtrl.setValue(null);
   }
 
-  private _filter(value: string): Object[] {
+  private _filter(value: string): Hpo[] {
     const filterValue = value.toLowerCase();
 
     return this.allHpo.filter((hpo: Object) =>
-      (hpo["name"].toLowerCase().indexOf(filterValue) === 0) ||
-      (hpo["synonyms"].some(synonym => synonym.toLowerCase().indexOf(filterValue) === 0)
-      )
+      hpo["name"].toLowerCase().indexOf(filterValue) === 0 ||
+      hpo["synonyms"].some(synonym => synonym.toLowerCase().indexOf(filterValue) === 0) ||
+      (hpo["id"].toLowerCase().indexOf(filterValue)===0 && filterValue.length>8)
     );
+  }
+
+
+  isSelected(id:String){
+    return this.selectedValues.find(value=>value.id===id)?true:false;
   }
 }

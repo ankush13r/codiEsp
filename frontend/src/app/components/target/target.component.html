@@ -23,7 +23,7 @@
             </mat-form-field>
         </div>
 
-        <div fxFle="0" class="border" fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxFle="0"  fxLayout="row" fxLayoutAlign="space-between center">
             <mat-radio-group *ngIf="selectedCase" name="yes_no"  aria-label="Select an option , yes or no">
                 <mat-radio-button name="yes_no" *ngFor="let item of yesNoValues" class="ml-4" value="{{item}}"
                     [checked]="selectedCaseVersion?.$yes_no == item"
@@ -39,7 +39,7 @@
             </button>
         </div>
 
-        <div fxFlex="50" class="textAreaParent">
+        <div fxFlex="50" class="textAreaParent mat-primary-outline" >
             <textarea *ngIf="selectedCase" class="textarea h-100 w-100" name="clinicalCase" type="textarea"
                 [disabled]="selectedCaseVersion != selectedCase?.$newCaseVersion" required
                 [(ngModel)]="selectedCaseVersion.$clinical_case" (ngModelChange)="onChangeText($event)"
@@ -48,7 +48,9 @@
             <div class="textAreaBacks h-100 w-100" #backTextarea [innerHTML]="auxText"></div>
         </div>
         <app-chips-list *ngIf="selectedCaseVersion" fxFlex="20" class="p-1 h-100 "
-            [selectedValues]="selectedCaseVersion.$hpoCodes" ></app-chips-list>
+            [selectedValues]="selectedCaseVersion.$hpoCodes" 
+            [disabled]="selectedCaseVersion != selectedCase?.$newCaseVersion">
+        </app-chips-list>
       
             <div fxFlex="15" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="3em" class="m-1 pt-4">
             <div fxLayout="row" fxLayoutGap="1.2em">

@@ -28,7 +28,7 @@ export class TargetComponent implements OnInit, OnChanges {
   @ViewChild('backTextarea', null) backTextarea: ElementRef;
   @Input() document: Document;
 
-  hpoData :any = null;
+  hpoData: any = null;
 
   //Case selected by user.
   selectedCase: ClinicalCase = null;
@@ -45,7 +45,7 @@ export class TargetComponent implements OnInit, OnChanges {
     private apiService: ApiService,
   ) { }
 
-  ngOnInit() {  }
+  ngOnInit() { }
 
 
   ngOnChanges(changes: SimpleChanges) {
@@ -64,12 +64,12 @@ export class TargetComponent implements OnInit, OnChanges {
   selectLastCase() {
     this.selectedCase = this.document.$clinical_cases[this.document.$clinical_cases.length - 1];
     this.selectNewVersion(true);
-    
+
   }
 
 
-  
-  
+
+
 
   onVersionChange(event) {
     this.selectedCaseVersion = event.value;
@@ -80,14 +80,15 @@ export class TargetComponent implements OnInit, OnChanges {
     this.getAuxText(event);
   }
 
-  onEdit(clear: boolean=false) {
+  onEdit(clear: boolean = false) {
 
-    if (clear)
+    if (clear) {
       this.selectedCase.$newCaseVersion.$clinical_case = ""
-    else
+      this.selectedCase.$newCaseVersion.$hpoCodes = [];
+    } else {
       this.selectedCase.$newCaseVersion.$clinical_case = this.selectedCaseVersion.$clinical_case;
-
-    this.selectNewVersion();
+      this.selectedCase.$newCaseVersion.$hpoCodes = this.selectedCaseVersion.$hpoCodes;
+    } this.selectNewVersion();
   }
 
 
@@ -168,8 +169,12 @@ export class TargetComponent implements OnInit, OnChanges {
         clinical_case: text,
         time: now,
         source_id: this.document.$_id,
-        user_id: null
+        user_id: null,
+        hpoCodes: this.selectedCase.$newCaseVersion.$hpoCodes.map(code => {
+          return { "id": code["id"], "name": code['name'] }
+        })
       }
+      console.log(jsonToSubmit);
 
       this.apiService.addClinicalCase(jsonToSubmit).subscribe(result => {
         this.selectedCase.$_id = result.$_id
@@ -190,7 +195,7 @@ export class TargetComponent implements OnInit, OnChanges {
   //--------------------------------------------------------
 
   findEqualVersion = (text) => this.selectedCase.$versions.find((v) => v.$clinical_case.toLowerCase() == text.toLowerCase());
- 
+
 
   selectNewVersion(getAuxText = false) {
     this.selectedCaseVersion = this.selectedCase.$newCaseVersion;

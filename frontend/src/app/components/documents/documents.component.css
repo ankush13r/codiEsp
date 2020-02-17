@@ -10,6 +10,7 @@
 .drawer{
     margin-top: 0.0em;
     max-width: 20em;
+    border: none;
 }
 
 .slideButton{
@@ -48,4 +49,7 @@
      transition: background-color 1s ease-out;
  }
 
+ .tooltip-dark{
+     background: rgb(0, 0, 0);
+ }
 
