@@ -164,7 +164,7 @@ def valid_mongo_query(json):
     user_id = json["user_id"]
     loc = json["location"]
     hpoCodes = json["hpoCodes"]
-    print(json["hpoCodes"])
+ 
 
     caseObj = {"clinical_case": caseText, "time": time,
                "user_id": user_id, "location": loc, "hpoCodes": hpoCodes}

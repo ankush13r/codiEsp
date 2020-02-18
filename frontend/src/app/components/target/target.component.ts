@@ -7,6 +7,7 @@ import { ApiService } from '../../services/api.service';
 import { Document } from '../../modules/document';
 import { ClinicalCase } from '../../modules/clinicalCase';
 import { Version } from '../../modules/version';
+import { ToolTips } from '../../../environments/environment';
 
 
 const errorStyle = ["error-snack-bar"]
@@ -23,6 +24,7 @@ const errorStyle = ["error-snack-bar"]
 export class TargetComponent implements OnInit, OnChanges {
   title = "Clinical case"
   yesNoValues: string[] = ["yes", "no"]
+  toolTips = ToolTips;
 
   @Output() nextOrPrevious = new EventEmitter<number>();
   @ViewChild('backTextarea', null) backTextarea: ElementRef;
@@ -85,6 +87,7 @@ export class TargetComponent implements OnInit, OnChanges {
     if (clear) {
       this.selectedCase.$newCaseVersion.$clinical_case = ""
       this.selectedCase.$newCaseVersion.$hpoCodes = [];
+      this.auxText = ""
     } else {
       this.selectedCase.$newCaseVersion.$clinical_case = this.selectedCaseVersion.$clinical_case;
       this.selectedCase.$newCaseVersion.$hpoCodes = this.selectedCaseVersion.$hpoCodes;
@@ -114,11 +117,11 @@ export class TargetComponent implements OnInit, OnChanges {
 
     })
   }
-  nextCase() {
+  nextDoc() {
     this.nextOrPrevious.emit(1);
   }
 
-  previousCase() {
+  previousDoc() {
     this.nextOrPrevious.emit(-1);
   }
 
@@ -232,63 +235,3 @@ export class TargetComponent implements OnInit, OnChanges {
     });
   }
 }
-//----------------------------
-
-//     if (Array.isArray(this.document.clinical_cases)) {
-//       console.log("ss");
-//       var exist_new = (this.document.clinical_cases.filter((v) => v['new'])).find(bool => bool = true);
-//       if (!exist_new) {
-//         this.apiService.createNewCase(this.document._id).subscribe(result => {
-//           this.document.clinical_cases.push(result)
-//           this.clinical_case = this.document.clinical_cases[this.document.clinical_cases.length - 1];
-//         });
-//       }
-//     } else {
-//       this.apiService.createNewCase(this.document._id).subscribe(result => {
-//         this.document.clinical_cases = [result]
-//         this.clinical_case = this.document.clinical_cases[0]
-//       });
-//     }
-//   }
-
-
-//   submitData() {
-//     ` TODO -> add time and meta_data into the sending object`
-
-//     const errorStyle = ["error-snack-bar"]
-
-//     if (!this.selected_version || this.selected_version == -1) {
-//       console.log(this.clinical_case);
-
-//       var now = Date.now();
-//       this.clinical_case.time = now;
-//       this.clinical_case["yes_no"] = this.radioSelected;
-//       this.apiService.addClinicalCase(this.clinical_case, this.selected_type).subscribe(result => {
-//         this.clinical_case.versions = result.versions;
-
-//         console.log(result);
-
-//         this.selected_version = this.clinical_case.versions[this.clinical_case.versions.length - 1]
-//         this.openSnackBar("Added successfuly", "OK");
-//       });
-//     }
-//   }
-
-
-//   openSnackBar(message: string, action: string = null, errorStyle = ['snackbar-errorStyle']) {
-//     this._snackBar.open(message, action, {
-//       duration: 2000,
-//       panelClass: errorStyle
-//     });
-//   }
-
-
-//----------------------------
-
-  // getPathParams() {
-  //   this.route.root.children.map(param =>
-  //     param.paramMap.subscribe(param => {
-  //       var link = param.get("type");
-  //       var type = param.get("link");
-  //     }))
-  // }

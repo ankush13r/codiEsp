@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ApiService } from './services/api.service';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,16 @@ export class AppComponent {
 
   documents_types: String[] = ["pdf", "html", "link"]
 
-  constructor() {
+  constructor(private apiService:ApiService) {
 
   }
 
   ngOnInit() {
+    this.apiService.getIp().subscribe(res =>{        
+      if (res.ip){
+        this.apiService.saveIp(res.ip);
+      }
+    });
   }
 
 }

@@ -16,6 +16,7 @@ PATHS_TO_DIR = {
 
 
 FORMATS= ["xml","pdf","text","link","html"]
+GeoipPath="../../GeoLite2-City_20200211/GeoLite2-City.mmdb"
 
 API_BASE_URI = "http://127.0.0.1:5000/documents"
 MONGO_URI = 'mongodb://localhost:27017/codiEsp'

@@ -26,6 +26,7 @@ import { MainTextExtractorComponent } from './components/main-text-extractor/mai
 import { PreviewComponent } from './components/preview/preview.component';
 import { SubTitleComponent } from './components/sub-title/sub-title.component';
 import { ChipsListComponent } from './components/chips-list/chips-list.component';
+
 import { ReversePipe } from './pipes/reverse.pipe';
 
 @NgModule({

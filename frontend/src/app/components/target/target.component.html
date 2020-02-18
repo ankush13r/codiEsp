@@ -1,7 +1,7 @@
 <div class="h-100 " fxLayout="column">
     <app-title [title]="title"></app-title>
-    <form fxLayout="column" fxFlex  *ngIf="document" #caseForm="ngForm" action="" (submit)="onSubmit()">
-        <div  fxLayout="row">
+    <form fxLayout="column" fxFlex *ngIf="document" #caseForm="ngForm" action="" (submit)="onSubmit()">
+        <div fxLayout="row">
             <mat-form-field class="text-center" color="accent">
                 <mat-label class="text-accent">Case</mat-label>
                 <mat-select [(ngModel)]="selectedCase" (selectionChange)="selectNewVersion(true)" name="case">
@@ -23,8 +23,8 @@
             </mat-form-field>
         </div>
 
-        <div fxFle="0"  fxLayout="row" fxLayoutAlign="space-between center">
-            <mat-radio-group *ngIf="selectedCase" name="yes_no"  aria-label="Select an option , yes or no">
+        <div fxFle="0" fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-radio-group *ngIf="selectedCase" name="yes_no" aria-label="Select an option , yes or no">
                 <mat-radio-button name="yes_no" *ngFor="let item of yesNoValues" class="ml-4" value="{{item}}"
                     [checked]="selectedCaseVersion?.$yes_no == item"
                     (change)="selectedCase.$newCaseVersion.$yes_no = item">
@@ -39,34 +39,47 @@
             </button>
         </div>
 
-        <div fxFlex="50" class="textAreaParent mat-primary-outline" >
+        <div fxFlex="50" class="textAreaParent mat-primary-outline">
             <textarea *ngIf="selectedCase" class="textarea h-100 w-100" name="clinicalCase" type="textarea"
-                [disabled]="selectedCaseVersion != selectedCase?.$newCaseVersion" required
+                [disabled]="selectedCaseVersion != selectedCase?.$newCaseVersion" required  #textarea
                 [(ngModel)]="selectedCaseVersion.$clinical_case" (ngModelChange)="onChangeText($event)"
                 (scroll)="onScroll($event)">
             </textarea>
             <div class="textAreaBacks h-100 w-100" #backTextarea [innerHTML]="auxText"></div>
         </div>
         <app-chips-list *ngIf="selectedCaseVersion" fxFlex="20" class="p-1 h-100 "
-            [selectedValues]="selectedCaseVersion.$hpoCodes" 
+            [selectedValues]="selectedCaseVersion.$hpoCodes"
             [disabled]="selectedCaseVersion != selectedCase?.$newCaseVersion">
         </app-chips-list>
-      
-            <div fxFlex="15" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="3em" class="m-1 pt-4">
+
+        <div fxFlex="15" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="3em" class="m-1 pt-4">
             <div fxLayout="row" fxLayoutGap="1.2em">
                 <button *ngIf="selectedCaseVersion != selectedCase?.$newCaseVersion" (click)="onEdit()" type="button"
-                    mat-raised-button color="primary">Edit</button>
+                    mat-raised-button color="primary"
+                    [matTooltip]="toolTips.editCase.value"
+                    [matTooltipClass]="toolTips.editCase.class"
+                    [matTooltipClass]="toolTips.editCase.position">
+                    Edit
+                </button>
                 <button *ngIf="selectedCaseVersion == selectedCase?.$newCaseVersion" type="submit" mat-raised-button
-                    color="primary" [disabled]="!caseForm.valid  ">Submit</button>
+                    color="primary" [disabled]="caseForm.invalid">
+                    Submit
+                </button>
                 <button type="button" mat-raised-button color="warn" (click)="onEdit(true)">Clear</button>
             </div>
 
             <div fxLayout="row" fxLayoutGap="0.05em">
-                <button type="button" mat-icon-button (click)="previousCase()">
+                <button type="button" mat-icon-button (click)="previousDoc()"
+                [matTooltip]="toolTips.previousDoc.value"
+                [matTooltipClass]="toolTips.previousDoc.class"
+                [matTooltipClass]="toolTips.previousDoc.position">
                     <mat-icon>arrow_back</mat-icon>
                     <span class="p-2"> </span>
                 </button>
-                <button type="button" mat-icon-button (click)="nextCase()">
+                <button type="button" mat-icon-button (click)="nextDoc()"
+                [matTooltip]="toolTips.nextDoc.value"
+                [matTooltipClass]="toolTips.nextDoc.class"
+                [matTooltipClass]="toolTips.nextDoc.position">
                     <span class="p-2"> </span>
                     <mat-icon>arrow_forward</mat-icon>
                 </button>
@@ -74,12 +87,18 @@
             </div>
 
             <div fxLayout="row" fxLayoutGap="0.5em">
-                <button type="button" mat-raised-button (click)="onNewCase()">
+                <button type="button" mat-raised-button (click)="onNewCase()"
+                [matTooltip]="toolTips.newCase.value"
+                [matTooltipClass]="toolTips.newCase.class"
+                [matTooltipClass]="toolTips.newCase.position">
                     <mat-icon>add</mat-icon>
                     <span class="p-2">New</span>
 
                 </button>
-                <button type="button" mat-raised-button [disabled]="document?.$state != '0'" (click)="onFinish()">
+                <button type="button" mat-raised-button [disabled]="document?.$state != '0'" (click)="onFinish()"
+                [matTooltip]="toolTips.finishDoc.value"
+                [matTooltipClass]="toolTips.finishDoc.class"
+                [matTooltipClass]="toolTips.finishDoc.position">
                     <mat-icon>done_all</mat-icon>
                     <span class="p-2">Finish</span>
                 </button>

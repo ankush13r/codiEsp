@@ -6,9 +6,9 @@
 
                 <mat-list fxFlex *ngIf="api_response" class="matList">
                     <mat-list-item class="docsList" *ngFor="let auxDocument of api_response.$documents; let i = index"
-                        [matTooltip]="toolTip.value" 
-                        [matTooltipPosition]="toolTip.position" 
-                        [matTooltipClass]="toolTip?.class"
+                        [matTooltip]="toolTips.docsList.value"
+                        [matTooltipPosition]="toolTips.docsList.position"
+                        [matTooltipClass]="toolTips.docsList.class"
                         [class.selected]="auxDocument === document" 
                         (click)="selectDocument(i)"
                         (dblclick)="newWindow(auxDocument)"

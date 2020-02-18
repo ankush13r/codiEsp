@@ -76,12 +76,12 @@ export class ChipsListComponent implements OnInit {
     return this.allHpo.filter((hpo: Object) =>
       hpo["name"].toLowerCase().indexOf(filterValue) === 0 ||
       hpo["synonyms"].some(synonym => synonym.toLowerCase().indexOf(filterValue) === 0) ||
-      (hpo["id"].toLowerCase().indexOf(filterValue)===0 && filterValue.length>8)
+      (hpo["id"].toLowerCase().indexOf(filterValue) === 0 && filterValue.length > 8)
     );
   }
 
 
-  isSelected(id:String){
-    return this.selectedValues.find(value=>value.id===id)?true:false;
+  isSelected(id: String) {
+    return this.selectedValues.find(value => value.id === id) ? true : false;
   }
 }

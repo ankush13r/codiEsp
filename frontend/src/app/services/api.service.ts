@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, retry } from 'rxjs/operators';
 import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 
 
 import { ApiResponse } from '../modules/apiResponse';
@@ -20,17 +21,34 @@ const httpOptions = {
   providedIn: 'root'
 })
 
-export class ApiService {
+export class ApiService implements OnInit {
 
-  private baseUrl = 'http://127.0.0.1:5000/documents/';
-
+  private baseUrl = 'http://127.0.0.1:5000/';
   constructor(private http: HttpClient) {
 
   }
 
+  ngOnInit() {
+  }
+
+  getIp(): Observable<any> {
+    const url = 'http://api.ipify.org/?format=json';
+
+    return this.http.get<any>(url).pipe(
+      retry(3),
+      catchError(this.handleError)
+    )
+  }
+
+  saveIp(ip: string){
+    var url = this.baseUrl + "ip/add"
+    this.http.post<Document>(url, { "id": ip }).pipe(
+      catchError(this.handleError),
+    );
+  }
 
   getTypes(): Observable<string[]> {
-    var url = this.baseUrl + "types"
+    var url = this.baseUrl + "documents/types"
     return this.http.get<string[]>(url).pipe(
       retry(3), // retry a failed request up to 3 times      
       catchError(this.handleError), // then handle the error
@@ -38,7 +56,7 @@ export class ApiService {
   }
 
   getDocuments(selected_type: String, index: number = 0, pageSize: number = 10): Observable<ApiResponse> {
-    var url = this.baseUrl + selected_type;
+    var url = this.baseUrl + "documents/" + selected_type;
 
     if (!index) {
       index = 0;
@@ -63,7 +81,7 @@ export class ApiService {
   addClinicalCase(document: any): Observable<ClinicalCase> {
     document.location = "location";
 
-    var url = this.baseUrl + "add";
+    var url = this.baseUrl + "documents/add";
     return this.http.post<Document>(url, document).pipe(
       catchError(this.handleError),
       map(data => new ClinicalCase().deserialize(data))
@@ -71,21 +89,18 @@ export class ApiService {
   }
 
   finishDocument(_id: string) {
-    var url = this.baseUrl + "finish";
+    var url = this.baseUrl + "documents/finish";
     return this.http.put<any>(url, { "_id": _id }).pipe(
       catchError(this.handleError)
     )
   }
 
   getHPO() {
-    var url = this.baseUrl + "hpo";
+    var url = this.baseUrl + "documents/hpo";
     return this.http.get<any>(url).pipe(
       catchError(this.handleError)
     )
   }
-
-
-
 
   modifyClinicalCase(file: Document) {
     console.log("modify Data: " + JSON.stringify(file));

@@ -7,7 +7,7 @@ import { DataShareService } from '../../services/data-share.service';
 import { ApiService } from "../../services/api.service"
 import { ApiResponse } from '../../modules/apiResponse';
 import { Document } from '../../modules/document'
-import { ToolTip } from '../../interfaces/tool-tip'
+import { ToolTips } from '../../../environments/environment';
 
 
 @Component({
@@ -18,7 +18,6 @@ import { ToolTip } from '../../interfaces/tool-tip'
 export class DocumentsComponent implements OnInit {
   title = "Documents";
   showFiller = false;
-  toolTip:ToolTip= {value:"Double click to open in new window",position:"above", class:"tooltip-dark"}
   document: Document;
   api_response: ApiResponse = null;
   pageIndex: object = {};
@@ -29,13 +28,13 @@ export class DocumentsComponent implements OnInit {
   doc_type: string = null;
   baseUrl = 'http://127.0.0.1:5000/documents/';
 
+  //Get tool tips from constants.
+  toolTips = ToolTips;
   constructor(private apiService: ApiService, private dataShareService: DataShareService,
     private route: ActivatedRoute, private cookies: CookieService
-  ) {
+  ) {}
 
-  }
-
-  ngOnInit() {
+  ngOnInit() {    
     this.getCookies();
     this.getDocsType();
     this.getPathParams();
