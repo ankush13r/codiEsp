@@ -1,35 +1,32 @@
-
-
-
-.listBox{
-    overflow-x: auto;
+.listBox {
+  overflow-x: auto;
 }
-.matList{
-    overflow-y: auto;
+.matList {
+  overflow-y: auto;
 }
-.drawer{
-    margin-top: 0.0em;
-    max-width: 20em;
-    border: none;
+.drawer {
+  margin-top: 0em;
+  max-width: 20em;
+  border: none;
 }
 
-.slideButton{
-    position: absolute;
-    top: 0.3em;
-    left: 0.5em;
+.slideButton {
+  position: absolute;
+  top: 0.3em;
+  left: 0.5em;
 }
 
-.slideButton  mat-icon{
-    color:white;
+.slideButton mat-icon {
+  color: white;
 }
 
+.docsList:hover {
+  background: rgb(226, 226, 226);
+  transition: 0.5s;
+  color: rgb(0, 0, 0);
+}
 
-.docsList:hover{
-    background: rgb(235, 235, 235);
-    color: rgb(0, 0, 0);   
- }
-
- /* .marker{
+/* .marker{
     width: 1.2em;
     height: 1.2em;
     border-radius: 50%;
@@ -40,14 +37,12 @@
      background-color: rgb(17, 98, 207) !important;
      box-shadow: 0 0 5px -1px rgb(17, 98, 207) ;
  } */
- .selected:hover{
-    opacity: 0.95;
- }
- .selected{
-     background: rgb(34, 46, 63) !important;
-     color: white !important;
-     transition: background-color 1s ease-out;
- }
-
-
-
+.selected:hover {
+  background: rgb(92, 92, 92) !important;
+  opacity: 0.95;
+}
+.selected {
+  background: rgb(92, 92, 92);
+  color: rgb(255, 255, 255) !important;
+  transition: background-color 1s ease-out;
+}

@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DocumentsComponent } from '../components/documents/documents.component';
-import { MainTextExtractorComponent } from '../components/main-text-extractor/main-text-extractor.component';
+import { DataExtractorComponent } from '../components/data-extractor/data-extractor.component';
 
-import { TargetComponent } from '../components/target/target.component';
+import { DataManagmentComponent } from '../components/data-managment/data-managment.component';
 
 
 
 const routes: Routes = [
-  //<---- child components declared here
   {
-    path: 'documents',
-    component: MainTextExtractorComponent,
+    path: 'management',
+    component: DataManagmentComponent
+  },
+  {
+    path: 'docs',
+    component: DataExtractorComponent,
+    //<---- child components declared here
     children: [
       {
         path: ':type',
@@ -21,9 +25,9 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'documents/pdf',
+    redirectTo: 'docs',
     pathMatch: 'full'
-  }
+  },
 ];
 
 @NgModule({

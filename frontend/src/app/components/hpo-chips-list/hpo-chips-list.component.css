@@ -6,9 +6,12 @@
     position: sticky;
     top: 0;
     z-index: 999;
+    background: rgb(255, 255, 255);
+
 }
 
 .chipsDiv{
     overflow-x: hidden;
     overflow-y: auto;
+    background: rgb(255, 255, 255);
 }

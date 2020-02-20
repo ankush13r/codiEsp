@@ -11,7 +11,7 @@ import {
   MatPaginatorModule, MatTabsModule, MatListModule, MatIconModule,
   MatButtonModule, MatSlideToggleModule, MatRadioModule,
   MatSidenavModule,MatDividerModule,MatToolbarModule,MatSelectModule,
-  MatChipsModule,MatAutocompleteModule,MatTooltipModule
+  MatChipsModule,MatAutocompleteModule,MatTooltipModule,MatProgressSpinnerModule
 } from '@angular/material';
 
 import { ResizableModule } from 'angular-resizable-element';
@@ -22,12 +22,13 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { DocumentsComponent } from './components/documents/documents.component';
 import { TargetComponent } from './components/target/target.component';
 import { AppRoutingModule } from './routes/app-routing.module';
-import { MainTextExtractorComponent } from './components/main-text-extractor/main-text-extractor.component';
+import { DataExtractorComponent } from './components/data-extractor/data-extractor.component';
 import { PreviewComponent } from './components/preview/preview.component';
 import { SubTitleComponent } from './components/sub-title/sub-title.component';
-import { ChipsListComponent } from './components/chips-list/chips-list.component';
+import { HpoChipsListComponent } from './components/hpo-chips-list/hpo-chips-list.component';
 
 import { ReversePipe } from './pipes/reverse.pipe';
+import { DataManagmentComponent } from './components/data-managment/data-managment.component';
 
 @NgModule({
   declarations: [
@@ -37,10 +38,11 @@ import { ReversePipe } from './pipes/reverse.pipe';
     NavbarComponent,
     DocumentsComponent,
     TargetComponent,
-    MainTextExtractorComponent,
+    DataExtractorComponent,
     PreviewComponent,
     SubTitleComponent,
-    ChipsListComponent,
+    HpoChipsListComponent,
+    DataManagmentComponent,
 
   ],
   imports: [
@@ -70,6 +72,7 @@ import { ReversePipe } from './pipes/reverse.pipe';
     MatChipsModule,
     MatAutocompleteModule,
     MatTooltipModule,
+    MatProgressSpinnerModule
 
   ],
   providers: [CookieService],

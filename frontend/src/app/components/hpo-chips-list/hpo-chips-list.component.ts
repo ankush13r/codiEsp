@@ -1,6 +1,6 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, ElementRef, ViewChild, OnInit, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 
@@ -17,11 +17,11 @@ import { Hpo } from '../../interfaces/hpo';
  */
 @Component({
   selector: 'app-chips-list',
-  templateUrl: 'chips-list.component.html',
-  styleUrls: ['chips-list.component.css'],
+  templateUrl: 'hpo-chips-list.component.html',
+  styleUrls: ['hpo-chips-list.component.css'],
 })
 // ChipsAutocompleteExample
-export class ChipsListComponent implements OnInit {
+export class HpoChipsListComponent implements OnInit {
   visible = true;
   selectable = true;
   removable = true;
@@ -33,8 +33,8 @@ export class ChipsListComponent implements OnInit {
 
   allHpo: Hpo[];
 
-  @ViewChild('chipsInput', null) chipsInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', null) matAutocomplete: MatAutocomplete;
+
 
   constructor() {
 
@@ -66,7 +66,6 @@ export class ChipsListComponent implements OnInit {
     //If value doesn't exist
     if (index === -1)
       this.selectedValues.push(event.option.value);
-    this.chipsInput.nativeElement.value = '';
     this.formCtrl.setValue(null);
   }
 

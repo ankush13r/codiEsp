@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
 import { Observable, BehaviorSubject, of } from 'rxjs';
-import { Document } from '../modules/document';
+import { Document } from '../models/document';
 
 
 @Injectable({
@@ -24,13 +24,7 @@ export class DataShareService {
   constructor() {
   }
 
-  observeDocument() {
-    return (this.selectedDocument.asObservable())
-  }
-  selectDocument(file: Document) {
-    this.selectedDocument.next(file);
-  }
- 
+
 
   observeDocumentType() {
     return (this.docType.asObservable())

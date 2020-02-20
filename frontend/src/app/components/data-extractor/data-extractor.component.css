@@ -1,0 +1,9 @@
+
+
+.link-active{
+    background: rgba(141, 141, 141, 0.212);
+    transition: 1s;
+    color: rgb(0, 0, 0) !important;
+    opacity: 1 !important;
+}
+

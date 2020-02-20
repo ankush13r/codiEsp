@@ -20,7 +20,7 @@ from flask_jwt_extended import create_access_token
 from pymongo.errors import BulkWriteError, DuplicateKeyError
 from apscheduler.schedulers.background import BackgroundScheduler
 from werkzeug.exceptions import BadRequest
-import geoip2.database
+
 
 import constants
 import utils
@@ -39,11 +39,6 @@ mongo = PyMongo(app)
 # Enabled cors.
 cors = CORS(app)
 
-
-@app.route("/documents/hpo")
-def get_hpo():
-    hpo = list(mongo.db.hpo.find({}, {"_id": 0}))
-    return jsonify(hpo)
 
 
 @app.route("/documents/types", methods=["GET"])
@@ -122,36 +117,6 @@ def finish_document():
         abort(304, {"Error": err})
 
 
-@app.route("/ip/add", methods=["POST"])
-def save_ip_address():
-    try:
-        ip = request.json.get("ip")
-
-        if not ip:
-            abort(404, {"message": "Error: required ip address."})
-
-        reader = geoip2.database.Reader(constants.GeoipPath)
-        response = reader.city(ip)
-        jsonObj = {"isoCode": response.country.iso_code,
-                   "country": response.country.name,
-                   "postalCode": response.postal.code,
-                   "subdivisions": response.subdivisions.most_specific.name,
-                   "city": response.city.name,
-                   "latitude": response.location.latitude,
-                   "longitude": response.location.longitude
-                   }
-
-        mongoObj = mongo.db.locations.find_one(jsonObj)
-        if not mongoObj:
-            result = mongo.db.locations.insert_one(jsonObj)
-            _id = result.inserted_id
-        else:
-            mongoObj["_id"]
-
-    except Exception as err:
-        abort(304, err)
-
-    return jsonify({"_id": result.inserted_id})
 
 # URL example = /documents/data_type/add
 @app.route("/documents/add", methods=["POST"])

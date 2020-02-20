@@ -12,6 +12,21 @@ $theme: mat-light-theme($primary, $accent);
 // Include theme styles for Angular Material components.
 @include angular-material-theme($theme);
 
+
+
+// // Define an alternate dark theme.
+// $dark-primary: mat-palette($mat-blue-grey,800);
+// $dark-accent:  mat-palette($mat-amber, A200, A100, A400);
+// $dark-warn:    mat-palette($mat-deep-orange);
+// $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+// // Include the alternative theme styles inside of a block with a CSS class. You can make this
+// // CSS class whatever you want. In this example, any component inside of an element with
+// // `.unicorn-dark-theme` will be affected by this alternate dark theme instead of the default theme.
+// .unicorn-dark-theme {
+//   @include angular-material-theme($dark-theme);
+// }
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -80,6 +95,7 @@ html {
 }
 
 body {
+  background: rgb(248, 248, 248);
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }

@@ -1,11 +1,12 @@
-<div class="w-100 h-100 chipsDiv mt-2 mat-primary-outline" (click)="chipsInput.nativeElement.focus()">
-    <input matInput class="chipsInput m-0 p-1 w-100 bg-light" #chipsInput
-    *ngIf="!disabled"
+<div class="w-100 h-100 chipsDiv mt-2 mat-primary-outline" (click)="chipsInput.focus()">
+    <input matInput class="chipsInput m-0 p-1 w-100"
+    #chipsInput
+    [attr.disabled]="disabled? true : null"
     placeholder="New term ...."
     [formControl]="formCtrl"
     [matAutocomplete]="auto"
     [matChipInputFor]="chipList"> 
-  <mat-chip-list #chipList aria-label="Selected Value" >
+  <mat-chip-list #chipList aria-label="Selected Value" class="p-1">
       <mat-chip
         *ngFor="let value of selectedValues | reverse"
         [selectable]="selectable"
@@ -23,4 +24,3 @@
       </mat-option>
     </mat-autocomplete>
 </div>
-

@@ -1,3 +1,10 @@
 .image2{
-    width: 8em;
+    max-width: 8em;
+}
+
+.image1{
+    max-width: 12em;
+}
+.navBar{
+    /* background: rgb(4, 30, 65); */
 }

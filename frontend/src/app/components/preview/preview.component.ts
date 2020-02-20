@@ -1,9 +1,9 @@
-import { Component, OnInit, SecurityContext, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, SecurityContext, ViewEncapsulation, SimpleChanges, OnChanges, Input } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
 import { Pipe, PipeTransform } from '@angular/core';
 
 import { DataShareService } from '../../services/data-share.service';
-import { Document } from '../../modules/document';
+import { Document } from '../../models/document';
 
 
 
@@ -14,10 +14,10 @@ import { Document } from '../../modules/document';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class PreviewComponent implements OnInit {
+export class PreviewComponent implements OnInit , OnChanges{
 
   title = "Preview"
-  document: Document;
+  @Input() document: Document;
   safeUrl: SafeResourceUrl;
   auxText: String;
   contentType: String;
@@ -37,16 +37,31 @@ export class PreviewComponent implements OnInit {
 
 
   observeDocument() {
-    this.dataShareService.observeDocument().subscribe(result => {
-      if (result && this.document !== result) {
-        this.document = result;
-        this.showLink()
-        if (this.document["clinical_cases"] && this.document["clinical_cases"].length > 0) {
-          // this.document.versions.sort((a, b) => a["time"] - b["time"])
-        }
-      }
+    // this.dataShareService.observeDocument().subscribe(result => {
+    //   if (result && this.document !== result) {
+    //     this.document = result;
+    //     this.showLink()
+    //     if (this.document["clinical_cases"] && this.document["clinical_cases"].length > 0) {
+    //       // this.document.versions.sort((a, b) => a["time"] - b["time"])
+    //     }
+    //   }
 
-    });
+    // });
+  }
+  ngOnChanges(changes: SimpleChanges) {
+
+    for (const propName in changes) {
+
+      if (changes.hasOwnProperty(propName)) {
+        if (propName == 'document' && this.document) {
+          this.showLink()
+          if (this.document["clinical_cases"] && this.document["clinical_cases"].length > 0) {
+            // this.document.versions.sort((a, b) => a["time"] - b["time"])
+          }
+        }
+
+      }
+    }
   }
 
   parse_text(text:string) {

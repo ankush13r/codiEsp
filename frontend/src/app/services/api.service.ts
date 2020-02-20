@@ -6,8 +6,8 @@ import { map } from 'rxjs/operators';
 
 
 
-import { ApiResponse } from '../modules/apiResponse';
-import { ClinicalCase } from '../modules/clinicalCase';
+import { ApiResponse } from '../models/apiResponse';
+import { ClinicalCase } from '../models/clinicalCase';
 
 
 const httpOptions = {
@@ -21,31 +21,31 @@ const httpOptions = {
   providedIn: 'root'
 })
 
-export class ApiService implements OnInit {
+export class ApiService  {
 
   private baseUrl = 'http://127.0.0.1:5000/';
-  constructor(private http: HttpClient) {
+  private _idIP:string = null;
+  private ip:string = null;
 
-  }
 
-  ngOnInit() {
-  }
 
-  getIp(): Observable<any> {
+  constructor(private http: HttpClient) { }
+
+
+
+  getIp() {
     const url = 'http://api.ipify.org/?format=json';
 
-    return this.http.get<any>(url).pipe(
+    this.http.get<any>(url).pipe(
       retry(3),
       catchError(this.handleError)
-    )
+    ).subscribe(res =>{        
+      if (res.ip){       
+       this.ip = res.ip;
+      }
+    });
   }
 
-  saveIp(ip: string){
-    var url = this.baseUrl + "ip/add"
-    this.http.post<Document>(url, { "id": ip }).pipe(
-      catchError(this.handleError),
-    );
-  }
 
   getTypes(): Observable<string[]> {
     var url = this.baseUrl + "documents/types"
@@ -79,7 +79,7 @@ export class ApiService implements OnInit {
 
 
   addClinicalCase(document: any): Observable<ClinicalCase> {
-    document.location = "location";
+    document.ip = this.ip;
 
     var url = this.baseUrl + "documents/add";
     return this.http.post<Document>(url, document).pipe(

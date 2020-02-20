@@ -2,9 +2,9 @@ export class CaseData {
     private clinical_case: string;
     private yes_no: string;
     private hpoCodes: Object[];
-    private user_id: string;
-    private location: string;
-    private time: number;
+    private user_id?: string;
+    private location?: string;
+    private time?: number;
 
     constructor() {
         this.$hpoCodes = [];

@@ -15,12 +15,8 @@ export class AppComponent {
 
   }
 
-  ngOnInit() {
-    this.apiService.getIp().subscribe(res =>{        
-      if (res.ip){
-        this.apiService.saveIp(res.ip);
-      }
-    });
+  ngOnInit() {   
+    this.apiService.getIp();
   }
 
 }

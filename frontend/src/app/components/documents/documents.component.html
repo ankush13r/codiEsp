@@ -6,13 +6,9 @@
 
                 <mat-list fxFlex *ngIf="api_response" class="matList">
                     <mat-list-item class="docsList" *ngFor="let auxDocument of api_response.$documents; let i = index"
-                        [matTooltip]="toolTips.docsList.value"
-                        [matTooltipPosition]="toolTips.docsList.position"
-                        [matTooltipClass]="toolTips.docsList.class"
-                        [class.selected]="auxDocument === document" 
-                        (click)="selectDocument(i)"
-                        (dblclick)="newWindow(auxDocument)"
-                        (contextmenu)="onRightClick()">
+                        [matTooltip]="toolTips.docsList.value" [matTooltipPosition]="toolTips.docsList.position"
+                        [matTooltipClass]="toolTips.docsList.class" [class.selected]="auxDocument === document"
+                        (click)="selectDocument(i)" (dblclick)="newWindow(auxDocument)" (contextmenu)="onRightClick()">
                         <div class="w-100" fxLayout="row" fxLayoutAlign="space-between center">
                             <mat-slide-toggle [checked]="auxDocument.$state"
                                 [color]="(auxDocument.$state=='1')?'primary':''">
@@ -20,7 +16,7 @@
                             <button class="mx-2" mat-icon-button (click)="newWindow(auxDocument)">
                                 <mat-icon [color]="(auxDocument === document)?'accent':''">open_in_new</mat-icon>
                             </button>
-                            <div fxFlex>
+                            <div fxFlex class="text-nowrap overflow-hidden pr-1">
                                 <span>{{auxDocument.$name}}</span>
                             </div>
 
@@ -32,11 +28,11 @@
 
                     <mat-form-field fxFlex="16" class="mx-1">
                         <input name="indexInput" matInput #indexInput="ngModel"
-                            [ngModel]="pageIndex[this.doc_type] + 1 || 1" (change)="onChangeIndex($event)"
+                            [ngModel]="pagination[doc_type]?.pageIndex + 1 || 1" (change)="onChangeIndex($event)"
                             pattern="^[0-9]+$" type="number" required>
                     </mat-form-field>
                     <mat-paginator class="p-0 m-0 mt-2" [length]="api_response.$totalRecords"
-                        [pageIndex]="pageIndex[this.doc_type]" [pageSize]="this.pageLength[this.doc_type]"
+                        [pageIndex]="pagination[doc_type]?.pageIndex" [pageSize]="pagination[doc_type]?.pageLength"
                         [pageSizeOptions]="[10,25,50,100]" (page)="setPageEvent($event)">
                         <!--showFirstLastButtons="true"-->
                     </mat-paginator>
@@ -52,8 +48,8 @@
             <mat-icon *ngIf="!drawer.opened">arrow_forward_ios</mat-icon>
         </button>
 
-        <app-preview fxFlex="55" class="mx-1 h-100"></app-preview>
-        <app-target fxFlex [document]="document" (nextOrPrevious)="onNextPrevious($event)" fxFlex="45"></app-target>
+        <app-preview fxFlex="55" class="mx-1 h-100" [document]="document"></app-preview>
+        <app-target fxFlex="45" [document]="document" (nextOrPrevious)="onNextPrevious($event)"></app-target>
     </mat-drawer-content>
 
 </mat-drawer-container>
