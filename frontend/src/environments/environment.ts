@@ -8,7 +8,7 @@ export const environment = {
   production: false
 };
 
-export const ToolTips: ToolTip = {
+export const toolTips: ToolTip = {
   //class maybe "tooltip-dark"
   nextDoc: {
     value: "Next document",
@@ -50,7 +50,7 @@ export const ToolTips: ToolTip = {
     position: "above",
     class: null
   },
-  docsList: {
+  listItem: {
     value: "Double click to open in new window or right to more information",
     position: "above",
     class: null

@@ -13,6 +13,7 @@ import {
   MatSidenavModule,MatDividerModule,MatToolbarModule,MatSelectModule,
   MatChipsModule,MatAutocompleteModule,MatTooltipModule,MatProgressSpinnerModule
 } from '@angular/material';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 import { ResizableModule } from 'angular-resizable-element';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -29,6 +30,7 @@ import { HpoChipsListComponent } from './components/hpo-chips-list/hpo-chips-lis
 
 import { ReversePipe } from './pipes/reverse.pipe';
 import { DataManagmentComponent } from './components/data-managment/data-managment.component';
+import { RegexComponent } from './components/regex/regex.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { DataManagmentComponent } from './components/data-managment/data-managme
     SubTitleComponent,
     HpoChipsListComponent,
     DataManagmentComponent,
+    RegexComponent,
 
   ],
   imports: [
@@ -72,7 +75,9 @@ import { DataManagmentComponent } from './components/data-managment/data-managme
     MatChipsModule,
     MatAutocompleteModule,
     MatTooltipModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    
+    ScrollingModule
 
   ],
   providers: [CookieService],

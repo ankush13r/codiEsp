@@ -1,4 +1,4 @@
-<div *ngIf="documents_types" class="h-100 p-1" fxLayout="column">
+<div *ngIf="documents_types" class="p-1 h-full" fxLayout="column">
     <div>
         <nav mat-tab-nav-bar mat-align-tabs="left" color="accent" backgroundColor="" >
             <a mat-tab-link *ngFor="let type of documents_types" [routerLink]="[type]" routerLinkActive
@@ -8,7 +8,7 @@
         </nav>
     </div>
     
-    <div fxFlex class="mt-2">
+    <div fxFlex>
         <router-outlet></router-outlet>
     </div>
 

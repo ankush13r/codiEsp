@@ -1,0 +1,36 @@
+<div class="w-100">
+
+    <mat-tab-group>
+        <mat-tab label="First">
+            <div class="virtualListDiv">
+                
+                <cdk-virtual-scroll-viewport itemSize="50" class="w-100 h-100 ">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="w-75">aa</th>
+                                <th>ss</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *cdkVirtualFor="let item of items" class="mt-2">
+                                <td>
+                                    {{item}}
+                                </td>
+                                <td>
+                                    <button mat-button mat-button color="warn">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                </td>
+                
+                            </tr>
+                        </tbody>
+            
+                    </table>
+                </cdk-virtual-scroll-viewport>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+
+  
+</div>

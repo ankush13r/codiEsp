@@ -49,10 +49,10 @@ def modifyText(content):
      All regex are saved in mongoDB.
     """
 
-    color_occurrences_style = 'style="background:rgba(43, 218, 252, 1);  padding:4px;"'
-    start_color_style = ' style="background:rgba(255, 6, 6, 0.5); padding:4px;"'
-    end_color_style = 'style="background:rgba(43, 218, 252, 0.5); padding:4px;"'
-    pre_line_style = 'style="white-space:pre-line"'
+    color_occurrences_style = 'style="background:rgba(43, 218, 252, 1);  padding:0.3em; border-radius:0.3em;"'
+    start_color_style = ' style="background:rgba(255, 6, 6, 0.5); padding:0.3em; border-radius:0.3em;"'
+    end_color_style = 'style="background:rgba(43, 218, 252, 0.5); padding:0.3em; border-radius:0.3em; "'
+    pre_line_style = """ style="line-height:1.6; text-align: justify;  white-space:pre-line; font-family: 'Open Sans';" """
 
     
 
@@ -81,7 +81,7 @@ def modifyText(content):
             fr'<span {end_color_style}>\1</span>', content)
 
     # Html style to preserve break lines as they are, because normalky break lines are chopped in html (web).
-    return f"<span{pre_line_style}>{content}</span{pre_line_style}>"
+    return f"<span {pre_line_style}>{content}</span>"
 
 
 def get_case_id(source_id):

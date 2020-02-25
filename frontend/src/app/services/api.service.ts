@@ -21,10 +21,9 @@ const httpOptions = {
   providedIn: 'root'
 })
 
-export class ApiService  {
+export class ApiService   {
 
   private baseUrl = 'http://127.0.0.1:5000/';
-  private _idIP:string = null;
   private ip:string = null;
 
 

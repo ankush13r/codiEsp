@@ -2,12 +2,13 @@ import { Component, OnInit, Input, Output, EventEmitter, SimpleChange } from '@a
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { trigger, state, style, animate, transition, query, stagger } from '@angular/animations';
 
 import { DataShareService } from '../../services/data-share.service';
 import { ApiService } from "../../services/api.service"
 import { ApiResponse } from '../../models/apiResponse';
 import { Document } from '../../models/document'
-import { ToolTips } from '../../../environments/environment';
+import { toolTips } from '../../../environments/environment';
 
 export interface Pagination {
   [key: string]: {
@@ -17,10 +18,12 @@ export interface Pagination {
 }
 
 
+
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
   styleUrls: ['./documents.component.css'],
+
 })
 export class DocumentsComponent implements OnInit {
   title = "Documents";
@@ -36,7 +39,8 @@ export class DocumentsComponent implements OnInit {
   baseUrl = 'http://127.0.0.1:5000/documents/';
 
   //Get tool tips from constants.
-  toolTips = ToolTips;
+  toolTips = toolTips;
+
   constructor(private apiService: ApiService, private dataShareService: DataShareService,
     private route: ActivatedRoute, private cookies: CookieService
   ) { }
@@ -87,7 +91,7 @@ export class DocumentsComponent implements OnInit {
 
   getDocuments(index = null) {
     this.cookies.set("pagination", JSON.stringify(this.pagination));
-    this.cookies.set("docType",this.doc_type);
+    this.cookies.set("docType", this.doc_type);
     let pageIndex = null;
     let pageLength = null;
     if (this.pagination[this.doc_type]) {

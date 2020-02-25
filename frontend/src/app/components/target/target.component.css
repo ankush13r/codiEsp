@@ -12,7 +12,6 @@
 .textarea, .textAreaBacks{
     resize: none;
     border: none;
-    padding: 0.5em 0.5em 0 0.5em;
     position: absolute;
     top:0;
     background: transparent;
@@ -25,23 +24,22 @@
 }
 
 .textarea{
+    padding: 0.5em 0.5em 0 0.5em;
     z-index: 999;
-    padding-right: 0.55em;
 }
 
 
 .textAreaBacks{
-    padding-right: 0.4em;
-    color: transparent;
+    padding: 0.5em 0.5em 0 0.5em;
+    color:transparent;
 }
 
 .textAreaBacks mark{
 
     padding: 0;
     margin: 0;
-    background-color: brown;
-    border: 0.13em solid;
-    border-color: rgb(0, 162, 255);
+    border: 0.125em solid;
+    border-color: rgb(0, 153, 255);
 }
 
 .chipsApp{

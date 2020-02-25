@@ -4,10 +4,11 @@
             <app-title [title]="title"></app-title>
             <div class="listBox" fxFlex=90 fxLayout="column" fxLayoutAlign="space-between none">
 
-                <mat-list fxFlex *ngIf="api_response" class="matList">
-                    <mat-list-item class="docsList" *ngFor="let auxDocument of api_response.$documents; let i = index"
-                        [matTooltip]="toolTips.docsList.value" [matTooltipPosition]="toolTips.docsList.position"
-                        [matTooltipClass]="toolTips.docsList.class" [class.selected]="auxDocument === document"
+                <mat-list fxFlex *ngIf="api_response" class="matList" >
+                    <mat-list-item class="listItem border-bottom animated flipInX"  fxLayout="row" fxLayoutAlign="None center"
+                     *ngFor="let auxDocument of api_response.$documents; let i = index"
+                        [matTooltip]="toolTips.listItem.value" [matTooltipPosition]="toolTips.listItem.position"
+                        [matTooltipClass]="toolTips.listItem.class" [class.selected]="auxDocument === document"
                         (click)="selectDocument(i)" (dblclick)="newWindow(auxDocument)" (contextmenu)="onRightClick()">
                         <div class="w-100" fxLayout="row" fxLayoutAlign="space-between center">
                             <mat-slide-toggle [checked]="auxDocument.$state"
@@ -41,7 +42,7 @@
             </div>
         </div>
     </mat-drawer>
-    <mat-drawer-content fxLayout="row" class="h-100">
+    <mat-drawer-content fxLayout="row" class="h-100 bg-light">
 
         <button type="button" class="slideButton" mat-icon-button color="light" (click)="drawer.toggle()">
             <mat-icon *ngIf="drawer.opened">arrow_back_ios</mat-icon>

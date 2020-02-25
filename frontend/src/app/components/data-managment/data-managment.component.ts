@@ -6,7 +6,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./data-managment.component.css']
 })
 export class DataManagmentComponent implements OnInit {
-
+  itemList: any = [
+    {
+      value: "regex",
+      icon: "edit"
+    },
+    {
+      value: "data",
+      icon: "local_library"
+    },
+    {
+      value: "empty",
+      icon: ""
+    },
+    {
+      value: "empty",
+      icon: ""
+    },
+    {
+      value: "empty",
+      icon: ""
+    },
+  ]
   constructor() { }
 
   ngOnInit() {

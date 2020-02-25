@@ -1,12 +1,13 @@
 .listBox {
-  overflow-x: auto;
+  overflow: hidden;
 }
 .matList {
+  overflow-x: hidden;
   overflow-y: auto;
 }
 .drawer {
   margin-top: 0em;
-  max-width: 20em;
+  max-width: 23em;
   border: none;
 }
 
@@ -20,8 +21,11 @@
   color: white;
 }
 
-.docsList:hover {
-  background: rgb(226, 226, 226);
+.listItem{
+  min-height:4em;
+}
+.listItem:hover {
+  background: rgb(209, 209, 209) !important;
   transition: 0.5s;
   color: rgb(0, 0, 0);
 }
@@ -42,7 +46,7 @@
   opacity: 0.95;
 }
 .selected {
-  background: rgb(92, 92, 92);
+  background: rgb(92, 92, 92) !important;
   color: rgb(255, 255, 255) !important;
   transition: background-color 1s ease-out;
 }

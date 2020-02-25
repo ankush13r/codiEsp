@@ -6,15 +6,21 @@
     [formControl]="formCtrl"
     [matAutocomplete]="auto"
     [matChipInputFor]="chipList"> 
-  <mat-chip-list #chipList aria-label="Selected Value" class="p-1">
-      <mat-chip
+  <mat-chip-list #chipList aria-label="Selected Value" class="pt-1">
+      
+    <mat-chip
         *ngFor="let value of selectedValues | reverse"
+        color="accent"
         [selectable]="selectable"
         [removable]="removable"
-        (removed)="remove(value)">
-        {{value.id}}: {{value.name}}
+        (removed)="remove(value)"
+        [matTooltip]="value|json"
+        matTooltipClass="tooltip-dark"
+        matTooltipShowDelay= 700
+        >
+        {{value.id}}
         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-      </mat-chip>
+        </mat-chip>
    
     </mat-chip-list>
    

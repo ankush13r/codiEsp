@@ -7,7 +7,7 @@ import { ApiService } from '../../services/api.service';
 import { Document } from '../../models/document';
 import { ClinicalCase } from '../../models/clinicalCase';
 import { Version } from '../../models/version';
-import { ToolTips } from '../../../environments/environment';
+import { toolTips } from '../../../environments/environment';
 
 
 const errorStyle = ["error-snack-bar"]
@@ -24,10 +24,12 @@ const errorStyle = ["error-snack-bar"]
 export class TargetComponent implements OnInit, OnChanges {
   title = "Clinical case"
   yesNoValues: string[] = ["yes", "no"]
-  toolTips = ToolTips;
+  toolTips = toolTips;
 
   @Output() nextOrPrevious = new EventEmitter<number>();
   @ViewChild('backTextarea', null) backTextarea: ElementRef;
+  @ViewChild('textarea', null) textarea: ElementRef;
+
   @Input() document: Document;
 
   hpoData: any = null;
@@ -80,6 +82,7 @@ export class TargetComponent implements OnInit, OnChanges {
 
   onChangeText(event) {
     this.getAuxText(event);
+    this.showTarget();
   }
 
   onEdit(clear: boolean = false) {
@@ -126,16 +129,22 @@ export class TargetComponent implements OnInit, OnChanges {
   }
 
   @HostListener("scroll", ['$event'])
-  onScroll(event) {
-
+  onScroll(event) {  
     let scrollOffset = event.srcElement.scrollTop;
+    this.backTextarea.nativeElement.scrollTop = scrollOffset
+
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize(event) {  
+    let scrollOffset = this.textarea.nativeElement.scrollTop;
     this.backTextarea.nativeElement.scrollTop = scrollOffset
 
   }
 
 
   showTarget(preview: boolean = false) {
-    this.dataShareService.changeAuxText(this.selectedCase.$newCaseVersion.$clinical_case);
+    this.dataShareService.changeAuxText(this.auxText);
     if (preview) {
       this.dataShareService.previewTarget(true);
     }

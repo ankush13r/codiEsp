@@ -64,40 +64,11 @@ export class PreviewComponent implements OnInit , OnChanges{
     }
   }
 
-  parse_text(text:string) {
-    var textList = text.split("")
-
-    var newText = ""
-    let found = false;
-    for (let i = 0; i < text.length; i++) {
-      if (text[i] == "\n") {
-        newText +=  "<mark>\n</mark>"
-      }else{
-        newText +=text[i]
-      }
-  
-    }
-    return newText
-  }
-  // if (text[i] == "\n") {
-  //   if (found == false) {
-  //     newText += "<mark>";
-  //   }
-  //   newText += text[i];
-  //   found = true;
-  // } else {
-  //   if (found == true) {
-  //     newText += "</mark>";
-  //     found = false;
-  //   }
-  //   newText += text[i]
-
-  // }
   observeAuxText() {
     this.dataShareService.observeAuxText().subscribe(result => {
       
       if (result) {
-        this.auxText = this.parse_text(result);
+        this.auxText = result;
       }
 
     }
