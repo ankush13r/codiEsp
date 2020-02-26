@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-regex',
@@ -6,13 +6,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./regex.component.css']
 })
 export class RegexComponent implements OnInit {
-  items:any;
+  
+  @Input() RexesType:string;
+  
+  items:any[];
+  filterItem:any[];
+  
+  
   constructor() { }
+
 
   ngOnInit() {
     this.items = Array.from({length: 100000}).map((_, i) => `Item #${i}`);
-    console.log(this.items);
-    
+    this.filterItem = this.items;
   }
 
+
+  onFilter(event:string){
+    this.filterItem = this.items.filter((result:string)=> result.toLowerCase().includes(event.toLowerCase()));
+  }
 }

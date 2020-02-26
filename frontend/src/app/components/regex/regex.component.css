@@ -1,11 +1,11 @@
-.virtualListDiv {
-  width: 80%;
-  height: 40em;
-  margin: auto;
-}
 
-.item {
-  height: 3em;
-}
 
+.list{
+  background: rgb(241, 241, 241);
+
+}
+.listItem{
+  height: 50px;
+  background: rgb(255, 255, 255);
+}
 

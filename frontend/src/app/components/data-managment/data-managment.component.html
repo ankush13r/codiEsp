@@ -1,29 +1,26 @@
-<div class="w-100 h-auto">
+<div class="w-100 h-full">
 
-    <mat-drawer-container autosize>
-        <mat-drawer #drawer opened="true" mode="side" class="bg-dark w-25 pt-4">
-        
+    <mat-drawer-container class="h-100 w-100">
+        <mat-drawer #drawer opened="true" mode="side" class="bg-dark pt-4 drawer">
+
             <mat-list>
-                <mat-list-item class="animated flipInX mb-2 bg-light cursor-pointer" 
-                *ngFor="let item of itemList">
-                <mat-icon class="mr-2">
-                    {{item.icon}}
-                </mat-icon> 
-                {{item.value |titlecase }}
+                <mat-list-item class="animated flipInX mb-2 bg-light cursor-pointer" *ngFor="let item of itemList">
+                    <mat-icon class="mr-2">
+                        {{item.icon}}
+                    </mat-icon>
+                    {{item.value |titlecase }}
                 </mat-list-item>
             </mat-list>
 
         </mat-drawer>
-
 
         <mat-drawer-content fxLayout="row" class="">
             <button type="button" mat-icon-button color="light" (click)="drawer.toggle()">
                 <mat-icon *ngIf="drawer.opened">arrow_back_ios</mat-icon>
                 <mat-icon *ngIf="!drawer.opened">arrow_forward_ios</mat-icon>
             </button>
-            <app-regex class="w-100"></app-regex>
-        </mat-drawer-content>
-      
+            <app-regex class="w-100 h-50 mt-4"></app-regex>
 
+        </mat-drawer-content>
     </mat-drawer-container>
 </div>

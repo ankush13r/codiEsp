@@ -1,36 +1,38 @@
-<div class="w-100">
+<nav mat-tab-nav-bar>
+    <a mat-tab-link [routerLink]="['',management]" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+        Regex1
+    </a>
+</nav>
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4em">
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Filter" [ngModel]="null" (ngModelChange)="onFilter($event)">
+    </mat-form-field>
+    <button mat-flat-button color="primary">New</button>
+</div>
 
-    <mat-tab-group>
-        <mat-tab label="First">
-            <div class="virtualListDiv">
-                
-                <cdk-virtual-scroll-viewport itemSize="50" class="w-100 h-100 ">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th class="w-75">aa</th>
-                                <th>ss</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *cdkVirtualFor="let item of items" class="mt-2">
-                                <td>
-                                    {{item}}
-                                </td>
-                                <td>
-                                    <button mat-button mat-button color="warn">
-                                        <mat-icon>edit</mat-icon>
-                                    </button>
-                                </td>
-                
-                            </tr>
-                        </tbody>
-            
-                    </table>
-                </cdk-virtual-scroll-viewport>
-            </div>
-        </mat-tab>
-    </mat-tab-group>
-
-  
+<div class="w-100 h-100" fxLayout="row" fxLayoutGap="2em">
+    <div fxFlex>
+        <cdk-virtual-scroll-viewport itemSize="50" class="w-100 h-100">
+            <mat-list class="list">
+                <mat-list-item *cdkVirtualFor="let item of filterItem" class="mb-2 listItem animated bounce">
+                    <div class="w-100 h-100" fxLayout="row" fxLayoutAlign="space-between center">
+                        <span fxFlex>{{item}}</span>
+                        <button mat-button color="primary">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-button color="warn">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </mat-list-item>
+            </mat-list>
+        </cdk-virtual-scroll-viewport>
+    </div>
+        <div fxFlex class="textAreaParent mat-primary-outline">
+            <textarea *ngIf="selectedCase" class="textarea h-100 w-100" name="clinicalCase" type="textarea"
+                [disabled]="selectedCaseVersion != selectedCase?.$newCaseVersion" required  #textarea
+                [(ngModel)]="selectedCaseVersion.$clinical_case" (ngModelChange)="onChangeText($event)"
+                (scroll)="onScroll($event)">
+            </textarea>
+            <div class="textAreaBacks h-100 w-100" #backTextarea [innerHTML]="auxText"></div>
 </div>

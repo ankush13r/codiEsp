@@ -11,7 +11,8 @@ import {
   MatPaginatorModule, MatTabsModule, MatListModule, MatIconModule,
   MatButtonModule, MatSlideToggleModule, MatRadioModule,
   MatSidenavModule,MatDividerModule,MatToolbarModule,MatSelectModule,
-  MatChipsModule,MatAutocompleteModule,MatTooltipModule,MatProgressSpinnerModule
+  MatChipsModule,MatAutocompleteModule,MatTooltipModule,MatProgressSpinnerModule,
+  MatGridListModule
 } from '@angular/material';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 
@@ -31,6 +32,7 @@ import { HpoChipsListComponent } from './components/hpo-chips-list/hpo-chips-lis
 import { ReversePipe } from './pipes/reverse.pipe';
 import { DataManagmentComponent } from './components/data-managment/data-managment.component';
 import { RegexComponent } from './components/regex/regex.component';
+import { TextareaHighlightComponent } from './components/textarea-highlight/textarea-highlight.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { RegexComponent } from './components/regex/regex.component';
     HpoChipsListComponent,
     DataManagmentComponent,
     RegexComponent,
+    TextareaHighlightComponent,
 
   ],
   imports: [
@@ -76,7 +79,7 @@ import { RegexComponent } from './components/regex/regex.component';
     MatAutocompleteModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
-    
+    MatGridListModule,
     ScrollingModule
 
   ],
