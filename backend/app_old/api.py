@@ -161,7 +161,7 @@ def save_data():
 
 @app.route("/")
 @cross_origin()
-def home():
+def index():
     return {"data": "Welcome to codiEsp"}
 
 
