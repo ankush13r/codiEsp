@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { RegexType } from '../../models/regex-type';
+
+
 @Component({
   selector: 'app-regex',
   templateUrl: './regex.component.html',
@@ -9,7 +12,7 @@ export class RegexComponent implements OnInit {
   
   @Input() RexesType:string;
   
-  items:any[];
+  items:any;
   filterItem:any[];
   
   
@@ -17,7 +20,7 @@ export class RegexComponent implements OnInit {
 
 
   ngOnInit() {
-    this.items = Array.from({length: 100000}).map((_, i) => `Item #${i}`);
+    this.items = Array.from({length: 1000}).map((_, i) =>""+i);
     this.filterItem = this.items;
   }
 

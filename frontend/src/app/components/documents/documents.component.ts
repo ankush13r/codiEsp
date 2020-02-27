@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { trigger, state, style, animate, transition, query, stagger } from '@angular/animations';
 
 import { DataShareService } from '../../services/data-share.service';
-import { ApiService } from "../../services/api.service"
+import { ApiService } from "../../services/api-docs.service"
 import { ApiResponse } from '../../models/apiResponse';
 import { Document } from '../../models/document'
 import { toolTips } from '../../../environments/environment';
@@ -36,7 +36,7 @@ export class DocumentsComponent implements OnInit {
   index: number = 0;
 
   doc_type: string = null;
-  baseUrl = 'http://127.0.0.1:5000/documents/';
+  baseUrl = 'http://127.0.0.1:5000/docs/';
 
   //Get tool tips from constants.
   toolTips = toolTips;
@@ -159,9 +159,7 @@ export class DocumentsComponent implements OnInit {
       url = document.$link
     else
       url = this.baseUrl + document.$format + "/" + document.$_id;
-
-    window.open((url).toString(), "_blank")
-
+    window.open((url).toString(), "_blank");
   }
 
 }

@@ -16,7 +16,11 @@
             <mat-list class="list">
                 <mat-list-item *cdkVirtualFor="let item of filterItem" class="mb-2 listItem animated bounce">
                     <div class="w-100 h-100" fxLayout="row" fxLayoutAlign="space-between center">
-                        <span fxFlex>{{item}}</span>
+                        <span fxFlex="50">{{item.$_id}}</span>
+                        <mat-form-field class="inputNumber">
+                            <input type="text" matInput min="0" pattern="[0-9]*"  [(ngModel)]="item.$_id">
+                        </mat-form-field>
+                        <span>number</span>
                         <button mat-button color="primary">
                             <mat-icon>edit</mat-icon>
                         </button>
@@ -28,11 +32,5 @@
             </mat-list>
         </cdk-virtual-scroll-viewport>
     </div>
-        <div fxFlex class="textAreaParent mat-primary-outline">
-            <textarea *ngIf="selectedCase" class="textarea h-100 w-100" name="clinicalCase" type="textarea"
-                [disabled]="selectedCaseVersion != selectedCase?.$newCaseVersion" required  #textarea
-                [(ngModel)]="selectedCaseVersion.$clinical_case" (ngModelChange)="onChangeText($event)"
-                (scroll)="onScroll($event)">
-            </textarea>
-            <div class="textAreaBacks h-100 w-100" #backTextarea [innerHTML]="auxText"></div>
+
 </div>

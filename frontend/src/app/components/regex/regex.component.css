@@ -8,4 +8,6 @@
   height: 50px;
   background: rgb(255, 255, 255);
 }
-
+.inputNumber{
+  width: 3em;
+}

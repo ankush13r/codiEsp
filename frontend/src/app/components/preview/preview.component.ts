@@ -21,7 +21,7 @@ export class PreviewComponent implements OnInit , OnChanges{
   safeUrl: SafeResourceUrl;
   auxText: String;
   contentType: String;
-  baseUrl = 'http://127.0.0.1:5000/documents/';
+  baseUrl = 'http://127.0.0.1:5000/docs/';
 
 
   LINK: String = "link"

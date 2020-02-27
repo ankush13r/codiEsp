@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataShareService } from '../../services/data-share.service';
 import { ResizeEvent } from 'angular-resizable-element'
-import { ApiService } from '../../services/api.service';
+import { ApiService } from '../../services/api-docs.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 

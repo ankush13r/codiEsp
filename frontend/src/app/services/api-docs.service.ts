@@ -47,7 +47,7 @@ export class ApiService   {
 
 
   getTypes(): Observable<string[]> {
-    var url = this.baseUrl + "documents/types"
+    var url = this.baseUrl + "docs/types"
     return this.http.get<string[]>(url).pipe(
       retry(3), // retry a failed request up to 3 times      
       catchError(this.handleError), // then handle the error
@@ -55,7 +55,7 @@ export class ApiService   {
   }
 
   getDocuments(selected_type: String, index: number = 0, pageSize: number = 10): Observable<ApiResponse> {
-    var url = this.baseUrl + "documents/" + selected_type;
+    var url = this.baseUrl + "docs/" + selected_type;
 
     if (!index) {
       index = 0;
@@ -80,7 +80,7 @@ export class ApiService   {
   addClinicalCase(document: any): Observable<ClinicalCase> {
     document.ip = this.ip;
 
-    var url = this.baseUrl + "documents/add";
+    var url = this.baseUrl + "docs/add";
     return this.http.post<Document>(url, document).pipe(
       catchError(this.handleError),
       map(data => new ClinicalCase().deserialize(data))
@@ -88,14 +88,14 @@ export class ApiService   {
   }
 
   finishDocument(_id: string) {
-    var url = this.baseUrl + "documents/finish";
+    var url = this.baseUrl + "docs/finish";
     return this.http.put<any>(url, { "_id": _id }).pipe(
       catchError(this.handleError)
     )
   }
 
   getHPO() {
-    var url = this.baseUrl + "documents/hpo";
+    var url = this.baseUrl + "docs/hpo";
     return this.http.get<any>(url).pipe(
       catchError(this.handleError)
     )
