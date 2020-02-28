@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 
 import { RegexType } from '../../models/regex-type';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { ApiRegexService } from 'src/app/services/api-regex.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class RegexComponent implements OnInit {
   filterItem: any[];
 
 
-  constructor(private _matDialog: MatDialog) { }
+  constructor(private _matDialog: MatDialog, private regexService : ApiRegexService) { }
 
 
   ngOnInit() {
@@ -37,10 +38,9 @@ export class RegexComponent implements OnInit {
 
     //When user close the dialog
     dialogRef.afterClosed().subscribe((result: RegexType) => {
-      if (result) {
-        console.log(result);
-
-      }
+        this.regexService.add(result).subscribe(res=>{
+          console.log(res);
+        });
     });
   }
 

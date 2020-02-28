@@ -27,7 +27,7 @@ import { HighlightBreakLine } from './pipes/highlight-breakLine.pipe';
 
 @NgModule({
   declarations: [
-    ReversePipe,
+    ReversePipe,      
     AppComponent,
     NavbarComponent,
     DocumentsComponent,
