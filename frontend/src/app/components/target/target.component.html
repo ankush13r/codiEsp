@@ -45,7 +45,7 @@
                 [(ngModel)]="selectedCaseVersion.$clinical_case" (ngModelChange)="onChangeText($event)"
                 (scroll)="onScroll($event)">
             </textarea>
-            <div class="textAreaBacks h-100 w-100" #backTextarea [innerHTML]="auxText"></div>
+            <div class="textAreaBacks h-100 w-100" #backTextarea [innerHTML]="selectedCaseVersion?.$clinical_case|highlightBreakLine"></div>
         </div>
         <app-chips-list *ngIf="selectedCaseVersion" fxFlex="20" class="p-1 h-100 "
             [selectedValues]="selectedCaseVersion.$hpoCodes"

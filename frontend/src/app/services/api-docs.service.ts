@@ -21,10 +21,10 @@ const httpOptions = {
   providedIn: 'root'
 })
 
-export class ApiService   {
+export class ApiService {
 
   private baseUrl = 'http://127.0.0.1:5000/';
-  private ip:string = null;
+  private ip: string = null;
 
 
 
@@ -35,23 +35,15 @@ export class ApiService   {
   getIp() {
     const url = 'http://api.ipify.org/?format=json';
 
-    this.http.get<any>(url).pipe(
-      retry(3),
-      catchError(this.handleError)
-    ).subscribe(res =>{        
-      if (res.ip){       
-       this.ip = res.ip;
-      }
+    this.http.get<any>(url).subscribe(res => {
+      if (res.ip) { this.ip = res.ip; }
     });
   }
 
 
   getTypes(): Observable<string[]> {
     var url = this.baseUrl + "docs/types"
-    return this.http.get<string[]>(url).pipe(
-      retry(3), // retry a failed request up to 3 times      
-      catchError(this.handleError), // then handle the error
-    );
+    return this.http.get<string[]>(url);
   }
 
   getDocuments(selected_type: String, index: number = 0, pageSize: number = 10): Observable<ApiResponse> {
@@ -69,8 +61,6 @@ export class ApiService   {
 
 
     return this.http.get<ApiResponse>(url, { params: params }).pipe(
-      retry(3), // retry a failed request up to 3 times      
-      catchError(this.handleError), // then handle the error
       map(data => new ApiResponse().deserialize(data))
     );
 
@@ -79,58 +69,49 @@ export class ApiService   {
 
   addClinicalCase(document: any): Observable<ClinicalCase> {
     document.ip = this.ip;
-
     var url = this.baseUrl + "docs/add";
+
     return this.http.post<Document>(url, document).pipe(
-      catchError(this.handleError),
       map(data => new ClinicalCase().deserialize(data))
     );
   }
 
   finishDocument(_id: string) {
     var url = this.baseUrl + "docs/finish";
-    return this.http.put<any>(url, { "_id": _id }).pipe(
-      catchError(this.handleError)
-    )
+    return this.http.put<any>(url, { "_id": _id });
   }
 
   getHPO() {
     var url = this.baseUrl + "docs/hpo";
-    return this.http.get<any>(url).pipe(
-      catchError(this.handleError)
-    )
+    return this.http.get<any>(url);
   }
 
-  modifyClinicalCase(file: Document) {
-    console.log("modify Data: " + JSON.stringify(file));
-  }
+  // modifyClinicalCase(file: Document) {
+  //   console.log("modify Data: " + JSON.stringify(file));
+  // }
 
-  removeClinicalCase(file: Document) {
-    console.log("remove Data: " + JSON.stringify(file));
-  }
+  // removeClinicalCase(file: Document) {
+  //   console.log("remove Data: " + JSON.stringify(file));
+  // }
 
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.error(
-        `Backend returned code ${error.status}, \nbody was: ${error.error}`);
-    }
-    // return an observable with a user-facing error message
-    return throwError(
-      'Something bad happened; please try again later.');
-  };
+  // private handleError(error: HttpErrorResponse) {
+  //   if (error.error instanceof ErrorEvent) {
+  //     // A client-side or network error occurred. Handle it accordingly.
+  //     console.error('An error occurred:', error.error.message);
+  //   } else {
+  //     // The backend returned an unsuccessful response code.
+  //     // The response body may contain clues as to what went wrong,
+  //     console.error(
+  //       `Backend returned code ${error.status}, \nbody was: ${error.error}`);
+  //   }
+  //   // return an observable with a user-facing error message
+  //   return throwError(
+  //     'Something bad happened; please try again later.');
+  // };
 
 
 
 
 }
 
-// createNewCase(id: string) {
-  //   var url = this.baseUrl + "new_case";
-  //   return this.http.post<Document>(url, { _id: id });
-  // }

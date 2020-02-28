@@ -67,21 +67,16 @@ export class TargetComponent implements OnInit, OnChanges {
 
   selectLastCase() {
     this.selectedCase = this.document.$clinical_cases[this.document.$clinical_cases.length - 1];
-    this.selectNewVersion(true);
-
+    this.selectNewVersion();
   }
-
-
-
 
 
   onVersionChange(event) {
     this.selectedCaseVersion = event.value;
-    this.getAuxText(this.selectedCaseVersion.$clinical_case);
+    this.showTarget();
   }
 
   onChangeText(event) {
-    this.getAuxText(event);
     this.showTarget();
   }
 
@@ -108,7 +103,7 @@ export class TargetComponent implements OnInit, OnChanges {
       this.selectedCase = newCase;
       this.openSnackBar("Error: New case is already created", "OK", errorStyle);
     }
-    this.selectNewVersion(true);
+    this.selectNewVersion();
   }
 
   onFinish() {
@@ -143,8 +138,8 @@ export class TargetComponent implements OnInit, OnChanges {
   }
 
 
-  showTarget(preview: boolean = false) {
-    this.dataShareService.changeAuxText(this.auxText);
+  showTarget(preview: boolean = false) {    
+    this.dataShareService.changeAuxText(this.selectedCaseVersion.$clinical_case);
     if (preview) {
       this.dataShareService.previewTarget(true);
     }
@@ -156,7 +151,6 @@ export class TargetComponent implements OnInit, OnChanges {
       navigator.clipboard.readText().then(
         clipText => {
           this.selectedCase.$newCaseVersion.$clinical_case = clipText;
-          this.getAuxText(clipText)
           this.selectNewVersion();
         }
       );
@@ -209,32 +203,11 @@ export class TargetComponent implements OnInit, OnChanges {
   findEqualVersion = (text) => this.selectedCase.$versions.find((v) => v.$clinical_case.toLowerCase() == text.toLowerCase());
 
 
-  selectNewVersion(getAuxText = false) {
+  selectNewVersion() {
     this.selectedCaseVersion = this.selectedCase.$newCaseVersion;
-    if (getAuxText) {
-      this.getAuxText(this.selectedCaseVersion.$clinical_case);
-
-    }
-
   }
 
-  getAuxText(text: string) {
-    if (!text) {
-      this.auxText = null;
-      return null;
-    }
 
-    var newText = ""
-    for (let i = 0; i < text.length; i++) {
-
-      if (text[i] == "\n")
-        newText += "<mark>\n</mark>"
-      else
-        newText += text[i]
-    }
-
-    this.auxText = newText + "\n"
-  }
 
 
   openSnackBar(message: string, action: string = null, errorStyle = ['snackbar-errorStyle']) {

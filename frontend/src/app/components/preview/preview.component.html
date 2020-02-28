@@ -10,7 +10,7 @@
             </div>
         </div>
         <div *ngIf="contentType == TEXT && auxText" class="p-1 overflow-auto" fxFlex>
-            <div class="content"  [innerHTML]="auxText"></div>
+            <div class="content"  [innerHTML]="auxText | highlightBreakLine"></div>
         </div>
 
         <iframe *ngIf="contentType == LINK && safeUrl" fxFlex name="frame" [src]="safeUrl" width="100%" height="100%"

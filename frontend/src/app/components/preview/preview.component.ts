@@ -32,7 +32,7 @@ export class PreviewComponent implements OnInit , OnChanges{
   ngOnInit() {
     this.observeDocument();
     this.observeAuxText();
-    this.observePreviewTarget();
+    this.observePreviewTarget();    
   }
 
 
@@ -66,14 +66,8 @@ export class PreviewComponent implements OnInit , OnChanges{
 
   observeAuxText() {
     this.dataShareService.observeAuxText().subscribe(result => {
-      
-      if (result) {
         this.auxText = result;
-      }
-
-    }
-
-    );
+    });
   }
 
   observePreviewTarget() {

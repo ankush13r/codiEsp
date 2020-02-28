@@ -7,7 +7,7 @@
     <mat-form-field class="example-full-width">
         <input matInput placeholder="Filter" [ngModel]="null" (ngModelChange)="onFilter($event)">
     </mat-form-field>
-    <button mat-flat-button color="primary">New</button>
+    <button mat-flat-button color="primary" (click)="onAddRegex()">New</button>
 </div>
 
 <div class="w-100 h-100" fxLayout="row" fxLayoutGap="2em">
@@ -16,15 +16,14 @@
             <mat-list class="list">
                 <mat-list-item *cdkVirtualFor="let item of filterItem" class="mb-2 listItem animated bounce">
                     <div class="w-100 h-100" fxLayout="row" fxLayoutAlign="space-between center">
-                        <span fxFlex="50">{{item.$_id}}</span>
+                        <span fxFlex="70">{{item.$_id}}</span>
                         <mat-form-field class="inputNumber">
                             <input type="text" matInput min="0" pattern="[0-9]*"  [(ngModel)]="item.$_id">
                         </mat-form-field>
-                        <span>number</span>
-                        <button mat-button color="primary">
+                        <button mat-button color="primary" (click)="onModify($event,1)">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-button color="warn">
+                        <button mat-button color="warn" (click)="onDelete($event,null)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </div>
