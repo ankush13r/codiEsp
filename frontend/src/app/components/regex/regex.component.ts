@@ -14,9 +14,13 @@ export class RegexComponent implements OnInit {
 
   @Input() RexesType: string;
 
-  items: any;
-  filterItem: any[];
+  items: any[];
 
+  types: any= ["1","2","3"]
+
+  filterItem: any;
+
+  filterType:any = -1;
 
   constructor(private _matDialog: MatDialog, private regexService : ApiRegexService) { }
 

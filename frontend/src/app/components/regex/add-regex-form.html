@@ -1,24 +1,28 @@
+<!-- Form to add regex -->
 <form (ngSubmit)="onSubmit()" #regexFrom="ngForm">
+    <!-- Input for regex type text-->
     <mat-form-field class="w-100">
-        <input matInput type="text" name="regexValue" placeholder="Regex.*" [(ngModel)]="regexObj.$value">
+        <input matInput type="text" name="regexValue" placeholder="Regex...." [(ngModel)]="regexObj.$value" required>
     </mat-form-field>
-
+    <!-- A selector for regex type -->
     <mat-form-field class="w-100">
         <mat-label>Regex type</mat-label>
-        <mat-select [(ngModel)]="regexObj.$type" name="regexType">
-            <mat-option *ngFor="let item of types" [value]="item">{{item}}</mat-option>
+        <mat-select [(ngModel)]="regexObj.$type" name="regexType" required>
+            <mat-option *ngFor="let item of types" [value]="item">{{item |titlecase}}</mat-option>
         </mat-select>
     </mat-form-field>
-
+    <!-- Order of regex to save into data base. Because regex will stop finding just on first match.-->
     <mat-form-field class="w-100">
         <input matInput type="number" name="regexOrder" placeholder="Order [1..]" [(ngModel)]="regexObj.$value"
-            pattern="[1-9][0-9]*">
+            pattern="[1-9][0-9]*" required>
     </mat-form-field>
-
     <br>
+    <section class="w-100">
+        <mat-checkbox [(ngModel)]="regexObj.$ignoreCase" name="ignoreCase">Ignore Case</mat-checkbox>
+    </section>
     <br>
     <div class="mt-4" fxLayout="row" fxLayoutAlign="space-between center">
-        <button mat-flat-button color="primary" type="submit">Submit</button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="regexFrom?.invalid">Submit</button>
         <button mat-button color="warn" (click)="onNoClick()" type="button">Cancel</button>
     </div>
 </form>

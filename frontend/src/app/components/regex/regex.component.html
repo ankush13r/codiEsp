@@ -1,11 +1,13 @@
-<nav mat-tab-nav-bar>
-    <a mat-tab-link [routerLink]="['',management]" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
-        Regex1
-    </a>
-</nav>
 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4em">
     <mat-form-field class="example-full-width">
         <input matInput placeholder="Filter" [ngModel]="null" (ngModelChange)="onFilter($event)">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <mat-label>Regex type</mat-label>
+        <mat-select [(ngModel)]="filterType" name="typeSelector" (change)="onFilter($event)">
+            <mat-option [value]="-1">All</mat-option>
+            <mat-option *ngFor="let type of types" [value]="type">{{type |titlecase}}</mat-option>
+        </mat-select>
     </mat-form-field>
     <button mat-flat-button color="primary" (click)="onAddRegex()">New</button>
 </div>

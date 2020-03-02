@@ -10,6 +10,8 @@ from bson.objectid import ObjectId
 import geoip2.database
 from app import constants
 from app.mongo import mongo
+from app.shared import utils as shared_utils
+
 FILE_CONST = "./data/constants.json"
 
 
@@ -37,7 +39,6 @@ def get_valid_pagination_args(args: dict):
         except:
             per_page = 10
     except AttributeError as err:
-        print(err)  # Logging
         page = 1
         per_page = 10
     return page, per_page
@@ -96,51 +97,8 @@ def modifyText(content):
     return f"<span {pre_line_style}>{content}</span>"
 
 
-def get_case_id(source_id):
-    """ Function to create new case id by source_id, because a source can have more than one clinical case.
-        So first of all it will get ids of all clinical cases related to the source_id, received as parameter. 
-        And after it will create a new id and return it.
-    """
-    new_case_id = 0
-    # get all clinical cases related to the source_id received as parameter
-    results = list(mongo.db.clinical_cases.find(
-        {"source_id": source_id}, {"_id": 0, "case_id": 1}))
-
-    try:
-        # All clinical cases ids, it may empty if there is no result
-        case_ids = [result.get("case_id") for result in results]
-
-        # New id is maximum number + 1 from ids list, if the ids list is empty than new id is 0.
-        maxNum = max(case_ids)
-        new_case_id = maxNum + 1
-    except:
-        pass
-
-    return new_case_id
 
 
-def get_version_id(_id):
-    """ Function to create new clinical case's version id by case, because a clinical case can have more than one version.
-        So first of all it will get ids of all versions related to the _id of clinical case, received as parameter. 
-        And after it will create a new id and return it.
-    """
-    new_v_id = 0
-
-    # get all versions related to the case id received as parameter.
-    results = mongo.db.clinical_cases.find_one(
-        {"_id": _id}, {"_id": 0, "versions": 1})
-
-    try:
-        # All versions ids, it may empty if there is no result
-        v_ids = [result["id"] for result in results["versions"]]
-
-        # New id is maximum number + 1 from ids list, if the ids list is empty than new id is 0.
-        maxNum = max(v_ids)
-        new_v_id = maxNum + 1
-    except:
-        pass
-
-    return new_v_id
 
 
 def get_location(ip):
@@ -206,7 +164,6 @@ def valid_mongo_query(json):
     user_id = json["user_id"]
     hpoCodes = json["hpoCodes"]
     ip = json["ip"]
-
     # Getting location id from DB
     location_id = get_location(ip)
 
@@ -230,9 +187,8 @@ def valid_mongo_query(json):
     # If the _id exist it means the document already exist and it will create a query to update that document
     if _id:
         _id = ObjectId(_id)
-
         # create a new id for the version.
-        v_id = get_version_id(_id)
+        v_id = shared_utils.get_next_sequence("case_version_"+str(_id))
 
         # update the version with it's new id.
         version.update({"id": v_id})
@@ -252,8 +208,9 @@ def valid_mongo_query(json):
     # If the _id doesn't exist it means it a new document.
     # So it creates a mongo query to insert the document.
     else:
+
         # create a new id for the document by source_id. It is an alternative id.
-        case_id = get_case_id(source_id)
+        case_id = shared_utils.get_next_sequence("case_id_"+str(source_id))
 
         # update the version with it's new id as 0. If the document (clinical case) is new, means it hasn't any version yet.
         version.update({"id": 0})
@@ -328,3 +285,57 @@ def get_documents(file_type: str, page: int = 0, per_page: int = 10):
     }
 
     return data
+
+
+
+
+
+
+
+# def get_version_id(_id):
+#     """ Function to create new clinical case's version id by case, because a clinical case can have more than one version.
+#         So first of all it will get ids of all versions related to the _id of clinical case, received as parameter. 
+#         And after it will create a new id and return it.
+#     """
+#     new_v_id = 0
+
+#     # get all versions related to the case id received as parameter.
+#     results = mongo.db.clinical_cases.find_one(
+#         {"_id": _id}, {"_id": 0, "versions": 1})
+
+#     try:
+#         # All versions ids, it may empty if there is no result
+#         v_ids = [result["id"] for result in results["versions"]]
+
+#         # New id is maximum number + 1 from ids list, if the ids list is empty than new id is 0.
+#         maxNum = max(v_ids)
+#         new_v_id = maxNum + 1
+#     except:
+#         pass
+
+#     return new_v_id
+
+
+
+
+# def get_case_id(source_id):
+#     """ Function to create new case id by source_id, because a source can have more than one clinical case.
+#         So first of all it will get ids of all clinical cases related to the source_id, received as parameter. 
+#         And after it will create a new id and return it.
+#     """
+#     new_case_id = 0
+#     # get all clinical cases related to the source_id received as parameter
+#     results = list(mongo.db.clinical_cases.find(
+#         {"source_id": source_id}, {"_id": 0, "case_id": 1}))
+
+#     try:
+#         # All clinical cases ids, it may empty if there is no result
+#         case_ids = [result.get("case_id") for result in results]
+
+#         # New id is maximum number + 1 from ids list, if the ids list is empty than new id is 0.
+#         maxNum = max(case_ids)
+#         new_case_id = maxNum + 1
+#     except:
+#         pass
+
+#     return new_case_id

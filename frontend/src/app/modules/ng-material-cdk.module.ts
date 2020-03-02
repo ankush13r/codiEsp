@@ -9,7 +9,7 @@ import {
   MatButtonModule, MatSlideToggleModule, MatRadioModule,
   MatSidenavModule, MatDividerModule, MatToolbarModule, MatSelectModule,
   MatChipsModule, MatAutocompleteModule, MatTooltipModule, MatProgressSpinnerModule,
-  MatGridListModule,MatSnackBarModule,MatDialogModule
+  MatGridListModule,MatSnackBarModule,MatDialogModule,MatCheckboxModule
 }
   from '@angular/material';
 
@@ -35,7 +35,8 @@ const modules = [
   MatGridListModule,
   ScrollingModule,
   FlexLayoutModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatCheckboxModule
 ]
 
 @NgModule({

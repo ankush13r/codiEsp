@@ -3,54 +3,22 @@ export class RegexType {
     private value: string;
     private type:string;
     private orderNumber: string;
+    private ignoreCase:boolean;
 
 
-	constructor($_id: string=null,$type: string=null, $value: string=null, $orderNumber: string=null) {
+	constructor($_id: string=null,$type: string=null, $value: string=null, $orderNumber: string=null,$ignoreCase:boolean=null) {
 		this._id = $_id;
 		this.value = $value;
         this.orderNumber = $orderNumber;
-		this.type = $type;
+        this.type = $type;
+        this.ignoreCase = $ignoreCase;
 	}
-
 
     /**
      * Getter id
      * @return {string}
      */
 	public get id(): string {
-		return this._id;
-	}
-
-    /**
-     * Getter $type
-     * @return {string}
-     */
-	public get $type(): string {
-		return this.type;
-	}
-
-    /**
-     * Setter id
-     * @param {string} value
-     */
-	public set id(value: string) {
-		this._id = value;
-	}
-
-    /**
-     * Setter $type
-     * @param {string} value
-     */
-	public set $type(value: string) {
-		this.type = value;
-	}
-
-
-    /**
-     * Getter $_id
-     * @return {string}
-     */
-	public get $_id(): string {
 		return this._id;
 	}
 
@@ -63,6 +31,14 @@ export class RegexType {
 	}
 
     /**
+     * Getter $type
+     * @return {string}
+     */
+	public get $type(): string {
+		return this.type;
+	}
+
+    /**
      * Getter $orderNumber
      * @return {string}
      */
@@ -71,10 +47,18 @@ export class RegexType {
 	}
 
     /**
-     * Setter $_id
+     * Getter $ignoreCase
+     * @return {boolean}
+     */
+	public get $ignoreCase(): boolean {
+		return this.ignoreCase;
+	}
+
+    /**
+     * Setter id
      * @param {string} value
      */
-	public set $_id(value: string) {
+	public set id(value: string) {
 		this._id = value;
 	}
 
@@ -87,12 +71,28 @@ export class RegexType {
 	}
 
     /**
+     * Setter $type
+     * @param {string} value
+     */
+	public set $type(value: string) {
+		this.type = value;
+	}
+
+    /**
      * Setter $orderNumber
      * @param {string} value
      */
 	public set $orderNumber(value: string) {
 		this.orderNumber = value;
 	}
-   
+
+    /**
+     * Setter $ignoreCase
+     * @param {boolean} value
+     */
+	public set $ignoreCase(value: boolean) {
+		this.ignoreCase = value;
+	}
+
 
 }

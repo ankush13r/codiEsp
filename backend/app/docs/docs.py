@@ -129,15 +129,14 @@ def save_data():
                              })
             result_to_send = mongoObj
         else:
-
-            abort(400, "Couldn't update, maybe the mongo _id is invalid.")
+            abort(400, "Couldn't update, may the mongo _id is invalid.")
 
     except Exception as err:
-        print("Error:", err)
         mongo.db.errors.insert_one({"client_data": str(request.json),
                                     "error": str(err)})
 
         abort(400, str(err))
+
     return jsonify(result_to_send)
 
 
