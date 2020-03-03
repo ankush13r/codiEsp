@@ -15,7 +15,13 @@ bp = Blueprint("regex", __name__, url_prefix="/regex")
 @bp.route("/", methods=["GET"])
 @bp.route("", methods=["GET"])
 def get_regex():
-    return jsonify({"ss":"ss"})
+    # If mongo object if None, it gets a empty list [].
+    mongo_data =list(mongo.db.regex.find() or []);
+
+    #Changing mongo's object _id into string of all objects.
+    [obj.update({"_id": str(obj["_id"])}) for obj in mongo_data]
+            
+    return jsonify(mongo_data)
 
 
 @bp.route("/types", methods=["GET"])
@@ -27,7 +33,6 @@ def get_types():
 @bp.route("/add", methods=["POST"])
 def add_regex():
     jsonObj = request.json
-
     try:
         #Valid arguments from request and get valid query to save into mongDB. _id may None, if the object is new.
         _id, query = utils.valid_query(jsonObj)

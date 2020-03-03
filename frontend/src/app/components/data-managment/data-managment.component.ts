@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./data-managment.component.css']
 })
 export class DataManagmentComponent implements OnInit {
+  sortDrawer = true;
+
   itemList: any = [
     {
       value: "regex",
@@ -32,5 +34,6 @@ export class DataManagmentComponent implements OnInit {
 
   ngOnInit() {
   }
+
 
 }

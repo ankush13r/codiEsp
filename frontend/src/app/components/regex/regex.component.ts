@@ -3,6 +3,7 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import { RegexType } from '../../models/regex-type';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { ApiRegexService } from 'src/app/services/api-regex.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -14,26 +15,30 @@ export class RegexComponent implements OnInit {
 
   @Input() RexesType: string;
 
-  items: any[];
+  items: RegexType[] = [];
+  filterItems: RegexType[] = [];
 
-  types: any= ["1","2","3"]
 
-  filterItem: any;
+  types: any = ["1", "2", "3"]
 
-  filterType:any = -1;
 
-  constructor(private _matDialog: MatDialog, private regexService : ApiRegexService) { }
+  filterType: any = -1;
+
+  constructor(private _matDialog: MatDialog, private regexService: ApiRegexService) { }
 
 
   ngOnInit() {
-    this.items = Array.from({ length: 1000 }).map((_, i) => "" + i);
-    this.filterItem = this.items;
+    this.regexService.getAll().subscribe(result => {     
+      this.items = result;     
+      this.filterItems = this.items;
+    });
   }
 
 
   onFilter(event: string) {
-    this.filterItem = this.items.filter((result: string) => result.toLowerCase().includes(event.toLowerCase()));
+    this.filterItems = this.items.filter((obj: RegexType) => obj.$value.toLowerCase().includes(event.toLowerCase()));
   }
+
 
   onAddRegex() {
     let regexObj: RegexType = new RegexType();
@@ -42,24 +47,26 @@ export class RegexComponent implements OnInit {
 
     //When user close the dialog
     dialogRef.afterClosed().subscribe((result: RegexType) => {
-        this.regexService.add(result).subscribe(res=>{
+      if (result) {
+        this.regexService.add(result).subscribe(res => {
           console.log(res);
         });
+      }
     });
   }
 
   onDelete(event, id: number) {
     event.stopPropagation();
     console.log(id);
-
   }
 
   onModify(event, regexObj: RegexType) {
     event.stopPropagation();
     const dialogRef = this.openDialog(regexObj)
 
-    //When user close the dialog
+    //When user close the dialog comes here.
     dialogRef.afterClosed().subscribe((result: RegexType) => {
+
       if (result) {
         console.log(result);
       }
@@ -85,7 +92,7 @@ export class RegexComponent implements OnInit {
 
 export class AddRegexDialog implements OnInit {
   regexObj: RegexType;
-  types:string[] = ["ss","aaa"]
+  types: string[] = ["ss", "aaa"]
 
   constructor(public dialogRef: MatDialogRef<RegexType>,
     @Inject(MAT_DIALOG_DATA) private data: RegexType) { }
@@ -106,12 +113,12 @@ export class AddRegexDialog implements OnInit {
     }
   }
 
-  onSubmit():void{
+  onSubmit(): void {
     this.dialogRef.close(this.regexObj);
   }
 
   onNoClick(): void {
-      this.dialogRef.close();
+    this.dialogRef.close();
   }
 
 }

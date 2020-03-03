@@ -1,26 +1,24 @@
-<div class="w-100 h-full">
+<div class="w-100 h-full" fxLayout="row">
 
-    <mat-drawer-container class="h-100 w-100">
-        <mat-drawer #drawer opened="true" mode="side" class="bg-dark pt-4 drawer">
-
-            <mat-list>
-                <mat-list-item class="animated flipInX mb-2 bg-light cursor-pointer" *ngFor="let item of itemList">
-                    <mat-icon class="mr-2">
-                        {{item.icon}}
-                    </mat-icon>
-                    {{item.value |titlecase }}
-                </mat-list-item>
-            </mat-list>
-
-        </mat-drawer>
-
-        <mat-drawer-content fxLayout="row" class="">
-            <button type="button" mat-icon-button color="light" (click)="drawer.toggle()">
-                <mat-icon *ngIf="drawer.opened">arrow_back_ios</mat-icon>
-                <mat-icon *ngIf="!drawer.opened">arrow_forward_ios</mat-icon>
+    <div #drawer opened="true" mode="side" class="pt-2" [ngClass]="sortDrawer?'sortDrawer':'drawer'">
+        <div fxLayout="row" fxLayoutAlign="end center" class="my-1">
+            <button type="button" mat-icon-button (click)="sortDrawer = !sortDrawer"  class="text-light">
+                <mat-icon *ngIf="!sortDrawer">arrow_back_ios</mat-icon>
+                <mat-icon  *ngIf="sortDrawer">arrow_forward_ios</mat-icon>
             </button>
-            <app-regex class="w-100 h-50 mt-4"></app-regex>
+        </div>
+        <mat-list>
+            <mat-list-item fxLayout="row" [fxLayoutAlign]="sortDrawer?'center center':'start center'" class="animated flipInX  bg-light cursor-pointer item " *ngFor="let item of itemList">
+                <mat-icon>
+                    {{item.icon}}
+                </mat-icon>
+                <span *ngIf="!sortDrawer" class="ml-4 animated slideInRight">{{item.value |titlecase }}</span>
+            </mat-list-item>
+        </mat-list>
 
-        </mat-drawer-content>
-    </mat-drawer-container>
+    </div>
+
+    <div fxFlex fxLayout="column" class="ml-2">
+        <app-regex class="w-100 h-75 mt-4"></app-regex>
+    </div>
 </div>

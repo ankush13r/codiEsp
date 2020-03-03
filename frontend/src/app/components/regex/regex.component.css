@@ -1,13 +1,16 @@
+.table { 
+  background: transparent;
+  border-collapse: separate;
+  border-spacing: 0 0.5em;
+} 
 
-
-.list{
-  background: rgb(241, 241, 241);
-
-}
-.listItem{
+th, td {
+  padding: 1.5em inherit;
   height: 50px;
   background: rgb(255, 255, 255);
-}
-.inputNumber{
+} 
+
+
+.inputNumber {
   width: 3em;
 }

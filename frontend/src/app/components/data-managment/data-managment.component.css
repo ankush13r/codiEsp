@@ -1,7 +1,28 @@
-.h-full{
-      height: 100vh;
-  }
+.h-full {
+  height: 100vh;
+}
 
-  .drawer{
-      width: 15%;
-  }
+.drawer {
+  transition: 0.5s;
+  width: 15%;
+}
+
+.sortDrawer{
+  
+  width: 4%;
+  transition: 0.5s;
+}
+.sortDrawer, .drawer{
+    background: rgb(43, 43, 43);
+}
+.item{
+    width: 90% !important;
+    margin: auto;
+    margin-bottom: 0.5em;
+}
+.item, .sortDrawer, .drawer{
+  transition: 0.5s;
+}
+
+
+

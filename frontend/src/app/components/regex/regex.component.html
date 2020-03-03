@@ -1,36 +1,46 @@
-<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4em">
-    <mat-form-field class="example-full-width">
-        <input matInput placeholder="Filter" [ngModel]="null" (ngModelChange)="onFilter($event)">
-    </mat-form-field>
-    <mat-form-field class="example-full-width">
-        <mat-label>Regex type</mat-label>
-        <mat-select [(ngModel)]="filterType" name="typeSelector" (change)="onFilter($event)">
-            <mat-option [value]="-1">All</mat-option>
-            <mat-option *ngFor="let type of types" [value]="type">{{type |titlecase}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <button mat-flat-button color="primary" (click)="onAddRegex()">New</button>
-</div>
+<div fxLayout="column" fxLayoutAlign="start center" class="h-100">
 
-<div class="w-100 h-100" fxLayout="row" fxLayoutGap="2em">
-    <div fxFlex>
-        <cdk-virtual-scroll-viewport itemSize="50" class="w-100 h-100">
-            <mat-list class="list">
-                <mat-list-item *cdkVirtualFor="let item of filterItem" class="mb-2 listItem animated bounce">
-                    <div class="w-100 h-100" fxLayout="row" fxLayoutAlign="space-between center">
-                        <span fxFlex="70">{{item.$_id}}</span>
-                        <mat-form-field class="inputNumber">
-                            <input type="text" matInput min="0" pattern="[0-9]*"  [(ngModel)]="item.$_id">
-                        </mat-form-field>
-                        <button mat-button color="primary" (click)="onModify($event,1)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                        <button mat-button color="warn" (click)="onDelete($event,null)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </div>
-                </mat-list-item>
-            </mat-list>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4em">
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Filter" [ngModel]="null" (ngModelChange)="onFilter($event)">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Regex type</mat-label>
+            <mat-select [(ngModel)]="filterType" name="typeSelector" (change)="onFilter($event)">
+                <mat-option [value]="-1">All</mat-option>
+                <mat-option *ngFor="let type of types" [value]="type">{{type |titlecase}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-flat-button color="primary" (click)="onAddRegex()">New</button>
+    </div>
+
+    <div class="w-100" fxFlex>
+        <cdk-virtual-scroll-viewport itemSize="50" class="h-100 w-100">
+            <table class="table table-borderless  h-100">
+                <tbody>
+                    <!-- regex loop of each object-->
+                    <tr *cdkVirtualFor="let item of filterItems" class="animated bounce">
+                        <!-- regex value -->
+                        <td class="50">
+                            <input class="m-2" matInput type="text" name="" id="" [(ngModel)]="item.$value">
+                        </td>
+
+                        <td>
+                            <input class="my-2" type="text" matInput min="0" pattern="[0-9]*" [(ngModel)]="item.$order">
+                        </td>
+                        <td>
+                            <button mat-icon-button color="primary" (click)="onModify($event,item)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </td>
+                        <td>
+                            <button mat-icon-button color="warn" (click)="onDelete($event,item._id)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </cdk-virtual-scroll-viewport>
     </div>
 
