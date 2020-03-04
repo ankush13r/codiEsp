@@ -16,12 +16,17 @@
     background: rgb(43, 43, 43);
 }
 .item{
-    width: 90% !important;
+    width: 99% !important;
     margin: auto;
     margin-bottom: 0.5em;
 }
 .item, .sortDrawer, .drawer{
   transition: 0.5s;
+}
+
+.shortItem{
+  width: 70% !important;
+
 }
 
 

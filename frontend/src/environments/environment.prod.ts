@@ -54,3 +54,4 @@ export const toolTips: ToolTip = {
     position: "above",
     class: null
   }
+}

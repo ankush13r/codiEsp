@@ -1,8 +1,8 @@
-import { Deserializable } from './deserializable';
+import { Deserializable } from '../../interfaces/deserializable';
 import { Document } from './document';
 
 
-export class ApiResponse implements Deserializable {
+export class ApiResponseDocs implements Deserializable {
   private currentPage: number;
   private perPage: number;
   private totalRecords: number;

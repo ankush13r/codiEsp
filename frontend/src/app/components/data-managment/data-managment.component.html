@@ -1,24 +1,23 @@
-<div class="w-100 h-full" fxLayout="row">
+<div class="w-100 h-100" fxLayout="row" fxLayoutGap="0.5em">
 
     <div #drawer opened="true" mode="side" class="pt-2" [ngClass]="sortDrawer?'sortDrawer':'drawer'">
         <div fxLayout="row" fxLayoutAlign="end center" class="my-1">
-            <button type="button" mat-icon-button (click)="sortDrawer = !sortDrawer"  class="text-light">
+            <button type="button" mat-icon-button (click)="sortDrawer = !sortDrawer" class="text-light">
                 <mat-icon *ngIf="!sortDrawer">arrow_back_ios</mat-icon>
-                <mat-icon  *ngIf="sortDrawer">arrow_forward_ios</mat-icon>
+                <mat-icon *ngIf="sortDrawer">arrow_forward_ios</mat-icon>
             </button>
         </div>
         <mat-list>
-            <mat-list-item fxLayout="row" [fxLayoutAlign]="sortDrawer?'center center':'start center'" class="animated flipInX  bg-light cursor-pointer item " *ngFor="let item of itemList">
+            <mat-list-item fxLayout="row" [fxLayoutAlign]="sortDrawer?'center center':'start center'"
+                [class.shortItem]="sortDrawer" class="animated flipInX  bg-light cursor-pointer item"
+                *ngFor="let item of itemList">
                 <mat-icon>
                     {{item.icon}}
                 </mat-icon>
-                <span *ngIf="!sortDrawer" class="ml-4 animated slideInRight">{{item.value |titlecase }}</span>
+                <span *ngIf="!sortDrawer" class="ml-4 animated fadeInRight">{{item.value |titlecase }}</span>
             </mat-list-item>
         </mat-list>
 
     </div>
-
-    <div fxFlex fxLayout="column" class="ml-2">
-        <app-regex class="w-100 h-75 mt-4"></app-regex>
-    </div>
+    <app-regex fxFlex class="h-100 navContent"></app-regex>
 </div>

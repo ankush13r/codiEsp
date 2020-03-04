@@ -1,47 +1,61 @@
-<div fxLayout="column" fxLayoutAlign="start center" class="h-100">
+<div *ngIf=" this.regexApiResponse" fxLayout="column" fxLayoutAlign="start center" class="h-100">
 
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4em">
-        <mat-form-field class="example-full-width">
-            <input matInput placeholder="Filter" [ngModel]="null" (ngModelChange)="onFilter($event)">
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-            <mat-label>Regex type</mat-label>
-            <mat-select [(ngModel)]="filterType" name="typeSelector" (change)="onFilter($event)">
-                <mat-option [value]="-1">All</mat-option>
-                <mat-option *ngFor="let type of types" [value]="type">{{type |titlecase}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <button mat-flat-button color="primary" (click)="onAddRegex()">New</button>
+    <div>
+        <h5 *ngIf="this.regexApiResponse.$regexList?.length==0" class="h5 my-4">Empty DATABASE!</h5>
+        <span *ngIf="this.regexApiResponse.$regexList?.length>0">
+            <mat-form-field>
+                <input matInput placeholder="Filter" [ngModel]="null" (ngModelChange)="onFilter($event)">
+            </mat-form-field>
+            <mat-form-field class="mx-2">
+                <mat-label>Regex type</mat-label>
+                <mat-select [(ngModel)]="filterType" name="typeSelector" (change)="onFilter($event)">
+                    <mat-option [value]="-1">All</mat-option>
+                    <mat-option *ngFor="let type of regexApiResponse.$types" [value]="type.$_id">{{type.$name |titlecase}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </span>
+        <button mat-flat-button color="primary" class="ml-4" (click)="onAddRegex()">Add New</button>
     </div>
 
-    <div class="w-100" fxFlex>
-        <cdk-virtual-scroll-viewport itemSize="50" class="h-100 w-100">
-            <table class="table table-borderless  h-100">
-                <tbody>
-                    <!-- regex loop of each object-->
-                    <tr *cdkVirtualFor="let item of filterItems" class="animated bounce">
-                        <!-- regex value -->
-                        <td class="50">
-                            <input class="m-2" matInput type="text" name="" id="" [(ngModel)]="item.$value">
-                        </td>
+    <cdk-virtual-scroll-viewport *ngIf="this.regexApiResponse.$regexList?.length>0" fxFlex itemSize="50" class="h-100 w-100">
+        <table class="table table-borderless">
+            <thead>
+                <tr class="bg-dark">
+                    <th>Order</th>
+                    <th>Regex</th>
+                    <th>Case Ignore</th>
+                    <th>Modify</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- regex loop of each object-->
+                <tr *cdkVirtualFor="let item of filterItems" class="animated bounce">
+                    <!-- regex value -->
+                    <td>
+                        <input class="my-2" type="text" matInput min="0" pattern="[0-9]*" [(ngModel)]="item.$order">
+                    </td>
 
-                        <td>
-                            <input class="my-2" type="text" matInput min="0" pattern="[0-9]*" [(ngModel)]="item.$order">
-                        </td>
-                        <td>
-                            <button mat-icon-button color="primary" (click)="onModify($event,item)">
-                                <mat-icon>edit</mat-icon>
-                            </button>
-                        </td>
-                        <td>
-                            <button mat-icon-button color="warn" (click)="onDelete($event,item._id)">
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </cdk-virtual-scroll-viewport>
-    </div>
+                    <td class="50">
+                        <input class="m-2" matInput type="text" name="" id="" [(ngModel)]="item.$value">
+                    </td>
 
+                    <td>
+                        <mat-checkbox [(ngModel)]="item.$ignoreCase"></mat-checkbox>
+                    </td>
+                    <td>
+                        <button mat-icon-button color="primary" (click)="onModify($event,item)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </td>
+                    <td>
+                        <button mat-icon-button color="warn" (click)="onDelete($event,item._id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </cdk-virtual-scroll-viewport>
 </div>

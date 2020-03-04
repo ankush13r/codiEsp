@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
 import { Observable, BehaviorSubject, of } from 'rxjs';
-import { Document } from '../models/document';
+import { Document } from '../models/docs/document';
 
 
 @Injectable({

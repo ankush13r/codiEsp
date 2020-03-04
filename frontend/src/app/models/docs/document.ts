@@ -1,6 +1,5 @@
 import { ClinicalCase } from './clinicalCase'
-import { Version } from './version';
-
+  
 export class Document {
   private _id: string;
   private name: string;

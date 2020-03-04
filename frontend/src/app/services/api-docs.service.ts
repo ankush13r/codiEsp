@@ -5,8 +5,8 @@ import { map } from 'rxjs/operators';
 
 
 
-import { ApiResponse } from '../models/apiResponse';
-import { ClinicalCase } from '../models/clinicalCase';
+import { ApiResponseDocs } from '../models/docs/api-response-docs';
+import { ClinicalCase } from '../models/docs/clinicalCase';
 
 
 const httpOptions = {
@@ -45,7 +45,7 @@ export class ApiService {
     return this.http.get<string[]>(url);
   }
 
-  getDocuments(selected_type: String, index: number = 0, pageSize: number = 10): Observable<ApiResponse> {
+  getDocuments(selected_type: String, index: number = 0, pageSize: number = 10): Observable<ApiResponseDocs> {
     var url = this.baseUrl + "docs/" + selected_type;
 
     if (!index) {
@@ -59,8 +59,8 @@ export class ApiService {
       .set("pageSize", pageSize.toString());
 
 
-    return this.http.get<ApiResponse>(url, { params: params }).pipe(
-      map(data => new ApiResponse().deserialize(data))
+    return this.http.get<ApiResponseDocs>(url, { params: params }).pipe(
+      map(data => new ApiResponseDocs().deserialize(data))
     );
 
   }

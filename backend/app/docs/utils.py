@@ -62,9 +62,9 @@ def modifyText(content):
      All regex are saved in mongoDB.
     """
 
-    color_occurrences_style = 'style="background:rgba(43, 218, 252, 1);  padding:0.3em; border-radius:0.3em;"'
-    start_color_style = ' style="background:rgba(255, 6, 6, 0.5); padding:0.3em; border-radius:0.3em;"'
-    end_color_style = 'style="background:rgba(43, 218, 252, 0.5); padding:0.3em; border-radius:0.3em; "'
+    color_occurrences_style = ' style="background:rgba(43, 218, 252, 1);  padding:0.3em; border-radius:0.3em;" '
+    start_color_style = ' style="background:rgba(255, 6, 6, 0.5); padding:0.3em; border-radius:0.3em;" '
+    end_color_style = ' style="background:rgba(43, 218, 252, 0.5); padding:0.3em; border-radius:0.3em; " '
     pre_line_style = """ style="line-height:1.6; text-align: justify;  white-space:pre-line; font-family: 'Open Sans';" """
 
     

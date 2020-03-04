@@ -1,6 +1,6 @@
 import { CaseData } from './caseData'
 import { Version } from './version';
-import { Deserializable } from './deserializable';
+import { Deserializable } from '../../interfaces/deserializable';
 
 export class ClinicalCase extends CaseData implements Deserializable {
     private _id: string;

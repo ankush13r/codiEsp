@@ -4,9 +4,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { DataShareService } from '../../services/data-share.service';
 import { ApiService } from '../../services/api-docs.service';
-import { Document } from '../../models/document';
-import { ClinicalCase } from '../../models/clinicalCase';
-import { Version } from '../../models/version';
+import { Document } from '../../models/docs/document';
+import { ClinicalCase } from '../../models/docs/clinicalCase';
+import { Version } from '../../models/docs/version';
 import { toolTips } from '../../../environments/environment';
 
 

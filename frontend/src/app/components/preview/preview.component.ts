@@ -3,7 +3,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
 import { Pipe, PipeTransform } from '@angular/core';
 
 import { DataShareService } from '../../services/data-share.service';
-import { Document } from '../../models/document';
+import { Document } from '../../models/docs/document';
 
 
 

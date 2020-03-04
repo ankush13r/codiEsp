@@ -1,5 +1,5 @@
 import {CaseData} from './caseData'
-import {Deserializable} from './deserializable'
+import {Deserializable} from '../../interfaces/deserializable'
 
 export class Version extends CaseData implements Deserializable {
     private id:number;

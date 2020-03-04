@@ -1,4 +1,4 @@
-export class RegexType {
+export class RegexObj {
     private _id: string;
     private value: string;
     private type: string;
@@ -18,7 +18,7 @@ export class RegexType {
      * Getter id
      * @return {string}
      */
-    public get id(): string {
+    public get $_id(): string {
         return this._id;
     }
 
@@ -58,7 +58,7 @@ export class RegexType {
      * Setter id
      * @param {string} value
      */
-    public set id(value: string) {
+    public set $_id(value: string) {
         this._id = value;
     }
 

@@ -6,8 +6,8 @@ import { trigger, state, style, animate, transition, query, stagger } from '@ang
 
 import { DataShareService } from '../../services/data-share.service';
 import { ApiService } from "../../services/api-docs.service"
-import { ApiResponse } from '../../models/apiResponse';
-import { Document } from '../../models/document'
+import { ApiResponseDocs } from '../../models/docs/api-response-docs';
+import { Document } from '../../models/docs/document'
 import { toolTips } from '../../../environments/environment';
 
 export interface Pagination {
@@ -29,7 +29,7 @@ export class DocumentsComponent implements OnInit {
   title = "Documents";
   showFiller = false;
   document: Document;
-  api_response: ApiResponse = null;
+  api_response: ApiResponseDocs = null;
   pagination: Pagination = {}
 
   paginationEvent: PageEvent;
