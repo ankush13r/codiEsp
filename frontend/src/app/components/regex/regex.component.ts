@@ -14,41 +14,50 @@ import { RegexType } from 'src/app/models/regex/regex-type';
 })
 export class RegexComponent implements OnInit {
 
-  @Input() RexesType: string;
+
+  changedRegex: string[];
 
   regexApiResponse: ApiResponseRegex = null;
+
   filterItems: RegexObj[] = [];
 
   filterType: any = -1;
+
+  filterString:string = ""
 
   constructor(private _matDialog: MatDialog, private regexService: ApiRegexService) { }
 
 
   ngOnInit() {
     this.regexService.getAll().subscribe(result => {
-      console.log(result);
-      
-      this.regexApiResponse = result; 
-      this.filterItems = this.regexApiResponse.$regexList;
+      this.regexApiResponse = result;
+      this.filterItems = Object.assign([], this.regexApiResponse.$regexList);
     });
   }
 
 
-  onFilter(event: string) {
-    this.filterItems = this.regexApiResponse.$regexList.filter((obj: RegexObj) => obj.$value.toLowerCase().includes(event.toLowerCase()));
+  onFilter() {
+    console.log(this.filterString);
+    
+    this.filterItems = this.regexApiResponse.$regexList.filter((obj: RegexObj) =>
+      obj.$value.toLowerCase().includes(this.filterString.toLowerCase()) && 
+      (this.filterType == obj.$type || this.filterType == -1)
+      );
   }
 
-
+  getTypeName(id: string) {
+    return this.regexApiResponse.$types.find(type => type.$_id == id).$name
+  }
   onAddRegex() {
     let regexObj: RegexObj = new RegexObj();
-
     const dialogRef = this.openDialog(regexObj)
 
     //When user close the dialog
     dialogRef.afterClosed().subscribe((result: RegexObj) => {
       if (result) {
         this.regexService.add(result).subscribe(res => {
-          Object.assign(regexObj, res);
+          this.regexApiResponse.$regexList.push(res);
+          this.filterItems = [...this.filterItems, res]
         });
       }
     });
@@ -74,7 +83,7 @@ export class RegexComponent implements OnInit {
     return this._matDialog.open(AddRegexDialog, {
       width: '400px',
       height: '400px',
-      data: regexObj
+      data: { regex: regexObj, types: this.regexApiResponse.$types }
     });
   }
 
@@ -90,10 +99,10 @@ export class RegexComponent implements OnInit {
 
 export class AddRegexDialog implements OnInit {
   regexObj: RegexObj;
-  types: string[] = ["ss", "aaa"]
+  types: RegexType[];
 
   constructor(public dialogRef: MatDialogRef<RegexObj>,
-    @Inject(MAT_DIALOG_DATA) private data: RegexObj) { }
+    @Inject(MAT_DIALOG_DATA) private data: any) { }
 
   ngOnInit(): void {
 
@@ -104,7 +113,9 @@ export class AddRegexDialog implements OnInit {
        Object.assign(Object.create(Object.getPrototypeOf(this.data)), this.data);
       */
       //Cloning the regex object to new object
-      this.regexObj = Object.assign(new RegexObj(), this.data);
+      this.regexObj = Object.assign(new RegexObj(), this.data.regex);
+      this.types = this.data.types;
+
     } else {
       //Initialize staff member.
       this.regexObj = new RegexObj();

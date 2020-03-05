@@ -14,7 +14,7 @@ export class RegexType {
      */
 	public get $_id(): string {
 		return this._id;
-	}
+	}   
 
     /**
      * Getter $name

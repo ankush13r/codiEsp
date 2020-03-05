@@ -1,8 +1,8 @@
 #Import create_app from __init__
 from app import create_app
 
-def initialize():
-        print("This function will run once")
+
+
 
         
 if __name__ == "__main__":
@@ -13,5 +13,3 @@ if __name__ == "__main__":
     # scheduler.start()
     app = create_app({"DEBUG":True})
     app.run()
-
-    initialize()

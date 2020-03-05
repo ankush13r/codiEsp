@@ -8,13 +8,13 @@
     <mat-form-field class="w-100">
         <mat-label>Regex type</mat-label>
         <mat-select [(ngModel)]="regexObj.$type" name="regexType" required>
-            <mat-option *ngFor="let item of types" [value]="item">{{item |titlecase}}</mat-option>
+            <mat-option *ngFor="let item of types" [value]="item.$_id">{{item.$name |titlecase}}</mat-option>
         </mat-select>
     </mat-form-field>
     <!-- Order of regex to save into data base. Because regex will stop finding just on first match.-->
     <mat-form-field class="w-100">
-        <input matInput type="number" name="regexOrder" placeholder="Order [1..]" [(ngModel)]="regexObj.$value"
-            pattern="[1-9][0-9]*" required>
+        <input matInput type="number" name="regexOrder" placeholder="Order [1..]" [(ngModel)]="regexObj.$order"
+            pattern="[0-9]*">
     </mat-form-field>
     <br>
     <section class="w-100">

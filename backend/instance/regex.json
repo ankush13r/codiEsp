@@ -1,0 +1,22 @@
+[
+{ "_id" : "5e60e614bf06064d4d494fcb", "value" : "Describimos el caso", "type" : "0.0", "ignoreCase" : false, "order" : 0 },
+{ "_id" : "5e60e61fbf06064d4d494fcc", "value" : "Presentamos el caso", "type" : "0.0", "ignoreCase" : null, "order" : 1 },
+{ "_id" : "5e60e62cbf06064d4d494fcd", "value" : "Se presenta el caso", "type" : "0.0", "ignoreCase" : null, "order" : 2 },
+{ "_id" : "5e60e640bf06064d4d494fce", "value" : "casos? clínicos?", "type" : "0.0", "ignoreCase" : null, "order" : 3 },
+{ "_id" : "5e60e651bf06064d4d494fcf", "value" : "casos? clinicos?", "type" : "0.0", "ignoreCase" : null, "order" : 5 },
+{ "_id" : "5e60e6b2bf06064d4d494fd0", "value" : "casos? cl&#.{1,4};nicos?", "type" : "0.0", "ignoreCase" : null, "order" : 7 },
+{ "_id" : "5e60e6e0bf06064d4d494fd1", "value" : "(una? )?paciente de", "type" : "0.0", "ignoreCase" : null, "order" : 8 },
+{ "_id" : "5e60e6ecbf06064d4d494fd2", "value" : "mujer de", "type" : "0.0", "ignoreCase" : null, "order" : 10 },
+{ "_id" : "5e60e6f6bf06064d4d494fd3", "value" : "hombre de", "type" : "0.0", "ignoreCase" : null, "order" : 11 },
+{ "_id" : "5e60e706bf06064d4d494fd4", "value" : "var&#.{1,4};n de", "type" : "0.0", "ignoreCase" : null, "order" : 12 },
+{ "_id" : "5e60e614bf06064d4d494fcb", "value" : "Describimos el caso", "type" : "0.0", "ignoreCase" : false, "order" : 0 },
+{ "_id" : "5e60e61fbf06064d4d494fcc", "value" : "Presentamos el caso", "type" : "0.0", "ignoreCase" : null, "order" : 1 },
+{ "_id" : "5e60e62cbf06064d4d494fcd", "value" : "Se presenta el caso", "type" : "0.0", "ignoreCase" : null, "order" : 2 },
+{ "_id" : "5e60e640bf06064d4d494fce", "value" : "casos? clínicos?", "type" : "0.0", "ignoreCase" : null, "order" : 3 },
+{ "_id" : "5e60e651bf06064d4d494fcf", "value" : "casos? clinicos?", "type" : "0.0", "ignoreCase" : null, "order" : 5 },
+{ "_id" : "5e60e6b2bf06064d4d494fd0", "value" : "casos? cl&#.{1,4};nicos?", "type" : "0.0", "ignoreCase" : null, "order" : 7 },
+{ "_id" : "5e60e6e0bf06064d4d494fd1", "value" : "(una? )?paciente de", "type" : "0.0", "ignoreCase" : null, "order" : 8 },
+{ "_id" : "5e60e6ecbf06064d4d494fd2", "value" : "mujer de", "type" : "0.0", "ignoreCase" : null, "order" : 10 },
+{ "_id" : "5e60e6f6bf06064d4d494fd3", "value" : "hombre de", "type" : "0.0", "ignoreCase" : null, "order" : 11 },
+{ "_id" : "5e60e706bf06064d4d494fd4", "value" : "var&#.{1,4};n de", "type" : "0.0", "ignoreCase" : null, "order" : 12 }
+]

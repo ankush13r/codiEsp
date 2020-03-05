@@ -17,7 +17,7 @@ export class ApiResponseRegex implements Deserializable{
         
         Object.assign(this, input);
     
-        this.types = input.types.map(type => Object.assign(new RegexType(),type));
+        this.types = input.types.map(type => Object.assign(new RegexType(),type));      
         this.regexList = input.regex.map(regexObj => Object.assign(new RegexObj(),regexObj));
         return this;
       }

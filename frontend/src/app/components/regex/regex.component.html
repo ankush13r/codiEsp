@@ -1,14 +1,14 @@
-<div *ngIf=" this.regexApiResponse" fxLayout="column" fxLayoutAlign="start center" class="h-100">
+<div *ngIf=" this.regexApiResponse" fxLayout="column" fxLayoutAlign="start center" class="h-100 mx-1">
 
     <div>
         <h5 *ngIf="this.regexApiResponse.$regexList?.length==0" class="h5 my-4">Empty DATABASE!</h5>
         <span *ngIf="this.regexApiResponse.$regexList?.length>0">
             <mat-form-field>
-                <input matInput placeholder="Filter" [ngModel]="null" (ngModelChange)="onFilter($event)">
+                <input matInput placeholder="Filter" [(ngModel)]="filterString" (ngModelChange)="onFilter()">
             </mat-form-field>
             <mat-form-field class="mx-2">
                 <mat-label>Regex type</mat-label>
-                <mat-select [(ngModel)]="filterType" name="typeSelector" (change)="onFilter($event)">
+                <mat-select [(ngModel)]="filterType" name="typeSelector" (ngModelChange)="onFilter()">
                     <mat-option [value]="-1">All</mat-option>
                     <mat-option *ngFor="let type of regexApiResponse.$types" [value]="type.$_id">{{type.$name |titlecase}}</mat-option>
                 </mat-select>
@@ -23,8 +23,9 @@
                 <tr class="bg-dark">
                     <th>Order</th>
                     <th>Regex</th>
+                    <th>Type</th>
                     <th>Case Ignore</th>
-                    <th>Modify</th>
+                    <th>Save</th>
                     <th>Delete</th>
                 </tr>
             </thead>
@@ -33,19 +34,25 @@
                 <tr *cdkVirtualFor="let item of filterItems" class="animated bounce">
                     <!-- regex value -->
                     <td>
-                        <input class="my-2" type="text" matInput min="0" pattern="[0-9]*" [(ngModel)]="item.$order">
+                        <!-- <input class="my-2" type="text" matInput min="0" pattern="[0-9]*" [(ngModel)]="item.$order"> -->
+                        {{item.$order}}
                     </td>
 
                     <td class="50">
-                        <input class="m-2" matInput type="text" name="" id="" [(ngModel)]="item.$value">
+                        <!-- <input class="m-2" matInput type="text" name="" id="" [(ngModel)]="item.$value"> -->
+                        {{item.$value}}
                     </td>
-
                     <td>
-                        <mat-checkbox [(ngModel)]="item.$ignoreCase"></mat-checkbox>
+                        <!-- <mat-checkbox [(ngModel)]="item.$ignoreCase"></mat-checkbox> -->
+                        {{getTypeName(item.$type)|titlecase}}
+                    </td>
+                    <td>
+                        <!-- <mat-checkbox [(ngModel)]="item.$ignoreCase"></mat-checkbox> -->
+                        {{item.$ignoreCase?"Yes":"No"}}
                     </td>
                     <td>
                         <button mat-icon-button color="primary" (click)="onModify($event,item)">
-                            <mat-icon>edit</mat-icon>
+                            <mat-icon >edit</mat-icon>
                         </button>
                     </td>
                     <td>

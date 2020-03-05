@@ -47,6 +47,5 @@ START_CASE_TERMS = [
     "hombre de",
     "var&#.{1,4};n de",
     "paciente de",
-
 ]
 END_CASE_TERMS = []
