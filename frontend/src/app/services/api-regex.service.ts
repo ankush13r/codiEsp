@@ -34,17 +34,22 @@ export class ApiRegexService {
 
   }
 
-  add(data: RegexObj): Observable<RegexObj> {
+  add(data: RegexObj): Observable<ApiResponseRegex> {
     const tmpUrl = url.resolve(environment.apiUrl, '/regex/add');
     return this.http.post<any>(tmpUrl, data).pipe(
       //map  to convert normal list to regexType list. 
       //First map let whole data received by http and second map creates loop and instance a new of each object. 
-      map(data => Object.assign(new RegexObj, data))
-    );;
+      map(data =>(new ApiResponseRegex().deserialize(data))
+    ));
   }
 
-  modify() {
-
+  modify(data: RegexObj): Observable<ApiResponseRegex> {
+    const tmpUrl = url.resolve(environment.apiUrl, '/regex/modify');
+    return this.http.put<any>(tmpUrl, data).pipe(
+      //map  to convert normal list to regexType list. 
+      //First map let whole data received by http and second map creates loop and instance a new of each object. 
+      map(data => (new ApiResponseRegex().deserialize(data))
+    ));
   }
 
   delete() {

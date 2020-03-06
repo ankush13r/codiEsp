@@ -17,9 +17,10 @@
         <button mat-flat-button color="primary" class="ml-4" (click)="onAddRegex()">Add New</button>
     </div>
 
-    <cdk-virtual-scroll-viewport *ngIf="this.regexApiResponse.$regexList?.length>0" fxFlex itemSize="50" class="h-100 w-100">
-        <table class="table table-borderless">
-            <thead>
+    <cdk-virtual-scroll-viewport *ngIf="this.regexApiResponse.$regexList?.length>0" minBufferPx="200" maxBufferPx="400" 
+        fxFlex itemSize="50" class="w-100">
+        <table class="table table-borderless table" cdkDropList  (cdkDropListDropped)="drop($event)">
+            <thead> 
                 <tr class="bg-dark">
                     <th>Order</th>
                     <th>Regex</th>
@@ -31,7 +32,7 @@
             </thead>
             <tbody>
                 <!-- regex loop of each object-->
-                <tr *cdkVirtualFor="let item of filterItems" class="animated bounce">
+                <tr *cdkVirtualFor="let item of filterItems|orderObjList:'order'" cdkDrag >
                     <!-- regex value -->
                     <td>
                         <!-- <input class="my-2" type="text" matInput min="0" pattern="[0-9]*" [(ngModel)]="item.$order"> -->
@@ -44,7 +45,7 @@
                     </td>
                     <td>
                         <!-- <mat-checkbox [(ngModel)]="item.$ignoreCase"></mat-checkbox> -->
-                        {{getTypeName(item.$type)|titlecase}}
+                        {{getTypeName(item.$type_id)|titlecase}}
                     </td>
                     <td>
                         <!-- <mat-checkbox [(ngModel)]="item.$ignoreCase"></mat-checkbox> -->

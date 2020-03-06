@@ -1,16 +1,16 @@
 export class RegexObj {
     private _id: string;
     private value: string;
-    private type: string;
+    private type_id: string;
     private order: string;
     private ignoreCase: boolean;
 
 
-    constructor($_id: string = null, $type: string = null, $value: string = null, $order: string = null, $ignoreCase: boolean = null) {
+    constructor($_id: string = null, $type_id: string = null, $value: string = null, $order: string = null, $ignoreCase: boolean = null) {
         this._id = $_id;
         this.value = $value;
         this.order = $order;
-        this.type = $type;
+        this.type_id = $type_id;
         this.ignoreCase = $ignoreCase;
     }
 
@@ -31,11 +31,11 @@ export class RegexObj {
     }
 
     /**
-     * Getter $type
+     * Getter $type_id
      * @return {string}
      */
-    public get $type(): string {
-        return this.type;
+    public get $type_id(): string {
+        return this.type_id;
     }
 
     /**
@@ -71,11 +71,11 @@ export class RegexObj {
     }
 
     /**
-     * Setter $type
+     * Setter $type_id
      * @param {string} value
      */
-    public set $type(value: string) {
-        this.type = value;
+    public set $type_id(value: string) {
+        this.type_id = value;
     }
 
     /**

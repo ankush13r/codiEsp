@@ -11,17 +11,33 @@ from app.docs import docs
 from app.regex import regex
 
 
+def insertRegex(app, mongo):
+    with open(app.instance_path + "/regex.json") as data:
+        regexList = json.loads(data.read())
+
+        try:
+            [regex.update({"_id": ObjectId(regex["_id"])})
+                for regex in regexList]
+        except:
+            pass
+
+        mongo.db.regex.insert_many(regexList)
+
+
+def insertRegexType(app,mongo):
+        with open(app.instance_path + "/regexType.json") as data:
+            regexList = json.loads(data.read())
+            mongo.db.regexType.insert_many(regexList)
+
+
 def initializeDB(app, mongo):
     try:
-        with open(app.instance_path + "/regex.json") as data:
-            regexList = json.loads(data.read())
-            
-            try:
-                [regex.update({"_id":ObjectId(regex["_id"])}) for regex in regexList]
-            except:
-                pass
-
-            mongo.db.regex.insert_many(regexList)
+        insertRegexType(app,mongo)
+    except:
+        pass
+    
+    try:
+        insertRegex(app, mongo)
     except:
         pass
 

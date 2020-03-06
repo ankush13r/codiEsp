@@ -15,11 +15,10 @@ from app.shared import utils as shared_utils
 FILE_CONST = "./data/constants.json"
 
 
-
 def get_valid_pagination_args(args: dict):
     """Function get arguments, passed by user, to check page number and pae size values are valid. 
     If arguments are invalid, it will return page number as 0 and page size as 10. 
-    
+
     :param args: Receives argument passed by client int url.
     :type args: dict
     :return: Page index and page size
@@ -55,6 +54,7 @@ def read_file(file_path):
     except:
         return None
 
+
 def modifyText(content):
     """Method to modify the text received as parameter and return it modified.
      It modifies the text by adding it some html style as highlights(background).
@@ -62,12 +62,10 @@ def modifyText(content):
      All regex are saved in mongoDB.
     """
 
-    color_occurrences_style = ' style="background:rgba(43, 218, 252, 1);  padding:0.3em; border-radius:0.3em;" '
-    start_color_style = ' style="background:rgba(255, 6, 6, 0.5); padding:0.3em; border-radius:0.3em;" '
-    end_color_style = ' style="background:rgba(43, 218, 252, 0.5); padding:0.3em; border-radius:0.3em; " '
-    pre_line_style = """ style="line-height:1.6; text-align: justify;  white-space:pre-line; font-family: 'Open Sans';" """
+    regex_list = mongo.db.regex.find()
+    regex_types = mongo.db.regex.find()
 
-    
+    pre_line_style = """ style="line-height:1.6; text-align: justify;  white-space:pre-line; font-family: 'Open Sans';" """
 
     # Regex for find first occurrence (information starting) and modify it, giving html style class.
     if constants.START_CASE_TERMS:
@@ -95,10 +93,6 @@ def modifyText(content):
 
     # Html style to preserve break lines as they are, because normalky break lines are chopped in html (web).
     return f"<span {pre_line_style}>{content}</span>"
-
-
-
-
 
 
 def get_location(ip):
@@ -131,7 +125,7 @@ def get_location(ip):
                            "longitude": response.location.longitude,
                            "ip": ip
                            }
-         
+
                 result = mongo.db.locations.insert_one(jsonObj)
                 _id = result.inserted_id
             else:
@@ -139,7 +133,7 @@ def get_location(ip):
                 _id = mongoObj["_id"]
 
     except Exception as err:
-        
+
         pass
 
     return str(_id)
@@ -197,8 +191,7 @@ def valid_mongo_query(json):
         # Even if it's not necessary because if case already exists, it means it must have id.
         # caseObj.update({"source_id": source_id})s
 
-
-        # new mongo query to update the document by id. Version to add into the list of versions. 
+        # new mongo query to update the document by id. Version to add into the list of versions.
         # And all other key with new values (caseObj).
         query = {
             "$addToSet": {"versions": version},
@@ -215,12 +208,12 @@ def valid_mongo_query(json):
         # update the version with it's new id as 0. If the document (clinical case) is new, means it hasn't any version yet.
         version.update({"id": 0})
 
-        #Update the object with version as list. source_id (It's origen document's id, that is already in DB), and case_id.
+        # Update the object with version as list. source_id (It's origen document's id, that is already in DB), and case_id.
         caseObj.update(
             {"versions": [version], "source_id": source_id, "case_id": case_id})
         query = caseObj
 
-    #_id maybe none, if it was new document.
+    # _id maybe none, if it was new document.
     return _id, query
 
 
@@ -287,14 +280,9 @@ def get_documents(file_type: str, page: int = 0, per_page: int = 10):
     return data
 
 
-
-
-
-
-
 # def get_version_id(_id):
 #     """ Function to create new clinical case's version id by case, because a clinical case can have more than one version.
-#         So first of all it will get ids of all versions related to the _id of clinical case, received as parameter. 
+#         So first of all it will get ids of all versions related to the _id of clinical case, received as parameter.
 #         And after it will create a new id and return it.
 #     """
 #     new_v_id = 0
@@ -316,11 +304,9 @@ def get_documents(file_type: str, page: int = 0, per_page: int = 10):
 #     return new_v_id
 
 
-
-
 # def get_case_id(source_id):
 #     """ Function to create new case id by source_id, because a source can have more than one clinical case.
-#         So first of all it will get ids of all clinical cases related to the source_id, received as parameter. 
+#         So first of all it will get ids of all clinical cases related to the source_id, received as parameter.
 #         And after it will create a new id and return it.
 #     """
 #     new_case_id = 0

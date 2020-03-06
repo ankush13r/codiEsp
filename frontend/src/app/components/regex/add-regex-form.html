@@ -7,7 +7,7 @@
     <!-- A selector for regex type -->
     <mat-form-field class="w-100">
         <mat-label>Regex type</mat-label>
-        <mat-select [(ngModel)]="regexObj.$type" name="regexType" required>
+        <mat-select [(ngModel)]="regexObj.$type_id" name="regexType" required>
             <mat-option *ngFor="let item of types" [value]="item.$_id">{{item.$name |titlecase}}</mat-option>
         </mat-select>
     </mat-form-field>

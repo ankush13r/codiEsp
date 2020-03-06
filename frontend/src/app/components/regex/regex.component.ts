@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, ChangeDetectorRef } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { RegexObj } from '../../models/regex/regex-obj';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
@@ -23,9 +24,9 @@ export class RegexComponent implements OnInit {
 
   filterType: any = -1;
 
-  filterString:string = ""
+  filterString: string = ""
 
-  constructor(private _matDialog: MatDialog, private regexService: ApiRegexService) { }
+  constructor(private _matDialog: MatDialog, private regexService: ApiRegexService,  private changeDetectorRefs: ChangeDetectorRef) { }
 
 
   ngOnInit() {
@@ -35,18 +36,33 @@ export class RegexComponent implements OnInit {
     });
   }
 
+  drop(event: any) {
+    // if(event.previousIndex!=event.currentIndex){
+    //   let obj = this.filterItems.find((obj,x)=>x=event.previousIndex)
+    //   obj.$order = event.currentIndex;
 
-  onFilter() {
-    console.log(this.filterString);
+    //   this.regexService.modify(obj).subscribe(res => {
+    //     this.regexApiResponse = res;
+    //     this.filterItems = Object.assign([], this.regexApiResponse.$regexList);
+    //   });
+    }
     
+    
+  }
+  onFilter() {
+
     this.filterItems = this.regexApiResponse.$regexList.filter((obj: RegexObj) =>
-      obj.$value.toLowerCase().includes(this.filterString.toLowerCase()) && 
-      (this.filterType == obj.$type || this.filterType == -1)
-      );
+      obj.$value.toLowerCase().includes(this.filterString.toLowerCase()) &&
+      (this.filterType == obj.$type_id || this.filterType == -1)
+    );
   }
 
   getTypeName(id: string) {
-    return this.regexApiResponse.$types.find(type => type.$_id == id).$name
+    try {
+      return this.regexApiResponse.$types.find(type => type.$_id == id).$name
+    } catch (error) {
+      return "------"
+    }
   }
   onAddRegex() {
     let regexObj: RegexObj = new RegexObj();
@@ -56,8 +72,8 @@ export class RegexComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: RegexObj) => {
       if (result) {
         this.regexService.add(result).subscribe(res => {
-          this.regexApiResponse.$regexList.push(res);
-          this.filterItems = [...this.filterItems, res]
+          this.regexApiResponse = res;
+          this.filterItems = Object.assign([], this.regexApiResponse.$regexList);
         });
       }
     });
@@ -68,11 +84,11 @@ export class RegexComponent implements OnInit {
     const dialogRef = this.openDialog(regexObj)
 
     //When user close the dialog comes here.
-    dialogRef.afterClosed().subscribe((result: RegexObj) => {
-
+    dialogRef.afterClosed().subscribe((result: RegexObj) => {      
       if (result) {
-        this.regexService.add(result).subscribe(res => {
-          Object.assign(regexObj, res);
+        this.regexService.modify(result).subscribe(res => {
+          this.regexApiResponse = res;
+          this.filterItems = Object.assign([], this.regexApiResponse.$regexList);
         });
       }
     });

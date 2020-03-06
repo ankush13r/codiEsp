@@ -14,6 +14,9 @@ import {
   from '@angular/material';
 
 
+
+import {DragDropModule} from '@angular/cdk/drag-drop'; 
+
 const modules = [
   BrowserAnimationsModule,
   MatPaginatorModule,
@@ -36,7 +39,8 @@ const modules = [
   ScrollingModule,
   FlexLayoutModule,
   MatSnackBarModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  DragDropModule
 ]
 
 @NgModule({

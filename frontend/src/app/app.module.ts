@@ -24,6 +24,7 @@ import { ReversePipe } from './pipes/reverse.pipe';
 
 import { NgMaterialModule } from './modules/ng-material-cdk.module';
 import { HighlightBreakLine } from './pipes/highlight-breakLine.pipe';
+import { OrderObjListPipe } from './pipes/order-obj-list.pipe';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { HighlightBreakLine } from './pipes/highlight-breakLine.pipe';
     RegexComponent,
     TextareaHighlightComponent,
     HighlightBreakLine,
+    OrderObjListPipe,
 
   ],
   imports: [

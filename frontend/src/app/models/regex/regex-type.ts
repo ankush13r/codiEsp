@@ -8,7 +8,7 @@ export class RegexType {
 		this.name = $name;
 	}
 
-    /**
+    /**s
      * Getter id
      * @return {string}
      */

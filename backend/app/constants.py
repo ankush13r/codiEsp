@@ -15,20 +15,7 @@ API_BASE_URI = "http://127.0.0.1:5000/documents"
 MONGO_URI = 'mongodb://localhost:27017/codiEsp'
 
 
-REGEXTYPES = [
-    {
-        "style": ' style="background:rgba(255, 6, 6, 0.5); padding:0.3em; border-radius:0.3em;" ',
-        "name": "find start",
-    },
-    {
-        "style": ' style="background:rgba(255, 6, 6, 0.5); padding:0.3em; border-radius:0.3em;" ',
-        "name": "global",
-    },
-    {
-        "style": ' style="background:rgba(43, 218, 252, 0.5); padding:0.3em; border-radius:0.3em; " ',
-        "name": "find end",
-    },
-]
+
 
 # MONGO_URI = 'mongodb://codiesp:codiesp@84.88.52.79:27017/codiEsp'
 START_CASE_TERMS = [
