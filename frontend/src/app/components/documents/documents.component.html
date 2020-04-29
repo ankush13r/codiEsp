@@ -4,16 +4,27 @@
             <app-title [title]="title"></app-title>
             <div class="listBox" fxFlex=90 fxLayout="column" fxLayoutAlign="space-between none">
 
-                <mat-list fxFlex *ngIf="api_response" class="matList" >
-                    <mat-list-item class="listItem border-bottom animated flipInX"  fxLayout="row" fxLayoutAlign="None center"
-                     *ngFor="let auxDocument of api_response.$documents; let i = index"
-                        [matTooltip]="toolTips.listItem.value" [matTooltipPosition]="toolTips.listItem.position"
-                        [matTooltipClass]="toolTips.listItem.class" [class.selected]="auxDocument === document"
-                        (click)="selectDocument(i)" (dblclick)="newWindow(auxDocument)" (contextmenu)="onRightClick()">
+                <mat-list fxFlex *ngIf="api_response" class="matList">
+                   
+                    <mat-list-item class="listItem border-bottom animated flipInX" 
+                        fxLayout="row"
+                        fxLayoutAlign="None center"
+                        [matTooltip]="toolTips.listItem.value"
+                        [matTooltipPosition]="toolTips.listItem.position"
+                        [matTooltipClass]="toolTips.listItem.class" 
+                        [class.selected]="auxDocument === document"
+                        (click)="selectDocument(i)" 
+                        (dblclick)="newWindow(auxDocument)" 
+                        (contextmenu)="onRightClick()"
+                        *ngFor="let auxDocument of api_response.$documents; let i = index">
+
                         <div class="w-100" fxLayout="row" fxLayoutAlign="space-between center">
-                            <mat-slide-toggle [checked]="auxDocument.$state"
+
+                            <mat-slide-toggle 
+                                [checked]="auxDocument.$state" 
                                 [color]="(auxDocument.$state=='1')?'primary':''">
                             </mat-slide-toggle>
+                            
                             <button class="mx-2" mat-icon-button (click)="newWindow(auxDocument)">
                                 <mat-icon [color]="(auxDocument === document)?'accent':''">open_in_new</mat-icon>
                             </button>
@@ -26,7 +37,6 @@
                 </mat-list>
 
                 <div *ngIf="api_response" class="w-100 border-top" fxLayout="row" fxLayoutAlign="space-around start">
-
                     <mat-form-field fxFlex="16" class="mx-1">
                         <input name="indexInput" matInput #indexInput="ngModel"
                             [ngModel]="pagination[doc_type]?.pageIndex + 1 || 1" (change)="onChangeIndex($event)"
@@ -37,7 +47,6 @@
                         [pageSizeOptions]="[10,25,50,100]" (page)="setPageEvent($event)">
                         <!--showFirstLastButtons="true"-->
                     </mat-paginator>
-
                 </div>
             </div>
         </div>

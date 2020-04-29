@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RegexObj } from '../models/regex/regex-obj';
 
@@ -12,7 +12,7 @@ import { ApiResponseRegex } from '../models/regex/api-response-regex';
   providedIn: 'root'
 })
 export class ApiRegexService {
-  apiUrl = new URL(environment.apiUrl)
+  url= url.resolve(environment.apiUrl, '/regex')
 
   constructor(private http: HttpClient) {
 
@@ -20,9 +20,7 @@ export class ApiRegexService {
 
 
   getAll(): Observable<ApiResponseRegex> {
-    const tmpUrl = url.resolve(environment.apiUrl, '/regex');
-
-    return this.http.get<any>(tmpUrl).pipe(
+    return this.http.get<any>(this.url).pipe(
       //map  to convert normal list to regexType list. 
       //First map let whole data received by http and second map creates loop and instance a new of each object. 
       map(data => (new ApiResponseRegex().deserialize(data))
@@ -35,26 +33,37 @@ export class ApiRegexService {
   }
 
   add(data: RegexObj): Observable<ApiResponseRegex> {
-    const tmpUrl = url.resolve(environment.apiUrl, '/regex/add');
-    return this.http.post<any>(tmpUrl, data).pipe(
-      //map  to convert normal list to regexType list. 
-      //First map let whole data received by http and second map creates loop and instance a new of each object. 
-      map(data =>(new ApiResponseRegex().deserialize(data))
-    ));
-  }
-
-  modify(data: RegexObj): Observable<ApiResponseRegex> {
-    const tmpUrl = url.resolve(environment.apiUrl, '/regex/modify');
-    return this.http.put<any>(tmpUrl, data).pipe(
+    return this.http.post<any>(this.url, data).pipe(
       //map  to convert normal list to regexType list. 
       //First map let whole data received by http and second map creates loop and instance a new of each object. 
       map(data => (new ApiResponseRegex().deserialize(data))
-    ));
+      ));
   }
 
-  delete() {
+  modify(data: RegexObj): Observable<ApiResponseRegex> {
+    return this.http.put<any>(this.url, data).pipe(
+      //map  to convert normal list to regexType list. 
+      //First map let whole data received by http and second map creates loop and instance a new of each object.
+      map(data => {
+        if (data && !data.error) {
+          return new ApiResponseRegex().deserialize(data)
+        }
+      }
+      ));
+  }
 
+  delete(id: string): Observable<any> {
 
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body: {
+        _id:id
+      }
+    }
+
+    return this.http.delete<any>(this.url, options);
   }
 
 }

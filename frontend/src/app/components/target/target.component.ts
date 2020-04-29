@@ -66,7 +66,7 @@ export class TargetComponent implements OnInit, OnChanges {
   }
 
   selectLastCase() {
-    this.selectedCase = this.document.$clinical_cases[this.document.$clinical_cases.length - 1];
+    this.selectedCase = this.document.$clinicalCases[this.document.$clinicalCases.length - 1];
     this.selectNewVersion();
   }
 
@@ -83,22 +83,22 @@ export class TargetComponent implements OnInit, OnChanges {
   onEdit(clear: boolean = false) {
 
     if (clear) {
-      this.selectedCase.$newCaseVersion.$clinical_case = ""
+      this.selectedCase.$newCaseVersion.$clinicalCase = ""
       this.selectedCase.$newCaseVersion.$hpoCodes = [];
       this.auxText = ""
     } else {
-      this.selectedCase.$newCaseVersion.$clinical_case = this.selectedCaseVersion.$clinical_case;
+      this.selectedCase.$newCaseVersion.$clinicalCase = this.selectedCaseVersion.$clinicalCase;
       this.selectedCase.$newCaseVersion.$hpoCodes = this.selectedCaseVersion.$hpoCodes;
     } this.selectNewVersion();
   }
 
 
   onNewCase() {
-    var newCase = this.document.$clinical_cases.find((cases) => cases.$isNew == true);
+    var newCase = this.document.$clinicalCases.find((cases) => cases.$isNew == true);
 
     if (!newCase) {
-      this.document.$clinical_cases.push(new ClinicalCase().deserialize({ isNew: true }))
-      this.selectedCase = this.document.$clinical_cases[this.document.$clinical_cases.length - 1]
+      this.document.$clinicalCases.push(new ClinicalCase().deserialize({ isNew: true }))
+      this.selectedCase = this.document.$clinicalCases[this.document.$clinicalCases.length - 1]
     } else {
       this.selectedCase = newCase;
       this.openSnackBar("Error: New case is already created", "OK", errorStyle);
@@ -139,7 +139,7 @@ export class TargetComponent implements OnInit, OnChanges {
 
 
   showTarget(preview: boolean = false) {    
-    this.dataShareService.changeAuxText(this.selectedCaseVersion.$clinical_case);
+    this.dataShareService.changeAuxText(this.selectedCaseVersion.$clinicalCase);
     if (preview) {
       this.dataShareService.previewTarget(true);
     }
@@ -150,7 +150,7 @@ export class TargetComponent implements OnInit, OnChanges {
     try {
       navigator.clipboard.readText().then(
         clipText => {
-          this.selectedCase.$newCaseVersion.$clinical_case = clipText;
+          this.selectedCase.$newCaseVersion.$clinicalCase = clipText;
           this.selectNewVersion();
         }
       );
@@ -161,7 +161,7 @@ export class TargetComponent implements OnInit, OnChanges {
 
   onSubmit() {
 
-    var text = (this.selectedCase.$newCaseVersion.$clinical_case).trim();
+    var text = (this.selectedCase.$newCaseVersion.$clinicalCase).trim();
     this.selectedCase.$isNew = null;
 
     // Finding if the matching text exist in any other version
@@ -172,7 +172,7 @@ export class TargetComponent implements OnInit, OnChanges {
       var jsonToSubmit = {
         _id: this.selectedCase.$_id,
         yes_no: this.selectedCase.$newCaseVersion.$yes_no,
-        clinical_case: text,
+        clinicalCase: text,
         time: now,
         source_id: this.document.$_id,
         user_id: null,
@@ -200,7 +200,7 @@ export class TargetComponent implements OnInit, OnChanges {
   //Functions as utils, those are called by other functions.
   //--------------------------------------------------------
 
-  findEqualVersion = (text) => this.selectedCase.$versions.find((v) => v.$clinical_case.toLowerCase() == text.toLowerCase());
+  findEqualVersion = (text) => this.selectedCase.$versions.find((v) => v.$clinicalCase.toLowerCase() == text.toLowerCase());
 
 
   selectNewVersion() {

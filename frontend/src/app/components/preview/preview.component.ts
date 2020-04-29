@@ -41,7 +41,7 @@ export class PreviewComponent implements OnInit , OnChanges{
     //   if (result && this.document !== result) {
     //     this.document = result;
     //     this.showLink()
-    //     if (this.document["clinical_cases"] && this.document["clinical_cases"].length > 0) {
+    //     if (this.document["clinicalCases"] && this.document["clinicalCases"].length > 0) {
     //       // this.document.versions.sort((a, b) => a["time"] - b["time"])
     //     }
     //   }
@@ -55,7 +55,7 @@ export class PreviewComponent implements OnInit , OnChanges{
       if (changes.hasOwnProperty(propName)) {
         if (propName == 'document' && this.document) {
           this.showLink()
-          if (this.document["clinical_cases"] && this.document["clinical_cases"].length > 0) {
+          if (this.document["clinicalCases"] && this.document["clinicalCases"].length > 0) {
             // this.document.versions.sort((a, b) => a["time"] - b["time"])
           }
         }
@@ -79,6 +79,7 @@ export class PreviewComponent implements OnInit , OnChanges{
   }
 
   showLink() {
+    
     this.contentType = this.LINK;
     if (this.document.$format == "link")
       this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.document.$link);

@@ -6,26 +6,26 @@ export class Document {
   private link: string;
   private format: string;
   private state: string;
-  private clinical_cases: ClinicalCase[];
+  private clinicalCases: ClinicalCase[];
 
   constructor() {
     var tmpCase = new ClinicalCase();
     tmpCase.$isNew = true;
-    this.clinical_cases = [tmpCase]
+    this.clinicalCases = [tmpCase]
   }
 
   deserialize(input: any): this {
 
     Object.assign(this, input);
 
-    if (input.clinical_cases && Array.isArray(input.clinical_cases) && input.clinical_cases.length > 0) {
-      input.clinical_cases.sort((a, b) => a.case_id - b.case_id)
-      this.clinical_cases = input.clinical_cases.map(clinical_case => new ClinicalCase().deserialize(clinical_case));
+    if (input.clinicalCases && Array.isArray(input.clinicalCases) && input.clinicalCases.length > 0) {
+      input.clinicalCases.sort((a, b) => a.case_id - b.case_id)
+      this.clinicalCases = input.clinicalCases.map(clinicalCase => new ClinicalCase().deserialize(clinicalCase));
 
     } else {
       var tmpCase = new ClinicalCase();
       tmpCase.$isNew = true;
-      this.clinical_cases = [tmpCase]
+      this.clinicalCases = [tmpCase]
     }
 
 
@@ -81,11 +81,11 @@ export class Document {
   }
 
   /**
-   * Getter $clinical_cases
+   * Getter $clinicalCases
    * @return {ClinicalCase[]}
    */
-  public get $clinical_cases(): ClinicalCase[] {
-    return this.clinical_cases;
+  public get $clinicalCases(): ClinicalCase[] {
+    return this.clinicalCases;
   }
 
   /**
@@ -129,11 +129,11 @@ export class Document {
   }
 
   /**
-   * Setter $clinical_cases
+   * Setter $clinicalCases
    * @param {ClinicalCase[]} value
    */
-  public set $clinical_cases(value: ClinicalCase[]) {
-    this.clinical_cases = value;
+  public set $clinicalCases(value: ClinicalCase[]) {
+    this.clinicalCases = value;
   }
 
 

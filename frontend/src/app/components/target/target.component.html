@@ -5,7 +5,7 @@
             <mat-form-field class="text-center" color="accent">
                 <mat-label class="text-accent">Case</mat-label>
                 <mat-select [(ngModel)]="selectedCase" (selectionChange)="selectNewVersion(true)" name="case">
-                    <mat-option *ngFor="let case of document.$clinical_cases; let i = index" [value]="case">
+                    <mat-option *ngFor="let case of document.$clinicalCases; let i = index" [value]="case">
                         {{i+1}}
                     </mat-option>
                 </mat-select>
@@ -42,10 +42,10 @@
         <div fxFlex="50" class="textAreaParent mat-primary-outline">
             <textarea *ngIf="selectedCase" class="textarea h-100 w-100" name="clinicalCase" type="textarea"
                 [disabled]="selectedCaseVersion != selectedCase?.$newCaseVersion" required  #textarea
-                [(ngModel)]="selectedCaseVersion.$clinical_case" (ngModelChange)="onChangeText($event)"
+                [(ngModel)]="selectedCaseVersion.$clinicalCase" (ngModelChange)="onChangeText($event)"
                 (scroll)="onScroll($event)">
             </textarea>
-            <div class="textAreaBacks h-100 w-100" #backTextarea [innerHTML]="selectedCaseVersion?.$clinical_case|highlightBreakLine"></div>
+            <div class="textAreaBacks h-100 w-100" #backTextarea [innerHTML]="selectedCaseVersion?.$clinicalCase|highlightBreakLine"></div>
         </div>
         <app-chips-list *ngIf="selectedCaseVersion" fxFlex="20" class="p-1 h-100 "
             [selectedValues]="selectedCaseVersion.$hpoCodes"

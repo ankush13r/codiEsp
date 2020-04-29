@@ -13,7 +13,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { DocumentsComponent } from './components/documents/documents.component';
 import { TargetComponent } from './components/target/target.component';
 import { AppRoutingModule } from './routes/app-routing.module';
-import { DataExtractorComponent } from './components/data-extractor/data-extractor.component';
+import { TextExtractorComponent } from './components/text-extractor/text-extractor.component';
 import { PreviewComponent } from './components/preview/preview.component';
 import { SubTitleComponent } from './components/sub-title/sub-title.component';
 import { HpoChipsListComponent } from './components/hpo-chips-list/hpo-chips-list.component';
@@ -25,6 +25,7 @@ import { ReversePipe } from './pipes/reverse.pipe';
 import { NgMaterialModule } from './modules/ng-material-cdk.module';
 import { HighlightBreakLine } from './pipes/highlight-breakLine.pipe';
 import { OrderObjListPipe } from './pipes/order-obj-list.pipe';
+import { ClinicalDataComponent } from './components/clinical-data/clinical-data.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { OrderObjListPipe } from './pipes/order-obj-list.pipe';
     NavbarComponent,
     DocumentsComponent,
     TargetComponent,
-    DataExtractorComponent,
+    TextExtractorComponent,
     PreviewComponent,
     SubTitleComponent,
     HpoChipsListComponent,
@@ -44,6 +45,7 @@ import { OrderObjListPipe } from './pipes/order-obj-list.pipe';
     TextareaHighlightComponent,
     HighlightBreakLine,
     OrderObjListPipe,
+    ClinicalDataComponent,
 
   ],
   imports: [

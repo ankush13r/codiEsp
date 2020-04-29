@@ -44,9 +44,10 @@ export class HpoChipsListComponent implements OnInit {
     //pipe create an observable, than it can be synchronized be html
     this.allHpo = hpo["default"];
 
+    
     this.filteredValues = this.formCtrl.valueChanges.pipe(
       startWith(null),
-      map((value: string | null) => value && value.length > 3 ? this._filter(value) : null));
+      map((value: string | null) => value && value.length > 0 ? this._filter(value) : null));
   }
 
 
@@ -76,7 +77,7 @@ export class HpoChipsListComponent implements OnInit {
       hpo["name"].toLowerCase().indexOf(filterValue) === 0 ||
       hpo["synonyms"].some(synonym => synonym.toLowerCase().indexOf(filterValue) === 0) ||
       (hpo["id"].toLowerCase().indexOf(filterValue) === 0 && filterValue.length > 8)
-    );
+    ).slice(0,7);
   }
 
 

@@ -48,8 +48,8 @@ export class RegexComponent implements OnInit {
     }
     
     
-  }
-  onFilter() {
+
+  onFilter(){
 
     this.filterItems = this.regexApiResponse.$regexList.filter((obj: RegexObj) =>
       obj.$value.toLowerCase().includes(this.filterString.toLowerCase()) &&
@@ -89,6 +89,7 @@ export class RegexComponent implements OnInit {
         this.regexService.modify(result).subscribe(res => {
           this.regexApiResponse = res;
           this.filterItems = Object.assign([], this.regexApiResponse.$regexList);
+          
         });
       }
     });
@@ -103,9 +104,10 @@ export class RegexComponent implements OnInit {
     });
   }
 
-  onDelete(event, id: number) {
+  onDelete(event, id: string) {
     event.stopPropagation();
-    console.log(id);
+    this.regexService.delete(id).subscribe(result=>console.log(result)
+    );
   }
 }
 @Component({

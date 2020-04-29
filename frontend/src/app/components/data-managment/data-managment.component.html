@@ -1,23 +1,34 @@
 <div class="w-100 h-100" fxLayout="row">
 
-    <div #drawer opened="true" mode="side" class="pt-2" [ngClass]="sortDrawer?'sortDrawer':'drawer'">
-        <div fxLayout="row" fxLayoutAlign="end center" class="my-1">
+    <div class="pt-2" [ngClass]="sortDrawer?'sortDrawer':'drawer'" class="bg-dark">
+        <div fxLayout="row" [fxLayoutAlign]="sortDrawer?'center':'end'" class="my-1">
             <button type="button" mat-icon-button (click)="sortDrawer = !sortDrawer" class="text-light">
                 <mat-icon *ngIf="!sortDrawer">arrow_back_ios</mat-icon>
-                <mat-icon *ngIf="sortDrawer">arrow_forward_ios</mat-icon>
+                <mat-icon *ngIf="sortDrawer">menu</mat-icon>
             </button>
         </div>
-        <mat-list>
-            <mat-list-item fxLayout="row" [fxLayoutAlign]="sortDrawer?'center center':'start center'"
-                [class.shortItem]="sortDrawer" class="animated flipInX  bg-light cursor-pointer item"
-                *ngFor="let item of itemList">
+        <mat-nav-list>
+            <a  mat-list-item
+                *ngFor="let item of itemList" 
+                fxLayout="row"
+                [fxLayoutAlign]="sortDrawer?'center center':'start center'" 
+                [routerLink]="[item.path]"
+                [class.sortItem]="sortDrawer"
+                routerLinkActive
+                #routeLink="routerLinkActive" 
+                [class.link-active]="routeLink.isActive"
+                class="animated flipInX bg-secondary text-light item p-2"
+                >
+                <!--  -->
                 <mat-icon>
                     {{item.icon}}
                 </mat-icon>
-                <span *ngIf="!sortDrawer" class="ml-4 animated fadeInRight">{{item.value |titlecase }}</span>
-            </mat-list-item>
-        </mat-list>
-
+                <span *ngIf="!sortDrawer" class="ml-4 animated fadeInRight">{{item.name |titlecase }}</span>
+            </a>
+        </mat-nav-list>
+        <!--   -->
     </div>
-    <app-regex fxFlex class="h-100"></app-regex>
+    <div fxFlex>
+        <router-outlet></router-outlet>
+    </div>
 </div>

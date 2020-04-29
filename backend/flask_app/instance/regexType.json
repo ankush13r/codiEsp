@@ -1,0 +1,4 @@
+[
+    {"_id":"0.0", "style": " style=\"background:rgba(255, 6, 6, 0.5); padding:0.3em; border-radius:0.3em;\" ","name": "global","count":null},
+    {"_id":"1.0", "style": " style=\"background:rgba(43, 218, 252, 0.5); padding:0.3em; border-radius:0.3em; \" ","name": "first occurrence" ,"count":1}
+]

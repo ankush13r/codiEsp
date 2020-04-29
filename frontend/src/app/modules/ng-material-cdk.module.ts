@@ -9,13 +9,14 @@ import {
   MatButtonModule, MatSlideToggleModule, MatRadioModule,
   MatSidenavModule, MatDividerModule, MatToolbarModule, MatSelectModule,
   MatChipsModule, MatAutocompleteModule, MatTooltipModule, MatProgressSpinnerModule,
-  MatGridListModule,MatSnackBarModule,MatDialogModule,MatCheckboxModule
+  MatGridListModule, MatSnackBarModule, MatDialogModule, MatCheckboxModule,MatTableModule, MatSortModule
 }
   from '@angular/material';
 
+import { TableVirtualScrollModule } from 'ng-table-virtual-scroll';
 
 
-import {DragDropModule} from '@angular/cdk/drag-drop'; 
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const modules = [
   BrowserAnimationsModule,
@@ -40,7 +41,10 @@ const modules = [
   FlexLayoutModule,
   MatSnackBarModule,
   MatCheckboxModule,
-  DragDropModule
+  DragDropModule,
+  TableVirtualScrollModule,
+  MatTableModule,
+  MatSortModule
 ]
 
 @NgModule({

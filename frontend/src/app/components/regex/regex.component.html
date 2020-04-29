@@ -1,69 +1,79 @@
 <div *ngIf=" this.regexApiResponse" fxLayout="column" fxLayoutAlign="start center" class="h-100 mx-1">
+    <div *ngIf="this.regexApiResponse.$regexList?.length>0; then data else noData"></div>
 
-    <div>
-        <h5 *ngIf="this.regexApiResponse.$regexList?.length==0" class="h5 my-4">Empty DATABASE!</h5>
-        <span *ngIf="this.regexApiResponse.$regexList?.length>0">
+    <ng-template #noData>
+        <div class="mt-2">
+            <h5 *ngIf="this.regexApiResponse.$regexList?.length==0" class="h5">Empty DATABASE!</h5>
+        </div>
+    </ng-template>
+    <ng-template #data>
+        <div class="pt-2">
             <mat-form-field>
                 <input matInput placeholder="Filter" [(ngModel)]="filterString" (ngModelChange)="onFilter()">
             </mat-form-field>
-            <mat-form-field class="mx-2">
+            <mat-form-field class="mx-4">
                 <mat-label>Regex type</mat-label>
                 <mat-select [(ngModel)]="filterType" name="typeSelector" (ngModelChange)="onFilter()">
                     <mat-option [value]="-1">All</mat-option>
-                    <mat-option *ngFor="let type of regexApiResponse.$types" [value]="type.$_id">{{type.$name |titlecase}}</mat-option>
+                    <mat-option *ngFor="let type of regexApiResponse.$types" [value]="type.$_id">
+                        {{type.$name |titlecase}}</mat-option>
                 </mat-select>
             </mat-form-field>
-        </span>
-        <button mat-flat-button color="primary" class="ml-4" (click)="onAddRegex()">Add New</button>
-    </div>
+            <button mat-flat-button color="primary" (click)="onAddRegex()">Add New</button>
+        </div>
 
-    <cdk-virtual-scroll-viewport *ngIf="this.regexApiResponse.$regexList?.length>0" minBufferPx="200" maxBufferPx="400" 
-        fxFlex itemSize="50" class="w-100">
-        <table class="table table-borderless table" cdkDropList  (cdkDropListDropped)="drop($event)">
-            <thead> 
-                <tr class="bg-dark">
-                    <th>Order</th>
-                    <th>Regex</th>
-                    <th>Type</th>
-                    <th>Case Ignore</th>
-                    <th>Save</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
+
+
+        <cdk-virtual-scroll-viewport minBufferPx="200" maxBufferPx="400" fxFlex itemSize="50" class="w-100">
+            <table class="table table-borderless table2 w-100">
+                <!-- cdkDropList (cdkDropListDropped)="drop($event)" -->
                 <!-- regex loop of each object-->
-                <tr *cdkVirtualFor="let item of filterItems|orderObjList:'order'" cdkDrag >
-                    <!-- regex value -->
-                    <td>
-                        <!-- <input class="my-2" type="text" matInput min="0" pattern="[0-9]*" [(ngModel)]="item.$order"> -->
-                        {{item.$order}}
-                    </td>
+                <thead class="bg-dark text-light">
+                    <tr>
+                        <th>Order</th>
+                        <th>Regex</th>
+                        <th>Type</th>
+                        <th>Case Ignore</th>
+                        <th>Save</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *cdkVirtualFor="let item of filterItems|orderObjList:'order';templateCacheSize: 0">
+                        <!-- cdkDrag -->
+                        <!-- regex value -->
+                        <td class="align-middle">
+                            <!-- <input class="my-2" type="text" matInput min="0" pattern="[0-9]*" [(ngModel)]="item.$order"> -->
+                            {{item.$order}}
+                        </td>
 
-                    <td class="50">
-                        <!-- <input class="m-2" matInput type="text" name="" id="" [(ngModel)]="item.$value"> -->
-                        {{item.$value}}
-                    </td>
-                    <td>
-                        <!-- <mat-checkbox [(ngModel)]="item.$ignoreCase"></mat-checkbox> -->
-                        {{getTypeName(item.$type_id)|titlecase}}
-                    </td>
-                    <td>
-                        <!-- <mat-checkbox [(ngModel)]="item.$ignoreCase"></mat-checkbox> -->
-                        {{item.$ignoreCase?"Yes":"No"}}
-                    </td>
-                    <td>
-                        <button mat-icon-button color="primary" (click)="onModify($event,item)">
-                            <mat-icon >edit</mat-icon>
-                        </button>
-                    </td>
-                    <td>
-                        <button mat-icon-button color="warn" (click)="onDelete($event,item._id)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </td>
-                </tr>
+                        <td class="align-middle">
+                            <!-- <input class="m-2" matInput type="text" name="" id="" [(ngModel)]="item.$value"> -->
+                            {{item.$value}}
+                        </td>
+                        <td class="align-middle">
+                            <!-- <mat-checkbox [(ngModel)]="item.$ignoreCase"></mat-checkbox> -->
+                            {{getTypeName(item.$type_id)|titlecase}}
+                        </td>
+                        <td class="align-middle">
+                            <!-- <mat-checkbox [(ngModel)]="item.$ignoreCase"></mat-checkbox> -->
+                            {{item.$ignoreCase?"Yes":"No"}}
+                        </td>
+                        <td class="align-middle">
+                            <button mat-icon-button color="primary" (click)="onModify($event,item)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </td>
+                        <td class="align-middle">
+                            <button mat-icon-button color="warn" (click)="onDelete($event,item._id)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
 
-            </tbody>
-        </table>
-    </cdk-virtual-scroll-viewport>
+            </table>
+        </cdk-virtual-scroll-viewport>
+    </ng-template>
+
 </div>

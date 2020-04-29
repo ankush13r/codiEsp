@@ -8,7 +8,6 @@
 }
 
 .sortDrawer{
-  
   width: 4%;
   transition: 0.5s;
 }
@@ -16,7 +15,7 @@
     background: rgb(43, 43, 43);
 }
 .item{
-    width: 99% !important;
+    width: 98% !important;
     margin: auto;
     margin-bottom: 0.5em;
 }
@@ -24,10 +23,12 @@
   transition: 0.5s;
 }
 
-.shortItem{
-  width: 70% !important;
+.sortItem{
+  width: 80% !important;
 
 }
 
-
-
+.link-active{
+  background:  rgb(245, 245, 245) !important;
+  color: rgb(0, 0, 0) !important;
+}

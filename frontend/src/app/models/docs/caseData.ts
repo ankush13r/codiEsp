@@ -1,5 +1,5 @@
 export class CaseData {
-    private clinical_case: string;
+    private clinicalCase: string;
     private yes_no: string;
     private hpoCodes: Object[];
     private user_id?: string;
@@ -11,11 +11,11 @@ export class CaseData {
     }
 
     /**
-     * Getter $clinical_case
+     * Getter $clinicalCase
      * @return {string}
      */
-    public get $clinical_case(): string {
-        return this.clinical_case;
+    public get $clinicalCase(): string {
+        return this.clinicalCase;
     }
 
     /**
@@ -59,11 +59,11 @@ export class CaseData {
     }
 
     /**
-     * Setter $clinical_case
+     * Setter $clinicalCase
      * @param {string} value
      */
-    public set $clinical_case(value: string) {
-        this.clinical_case = value;
+    public set $clinicalCase(value: string) {
+        this.clinicalCase = value;
     }
 
     /**

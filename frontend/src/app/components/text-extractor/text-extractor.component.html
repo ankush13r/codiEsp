@@ -1,0 +1,24 @@
+<div *ngIf="documents_types" class="p-1 h-full" fxLayout="column">
+    <div>
+        <nav mat-tab-nav-bar mat-align-tabs="left" color="accent" backgroundColor="" >
+            <a mat-tab-link *ngFor="let type of documents_types" 
+                [routerLink]="[type]" 
+                routerLinkActive
+                #routeLink="routerLinkActive" 
+                [active]="routeLink.isActive" 
+                [class.link-active]="routeLink.isActive">
+                {{type}}
+            </a>
+        </nav>
+    </div>
+    
+    <div fxFlex>
+        <router-outlet></router-outlet>
+    </div>
+
+</div>
+<!-- 
+<div fxFlex="38" mwlResizable [enableGhostResize]="true" [resizeEdges]="{  right: true, left: true }"
+    (resizeEnd)="onResizeEnd($event)">
+</div> -->
+<!-- class="mt-2 d-flex justify-content-start shadow" -->

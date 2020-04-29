@@ -6,7 +6,7 @@
                 <button [color]="(contentType == LINK && safeUrl)?'accent':null"  mat-raised-button class="mr-2"
                     (click)=" showLink()">Source</button>
                 <button [color]="(contentType == TEXT && safeUrl)?'accent':null" mat-raised-button class="mr-2"
-                    (click)="showText()">Target</button>
+                    (click)="showText()">Input preview</button>
             </div>
         </div>
         <div *ngIf="contentType == TEXT && auxText" class="p-1 overflow-auto" fxFlex>
