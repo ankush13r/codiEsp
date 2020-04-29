@@ -2,7 +2,8 @@ import { CaseData } from './caseData'
 import { Version } from './version';
 import { Deserializable } from '../../interfaces/deserializable';
 
-export class ClinicalCase extends CaseData implements Deserializable {
+// extends CaseData
+export class ClinicalCase implements Deserializable {
     private _id: string;
     private case_id: number;
     private source_id: string;
@@ -12,7 +13,7 @@ export class ClinicalCase extends CaseData implements Deserializable {
 
 
     constructor() {
-        super();
+        // super();
         this.newCaseVersion = new Version();
         this.versions = []
     }
