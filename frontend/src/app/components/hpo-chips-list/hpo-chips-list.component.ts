@@ -2,7 +2,6 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, ElementRef, ViewChild, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
 
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -10,6 +9,7 @@ import { map, startWith } from 'rxjs/operators';
 import * as hpo from "../../../assets/hpo/hpo_es.json";
 
 import { Hpo } from '../../interfaces/hpo';
+import { toolTips } from '../../../environments/environment';
 
 
 /**
@@ -28,6 +28,9 @@ export class HpoChipsListComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   formCtrl = new FormControl();
   filteredValues: Observable<Hpo[]>;
+
+  toolTips = toolTips;
+
   @Input() selectedValues: Hpo[] = [];
   @Input() disabled: boolean;
 

@@ -55,7 +55,13 @@ export const toolTips: ToolTip = {
     value: "Double click to open in new window or right to more information",
     position: "above",
     class: null
-  }
+  },
+  hpo_terms: {
+    value: "Add HPO (The Human Phenotype Ontology) terms related to the document.",
+    position: "left",
+    class: "tooltip-dark",
+    delay:200,
+ }
 
 }
 /*

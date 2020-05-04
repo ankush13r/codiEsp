@@ -6,7 +6,7 @@ import { Deserializable } from '../../interfaces/deserializable';
 export class ClinicalCase implements Deserializable {
     private _id: string;
     private case_id: number;
-    private source_id: string;
+    private sourceId: string;
     private versions: Version[];
     private isNew: boolean;
     private newCaseVersion: Version;
@@ -49,11 +49,11 @@ export class ClinicalCase implements Deserializable {
     }
 
     /**
-     * Getter $source_id
+     * Getter $sourceId
      * @return {string}
      */
-    public get $source_id(): string {
-        return this.source_id;
+    public get $sourceId(): string {
+        return this.sourceId;
     }
 
     /**
@@ -97,11 +97,11 @@ export class ClinicalCase implements Deserializable {
     }
 
     /**
-     * Setter $source_id
+     * Setter $sourceId
      * @param {string} value
      */
-    public set $source_id(value: string) {
-        this.source_id = value;
+    public set $sourceId(value: string) {
+        this.sourceId = value;
     }
 
     /**

@@ -1,11 +1,19 @@
-<div class="w-100 h-100 chipsDiv mt-2 mat-primary-outline" (click)="chipsInput.focus()">
+<div class="w-100 h-100 chipsDiv mt-2 mat-primary-outline" 
+    (click)="chipsInput.focus()"
+    [matTooltip]="toolTips.hpo_terms.value"
+    [matTooltipPosition]="toolTips.hpo_terms.position"
+    [matTooltipClass]="toolTips.hpo_terms.class"
+    [matTooltipShowDelay]= "toolTips.hpo_terms.class"
+    >
+
     <input matInput class="chipsInput m-0 p-1 w-100"
     #chipsInput
     [attr.disabled]="disabled? true : null"
-    placeholder="New term ...."
+    placeholder="HPO term ...."
     [formControl]="formCtrl"
     [matAutocomplete]="auto"
-    [matChipInputFor]="chipList"> 
+    [matChipInputFor]="chipList"
+    > 
   <mat-chip-list #chipList aria-label="Selected Value" class="pt-1">
       
     <mat-chip

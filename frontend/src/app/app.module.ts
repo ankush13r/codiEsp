@@ -26,6 +26,7 @@ import { NgMaterialModule } from './modules/ng-material-cdk.module';
 import { HighlightBreakLine } from './pipes/highlight-breakLine.pipe';
 import { OrderObjListPipe } from './pipes/order-obj-list.pipe';
 import { ClinicalDataComponent } from './components/clinical-data/clinical-data.component';
+import { HpoFromComponent } from './components/hpo-from/hpo-from.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ClinicalDataComponent } from './components/clinical-data/clinical-data.
     HighlightBreakLine,
     OrderObjListPipe,
     ClinicalDataComponent,
+    HpoFromComponent,
 
   ],
   imports: [

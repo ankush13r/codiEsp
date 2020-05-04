@@ -12,16 +12,17 @@ export class DataManagmentComponent implements OnInit {
     {
       name: "regex",
       path:"regex",
-      icon: "edit"
+      icon: "edit",
+      char: "*"
     },
     {
       name: "clinical data",
-      path:"data",
+      path:"clinical_data",
       icon: "local_library"
     },
     {
       name: "empty",
-      icon: ""
+      icon: "receipt"
     },
     {
       name: "empty",

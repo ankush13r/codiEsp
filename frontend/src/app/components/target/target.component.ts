@@ -174,7 +174,7 @@ export class TargetComponent implements OnInit, OnChanges {
         yes_no: this.selectedCase.$newCaseVersion.$yes_no,
         clinicalCase: text,
         time: now,
-        source_id: this.document.$_id,
+        sourceId: this.document.$_id,
         user_id: null,
         hpoCodes: this.selectedCase.$newCaseVersion.$hpoCodes.map(code => {
           return { "id": code["id"], "name": code['name'] }

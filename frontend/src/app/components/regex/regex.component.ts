@@ -110,6 +110,8 @@ export class RegexComponent implements OnInit {
     );
   }
 }
+
+//Form class
 @Component({
   selector: 'add-regex',
   templateUrl: 'add-regex-form.html',

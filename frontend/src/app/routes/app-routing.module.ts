@@ -20,7 +20,7 @@ const routes: Routes = [
         component: RegexComponent,
       },
       {
-        path: 'data',
+        path: 'clinical_data',
         component: ClinicalDataComponent,
       },
       {
