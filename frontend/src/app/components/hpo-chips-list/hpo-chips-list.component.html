@@ -1,4 +1,4 @@
-<div class="w-100 h-100 chipsDiv mt-2 mat-primary-outline" 
+<div class="w-100 h-100 chipsDiv" 
     (click)="chipsInput.focus()"
     [matTooltip]="toolTips.hpo_terms.value"
     [matTooltipPosition]="toolTips.hpo_terms.position"
@@ -26,7 +26,7 @@
         matTooltipClass="tooltip-dark"
         matTooltipShowDelay= 700
         >
-        {{value.id}}
+        {{value.name}}
         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
    

@@ -10,15 +10,15 @@ export class DataManagmentComponent implements OnInit {
 
   itemList: any = [
     {
-      name: "regex",
-      path:"regex",
-      icon: "edit",
-      char: "*"
+      name: "clinical data",
+      path: "clinical_data",
+      icon: "local_library"
     },
     {
-      name: "clinical data",
-      path:"clinical_data",
-      icon: "local_library"
+      name: "regex",
+      path: "regex",
+      icon: "edit",
+      char: "*"
     },
     {
       name: "empty",

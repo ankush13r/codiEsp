@@ -4,7 +4,7 @@
         <div fxLayout="row">
             <mat-form-field class="text-center" color="accent">
                 <mat-label class="text-accent">Case</mat-label>
-                <mat-select [(ngModel)]="selectedCase" (selectionChange)="selectNewVersion(true)" name="case">
+                <mat-select [(ngModel)]="selectedCase" (selectionChange)="selectNewVersion()" name="case">
                     <mat-option *ngFor="let case of document.$clinicalCases; let i = index" [value]="case">
                         {{i+1}}
                     </mat-option>
@@ -23,7 +23,7 @@
             </mat-form-field>
         </div>
 
-        <div fxFle="0" fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
             <mat-radio-group *ngIf="selectedCase" name="yes_no" aria-label="Select an option , yes or no">
                 <mat-radio-button name="yes_no" *ngFor="let item of yesNoValues" class="ml-4" value="{{item}}"
                     [checked]="selectedCaseVersion?.$yes_no == item"
@@ -47,7 +47,7 @@
             </textarea>
             <div class="textAreaBacks h-100 w-100" #backTextarea [innerHTML]="selectedCaseVersion?.$clinicalCase|highlightBreakLine"></div>
         </div>
-        <app-chips-list *ngIf="selectedCaseVersion" fxFlex="20" class="p-1 h-100 "
+        <app-chips-list *ngIf="selectedCaseVersion" fxFlex="20" class="p-1 m-2 mat-primary-outline"
             [selectedValues]="selectedCaseVersion.$hpoCodes"
             [disabled]="selectedCaseVersion != selectedCase?.$newCaseVersion">
         </app-chips-list>

@@ -95,7 +95,7 @@ def main(files, data_format):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        prog='docs_to_mongo', usage='%(prog)s -d [/example/folder | folder/* ] -f [link, text, html , xml]')
+        prog='docs_to_mongo', usage='%(prog)s -i [/example/folder | folder/* ] -f [link, text, html , xml]')
     parser.add_argument('-i', '--input', metavar='', nargs='+', type=str, required=True,
                         help="[N] folders of files or just files. If it receives folder/s it will get all files recursively.")
     parser.add_argument('-f', '--format', type=str,

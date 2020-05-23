@@ -3,8 +3,8 @@
     <div class="pt-2" [ngClass]="sortDrawer?'sortDrawer':'drawer'" class="bg-dark">
         <div fxLayout="row" [fxLayoutAlign]="sortDrawer?'center':'end'" class="my-1">
             <button type="button" mat-icon-button (click)="sortDrawer = !sortDrawer" class="text-light">
-                <mat-icon *ngIf="!sortDrawer">arrow_back_ios</mat-icon>
                 <mat-icon *ngIf="sortDrawer">menu</mat-icon>
+                <mat-icon *ngIf="!sortDrawer">menu_open</mat-icon>
             </button>
         </div>
         <mat-nav-list>
@@ -16,8 +16,8 @@
                 [class.sortItem]="sortDrawer"
                 routerLinkActive
                 #routeLink="routerLinkActive" 
+                class="animated flipInX link-not-active item p-2 rounded"
                 [class.link-active]="routeLink.isActive"
-                class="animated flipInX bg-secondary text-light item p-2"
                 >
                 <!--  -->
                 <mat-icon>
@@ -28,7 +28,7 @@
         </mat-nav-list>
         <!--   -->
     </div>
-    <div fxFlex>
+    <div fxFlex class="bg-light-dark">
         <router-outlet></router-outlet>
     </div>
 </div>

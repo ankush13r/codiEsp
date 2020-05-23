@@ -9,6 +9,8 @@ from flask_cors import CORS, cross_origin
 from app.mongo import mongo
 from app.docs import docs
 from app.regex import regex
+from app.clinical_data import clinical_data
+
 
 
 def insertRegex(app, mongo):
@@ -68,13 +70,9 @@ def create_app(test_config=None):
     # apply the blueprints to the app
     app.register_blueprint(docs.bp,url_prefix="/docs")
     app.register_blueprint(regex.bp, url_prefix="/regex")
+    app.register_blueprint(clinical_data.bp, url_prefix="/clinical_cases")
 
-    def before_first_request():
-        print("Intializing the app")
-        initializeDB(app, mongo)
-        print("App is running now")
-
-    app.before_first_request(before_first_request)
-
+   
+    initializeDB(app, mongo)
 
     return app

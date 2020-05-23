@@ -3,6 +3,9 @@ import {Deserializable} from '../../interfaces/deserializable'
 
 export class Version extends CaseData implements Deserializable {
     private id:number;
+    private user_id: string;
+    private location: string;
+    private time: number;
 
  
 
@@ -16,7 +19,6 @@ export class Version extends CaseData implements Deserializable {
       }
 
 
-
     /**
      * Getter $id
      * @return {number}
@@ -25,7 +27,29 @@ export class Version extends CaseData implements Deserializable {
 		return this.id;
 	}
 
+    /**
+     * Getter $user_id
+     * @return {string}
+     */
+	public get $user_id(): string {
+		return this.user_id;
+	}
 
+    /**
+     * Getter $location
+     * @return {string}
+     */
+	public get $location(): string {
+		return this.location;
+	}
+
+    /**
+     * Getter $time
+     * @return {number}
+     */
+	public get $time(): number {
+		return this.time;
+	}
 
     /**
      * Setter $id
@@ -34,6 +58,31 @@ export class Version extends CaseData implements Deserializable {
 	public set $id(value: number) {
 		this.id = value;
 	}
+
+    /**
+     * Setter $user_id
+     * @param {string} value
+     */
+	public set $user_id(value: string) {
+		this.user_id = value;
+	}
+
+    /**
+     * Setter $location
+     * @param {string} value
+     */
+	public set $location(value: string) {
+		this.location = value;
+	}
+
+    /**
+     * Setter $time
+     * @param {number} value
+     */
+	public set $time(value: number) {
+		this.time = value;
+	}
+
 
 
 } 

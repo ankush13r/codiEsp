@@ -25,8 +25,8 @@ import { ReversePipe } from './pipes/reverse.pipe';
 import { NgMaterialModule } from './modules/ng-material-cdk.module';
 import { HighlightBreakLine } from './pipes/highlight-breakLine.pipe';
 import { OrderObjListPipe } from './pipes/order-obj-list.pipe';
-import { ClinicalDataComponent } from './components/clinical-data/clinical-data.component';
-import { HpoFromComponent } from './components/hpo-from/hpo-from.component';
+import { ClinicalDataComponent, ModifyCaseVersionDialog } from './components/clinical-data/clinical-data.component';
+import { VarDirective } from './directives/var.directive';
 
 @NgModule({
   declarations: [
@@ -41,13 +41,15 @@ import { HpoFromComponent } from './components/hpo-from/hpo-from.component';
     HpoChipsListComponent,
     DataManagmentComponent,
     AddRegexDialog,
+    ModifyCaseVersionDialog,
+
 
     RegexComponent,
     TextareaHighlightComponent,
     HighlightBreakLine,
     OrderObjListPipe,
     ClinicalDataComponent,
-    HpoFromComponent,
+    VarDirective,
 
   ],
   imports: [
@@ -66,6 +68,7 @@ import { HpoFromComponent } from './components/hpo-from/hpo-from.component';
     AddRegexDialog
   ],
   providers: [CookieService,   { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  
 })
 export class AppModule { }

@@ -1,5 +1,34 @@
 from app.mongo import mongo
 
+
+def get_valid_pagination_args(args: dict):
+    """Function get arguments, passed by user, to check page number and pae size values are valid.
+    If arguments are invalid, it will return page number as 0 and page size as 10.
+
+    :param args: Receives argument passed by client int url.
+    :type args: dict
+    :return: Page index and page size
+    :rtype: Tuple(int,int)
+    """
+    try:
+        page = args.get("pageIndex")
+        per_page = args.get("pageSize")
+
+        try:
+            page = abs(int(page))
+        except:
+            page = 0
+
+        try:
+            per_page = abs(int(per_page))
+        except:
+            per_page = 10
+    except AttributeError as err:
+        page = 1
+        per_page = 10
+    return page, per_page
+
+
 def get_next_sequence(sequence_name: str, start_sequence: int = 0):
 
 

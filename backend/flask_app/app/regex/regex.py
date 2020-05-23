@@ -56,9 +56,11 @@ class Regex(Resource):
 
             return jsonify(utils.get_regex_data())
         except Exception as err:
-            return jsonify({"error": {"message": str(err)}})
+            abort (204,str(err))
+
 
     def delete(self):
+        
         try:
             _id = request.json["_id"]
             res = mongo.db.regex.delete_one({"_id": ObjectId(_id)})
@@ -71,7 +73,7 @@ class Regex(Resource):
             return jsonify(response)
             
         except Exception as err:
-            return {"error": {"message": str(err)}}
+            abort (204,str(err))
 
 api.add_resource(Regex, '', '/')
 

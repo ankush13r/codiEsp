@@ -36,8 +36,7 @@ export class HpoChipsListComponent implements OnInit {
 
   allHpo: Hpo[];
 
-  @ViewChild('auto', null) matAutocomplete: MatAutocomplete;
-
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   constructor() {
 
@@ -79,7 +78,7 @@ export class HpoChipsListComponent implements OnInit {
     return this.allHpo.filter((hpo: Object) =>
       hpo["name"].toLowerCase().indexOf(filterValue) === 0 ||
       hpo["synonyms"].some(synonym => synonym.toLowerCase().indexOf(filterValue) === 0) ||
-      (hpo["id"].toLowerCase().indexOf(filterValue) === 0 && filterValue.length > 8)
+      (hpo["id"].toLowerCase().indexOf(filterValue) === 0 && filterValue.length > 3)
     ).slice(0,7);
   }
 

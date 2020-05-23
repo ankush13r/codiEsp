@@ -1,9 +1,9 @@
-<div *ngIf=" this.regexApiResponse" fxLayout="column" fxLayoutAlign="start center" class="h-100 mx-1">
-    <div *ngIf="this.regexApiResponse.$regexList?.length>0; then data else noData"></div>
+<div *ngIf="regexItems && regexTypes" fxLayout="column" fxLayoutAlign="start center" class="h-100 mx-1  ">
+    <div *ngIf="regexItems?.length>0; then data else noData"></div>
 
     <ng-template #noData>
-        <div class="mt-2">
-            <h5 *ngIf="this.regexApiResponse.$regexList?.length==0" class="h5">Empty DATABASE!</h5>
+        <div class="shadow-lg w-25 mx-auto mt-4 p-2 rounded">
+            <h5 class="h5 text-center">Empty DATABASE!</h5>
         </div>
     </ng-template>
     <ng-template #data>
@@ -15,7 +15,7 @@
                 <mat-label>Regex type</mat-label>
                 <mat-select [(ngModel)]="filterType" name="typeSelector" (ngModelChange)="onFilter()">
                     <mat-option [value]="-1">All</mat-option>
-                    <mat-option *ngFor="let type of regexApiResponse.$types" [value]="type.$_id">
+                    <mat-option *ngFor="let type of regexTypes" [value]="type.$_id">
                         {{type.$name |titlecase}}</mat-option>
                 </mat-select>
             </mat-form-field>

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ApiService } from './services/api-docs.service';
+import { DocsService } from './services/docs.service';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +11,12 @@ export class AppComponent {
 
   documents_types: String[] = ["pdf", "html", "link"]
 
-  constructor(private apiService:ApiService) {
+  constructor(private service:DocsService) {
 
   }
 
   ngOnInit() {   
-    this.apiService.getIp();
+    this.service.getIp();
   }
 
 }

@@ -1,0 +1,25 @@
+<!-- Form to add regex -->
+
+<form class="h-100" fxLayout="column" fxLayoutAlign="start center" (ngSubmit)="onSubmit()" #caseVersionFrom="ngForm">
+    <div fxFlex="10" class="w-100">
+        <h5 class="h5 text-center p-2">
+            Version {{caseVersion.$id}}
+        </h5>
+    </div>
+
+    
+    <mat-form-field class="w-100" appearance="fill">
+        <mat-label class="text-accent">Clinical Case text</mat-label>
+        <textarea matInput name="clinicalCase" cdkTextareaAutosize cdkAutosizeMinRows="18" cdkAutosizeMaxRows="18"
+            [(ngModel)]="caseVersion.$clinicalCase" required>
+            </textarea>
+    </mat-form-field>
+
+    <app-chips-list fxFlex="20" class="w-100 mat-primary-outline" [selectedValues]="caseVersion.$hpoCodes">
+    </app-chips-list>
+
+    <div class="mt-4 w-100" fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-flat-button color="primary" type="submit" [disabled]="caseVersionFrom?.invalid">Submit</button>
+        <button mat-button color="warn" (click)="onNoClick()" type="button">Cancel</button>
+    </div>
+</form>

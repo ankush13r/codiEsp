@@ -54,8 +54,8 @@
     <mat-drawer-content fxLayout="row" class="h-100 bg-light">
 
         <button type="button" class="slideButton" mat-icon-button color="light" (click)="drawer.toggle()">
-            <mat-icon *ngIf="drawer.opened">arrow_back_ios</mat-icon>
-            <mat-icon *ngIf="!drawer.opened">arrow_forward_ios</mat-icon>
+            <mat-icon *ngIf="drawer.opened">menu_open</mat-icon>
+            <mat-icon *ngIf="!drawer.opened">menu</mat-icon>
         </button>
 
         <app-preview fxFlex="55" class="mx-1 h-100" [document]="document"></app-preview>

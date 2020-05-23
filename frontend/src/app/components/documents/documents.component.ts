@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { trigger, state, style, animate, transition, query, stagger } from '@angular/animations';
 
 import { DataShareService } from '../../services/data-share.service';
-import { ApiService } from "../../services/api-docs.service"
+import { DocsService } from "../../services/docs.service"
 import { ApiResponseDocs } from '../../models/docs/api-response-docs';
 import { Document } from '../../models/docs/document'
 import { toolTips } from '../../../environments/environment';
@@ -41,7 +41,7 @@ export class DocumentsComponent implements OnInit {
   //Get tool tips from constants.
   toolTips = toolTips;
 
-  constructor(private apiService: ApiService, private dataShareService: DataShareService,
+  constructor(private service: DocsService, private dataShareService: DataShareService,
     private route: ActivatedRoute, private cookies: CookieService
   ) { }
 
@@ -100,7 +100,7 @@ export class DocumentsComponent implements OnInit {
     }
 
     if (this.doc_type) {
-      this.apiService.getDocuments(
+      this.service.getDocuments(
         this.doc_type,
         pageIndex,
         pageLength

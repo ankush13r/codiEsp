@@ -25,7 +25,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'regex',
+        redirectTo: 'clinical_data',
         pathMatch: 'full'
       }
     ]

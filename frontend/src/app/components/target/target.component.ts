@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { DataShareService } from '../../services/data-share.service';
-import { ApiService } from '../../services/api-docs.service';
+import { DocsService } from '../../services/docs.service';
 import { Document } from '../../models/docs/document';
 import { ClinicalCase } from '../../models/docs/clinicalCase';
 import { Version } from '../../models/docs/version';
@@ -27,8 +27,8 @@ export class TargetComponent implements OnInit, OnChanges {
   toolTips = toolTips;
 
   @Output() nextOrPrevious = new EventEmitter<number>();
-  @ViewChild('backTextarea', null) backTextarea: ElementRef;
-  @ViewChild('textarea', null) textarea: ElementRef;
+  @ViewChild('backTextarea') backTextarea: ElementRef;
+  @ViewChild('textarea') textarea: ElementRef;
 
   @Input() document: Document;
 
@@ -46,7 +46,7 @@ export class TargetComponent implements OnInit, OnChanges {
   constructor(
     private _snackBar: MatSnackBar,
     private dataShareService: DataShareService,
-    private apiService: ApiService,
+    private service: DocsService,
   ) { }
 
   ngOnInit() { }
@@ -60,14 +60,13 @@ export class TargetComponent implements OnInit, OnChanges {
         if (propName == 'document' && this.document) {
           this.selectLastCase();
         }
-
       }
     }
   }
 
   selectLastCase() {
     this.selectedCase = this.document.$clinicalCases[this.document.$clinicalCases.length - 1];
-    this.selectNewVersion();
+    this.selectLastVersion();
   }
 
 
@@ -108,7 +107,7 @@ export class TargetComponent implements OnInit, OnChanges {
 
   onFinish() {
 
-    this.apiService.finishDocument(this.document.$_id).subscribe(result => {
+    this.service.finishDocument(this.document.$_id).subscribe(result => {
       if (result.data == 1) {
         this.document.$state = "1";
       }
@@ -124,21 +123,21 @@ export class TargetComponent implements OnInit, OnChanges {
   }
 
   @HostListener("scroll", ['$event'])
-  onScroll(event) {  
+  onScroll(event) {
     let scrollOffset = event.srcElement.scrollTop;
     this.backTextarea.nativeElement.scrollTop = scrollOffset
 
   }
 
   @HostListener('window:resize', ['$event'])
-  onWindowResize(event) {  
+  onWindowResize(event) {
     let scrollOffset = this.textarea.nativeElement.scrollTop;
     this.backTextarea.nativeElement.scrollTop = scrollOffset
 
   }
 
 
-  showTarget(preview: boolean = false) {    
+  showTarget(preview: boolean = false) {
     this.dataShareService.changeAuxText(this.selectedCaseVersion.$clinicalCase);
     if (preview) {
       this.dataShareService.previewTarget(true);
@@ -180,9 +179,8 @@ export class TargetComponent implements OnInit, OnChanges {
           return { "id": code["id"], "name": code['name'] }
         })
       }
-      console.log(jsonToSubmit);
 
-      this.apiService.addClinicalCase(jsonToSubmit).subscribe(result => {
+      this.service.addClinicalCase(jsonToSubmit).subscribe(result => {
         this.selectedCase.$_id = result.$_id
         this.selectedCase.$case_id = result.$case_id
         this.selectedCase.$versions = result.$versions;
@@ -206,14 +204,15 @@ export class TargetComponent implements OnInit, OnChanges {
   selectNewVersion() {
     this.selectedCaseVersion = this.selectedCase.$newCaseVersion;
   }
+  selectLastVersion() {
+    this.selectedCaseVersion = this.selectedCase.$versions[this.selectedCase.$versions?.length - 1] || this.selectedCase.$newCaseVersion;
+  }
 
 
-
-
-  openSnackBar(message: string, action: string = null, errorStyle = ['snackbar-errorStyle']) {
+  openSnackBar(message: string, action: string = null, style = null) {
     this._snackBar.open(message, action, {
       duration: 2000,
-      panelClass: errorStyle
+      panelClass: style
     });
   }
 }

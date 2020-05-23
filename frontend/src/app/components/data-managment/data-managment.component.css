@@ -3,11 +3,13 @@
 }
 
 .drawer {
+  min-width: 15em;
   transition: 0.5s;
   width: 15%;
 }
 
 .sortDrawer{
+  min-width: 4em;
   width: 4%;
   transition: 0.5s;
 }
@@ -26,6 +28,11 @@
 .sortItem{
   width: 80% !important;
 
+}
+
+.link-not-active{
+  background:  rgb(136, 136, 136);
+  color: rgb(255, 255, 255);
 }
 
 .link-active{

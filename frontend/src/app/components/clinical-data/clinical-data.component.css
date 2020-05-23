@@ -1,0 +1,34 @@
+.document {
+    background: rgb(255, 255, 255);
+}
+.docsMain {
+    overflow: auto;
+}
+
+.docsList {
+    width: 99% !important;
+    margin: auto !important;
+}
+
+.own-shadow {
+    box-shadow: 0 1px 2px 0;
+}
+.pre-line {
+    white-space: pre-line;
+}
+
+
+.font-mono {
+    font-family: "Roboto Mono", monospace !important;
+}
+.row {
+    display: flex; /* equal height of the children */
+}
+
+.col1 {
+    flex: 3; /* additionally, equal width */
+}
+
+.col2 {
+    flex: 2; /* additionally, equal width */
+}

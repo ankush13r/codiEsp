@@ -17,7 +17,10 @@ from flask import jsonify, request, send_file, abort, Blueprint
 
 from app import constants
 from app.mongo import mongo
-from . import utils
+from app.docs import utils
+from app.shared import utils as shared_utils
+
+
 
 bp = Blueprint("docs", __name__)
 
@@ -54,7 +57,7 @@ def get_documents(data_type):
     if format == "link":
         abort(404)
     # Getting valid page number and page length , by calling a function form utils.
-    page, per_page = utils.get_valid_pagination_args(request.args)
+    page, per_page = shared_utils.get_valid_pagination_args(request.args)
     # Getting data by the function get_documents from utils.
     data = utils.get_documents(data_type, page, per_page)
 
@@ -106,7 +109,6 @@ def save_data():
     """ A request must be similar to the next example,
         those keys contain a interrogate symbole (?) are not required.
     """
-
     try:
         isNew = False
 
@@ -121,17 +123,17 @@ def save_data():
         if isNew or result.modified_count > 0:
             mongoObj = mongo.db.clinicalCases.find_one({"_id": _id})
 
-            mongo.db.documents.update_one({"_id": mongoObj["source_id"]}, {
+            mongo.db.documents.update_one({"_id": mongoObj["sourceId"]}, {
                 "$set": {"state": 0}})
 
             mongoObj.update({"_id": str(mongoObj["_id"]),
-                             "source_id": str(mongoObj["source_id"])
+                             "sourceId": str(mongoObj["sourceId"])
                              })
 
             try:
                 for version in mongoObj["versions"]:
                     version.update(
-                        {"location_id": str(version["location_id"])})
+                        {"locationId": str(version["locationId"])})
             except Exception as err:
                 pass
 
@@ -176,14 +178,14 @@ def save_data():
     # case = {
     # "clinicalCase": "",
     # "case_id": getNextSec("clinicalCases"),
-    # "source_id": ObjectId(doc_id),
+    # "sourceId": ObjectId(doc_id),
     # "versions": [],
     # "new": True
     # }
     # mongo_id = mongo.db.clinicalCases.insert(case)
     # result = mongo.db.clinicalCases.find_one(mongo_id)
     # result.update({"_id": str(result["_id"]),
-    #    "source_id": str(result["source_id"])})
+    #    "sourceId": str(result["sourceId"])})
 #
     # except Exception as err:
     # abort(404)

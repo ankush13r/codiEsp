@@ -15,34 +15,6 @@ from app.shared import utils as shared_utils
 FILE_CONST = "./data/constants.json"
 
 
-def get_valid_pagination_args(args: dict):
-    """Function get arguments, passed by user, to check page number and pae size values are valid.
-    If arguments are invalid, it will return page number as 0 and page size as 10.
-
-    :param args: Receives argument passed by client int url.
-    :type args: dict
-    :return: Page index and page size
-    :rtype: Tuple(int,int)
-    """
-    try:
-        page = args.get("pageIndex")
-        per_page = args.get("pageSize")
-
-        try:
-            page = abs(int(page))
-        except:
-            page = 0
-
-        try:
-            per_page = abs(int(per_page))
-        except:
-            per_page = 10
-    except AttributeError as err:
-        page = 1
-        per_page = 10
-    return page, per_page
-
-
 def read_file(file_path):
     """ Function to read file passed by argument. Returns the content of file.
         If it can't read file than return None.
@@ -185,68 +157,76 @@ def valid_mongo_query(json):
     """
 
     _id = json.get("_id")
-    source_id = ObjectId(json["source_id"])
+    sourceId = ObjectId(json["sourceId"])
     caseText = json["clinicalCase"]
     time = int(json["time"])
     user_id = json["user_id"]
     hpoCodes = json["hpoCodes"]
     ip = json["ip"]
     # Getting location id from DB
-    location_id = get_location(ip)
-
+    locationId = get_location(ip)
     # Case object to save into the DB.
-    caseObj = {"clinicalCase": caseText,
-               "hpoCodes": hpoCodes
-               }
+    caseVersion = {"clinicalCase": caseText,
+                   "hpoCodes": hpoCodes
+                   }
 
     yes_no = json.get("yes_no")
     # If json request contains yes_no key it updates the caseObj dict with it.
     if yes_no:
-        caseObj.update({"yes_no": yes_no})
+        caseVersion.update({"yes_no": yes_no})
 
     # Cloning the object as version. deepcopy makes a copy of object, recursively.
     # "https://docs.python.org/2/library/copy.html"
-    version = copy.deepcopy(caseObj)
-    version.update({"time": time,
-                    "user_id": user_id,
-                    "location_id": location_id})
+    # version = copy.deepcopy(caseObj)
+
+    caseVersion.update({"time": time,
+                        "user_id": user_id,
+                        "locationId": locationId})
+
+    caseObj = {}
 
     # If the _id exist it means the document already exist and it will create a query to update that document
     if _id:
         _id = ObjectId(_id)
         # create a new id for the version.
-        v_id = shared_utils.get_next_sequence("case_version_"+str(_id),1)
+        v_id = shared_utils.get_next_sequence("case_version_"+str(_id), 1)
 
         # update the version with it's new id.
-        version.update({"id": v_id})
-        caseObj.update({"last_version_id": v_id})
-        # Uncomment to update source_id into the caseObj.
+        caseVersion.update({"id": v_id})
+        if not mongo.db.clinicalCases.find_one({"_id": ObjectId(_id)}, {"selectedVersionId": 1, "_id": 0}):
+            caseObj = {
+                "clinicalCase": caseText,
+                "hpoCodes": hpoCodes
+            }
+
+        # Uncomment to update sourceId into the caseObj.
         # Even if it's not necessary because if case already exists, it means it must have id.
-        # caseObj.update({"source_id": source_id})s
+        # caseObj.update({"sourceId": sourceId})
 
         # new mongo query to update the document by id. Version to add into the list of versions.
         # And all other key with new values (caseObj).
         query = {
-            "$addToSet": {"versions": version},
-            "$set": caseObj,
-        }
+            "$addToSet": {"versions": caseVersion},
 
+        }
+        query.update({"$set": caseObj})
     # If the _id doesn't exist it means it a new document.
     # So it creates a mongo query to insert the document.
     else:
 
-        # create a new id for the document by source_id. It is an alternative id.
-        case_id = shared_utils.get_next_sequence("case_id_"+str(source_id))
+        # create a new id for the document by sourceId. It is an alternative id.
+        case_id = shared_utils.get_next_sequence("case_id_"+str(sourceId))
 
         # update the version with it's new id as 0. If the document (clinical case) is new, means it hasn't any version yet.
-        version.update({"id": 0})
+        caseVersion.update({"id": 0})
 
-        # Update the object with version as list. source_id (It's origen document's id, that is already in DB), and case_id.
+        # Update the object with version as list. sourceId (It's origen document's id, that is already in DB), and case_id.
         caseObj.update(
-            {"versions": [version],
-             "source_id": source_id,
+            {"versions": [caseVersion],
+             "sourceId": sourceId,
              "case_id": case_id,
-             "last_version_id": 0})
+             "clinicalCase": caseText,
+             "hpoCodes": hpoCodes})
         query = caseObj
 
     # _id maybe none, if it was new document.
@@ -254,9 +234,9 @@ def valid_mongo_query(json):
 
 
 def get_documents(file_type: str, page: int = 0, per_page: int = 10):
-    """It return a dict with list of document. 
+    """It return a dict with list of document.
     Receives type of file as "xml, html,pdf, text,etc" (required), page number as page (defauld 0), page size as per_page (default 10).
-    It collects documents  from Database, depending in argument and retrun them. 
+    It collects documents  from Database, depending in argument and retrun them.
     Ex: If the page is 3 and per page is 10 , it returns 30 to 39 including 30
 
     :param file_type: str ("xml, html,pdf, text,etc")
@@ -265,7 +245,7 @@ def get_documents(file_type: str, page: int = 0, per_page: int = 10):
     :type page: int, optional
     :param per_page: The size of page, defaults to 10
     :type per_page: int, optional
-    :return: Dict with documents, total records length, per page , page number, 
+    :return: Dict with documents, total records length, per page , page number,
              and error key as None or with message, if there is any error occuress.
     :rtype: dict
     """
@@ -282,22 +262,22 @@ def get_documents(file_type: str, page: int = 0, per_page: int = 10):
     error = None
     documents = mongo_documents[start:end]
     for document in documents:
-        if document["format"] != "link":
-            link = safe_join(constants.API_BASE_URI,
-                             document["format"], str(document["_id"]))
-        else:
+        link = None
+        if document["format"] == "link":
+
             link = document["link"]
 
-        clinicalCases = list(mongo.db.clinicalCases.find({"source_id":
-                                                          document["_id"]}, {"location_id": 0}))
+        clinicalCases = list(mongo.db.clinicalCases.find(
+            {"sourceId": document["_id"]}, {"locationId": 0}
+        ))
 
         for case in clinicalCases:
             case.update({"_id": str(case["_id"]),
-                         "source_id": str(case["source_id"]),
+                         "sourceId": str(case["sourceId"]),
                          })
             try:
                 for version in case["versions"]:
-                    version.pop('location_id', None)
+                    version.pop('locationId', None)
             except:
                 pass
 
@@ -340,15 +320,15 @@ def get_documents(file_type: str, page: int = 0, per_page: int = 10):
 #     return new_v_id
 
 
-# def get_case_id(source_id):
-#     """ Function to create new case id by source_id, because a source can have more than one clinical case.
-#         So first of all it will get ids of all clinical cases related to the source_id, received as parameter.
+# def get_case_id(sourceId):
+#     """ Function to create new case id by sourceId, because a source can have more than one clinical case.
+#         So first of all it will get ids of all clinical cases related to the sourceId, received as parameter.
 #         And after it will create a new id and return it.
 #     """
 #     new_case_id = 0
-#     # get all clinical cases related to the source_id received as parameter
+#     # get all clinical cases related to the sourceId received as parameter
 #     results = list(mongo.db.clinicalCases.find(
-#         {"source_id": source_id}, {"_id": 0, "case_id": 1}))
+#         {"sourceId": sourceId}, {"_id": 0, "case_id": 1}))
 
 #     try:
 #         # All clinical cases ids, it may empty if there is no result

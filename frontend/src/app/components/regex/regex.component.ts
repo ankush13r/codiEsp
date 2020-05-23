@@ -3,8 +3,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { RegexObj } from '../../models/regex/regex-obj';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
-import { ApiRegexService } from '../../services/api-regex.service';
-import { ApiResponseRegex } from '../../models/regex/api-response-regex';
+import { RegexService } from '../../services/regex.service';
 import { RegexType } from 'src/app/models/regex/regex-type';
 
 
@@ -18,7 +17,9 @@ export class RegexComponent implements OnInit {
 
   changedRegex: string[];
 
-  regexApiResponse: ApiResponseRegex = null;
+  regexTypes: RegexType[];
+
+  regexItems: RegexObj[] = [];
 
   filterItems: RegexObj[] = [];
 
@@ -26,32 +27,27 @@ export class RegexComponent implements OnInit {
 
   filterString: string = ""
 
-  constructor(private _matDialog: MatDialog, private regexService: ApiRegexService,  private changeDetectorRefs: ChangeDetectorRef) { }
+  constructor(private _matDialog: MatDialog, private regexService: RegexService) { }
 
 
   ngOnInit() {
     this.regexService.getAll().subscribe(result => {
-      this.regexApiResponse = result;
-      this.filterItems = Object.assign([], this.regexApiResponse.$regexList);
+      this.assignData(result);
     });
   }
 
-  drop(event: any) {
-    // if(event.previousIndex!=event.currentIndex){
-    //   let obj = this.filterItems.find((obj,x)=>x=event.previousIndex)
-    //   obj.$order = event.currentIndex;
-
-    //   this.regexService.modify(obj).subscribe(res => {
-    //     this.regexApiResponse = res;
-    //     this.filterItems = Object.assign([], this.regexApiResponse.$regexList);
-    //   });
+  assignData(data: any) {
+    if (data) {
+      this.regexTypes = data.types?.map(type => Object.assign(new RegexType(), type));
+      this.regexItems = data.regex?.map(regexObj => Object.assign(new RegexObj(), regexObj));
+      this.onFilter();
     }
-    
-    
+  }
 
-  onFilter(){
 
-    this.filterItems = this.regexApiResponse.$regexList.filter((obj: RegexObj) =>
+  onFilter() {
+
+    this.filterItems = this.regexItems.filter((obj: RegexObj) =>
       obj.$value.toLowerCase().includes(this.filterString.toLowerCase()) &&
       (this.filterType == obj.$type_id || this.filterType == -1)
     );
@@ -59,7 +55,7 @@ export class RegexComponent implements OnInit {
 
   getTypeName(id: string) {
     try {
-      return this.regexApiResponse.$types.find(type => type.$_id == id).$name
+      return this.regexTypes.find(type => type.$_id == id).$name
     } catch (error) {
       return "------"
     }
@@ -71,10 +67,7 @@ export class RegexComponent implements OnInit {
     //When user close the dialog
     dialogRef.afterClosed().subscribe((result: RegexObj) => {
       if (result) {
-        this.regexService.add(result).subscribe(res => {
-          this.regexApiResponse = res;
-          this.filterItems = Object.assign([], this.regexApiResponse.$regexList);
-        });
+        this.regexService.add(result).subscribe(res => this.assignData(res));
       }
     });
   }
@@ -84,32 +77,41 @@ export class RegexComponent implements OnInit {
     const dialogRef = this.openDialog(regexObj)
 
     //When user close the dialog comes here.
-    dialogRef.afterClosed().subscribe((result: RegexObj) => {      
-      if (result) {
-        this.regexService.modify(result).subscribe(res => {
-          this.regexApiResponse = res;
-          this.filterItems = Object.assign([], this.regexApiResponse.$regexList);
-          
-        });
+    dialogRef.afterClosed().subscribe((result: RegexObj) => {
+      
+      if (result && JSON.stringify(result)!= JSON.stringify(regexObj)) {
+        this.regexService.modify(result).subscribe(res => this.assignData(res))
       }
     });
   }
 
+
+  
   openDialog(regexObj: RegexObj) {
     //Open dialog box of DialogAddTool.html
     return this._matDialog.open(AddRegexDialog, {
       width: '400px',
       height: '400px',
-      data: { regex: regexObj, types: this.regexApiResponse.$types }
+      data: { regex: regexObj, types: this.regexTypes }
     });
   }
 
   onDelete(event, id: string) {
     event.stopPropagation();
-    this.regexService.delete(id).subscribe(result=>console.log(result)
+    this.regexService.delete(id).subscribe(result => {
+      if (result?.deleted > 0)
+        this.deleteRegex(id);
+    }
     );
   }
+
+  deleteRegex(id: string) {
+    this.regexItems = this.regexItems.filter(item => item.$_id != id);
+    this.onFilter();
+  }
 }
+
+
 
 //Form class
 @Component({
@@ -137,7 +139,7 @@ export class AddRegexDialog implements OnInit {
       this.types = this.data.types;
 
     } else {
-      //Initialize staff member.
+      //Initialize regex Obj.
       this.regexObj = new RegexObj();
     }
   }
@@ -147,7 +149,7 @@ export class AddRegexDialog implements OnInit {
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(null);
   }
 
 }

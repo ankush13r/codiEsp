@@ -19,7 +19,7 @@ export class PreviewComponent implements OnInit , OnChanges{
   title = "Preview"
   @Input() document: Document;
   safeUrl: SafeResourceUrl;
-  auxText: String;
+  auxText: string;
   contentType: String;
   baseUrl = 'http://127.0.0.1:5000/docs/';
 
