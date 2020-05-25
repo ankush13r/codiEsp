@@ -41,7 +41,6 @@ export class TextExtractorComponent implements OnInit {
     if (this.activateRoute.snapshot.firstChild) {
       type = this.activateRoute.snapshot.firstChild.params.type;
     }
-    console.log(type);
 
     if (!type) {
 
@@ -50,8 +49,4 @@ export class TextExtractorComponent implements OnInit {
     }
   }
 
-
-  onResizeEnd(event: ResizeEvent): void {
-    console.log('Element was resized', event);
-  }
 }

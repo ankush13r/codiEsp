@@ -1,0 +1,22 @@
+<span mat-dialog-title color="primary" class="text-center">Login</span>
+<form mat-dialog-content #loginForm="ngForm">
+    <mat-form-field class="w-100">
+        <input matInput placeholder="Email" #email="ngModel" [(ngModel)]="user.$email" name="email"
+            required autofocus=true>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+        <input matInput [type]="passwordType" placeholder="Password" #password="ngModel"
+            [(ngModel)]="user.$password" name="password" required>
+        <button mat-button matSuffix mat-icon-button aria-label="show" (click)="changePasswordType()">
+            <mat-icon *ngIf="passwordType == 'password'">visibility</mat-icon>
+            <mat-icon *ngIf="passwordType != 'password'">visibility_off</mat-icon>
+        </button>
+    </mat-form-field>
+    <br>
+    <span *ngIf="error" class="text-danger">{{error}}</span>
+    <br>
+    <button type="submit" [disabled]="loginForm.invalid" mat-raised-button color="primary" class="w-100 mt-4"
+        (click)="onSubmit()">
+        Sign In
+    </button>
+</form>

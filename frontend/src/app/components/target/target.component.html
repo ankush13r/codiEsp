@@ -40,7 +40,7 @@
         </div>
 
         <div fxFlex="50" class="textAreaParent mat-primary-outline">
-            <textarea *ngIf="selectedCase" class="textarea h-100 w-100" name="clinicalCase" type="textarea"
+            <textarea *ngIf="selectedCase" class="textarea h-100 w-100" name="clinicalCase" type="textarea" matInputAutofocus
                 [disabled]="selectedCaseVersion != selectedCase?.$newCaseVersion" required  #textarea
                 [(ngModel)]="selectedCaseVersion.$clinicalCase" (ngModelChange)="onChangeText($event)"
                 (scroll)="onScroll($event)">

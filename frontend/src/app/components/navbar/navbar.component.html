@@ -1,45 +1,29 @@
-<mat-toolbar color="primary" class="navBar"> <!--color="primary" -->
+<mat-toolbar color="primary" class="navBar">
+    <!--color="primary" -->
     <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between" class="my-1">
-        <a href="https://www.bsc.es">
-            <img src="assets/images/bsc/BSC-white.svg" alt="Barcelona Supercomputing Center" class="image1 h-100" />
-        </a>
-        <div  fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1em">
-            <nav  mat-tab-nav-bar mat-align-tabs="left" color="primary" backgroundColor="primary" >
-                <a mat-tab-link *ngFor="let component of components" [routerLink]="[component.root]" routerLinkActive
-                    #routeLink="routerLinkActive" [active]="routeLink.isActive" [class.link-active]="routeLink.isActive">
-                    {{component.name |titlecase}}
-                </a>
-            </nav>
-        </div>
+
         <a href="https://www.plantl.gob.es/">
             <img src="assets/images/temu/plantl.png" alt="Plan de Impulso de las Tecnologías del Lenguaje"
                 class="bg-light rounded image2" />
         </a>
-    </mat-toolbar-row>
-</mat-toolbar>
-
-
-
-<!-- 
-
-<mat-toolbar color="primary" class="navBar">
-    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between" class="my-1">
-        <a href="https://www.bsc.es">
-            <img src="assets/images/bsc/BSC-white.svg" alt="Barcelona Supercomputing Center" class="h-100" />
-        </a>
-        <div  fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1em">
-            <nav  mat-tab-nav-bar mat-align-tabs="left" color="warn" backgroundColor="primary" >
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1em">
+            <nav mat-tab-nav-bar mat-align-tabs="left" color="primary" backgroundColor="primary">
                 <a mat-tab-link *ngFor="let component of components" [routerLink]="[component.root]" routerLinkActive
-                    #routeLink="routerLinkActive" [active]="routeLink.isActive" [class.link-active]="routeLink.isActive">
+                    #routeLink="routerLinkActive" [active]="routeLink.isActive"
+                    [class.link-active]="routeLink.isActive">
                     {{component.name |titlecase}}
+
                 </a>
             </nav>
         </div>
-        <a href="https://www.plantl.gob.es/">
-            <img src="assets/images/temu/plantl.png" alt="Plan de Impulso de las Tecnologías del Lenguaje"
-                class="h-100  bg-light rounded image2" />
-        </a>
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="0.05em">
+            <button *ngIf="!isLoggedIn" mat-button class="my-2" (click)="login()">Sign In<i
+                    class="fa fa-sign-in fa-2x ml-2" aria-hidden="true"></i>
+            </button>
+            <button *ngIf="isLoggedIn" mat-button (click)="logout()">Sign Out<i
+                    class="fa fa-sign-out fa-2x ml-2" aria-hidden="true"></i>
+            </button>
+        </div>
+
     </mat-toolbar-row>
 </mat-toolbar>
-
- -->

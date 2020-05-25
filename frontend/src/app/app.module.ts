@@ -27,10 +27,11 @@ import { HighlightBreakLine } from './pipes/highlight-breakLine.pipe';
 import { OrderObjListPipe } from './pipes/order-obj-list.pipe';
 import { ClinicalDataComponent, ModifyCaseVersionDialog } from './components/clinical-data/clinical-data.component';
 import { VarDirective } from './directives/var.directive';
-
+import { LoginComponent } from './components/login/login.component';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 @NgModule({
   declarations: [
-    ReversePipe,      
+    ReversePipe,
     AppComponent,
     NavbarComponent,
     DocumentsComponent,
@@ -50,6 +51,7 @@ import { VarDirective } from './directives/var.directive';
     OrderObjListPipe,
     ClinicalDataComponent,
     VarDirective,
+    LoginComponent,
 
   ],
   imports: [
@@ -67,8 +69,12 @@ import { VarDirective } from './directives/var.directive';
   entryComponents: [
     AddRegexDialog
   ],
-  providers: [CookieService,   { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }],
+  providers: [
+    CookieService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent],
-  
+
 })
 export class AppModule { }

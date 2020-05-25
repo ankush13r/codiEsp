@@ -9,7 +9,8 @@ import {
   MatButtonModule, MatSlideToggleModule, MatRadioModule,
   MatSidenavModule, MatDividerModule, MatToolbarModule, MatSelectModule,
   MatChipsModule, MatAutocompleteModule, MatTooltipModule, MatProgressSpinnerModule,
-  MatGridListModule, MatSnackBarModule, MatDialogModule, MatCheckboxModule,MatTableModule, MatSortModule
+  MatGridListModule, MatSnackBarModule, MatDialogModule, MatCheckboxModule,MatTableModule,
+   MatSortModule, MatProgressBarModule
 }
   from '@angular/material';
 
@@ -44,7 +45,8 @@ const modules = [
   DragDropModule,
   TableVirtualScrollModule,
   MatTableModule,
-  MatSortModule
+  MatSortModule,
+  MatProgressBarModule
 ]
 
 @NgModule({

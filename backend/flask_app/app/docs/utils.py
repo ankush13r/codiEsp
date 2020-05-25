@@ -183,7 +183,7 @@ def valid_mongo_query(json):
                         "user_id": user_id,
                         "locationId": locationId})
 
-    caseObj = {}
+    query = {}
 
     # If the _id exist it means the document already exist and it will create a query to update that document
     if _id:
@@ -194,10 +194,10 @@ def valid_mongo_query(json):
         # update the version with it's new id.
         caseVersion.update({"id": v_id})
         if not mongo.db.clinicalCases.find_one({"_id": ObjectId(_id)}, {"selectedVersionId": 1, "_id": 0}):
-            caseObj = {
+            query.update({"$set": {
                 "clinicalCase": caseText,
                 "hpoCodes": hpoCodes
-            }
+            }})
 
         # Uncomment to update sourceId into the caseObj.
         # Even if it's not necessary because if case already exists, it means it must have id.
@@ -205,12 +205,10 @@ def valid_mongo_query(json):
 
         # new mongo query to update the document by id. Version to add into the list of versions.
         # And all other key with new values (caseObj).
-        query = {
+        query.update({
             "$addToSet": {"versions": caseVersion},
-
-        }
-        query.update({"$set": caseObj})
-    # If the _id doesn't exist it means it a new document.
+        })
+    # If the _id doesn't exist it means it is a new document.
     # So it creates a mongo query to insert the document.
     else:
 
@@ -221,13 +219,12 @@ def valid_mongo_query(json):
         caseVersion.update({"id": 0})
 
         # Update the object with version as list. sourceId (It's origen document's id, that is already in DB), and case_id.
-        caseObj.update(
+        query.update(
             {"versions": [caseVersion],
              "sourceId": sourceId,
              "case_id": case_id,
              "clinicalCase": caseText,
              "hpoCodes": hpoCodes})
-        query = caseObj
 
     # _id maybe none, if it was new document.
     return _id, query

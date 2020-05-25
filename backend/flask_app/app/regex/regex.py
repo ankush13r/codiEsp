@@ -16,6 +16,7 @@ api = Api(bp)
 
 
 class Regex(Resource):
+
     def get(self):
         return jsonify(utils.get_regex_data())
 

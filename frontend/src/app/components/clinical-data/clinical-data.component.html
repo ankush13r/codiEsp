@@ -1,4 +1,4 @@
-<div class="h-100" *ngIf="apiResponseDocs" fxLayout="column">
+<div class="h-100 main" *ngIf="apiResponseDocs" fxLayout="column">
     <div *ngIf="apiResponseDocs?.$totalRecords>0; then data else noData"></div>
 
     <ng-template #noData>
@@ -36,38 +36,38 @@
                     </div>
                     <ng-container *ngIf="showDocs.includes(doc.$_id)">
                         <div *ngFor="let case of doc.$clinicalCases;let j = index" class="px-3 py-1 my-2 border">
-                                <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1em">
-                                    <div class="pt-2">
-                                        <span>{{i+1}}.{{j+1}}</span>
-                                    </div>
-
-                                    <button type="button" mat-button color="warn">
-                                        <mat-icon>delete_forever</mat-icon> <span class="pt-1"
-                                            (click)="onDeleteCase(doc,case.$_id)">Delete Clinical Case</span>
-                                    </button>
+                            <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1em">
+                                <div class="pt-2">
+                                    <span>{{i+1}}.{{j+1}}</span>
                                 </div>
 
-                                <div *ngIf="showMoreCaseId != case.$_id" class="row animated fadeIn">
-
-                                    <div class="p-2 m-1 bg-light rounded col1">
-                                        <h6 class="h6">Abstract:</h6>
-                                        <p class="text-justify pre-line">{{case.$clinicalCase}}</p>
-                                    </div>
-                                    <div class="p-2 m-1 bg-light rounded col2" *ngIf="case.$hpoCodes?.length>0">
-                                        <h6 class="h6">Human Phenotype Ontology (HPO):</h6>
-                                        <mat-chip-list aria-label="Human Phenotype Ontology (HPO)">
-                                            <mat-chip *ngFor="let item of case.$hpoCodes">
-                                                <a href="https://hpo.jax.org/app/browse/term/{{item.id}}">
-                                                    {{item.name}}
-                                                </a>
-                                            </mat-chip>
-                                        </mat-chip-list>
-                                    </div>
-                                </div>
-                                <button class="w-100 mt-2" type="button" (click)="onShowMore(case.$_id)"
-                                    *ngIf="showMoreCaseId != case.$_id" mat-button color="primary">
-                                    More...
+                                <button *ngIf="isAdmin" type="button" mat-button color="warn">
+                                    <mat-icon>delete_forever</mat-icon> <span class="pt-1"
+                                        (click)="onDeleteCase(doc,case.$_id)">Delete Clinical Case</span>
                                 </button>
+                            </div>
+
+                            <div *ngIf="showMoreCaseId != case.$_id" class="row animated fadeIn">
+
+                                <div class="p-2 m-1 bg-light rounded col1">
+                                    <h6 class="h6">Abstract:</h6>
+                                    <p class="text-justify pre-line">{{getSelectedVersion(case).$clinicalCase}}</p>
+                                </div>
+                                <div class="p-2 m-1 bg-light rounded col2" *ngIf="case.$hpoCodes?.length>0">
+                                    <h6 class="h6">Human Phenotype Ontology (HPO):</h6>
+                                    <mat-chip-list aria-label="Human Phenotype Ontology (HPO)">
+                                        <mat-chip *ngFor="let item of case.$hpoCodes">
+                                            <a href="https://hpo.jax.org/app/browse/term/{{item.id}}">
+                                                {{item.name}}
+                                            </a>
+                                        </mat-chip>
+                                    </mat-chip-list>
+                                </div>
+                            </div>
+                            <button class="w-100 mt-2" type="button" (click)="onShowMore(case.$_id)"
+                                *ngIf="showMoreCaseId != case.$_id" mat-button color="primary">
+                                More...
+                            </button>
                             <div *ngIf="showMoreCaseId == case.$_id"
                                 class="mt-2 p-2 own-shadow rounded animated fadeIn">
 
@@ -84,8 +84,8 @@
                                             <th>DATE</th>
                                             <th>Clinical Case</th>
                                             <th class="text-center">Selected version</th>
-                                            <th class="text-center">Modify</th>
-                                            <th class="text-center">Delete</th>
+                                            <th *ngIf="isAdmin" class="text-center">Modify</th>
+                                            <th *ngIf="isAdmin" class="text-center">Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody *ngFor="let version of case.$versions">
@@ -108,21 +108,22 @@
                                                 </div>
                                             </td>
                                             <td class="text-center">
-                                                <mat-slide-toggle name="selectedVersionId"
+                                                <mat-slide-toggle *ngIf="isAdmin" class="mt-2" name="selectedVersionId"
                                                     [checked]="version.$id == case.$selectedVersionId"
                                                     (change)="onChangeSelectedVersionId($event,case,version.$id)">
                                                 </mat-slide-toggle>
-                                                <mat-icon class="mt-2"
+                                                <mat-icon *ngIf="!isAdmin" class="mt-2"
                                                     [ngClass]="{'text-primary': version.$id == case.$selectedVersionId}">
                                                     {{version.$id == case.$selectedVersionId?'done':'clear'}}
                                                 </mat-icon>
                                             </td>
                                             <td class=" text-center">
-                                                <button mat-icon-button color="primary" (click)="onModify(case.$_id, version)">
+                                                <button *ngIf="isAdmin" mat-icon-button color="primary"
+                                                    (click)="onModify(case.$_id, version)">
                                                     <mat-icon>edit</mat-icon>
                                                 </button>
                                             </td>
-                                            <td class=" text-center">
+                                            <td *ngIf="isAdmin" class=" text-center">
                                                 <!-- align-middle -->
                                                 <button mat-icon-button color="warn"
                                                     (click)="onDeleteVersion(doc,case.$_id,version.$id)">
@@ -142,4 +143,7 @@
         </div>
     </ng-template>
 
+    <div class="wrapper" *ngIf="isLodging">
+        <mat-spinner class="inner"></mat-spinner>
+    </div>
 </div>

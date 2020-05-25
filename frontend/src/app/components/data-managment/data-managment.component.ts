@@ -19,19 +19,8 @@ export class DataManagmentComponent implements OnInit {
       path: "regex",
       icon: "edit",
       char: "*"
-    },
-    {
-      name: "empty",
-      icon: "receipt"
-    },
-    {
-      name: "empty",
-      icon: ""
-    },
-    {
-      name: "empty",
-      icon: ""
-    },
+    }
+   
   ]
   constructor() { }
 

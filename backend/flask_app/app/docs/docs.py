@@ -21,7 +21,6 @@ from app.docs import utils
 from app.shared import utils as shared_utils
 
 
-
 bp = Blueprint("docs", __name__)
 
 
@@ -146,20 +145,9 @@ def save_data():
                                     "error": str(err)})
 
         abort(400, str(err))
-    
+
     return jsonify(result_to_send)
 
-
-
-# -----------------------------------------------------------------------
-# ------------------------------------------------------------------------
-
-# @bp.route("/<data_type>/add", methods=["POST"])
-# def save_data(data_type):
-#     data_type = data_type.strip()
-#     directory = constants.PATHS_TO_DIR.get(data_type)
-
-#     doc_id = request.json[];
 
 
 # @bp.before_request
@@ -168,26 +156,3 @@ def save_data():
 #         session["logged_in"] = True
 #         session.permanent = True
 #         app.permanent_session_lifetime = timedelta(seconds=1)
-
-
-# @bp.route("/new_case", methods=["POST"])
-# def create_new_case():
-    # try:
-    # doc_id = request.json["_id"]
-#
-    # case = {
-    # "clinicalCase": "",
-    # "case_id": getNextSec("clinicalCases"),
-    # "sourceId": ObjectId(doc_id),
-    # "versions": [],
-    # "new": True
-    # }
-    # mongo_id = mongo.db.clinicalCases.insert(case)
-    # result = mongo.db.clinicalCases.find_one(mongo_id)
-    # result.update({"_id": str(result["_id"]),
-    #    "sourceId": str(result["sourceId"])})
-#
-    # except Exception as err:
-    # abort(404)
-#
-    # return jsonify(result)

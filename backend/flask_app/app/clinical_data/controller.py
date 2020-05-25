@@ -7,7 +7,6 @@ from operator import itemgetter
 
 
 def get_data(page: int = 0, per_page: int = 10, sort_column: str = "--"):
-
     start = int(page) * int(per_page)
     end = int(start) + int(per_page)
 
@@ -90,36 +89,15 @@ def delete_case(case_id):
 def modify_selected_version(case_id, obj):
     selected_version_id = obj.get("selectedVersionId", None)
 
+    response = [True]
     try:
-        obj = mongo.db.clinicalCases.find_one({"_id": ObjectId(case_id)})
-        setObj = {}
-
-        if selected_version_id:
-            version_obj = [version for version in obj["versions"]
-                           if version["id"] == selected_version_id][0]
-        else:
-            version_obj = sorted(obj.get("versions"),
-                                 key=itemgetter('time'))[-1]
-
-        setObj.update(
-            {
-                "clinicalCase": version_obj["clinicalCase"],
-                "hpoCodes": version_obj["hpoCodes"],
-                "selectedVersionId": selected_version_id
-            })
-
-        result = mongo.db.clinicalCases.update_one(
-            {"_id": ObjectId(case_id)},
-            {"$set": setObj}
-
-        )
-
-        response = [result.modified_count == 1]
+        res = mongo.db.clinicalCases.update_one({"_id": ObjectId(case_id)}, {
+                                                "$set": {"selectedVersionId": selected_version_id}})
     except Exception as err:
         response = [False, str(err)]
 
-    print(response)
     return response
+
 
 def delete_version(case_id, version_id):
     response = [False]
@@ -153,7 +131,7 @@ def delete_version(case_id, version_id):
                 if not res[0]:
                     response.append(str(err))
 
-            elif len(versions) > 0 and obj.get("selectedVersionId") == version_id:
+            elif len(versions) > 0 and obj.get("selectedVersionId") and obj.get("selectedVersionId") == version_id:
                 newSelectedVersionId = versions[-1]["id"]
                 selectedVersionCase = versions[-1]["clinicalCase"]
                 selectedVersionHPO = versions[-1]["hpoCodes"]
@@ -201,3 +179,27 @@ def patchVersion(case_id, version_id, obj):
         response.append(str(err))
 
     return response
+
+    # setObj = {}
+
+    #     if selected_version_id:
+    #         version_obj = [version for version in obj["versions"]
+    #                        if version["id"] == selected_version_id][0]
+    #     else:
+    #         version_obj = sorted(obj.get("versions"),
+    #                              key=itemgetter('time'))[-1]
+
+    #     setObj.update(
+    #         {
+    #             "clinicalCase": version_obj["clinicalCase"],
+    #             "hpoCodes": version_obj["hpoCodes"],
+    #             "selectedVersionId": selected_version_id
+    #         })
+
+    #     result = mongo.db.clinicalCases.update_one(
+    #         {"_id": ObjectId(case_id)},
+    #         {"$set": setObj}
+
+    #     )
+
+    #     response = [result.modified_count == 1]

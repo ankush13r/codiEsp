@@ -48,60 +48,7 @@ export class DataShareService {
     this.auxText.next(text);
   }
 
-  //################################
-  findMe() {
-
-    if (navigator.geolocation) {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.showPosition, this.showError);
-
-      } else {
-        alert("Geolocation is not supported by this browser.");
-      }
-    }
-  }
 
 
-  showPosition(position) {
-    console.log(`tracking position:  ${position.coords.latitude} - ${position.coords.longitude}`);
-    this.currentLat = position.coords.latitude;
-    this.currentLong = position.coords.longitude;
 
-    //   let location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    //   this.map.panTo(location);
-
-    //   if (!this.marker) {
-    //     this.marker = new google.maps.Marker({
-    //       position: location,
-    //       map: this.map,
-    //       title: 'Got you!'
-    //     });
-    //   }
-    //   else {
-    //     this.marker.setPosition(location);
-    //   }
-    // }
-  }
-
-  showError(error) {
-    console.log(error);
-
-    switch (error.code) {
-      case error.PERMISSION_DENIED:
-        console.log("User denied the request for Geolocation.");
-        break;
-      case error.POSITION_UNAVAILABLE:
-        console.log("Location information is unavailable.");
-        break;
-      case error.TIMEOUT:
-        console.log("The request to get user location timed out.");
-        break;
-      case error.UNKNOWN_ERROR:
-        console.log("An unknown error occurred.");
-        break;
-      default:
-        console.log("default");
-
-    }
-  }
 }

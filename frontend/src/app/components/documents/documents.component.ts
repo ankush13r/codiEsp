@@ -67,7 +67,6 @@ export class DocumentsComponent implements OnInit {
 
 
   onRightClick() {
-    console.log("ssss");
 
   }
 

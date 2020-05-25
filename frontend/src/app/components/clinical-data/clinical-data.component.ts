@@ -4,7 +4,14 @@ import { ClinicalCase } from 'src/app/models/docs/clinicalCase';
 import { ApiResponseDocs } from 'src/app/models/docs/api-response-docs';
 import { Version } from '../../models/docs/version'
 import { Document } from '../../models/docs/document'
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { User } from 'src/app/models/user/user';
+import { Role } from 'src/app/models/user/role';
+import { isUndefined, isNullOrUndefined } from 'util';
+
+
+const errorStyle = ["error-snack-bar"]
 
 
 @Component({
@@ -13,6 +20,8 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
   styleUrls: ['./clinical-data.component.css']
 })
 export class ClinicalDataComponent implements OnInit {
+  isLodging: boolean = true;
+
   totalRecords: number;
   pageLength: number = 10;
   pageIndex: number = 0;
@@ -21,29 +30,40 @@ export class ClinicalDataComponent implements OnInit {
 
   showDocs: string[] = [];
 
+  currentUser: User;
 
-
-  constructor(private _matDialog: MatDialog, private service: ClinicalDataService) { }
-
-  ngOnInit(): void {
-    this.getData();
+  constructor(private auth: AuthenticationService, private _snackBar: MatSnackBar, private _matDialog: MatDialog, private service: ClinicalDataService) {
 
   }
 
+  ngOnInit(): void {
+    this.auth.currentUser.subscribe(user => {
+      this.currentUser = Object.assign(new User(), user)
+    });
+    this.getData();
+  }
+
+  get isAdmin(): boolean {
+
+    return this.currentUser && this.currentUser.$role === Role.Admin;
+  }
+
   getData() {
+    this.isLodging = true;
     this.service.getClinicalCases(this.pageIndex, this.pageLength).subscribe(result => {
       this.apiResponseDocs = result;
+      this.isLodging = false;
 
-      this.onHideAllDocs();
     });
   }
   onShowMore(id: string) {
     this.showMoreCaseId = this.showMoreCaseId == id ? null : id;
   }
 
-  getSelectedVersionId(clinicalCase: ClinicalCase) {
+  getSelectedVersion(clinicalCase: ClinicalCase): Version {
     let selectedVersionId = clinicalCase.$selectedVersionId;
-    if (selectedVersionId) {
+
+    if (!isNullOrUndefined(selectedVersionId)) {
       return clinicalCase.$versions.find((version: Version) => version.$id == selectedVersionId)
     } else {
       return clinicalCase.$versions[clinicalCase.$versions.length - 1]
@@ -69,6 +89,7 @@ export class ClinicalDataComponent implements OnInit {
   onHideAllDocs() {
     this.showDocs = []
   }
+
   setPageEvent(event) {
     this.pageIndex = event.pageIndex
     this.pageLength = event.pageSize
@@ -82,24 +103,22 @@ export class ClinicalDataComponent implements OnInit {
     if (event.checked) {
       selectedVersionId = versionId;
     }
+    this.isLodging = true;
 
     this.service.modifySelectedVersionId(clinicalCase.$_id, selectedVersionId).subscribe(result => {
       if (result[0]) {
-       
-        let version;
+        clinicalCase.$selectedVersionId = selectedVersionId;
 
-        if (selectedVersionId) {
-          version = clinicalCase.$versions.find(version => version.$id == versionId)
-
-        } else {
-          version = clinicalCase.$versions.find(version => version.$id == versionId)
-        }
+        let version = this.getSelectedVersion(clinicalCase);
 
         clinicalCase.$clinicalCase = version.$clinicalCase;
         clinicalCase.$hpoCodes = version.$hpoCodes;
-        clinicalCase.$selectedVersionId = selectedVersionId;
 
+        this.openSnackBar("Modified the version.", "OK")
+      } else {
+        this.openSnackBar(`Error:${result[1]}`, "OK", errorStyle)
       }
+      this.isLodging = false;
     })
 
 
@@ -117,20 +136,33 @@ export class ClinicalDataComponent implements OnInit {
   }
 
   onDeleteCase(doc: Document, case_id: string) {
+    this.isLodging = true;
+
     this.service.deleteCase(case_id).subscribe(result => {
       if (result[0]) {
         this.getData();
+
+        this.openSnackBar("Successfully delete the clinical case.", "OK")
+      } else {
+        this.openSnackBar(`Error:${result[1]}`, "OK", errorStyle)
       }
     })
   }
 
   onDeleteVersion(doc: Document, case_id: string, version_id: number) {
+    this.isLodging = true;
 
     this.service.deleteVersion(case_id, version_id).subscribe(result => {
 
       if (result[0]) {
         this.deleteLocalVersion(doc, case_id, version_id)
+
+        this.openSnackBar("Successfully delete the clinical case version.", "OK")
+      } else {
+        this.openSnackBar(`Error:${result[1]}`, "OK", errorStyle)
       }
+      this.isLodging = false;
+
     })
   }
 
@@ -142,12 +174,19 @@ export class ClinicalDataComponent implements OnInit {
     //When user close the dialog comes here.
     dialogRef.afterClosed().subscribe((result: Version) => {
       if (result && (JSON.stringify(obj) != JSON.stringify(result))) {
+        this.isLodging = true;
 
         this.service.modifyCaseVersion(case_id, result).subscribe(apiResult => {
           if (apiResult[0]) {
             obj.$hpoCodes = result.$hpoCodes;
             obj.$clinicalCase = result.$clinicalCase;
+
+            this.openSnackBar("Modified the clinical case version.", "OK")
+          } else {
+            this.openSnackBar(`Error:${result[1]}`, "OK", errorStyle)
           }
+        this.isLodging = false;
+          
         })
       }
     });
@@ -163,8 +202,6 @@ export class ClinicalDataComponent implements OnInit {
     });
   }
 
-
-
   private deleteLocalVersion(doc: Document, case_id: string, version_id: number) {
 
     let clinicalCase = doc.$clinicalCases.find(clinicalCase => clinicalCase.$_id === case_id)
@@ -175,6 +212,14 @@ export class ClinicalDataComponent implements OnInit {
     } else {
       this.getData();
     }
+  }
+
+
+  openSnackBar(message: string, action: string = null, style = null) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+      panelClass: style
+    });
   }
 
 }
