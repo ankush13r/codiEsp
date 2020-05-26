@@ -38,6 +38,7 @@ It contains app (main backend application directory) and other files/scripts or 
 
         ```
     <br/>
+
     - **constants.py**: <br/>
     This python file has some constants, those are called by other python files.
     <br/><br/>
