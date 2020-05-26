@@ -341,7 +341,7 @@ wrapt==1.11.2
  
 ## Authors
 --------------------------
-- **Ankush Rana - [Github](https://github.com/ankush13r)
+- **Ankush Rana** - [ankush.rana@bsc.es](ankush.rana@bsc.es) - [Github](https://github.com/ankush13r)
 
  
  
