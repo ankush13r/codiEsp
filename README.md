@@ -120,8 +120,7 @@ The frontend is made with angle, therefore it uses the general structure of the 
 
     - **components/**:<br/>
     This directory contains all components used by the app. Each component directory contains files with extension .ts(Type Script), .css(Cascading Style Sheet) and .html(Hypertext Markup Language).
-    <br/>
-    
+
     - **helper/**:<br/>
         - **auth.guard.ts**:<br/>
         This file serve to check if the use is permited to open a specific route(URI).
@@ -129,35 +128,28 @@ The frontend is made with angle, therefore it uses the general structure of the 
         
     - **interfaces**:<br/>
     This directory contains all interfaces files used by the app.
-    <br/>
-    
+
     - **models**:<br/>
     This directory contains all models(classes) files used by the app.
-    <br/>
-    
+
     - **routes**:<br/>
     This directory contains routing file to controll routing of the application.
-    <br/>
 
     - **directives**:<br/>
     This directory contains directives used by the application. A directive serves to control error of form while user inserts data.
-    <br/>
     
     - **interceptors**:<br/>
     This directory contains interceptors used by the application. A interceptor serves to control a http petition before send it. Then it controll error or modify petition inserting it more data as body , headers, add JWT access token etc. 
-    <br/>
-    
+
     - **modules**:<br/>
     This directory contains modules to import angular child modules or other components, etc.
-    <br/>
     
     - **pipes**:<br/>
     This directory contains pipes used by. A pipe serves change data by calling it and passing it data.
-     <br/>
      
     - **services**:<br/>
     This deirectory contains different services used by app. A service serves to make http petition to an API.  
-    <br/>
+
    
 ----------------------------------
 
