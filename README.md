@@ -337,8 +337,12 @@ wcwidth==0.1.9
 Werkzeug==0.16.0
 
 wrapt==1.11.2
+
  
- 
+## Authors
+--------------------------
+- **Ankush Rana - [Github](https://github.com/ankush13r)
+
  
  
  
