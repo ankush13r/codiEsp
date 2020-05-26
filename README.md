@@ -47,8 +47,6 @@ It contains app (main backend application directory) and other files/scripts or 
     Each sub directory has two python files, one for __routes__ and other for it's __controller__.    
         - **auth/**: <br/>
         This app's directory is to controll petitions of __authentication__, __login__, etc.
-        <br/>
-                
           - **auth.py**: <br/>
           Routes file for petttions of authentication.
           <br/><br/>
