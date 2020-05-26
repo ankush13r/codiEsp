@@ -49,12 +49,11 @@ It contains app (main backend application directory) and other files/scripts or 
         - **auth/**: <br/>
         This app's directory is to controll petitions of __authentication__, __login__, etc.
         <br/>
-            
-          - **auth.py**: <br/>
-          Routes file for petttions of authentication.
-          <br/><br/>
-          - **controller.py**:<br/>
-          A python controller file to controll petitions and retun data.        
+            - **auth.py**: <br/>
+            Routes file for petttions of authentication.
+            <br/><br/>
+            - **controller.py**:<br/>
+            A python controller file to controll petitions and retun data.        
         
         <br/>
         - **clinical_data/**: <br/>
