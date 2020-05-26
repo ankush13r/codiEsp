@@ -53,17 +53,14 @@ It contains app (main backend application directory) and other files/scripts or 
           - **controller.py**:<br/>
           A python controller file to controll petitions and retun data.        
 
-        <br/>
         - **clinical_data/**: <br/>
         This app's directory is to controll petitions of __CRUD clinical cases__.
-        <br/>
-            
+        <br/>  
           - **clinical_data.py**: <br/>
           Routes file for petttions of CRUD clinical_cases like get, post, put , delete, etc.
           <br/><br/>
           - **controller.py**:<br/>
           A python controller file to controll petitions and retun data.        
-             
         <br/>
         - **docs/**: <br/>
         This app's directory is to controll petitions of documents like get documents or get document, etc.
