@@ -44,19 +44,17 @@ It contains app (main backend application directory) and other files/scripts or 
     <br/><br/>
     - **routes/**:<br/>
     This is directory that contains python sub directories with python files .
-    Each sub directory has two python files, one for __routes__ and other for it's __controller__.
-    
+    Each sub directory has two python files, one for __routes__ and other for it's __controller__.    
         - **auth/**: <br/>
         This app's directory is to controll petitions of __authentication__, __login__, etc.
         <br/>
-            - **auth.py**: <br/>
-            Routes file for petttions of authentication.
+                
+          - **auth.py**: <br/>
+          Routes file for petttions of authentication.
+          <br/><br/>
+          - **controller.py**:<br/>
+          A python controller file to controll petitions and retun data.        
 
-            - hola 
-            <br/><br/>
-            - **controller.py**:<br/>
-            A python controller file to controll petitions and retun data.        
-        
         <br/>
         - **clinical_data/**: <br/>
         This app's directory is to controll petitions of __CRUD clinical cases__.
@@ -73,22 +71,22 @@ It contains app (main backend application directory) and other files/scripts or 
         This app's directory is to controll petitions of documents like get documents or get document, etc.
         <br/>
             
-          - **docs.py**: <br/>
-          Routes file for petttions for documents to provide documents list or a single document.
-          <br/><br/>
-          - **controller.py**:<br/>
-          A python controller file to controll petitions and retun data.        
-        
-        <br/>
-        - **regex/**: <br/>
-        This app's directory is to controll petitions of __CRUD regex__ like get, post, put, post, etc.
-        <br/>
-            
-          - **regex.py**: <br/>
-          Routes file for petttions of CRUD regex like get, post, put , delete, etc..
-          <br/><br/>
-          - **controller.py**:<br/>
-          A python controller file to controll petitions and retun data.
+  - **docs.py**: <br/>
+  Routes file for petttions for documents to provide documents list or a single document.
+  <br/><br/>
+  - **controller.py**:<br/>
+  A python controller file to controll petitions and retun data.        
+
+<br/>
+- **regex/**: <br/>
+This app's directory is to controll petitions of __CRUD regex__ like get, post, put, post, etc.
+<br/>
+    
+  - **regex.py**: <br/>
+  Routes file for petttions of CRUD regex like get, post, put , delete, etc..
+  <br/><br/>
+  - **controller.py**:<br/>
+  A python controller file to controll petitions and retun data.
 
     - **utils/**:<br/>
     Directory that contains python file with functions that can be called from other python files.
