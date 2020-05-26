@@ -76,37 +76,29 @@ This app's directory is to controll petitions of __CRUD regex__ like get, post, 
     
   - **regex.py**: <br/>
   Routes file for petttions of CRUD regex like get, post, put , delete, etc..
-  <br/><br/>
+
   - **controller.py**:<br/>
   A python controller file to controll petitions and retun data.
 
     - **utils/**:<br/>
     Directory that contains python file with functions that can be called from other python files.
-    <br/>
-
-        - **utils.py**:<br/>
-        This file contains all functions as utlis those can be share and called from other files.
-        <br/><br/>
-        
+      - **utils.py**:<br/>
+      This file contains all functions as utlis those can be share and called from other files.
+      
     - **tests/**:<br/>
     A testing directory that contains python's pytest files. It has two pytest python files where it check all necessary function and petitions if they are correctly working.
-        <br/><br/>
         
-        - **test_utils.py**:<br/>
-        This test file test all functions from utils.
-        <br/><br/>
+      - **test_utils.py**:<br/>
+      This test file test all functions from utils.
+    
+      - **test_utils.py**:<br/>
+      This test file test the app, it's petitions, configuration and authorization of petitions sent from utils.
         
-        - **test_utils.py**:<br/>
-        This test file test the app, it's petitions, configuration and authorization of petitions sent from utils.
-        <br/><br/>
-        
-     - **data/**:<br/>
-     This directory contains othes files with data that is necessary for the application on running time.
-     <br/>
-         
-         - **GeoLite2-City_20200211/**:<br/>
-         This data directory contains a DATABASE file with extension .mmdb that contains ip adress and location.
-         This file serves to get location by clients IP address.
+    - **data/**:<br/>
+    This directory contains othes files with data that is necessary for the application on running time.
+      - **GeoLite2-City_20200211/**:<br/>
+        This data directory contains a DATABASE file with extension .mmdb that contains ip adress and location.
+        This file serves to get location by clients IP address.
     
 
     
