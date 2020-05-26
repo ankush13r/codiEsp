@@ -21,7 +21,7 @@ export class LoaderInterceptor implements HttpInterceptor {
         if (
           request.url.includes("refresh") ||
           request.url.includes("login") ||
-          request.url.includes("revoke_access_token")||
+          request.url.includes("revoke_access_token") ||
           request.url.includes("revoke_refresh_token")
 
 
@@ -31,18 +31,16 @@ export class LoaderInterceptor implements HttpInterceptor {
 
           if (request.url.includes("refresh")) {
             this.auth.logout();
-
           }
-          if (!request.url.includes("logout")) {
-            return throwError(error);
-          }
+          return throwError(error);
 
         }
 
         // If error status is different than 401 we want to skip refresh token
         // So we check that and throw the error if it's the case
         if (error.status !== 401) {
-          return throwError(error);
+          return this.throwErrorAndAlert(error);
+
         }
 
         if (this.refreshTokenInProgress) {
@@ -72,7 +70,7 @@ export class LoaderInterceptor implements HttpInterceptor {
             catchError((err: any) => {
               this.refreshTokenInProgress = false;
               this.auth.logout();
-              return throwError(err);
+              return this.throwErrorAndAlert(err);
             })
           );
 
@@ -80,90 +78,10 @@ export class LoaderInterceptor implements HttpInterceptor {
       }));
 
   }
+
+  private throwErrorAndAlert(err) {
+    alert('Please remove cache by clicking Ctrl + F5. If the warning still appearers , send a mail to: ankush.rana@bsc.es')
+
+    return throwError(err);
+  }
 }
-  // addAuthenticationToken(request) {
-    
-  //   // Get access token from Local Storage
-  //   const accessToken = this.auth.getAccessToken();
-  //   console.log(accessToken);
-    
-  //   // If access token is null this means that user is not logged in
-  //   // And we return the original request
-  //   if (!accessToken) {
-  //     return request;
-  //   }
-
-  //   // We clone the request, because the original request is immutable
-  //   return request.clone({
-  //     setHeaders: {
-  //       Authorization: this.auth.getAccessToken()
-  //     }
-  //   });
-  // }
-
-
-  // intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-
-  //   return new Observable(observer => {
-
-  //     const subscription = next.handle(request).subscribe(
-  //       event => {
-  //         if (event instanceof HttpResponse) {
-  //           observer.next(event);
-  //         }
-  //       },
-  //       err => {
-
-  //         if (err.url.includes(environment.apiUrl)) {
-
-  //           if (request.url.includes("refresh") ||
-  //             request.url.includes("login") ||
-  //             request.url.includes("logout")) {
-  //             // We do another check to see if refresh token failed
-  //             // In this case we want to logout user and to redirect it to login page
-  //             alert('Please remove cache by clicking Ctrl + F5 adn login again. If the warning still appearers , send a mail to: ankush.rana@bsc.es')
-
-  //             if (request.url.includes("refresh")) {
-  //               this.auth.logout();
-  //             } else {
-  //               observer.error(err);
-  //             }
-
-  //           } else if (err.status == 401) {
-  //             this.isRefreshProcess = true;
-
-  //           } else {
-  //             alert('Please remove cache by clicking Ctrl + F5. If the warning still appearers , send a mail to: ankush.rana@bsc.es')
-  //             observer.error(err);
-  //           }
-  //         }
-  //       },
-  //       () => {
-  //         observer.complete()
-  //       });
-
-  //     if (this.isRefreshProcess) {
-
-  //     } else {
-  //       return () => {
-  //         subscription.unsubscribe();
-  //       }
-  //     }
-  //   });
-  // }
-
-  // refreshToken(request: HttpRequest<unknown>, next: HttpHandler) {
-  //   let subject: Subject<HttpRequest<unknown>> = new Subject<HttpRequest<unknown>>();
-
-  //   this.auth.refreshAccessToken().subscribe(res => {
-  //     console.log("ss");
-
-  //     if (res?.accessToken) {
-  //       // this.isRefreshProcess = true;
-
-  //       localStorage.setItem('accessToken', JSON.stringify(res.accessToken));
-  //       return next.handle(request);
-  //     }
-  //   })
-  // }
-

@@ -4,7 +4,9 @@ import { ClinicalCase } from 'src/app/models/docs/clinicalCase';
 import { ApiResponseDocs } from 'src/app/models/docs/api-response-docs';
 import { Version } from '../../models/docs/version'
 import { Document } from '../../models/docs/document'
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
+import {MatDialogRef,MAT_DIALOG_DATA,MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { User } from 'src/app/models/user/user';
 import { Role } from 'src/app/models/user/role';
@@ -185,8 +187,8 @@ export class ClinicalDataComponent implements OnInit {
           } else {
             this.openSnackBar(`Error:${result[1]}`, "OK", errorStyle)
           }
-        this.isLodging = false;
-          
+          this.isLodging = false;
+
         })
       }
     });

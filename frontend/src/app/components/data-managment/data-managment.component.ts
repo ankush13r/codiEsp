@@ -17,8 +17,7 @@ export class DataManagmentComponent implements OnInit {
     {
       name: "regex",
       path: "regex",
-      icon: "edit",
-      char: "*"
+      icon: "*edit",
     }
    
   ]

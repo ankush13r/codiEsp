@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service'
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { User } from '../../../app/models/user/user';
 

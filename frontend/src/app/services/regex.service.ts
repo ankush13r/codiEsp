@@ -10,7 +10,7 @@ import url from 'url';
   providedIn: 'root'
 })
 export class RegexService {
-  url = url.resolve(environment.apiUrl, '/regex')
+  
 
   constructor(private http: HttpClient) {
 
@@ -18,7 +18,7 @@ export class RegexService {
 
 
   getAll(): Observable<any> {
-    return this.http.get<any>(this.url);
+    return this.http.get<any>(`${environment.apiUrl}/regex`);
   }
 
   getById() {
@@ -26,11 +26,11 @@ export class RegexService {
   }
 
   add(data: RegexObj): Observable<any> {
-    return this.http.post<any>(this.url, data);
+    return this.http.post<any>(`${environment.apiUrl}/regex`, data);
   }
 
   modify(data: RegexObj): Observable<any> {
-    return this.http.put<any>(this.url, data);
+    return this.http.put<any>(`${environment.apiUrl}/regex`, data);
   }
 
   /*
@@ -55,6 +55,6 @@ export class RegexService {
       }
     }
 
-    return this.http.delete<any>(this.url, options);
+    return this.http.delete<any>(`${environment.apiUrl}/regex`, options);
   }
 }

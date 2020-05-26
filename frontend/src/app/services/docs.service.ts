@@ -1,10 +1,9 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
+import { Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 
-
-
+import { environment } from '../../environments/environment'
 import { ApiResponseDocs } from '../models/docs/api-response-docs';
 import { ClinicalCase } from '../models/docs/clinicalCase';
 
@@ -22,7 +21,7 @@ const httpOptions = {
 
 export class DocsService {
 
-  private baseUrl = 'http://127.0.0.1:5000/';
+
   private ip: string = null;
 
 
@@ -41,12 +40,12 @@ export class DocsService {
 
 
   getTypes(): Observable<string[]> {
-    var url = this.baseUrl + "docs/types"
+    var url =  `${environment.apiUrl}/docs/types`
     return this.http.get<string[]>(url);
   }
 
   getDocuments(selected_type: String, index: number = 0, pageSize: number = 10): Observable<ApiResponseDocs> {
-    var url = this.baseUrl + "docs/" + selected_type;
+    var url =`${environment.apiUrl}/docs/${selected_type}`;
 
     if (!index) {
       index = 0;
@@ -68,7 +67,7 @@ export class DocsService {
 
   addClinicalCase(document: any): Observable<ClinicalCase> {
     document.ip = this.ip;
-    var url = this.baseUrl + "docs/add";
+    var url = `${environment.apiUrl}/docs/add`;
 
     return this.http.post<Document>(url, document).pipe(
       map(data => new ClinicalCase().deserialize(data))
@@ -76,12 +75,12 @@ export class DocsService {
   }
 
   finishDocument(_id: string) {
-    var url = this.baseUrl + "docs/finish";
+    var url = `${environment.apiUrl}/docs/finish`;
     return this.http.put<any>(url, { "_id": _id });
   }
 
   getHPO() {
-    var url = this.baseUrl + "docs/hpo";
+    var url = `${environment.apiUrl}/docs/hpo`;
     return this.http.get<any>(url);
   }
 }

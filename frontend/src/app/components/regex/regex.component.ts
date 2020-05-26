@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Inject, ChangeDetectorRef } from '@angular/co
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { RegexObj } from '../../models/regex/regex-obj';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { RegexService } from '../../services/regex.service';
 import { RegexType } from 'src/app/models/regex/regex-type';
 
@@ -31,11 +31,16 @@ export class RegexComponent implements OnInit {
 
 
   ngOnInit() {
-    this.regexService.getAll().subscribe(result => {
-      this.assignData(result);
-    });
+    this.getRegex();
   }
 
+  getRegex() {
+    this.regexService.getAll().subscribe(result => {
+      if (result[0]) {
+        this.assignData(result[1]);
+      }
+    });
+  }
   assignData(data: any) {
     if (data) {
       this.regexTypes = data.types?.map(type => Object.assign(new RegexType(), type));
@@ -67,7 +72,11 @@ export class RegexComponent implements OnInit {
     //When user close the dialog
     dialogRef.afterClosed().subscribe((result: RegexObj) => {
       if (result) {
-        this.regexService.add(result).subscribe(res => this.assignData(res));
+        this.regexService.add(result).subscribe(res => {
+          if (res[0]) {
+            this.getRegex();
+          }
+        });
       }
     });
   }
@@ -78,15 +87,19 @@ export class RegexComponent implements OnInit {
 
     //When user close the dialog comes here.
     dialogRef.afterClosed().subscribe((result: RegexObj) => {
-      
-      if (result && JSON.stringify(result)!= JSON.stringify(regexObj)) {
-        this.regexService.modify(result).subscribe(res => this.assignData(res))
+
+      if (result && JSON.stringify(result) != JSON.stringify(regexObj)) {
+        this.regexService.modify(result).subscribe(res => {
+          if (res[0]) {
+            this.getRegex();
+          }
+        });
       }
     });
   }
 
 
-  
+
   openDialog(regexObj: RegexObj) {
     //Open dialog box of DialogAddTool.html
     return this._matDialog.open(AddRegexDialog, {
@@ -99,7 +112,7 @@ export class RegexComponent implements OnInit {
   onDelete(event, id: string) {
     event.stopPropagation();
     this.regexService.delete(id).subscribe(result => {
-      if (result?.deleted > 0)
+      if (result[0])
         this.deleteRegex(id);
     }
     );

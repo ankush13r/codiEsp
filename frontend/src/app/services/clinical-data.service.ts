@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment'
-import url from 'url';
 import { map } from 'rxjs/operators';
 import { ApiResponseDocs } from '../models/docs/api-response-docs';
 import { ClinicalCase } from '../models/docs/clinicalCase';
@@ -14,12 +13,11 @@ import { Version } from '../models/docs/version';
   providedIn: 'root'
 })
 export class ClinicalDataService {
-  baseUrl = url.resolve(environment.apiUrl, '')
 
   constructor(private http: HttpClient) { }
 
   getClinicalCases(index: number = 0, pageSize: number = 10): Observable<ApiResponseDocs> {
-    const tmpUrl = url.resolve(this.baseUrl, "clinical_cases");
+    const tmpUrl = `${environment.apiUrl}/clinical_cases`;
 
     if (!index) {
       index = 0;
@@ -42,7 +40,7 @@ export class ClinicalDataService {
   }
 
   modifySelectedVersionId(case_id, versionId: number) {
-    const tmpUrl = url.resolve(this.baseUrl, `clinical_cases/${case_id}/selected_version`);
+    const tmpUrl = `${environment.apiUrl}/clinical_cases/${case_id}/selected_version`;
     return this.http.patch<any>(tmpUrl,
       {
         selectedVersionId: versionId
@@ -51,7 +49,7 @@ export class ClinicalDataService {
   }
 
   modifyCaseVersion(case_id, version: Version): Observable<any> {
-    const tmpUrl = url.resolve(this.baseUrl, `clinical_cases/${case_id}/versions/${version.$id}`);
+    const tmpUrl = `${environment.apiUrl}/clinical_cases/${case_id}/versions/${version.$id}`;
     return this.http.patch<any>(tmpUrl,
       {
         clinicalCase: version.$clinicalCase,
@@ -61,14 +59,14 @@ export class ClinicalDataService {
 
   deleteVersion(case_id: string, version_id: number): Observable<any> {
 
-    const tmpUrl = url.resolve(this.baseUrl, `clinical_cases/${case_id}/versions/${version_id}`);
+    const tmpUrl = `${environment.apiUrl}/clinical_cases/${case_id}/versions/${version_id}`;
     return this.http.delete<any>(tmpUrl);
 
   }
 
 
   deleteCase(case_id: string) {
-    const tmpUrl = url.resolve(this.baseUrl, `clinical_cases/${case_id}`);
+    const tmpUrl = `${environment.apiUrl}/clinical_cases/${case_id}`;
     return this.http.delete<ClinicalCase>(tmpUrl);
 
   }

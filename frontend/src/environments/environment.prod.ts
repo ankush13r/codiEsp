@@ -2,10 +2,9 @@ import { ToolTip } from 'src/app/interfaces/tool-tip';
 
 export const environment = {
   production: true,
-  apiUrl: '84.88.187.151:8080'
+  apiUrl: 'http://172.23.0.1/api'
 
 };
-
 
 export const toolTips: ToolTip = {
   //class maybe "tooltip-dark"
@@ -50,8 +49,14 @@ export const toolTips: ToolTip = {
     class: null
   },
   listItem: {
-    value: "Double click to open in new window or right to more information",
+    value: "Double click to open in new window or on the left icon",
     position: "above",
     class: null
+  },
+  hpo_terms: {
+    value: "Add HPO (The Human Phenotype Ontology) terms related to the document.",
+    position: "left",
+    class: "tooltip-dark",
+    delay: 200,
   }
 }

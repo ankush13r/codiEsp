@@ -2,8 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter, SimpleChange } from '@a
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { trigger, state, style, animate, transition, query, stagger } from '@angular/animations';
 
+import { environment } from '../../../environments/environment'
 import { DataShareService } from '../../services/data-share.service';
 import { DocsService } from "../../services/docs.service"
 import { ApiResponseDocs } from '../../models/docs/api-response-docs';
@@ -36,7 +36,7 @@ export class DocumentsComponent implements OnInit {
   index: number = 0;
 
   doc_type: string = null;
-  baseUrl = 'http://127.0.0.1:5000/docs/';
+  apiBaseUrl = `${environment.apiUrl}/docs`;
 
   //Get tool tips from constants.
   toolTips = toolTips;
@@ -157,8 +157,9 @@ export class DocumentsComponent implements OnInit {
     if (document.$format == "link")
       url = document.$link
     else
-      url = this.baseUrl + document.$format + "/" + document.$_id;
-    window.open((url).toString(), "_blank");
+      url = `${this.apiBaseUrl}/${document.$format}/${document.$_id}`;
+      
+    window.open(url, "_blank");
   }
 
 }

@@ -5,7 +5,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptor } from './interceptors/loader.interceptor'
 
 import { CookieService } from 'ngx-cookie-service';
-import { MatInputModule } from '@angular/material/input';
 import { ClipboardModule } from 'ngx-clipboard';
 
 import { AppComponent } from './app.component';
@@ -57,7 +56,6 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
   imports: [
     BrowserModule,
     FormsModule,
-    MatInputModule,
     AppRoutingModule,
     HttpClientModule,
     ClipboardModule,
@@ -67,7 +65,9 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
   ],
   entryComponents: [
-    AddRegexDialog
+    AddRegexDialog,
+    LoginComponent
+
   ],
   providers: [
     CookieService,

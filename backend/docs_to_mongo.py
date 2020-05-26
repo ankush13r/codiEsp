@@ -95,7 +95,7 @@ def main(files, data_format):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        prog='docs_to_mongo', usage='%(prog)s -i [/example/folder | folder/* ] -f [link, text, html , xml]')
+        prog='docs_to_mongo', usage=f'%(prog)s -i [/example/folder | folder/* ] -f {FORMATS}')
     parser.add_argument('-i', '--input', metavar='', nargs='+', type=str, required=True,
                         help="[N] folders of files or just files. If it receives folder/s it will get all files recursively.")
     parser.add_argument('-f', '--format', type=str,
@@ -111,55 +111,3 @@ if __name__ == "__main__":
 
 
 
-
-"""
-def getDocsList(base_path):
-    jsonObjList = []
-    absPath = os.path.abspath(base_path)
-
-    folders = [{"folder_name": file, "folder_path": os.path.join(
-        absPath, file)} for file in os.listdir(absPath)]
-
-    for folder in folders:
-        content_folder = folder["folder_path"]
-        folder_name = folder["folder_name"]
-
-        if(folder_name != "link"):
-            for file in os.listdir(content_folder):
-                obj = {
-                    "format": _format,
-                    "dataType": folder["folder_name"],
-                    "name": file,
-                    "path": os.path.join(content_folder, file),
-                    "docClass": None,
-                    "license": None,
-                    "source": None,
-                }
-                jsonObjList.append(obj)
-        else:
-            for file in os.listdir(content_folder):
-                file_path = os.path.join(content_folder, file)
-                with open(file_path) as f:
-                    for link in f.readlines():
-                        link = link.strip()
-                        link_name = ""
-                        if link[-1] == "/":
-                            link_name = link.split("/")[-2][0:20]
-                        else:
-                            link_name = link.split("/")[-1][0:20]
-
-                        obj = {
-                            "format": "link",
-                            "dataType":  folder["folder_name"],
-                            "name": link_name,
-                            "path": os.path.join(content_folder, file),
-                            "docClass": None,
-                            "license": None,
-                            "source": None,
-                            "link": link
-                        }
-                        jsonObjList.append(obj)
-    return jsonObjList
-
-
-"""

@@ -52,7 +52,7 @@ export const toolTips: ToolTip = {
     class: null
   },
   listItem: {
-    value: "Double click to open in new window or right to more information",
+    value: "Double click to open in new window or on the left icon",
     position: "above",
     class: null
   },

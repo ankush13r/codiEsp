@@ -8,20 +8,13 @@
             </button>
         </div>
         <mat-nav-list>
-            <a  mat-list-item
-                *ngFor="let item of itemList" 
-                fxLayout="row"
-                [fxLayoutAlign]="sortDrawer?'center center':'start center'" 
-                [routerLink]="[item.path]"
-                [class.sortItem]="sortDrawer"
-                routerLinkActive
-                #routeLink="routerLinkActive" 
-                class="animated flipInX link-not-active item p-2 rounded"
-                [class.link-active]="routeLink.isActive"
-                >
+            <a mat-list-item *ngFor="let item of itemList" fxLayout="row"
+                [fxLayoutAlign]="sortDrawer?'center center':'start center'" [routerLink]="[item.path]"
+                [class.sortItem]="sortDrawer" routerLinkActive #routeLink="routerLinkActive"
+                class="animated flipInX link-not-active item p-2 rounded" [class.link-active]="routeLink.isActive">
                 <!--  -->
                 <mat-icon>
-                    {{item.char}}{{item.icon}}
+                    {{item.icon}}
                 </mat-icon>
                 <span *ngIf="!sortDrawer" class="ml-4 animated fadeInRight">{{item.name |titlecase }}</span>
             </a>

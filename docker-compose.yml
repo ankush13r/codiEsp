@@ -1,0 +1,21 @@
+version: '3.3'
+
+services:
+
+  angular:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    container_name: angular-prod
+    ports:
+      - '80:80'
+
+  flask:
+    build: ./backend
+    container_name: flask-prod
+    restart: always
+    volumes:
+      - /home/ankush/Documents/proyects_bsc/codiEsp_/data:/home/ankush/Documents/proyects_bsc/codiEsp_/data
+    environment:
+      - MONGO_URI=mongodb://codiEsp:codiEsp@172.23.0.1:27017/codiEsp
+    command: uwsgi app.ini

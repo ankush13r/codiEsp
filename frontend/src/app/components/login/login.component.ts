@@ -4,7 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../../services/authentication.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 import { User } from 'src/app/models/user/user';
 
 @Component({ templateUrl: 'login.component.html' })

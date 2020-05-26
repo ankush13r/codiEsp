@@ -1,7 +1,7 @@
 import { Component, OnInit, SecurityContext, ViewEncapsulation, SimpleChanges, OnChanges, Input } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
-import { Pipe, PipeTransform } from '@angular/core';
 
+import { environment } from '../../../environments/environment'
 import { DataShareService } from '../../services/data-share.service';
 import { Document } from '../../models/docs/document';
 
@@ -21,7 +21,8 @@ export class PreviewComponent implements OnInit , OnChanges{
   safeUrl: SafeResourceUrl;
   auxText: string;
   contentType: String;
-  baseUrl = 'http://127.0.0.1:5000/docs/';
+  apiBaseUrl = `${environment.apiUrl}/docs`;
+
 
 
   LINK: String = "link"
@@ -84,7 +85,8 @@ export class PreviewComponent implements OnInit , OnChanges{
     if (this.document.$format == "link")
       this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.document.$link);
     else
-      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.baseUrl + this.document.$format + "/" + this.document.$_id);
+      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl( `${this.apiBaseUrl}/${this.document.$format}/${this.document.$_id}`);
+      
   }
 
   showText() {
