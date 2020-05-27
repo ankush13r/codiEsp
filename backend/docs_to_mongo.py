@@ -6,15 +6,14 @@ from pymongo import MongoClient
 CLIENT = MongoClient('localhost:27017')
 DB = CLIENT["codiEsp"]
 COL_DOCUMENTS = DB["documents"]
-FORMATS= ["xml","pdf","text","link","html"]
+FORMATS = ["xml", "pdf", "text", "link", "html"]
 
 
-
-def save_to_mongo(jsonObj):
+def save_to_mongo(json_obj):
     try:
-        found = list(COL_DOCUMENTS.find(jsonObj))
+        found = list(COL_DOCUMENTS.find(json_obj))
         if not found:
-           COL_DOCUMENTS.insert_one(jsonObj)
+            COL_DOCUMENTS.insert_one(json_obj)
         else:
             print("\nAlready exist")
     except Exception as err:
@@ -24,7 +23,7 @@ def save_to_mongo(jsonObj):
 def get_links_json(file_path, data_format):
     dir_name = os.path.basename(os.path.dirname(file_path))
 
-    jsonObjList = []
+    json_obj_list = []
     with open(file_path) as f:
         for link in f.readlines():
             link = link.strip()
@@ -44,8 +43,8 @@ def get_links_json(file_path, data_format):
                 "source": None,
                 "link": link
             }
-            jsonObjList.append(obj)
-    return jsonObjList
+            json_obj_list.append(obj)
+    return json_obj_list
 
 
 def get_file_json(file_path, data_format):
@@ -69,23 +68,26 @@ def get_data(files, data_format):
     print("\tGetting files....")
 
     for file in files:
-        # If the file is a directory then it will call self function recursively.
+        # If the file is a directory 
+        # then it will call self function recursively.
         if os.path.isdir(file):
-            newFiles = glob.glob(os.path.abspath(file+"/*"))
-            get_data(newFiles, data_format)
+            new_files = glob.glob(os.path.abspath(file+"/*"))
+            get_data(new_files, data_format)
 
         # If it's a file then create a json object and save into mongoDb
         else:
-            # If the format is link, then create get json list of all links from each file and save into mongoDB
+            # If the format is link, then create get 
+            # json list of all links from each file and save into mongoDB
             print("\t\tSaving file", file)
             if data_format == "link":
-                jsonObjs = get_links_json(file, data_format)
-                for jsonObj in jsonObjs:
-                    save_to_mongo(jsonObj)
+                json_objs = get_links_json(file, data_format)
+                for json_obj in json_objs:
+                    save_to_mongo(json_obj)
             else:
-                # If the format is not link, then it create json object of each file and save into mongoDB
-                jsonObj = get_file_json(file, data_format)
-                save_to_mongo(jsonObj)
+                # If the format is not link, 
+                # then it create json object of each file and save into mongoDB
+                json_obj = get_file_json(file, data_format)
+                save_to_mongo(json_obj)
 
 
 def main(files, data_format):
@@ -101,13 +103,9 @@ if __name__ == "__main__":
     parser.add_argument('-f', '--format', type=str,
                         metavar=FORMATS, choices=FORMATS, required=True, help="fromat for files")
 
-    args = parser.parse_args()
-    files = args.input
-    data_format = args.format
+    ARGS = parser.parse_args()
+    FILES = ARGS.input
+    DATA_FORMAT = ARGS.format
 
-    main(files, data_format)
-
-
-
-
+    main(FILES, DATA_FORMAT)
 

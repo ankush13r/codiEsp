@@ -1,3 +1,6 @@
+"""Controller file for docs.py. All request of docs.py will be controll in this file.
+"""
+
 import re
 import os
 import glob
@@ -75,7 +78,6 @@ def modifyText(content):
     last_end = -1
 
     for found in found_list_shorted:
-        print(found)
         text = found["text"]
         style = found["style"]
 
@@ -97,9 +99,6 @@ def modifyText(content):
         # fr'<span {r_type["style"]}>\1</span>', content, r_type["code"]
 
     return f"<span {pre_line_style}>{content}</span>"
-
-
-
 
 
 def valid_mongo_query(json):
@@ -190,7 +189,6 @@ def valid_mongo_query(json):
 
 
 def save_data(json):
-    print(json)
     """ A request must be similar to the next example,
         those keys contain a interrogate symbole (?) are not required.
     """
@@ -344,17 +342,15 @@ def finish_document(json):
         result = mongo.db.documents.update({"_id": _id, },
                                            {"$set": {"state": 1}})
 
-        return jsonify({"data": result["nModified"]})
+        return {"data": result["nModified"]}
 
     except Exception as err:
         abort(500, str(err))
 
 
 def get_types():
-    """Return a list of documents types.
-
-    :return: A list of all types of documents available in mongoDB.
-    :rtype: List
+    """Return a list of documents types. 
+    It gets distinc dataType from DB an return it.
     """
     try:
         return list(mongo.db.documents.distinct("dataType"))

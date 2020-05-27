@@ -1,4 +1,5 @@
 """
+    This is the script jwt function to create, revoke tokens
     Documentation jwt: https://flask-jwt-extended.readthedocs.io/en/stable/options/#configuration-options
 """
 
@@ -18,7 +19,11 @@ jwtManager = JWTManager()
 
 @jwtManager.token_in_blacklist_loader
 def check_if_token_in_blacklist(decrypted_token):
-    res = False
+    """This methos is to check if the token that is passed for access to protected route is in blacklist or not.
+    If the token is in black list, it means the token has been revoked and user can't access by this token.
+    """
+    
+
     jti = decrypted_token['jti']
     obj = mongo.db.blacklist.find_one({'jti': jti})
 
@@ -26,6 +31,10 @@ def check_if_token_in_blacklist(decrypted_token):
 
 
 def create_access_and_refresh_token(user):
+    """Method to create access token and refresh token. By default access token is valid for 15 minuts 
+    and refresh token is valid for 30 days. It create the token by secret  variable of flask and a identity.
+    """
+
     ret = {
         'accessToken': create_access_token(identity=user),
         'refreshToken': create_refresh_token(identity=user)
@@ -35,6 +44,10 @@ def create_access_and_refresh_token(user):
 
 
 def refresh_token():
+    """Method to refresh access token. It will create a new access token an return it. 
+    By default it's valid until 15 minuts. 
+    It create the token by secret  variable of flask and a identity.
+    """
     current_user = get_jwt_identity()
     ret = {
         'accessToken': create_access_token(identity=current_user)
@@ -44,62 +57,10 @@ def refresh_token():
 
 
 def revoke_token():
+    """function to revoke the token. It will token's jti unique variable to the black list.
+    After this all request with this token will be denied. 
+    """
     jti = get_raw_jwt()['jti']
     mongo.db.blacklist.insert_one({'jti': jti})
     return True
 
-
-# def token_required(func):
-#     @wraps(func)
-#     def decorated(*args, **kwargs):
-#         """
-#         Decodes the auth token
-#         :param auth_token:
-#         :return: integer|string
-#         """
-
-#         auth_token = request.headers.get("Authorization")
-#         if not auth_token:
-#             return jsonify([False, 'Token is missing'])
-
-#         auth_token = auth_token.replace('Bearer ', '')
-
-#         if check_if_token_in_blacklist(auth_token):
-#             return jsonify([False, 'Invalid token. Please log in.'])
-
-#         try:
-#             payload = jwt.decode(
-#                 auth_token, current_app.config.get('SECRET_KEY'))
-
-#         except jwt.ExpiredSignatureError:
-#             return jsonfy([False, 'Session expired. Please log in.'])
-
-#         except jwt.InvalidTokenError:
-#             return jsonfy([False, 'Invalid token. Please log in.'])
-
-#         return func(*args, **kwargs)
-
-#     return decorated
-
-
-# def encode_auth_token(sub):
-#     """
-#     Generates the Auth Token
-#     :return: string
-#     """
-
-#     token = None
-#     error = None
-
-#     try:
-#         payload = {
-#             'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, hours=12),
-#             'iat': datetime.datetime.utcnow(),
-#             'sub': sub
-#         }
-#         token = jwt.encode(payload, current_app.config.get(
-#             'SECRET_KEY'), algorithm='HS256')
-#     except Exception as e:
-#         error = str(e)
-
-#     return token, error

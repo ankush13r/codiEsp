@@ -8,6 +8,12 @@ from pymongo import DESCENDING, ASCENDING
 
 
 def update_order(order: int, _id: str = None):
+    """Method to update order of all regex depending on the order an id received as parameter.
+    EX: if _id had order 5 but new order is 3 
+    than it will change to order 3 and other regex's order will be increment.
+    """
+
+    # If order is not valid or not exist than it will create a new order as a last order.
     try:
         order = int(order)
     except:
@@ -24,11 +30,11 @@ def update_order(order: int, _id: str = None):
 
         return order
 
+    # If oreder is valid than it will modify other orerds also to make a uniq order for regex.
     try:
         obj = mongo.db.regex.find_one({"_id": ObjectId(_id)})
         if obj:
             old_order = obj["order"]
-            print(order, old_order)
             if order < old_order:
 
                 mongo.db.regex.update_many(
@@ -58,13 +64,16 @@ def update_order(order: int, _id: str = None):
                     {"$inc": {"order": 1}}
                 )
 
-    except:
-        pass
+    except Exception as err:
+        abort(500, str(err))
 
     return order
 
 
 def get_regex_data():
+    """Method to get regex data, it will return a list of all regex and regex type as list.
+    If it gives any error, will return 500 error with message.
+    """
     try:
 
         # If mongo object if None, it gets a empty list [].
@@ -85,6 +94,9 @@ def get_regex_data():
 
 
 def save_regex(json):
+    """Method to add regex, it will add regex to the DB, if all ok, it will return [true].
+    If it gives any error, will return 500 error with message.
+    """
     try:
         # Valid arguments from request and get valid query to save into mongDB. _id may None, if the object is new.
         query = valid_query(json)
@@ -101,6 +113,9 @@ def save_regex(json):
 
 
 def modify_regex(json):
+    """Method to modify regex, it will modify the by it's id, if all ok it will return [true].
+    If it gives any error, will return 500 error with message.
+    """
     try:
         _id = json.get("_id", None)
         # Valid arguments from request and get valid query to save into mongDB. _id may None, if the object is new.
@@ -123,30 +138,10 @@ def modify_regex(json):
         abort(501, str(err))
 
 
-def modify_regex(json):
-    try:
-        _id = json.get("_id", None)
-        # Valid arguments from request and get valid query to save into mongDB. _id may None, if the object is new.
-
-        # IF mongo id exist, update the query (object). Otherwise insert it as new.
-        if _id:
-            query = valid_query(json)
-            obj = mongo.db.regex.update_one({"_id": ObjectId(_id)}, {
-                                            "$set": query}, upsert=True)
-        else:
-            return {"error": {"message": "ID is required"}}
-
-        # Object from mongo to send
-        obj = mongo.db.regex.find_one({"_id": ObjectId(_id)})
-        obj.update({"_id": str(obj["_id"])})
-
-        return [True]
-
-    except Exception as err:
-        abort(501, str(err))
-
-
 def delete_regex(json):
+    """Method to delete regex, it will delete the by it's id, if all ok it will return [true].
+    If it gives any error, will return 500 error with message.
+    """
     try:
         _id = json["_id"]
         res = mongo.db.regex.delete_one({"_id": ObjectId(_id)})
@@ -156,10 +151,14 @@ def delete_regex(json):
         return [res.deleted_count > 0]
 
     except Exception as err:
-        abort(204, str(err))
+        abort(500, str(err))
 
 
 def valid_query(jsonObj: dict) -> (str, dict):
+    """Method to make a valid object for mongo query, it reorders order of regex, those are necessary 
+    and return valid object to add or modify to the database
+    """
+    
     # Required arguments.
     re_type = jsonObj["type_id"]
     re_value = jsonObj["value"]

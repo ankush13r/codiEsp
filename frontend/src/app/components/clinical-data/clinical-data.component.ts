@@ -4,8 +4,8 @@ import { ClinicalCase } from 'src/app/models/docs/clinicalCase';
 import { ApiResponseDocs } from 'src/app/models/docs/api-response-docs';
 import { Version } from '../../models/docs/version'
 import { Document } from '../../models/docs/document'
-import {MatDialogRef,MAT_DIALOG_DATA,MatDialog} from '@angular/material/dialog';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { User } from 'src/app/models/user/user';
@@ -45,11 +45,30 @@ export class ClinicalDataComponent implements OnInit {
     this.getData();
   }
 
+  /**
+   * isAdmin.
+   *
+   * @author=	Ankush
+   * @since= v0.0.1
+   * @version= v1.0.0	Wednesday, May 27th, 2020.
+   * @description= Function to check it user is a admin or not.
+   * @return=	boolean
+   */
   get isAdmin(): boolean {
 
     return this.currentUser && this.currentUser.$role === Role.Admin;
   }
 
+
+  /**
+   * getData.
+   *
+   * @author=	Ankush
+   * @since= v0.0.1
+   * @version= v1.0.0	Wednesday, May 27th, 2020.
+   * @description= Function to get clinical data from backend by calling it's service.
+   * @return=	void
+   */
   getData() {
     this.isLodging = true;
     this.service.getClinicalCases(this.pageIndex, this.pageLength).subscribe(result => {
@@ -58,10 +77,31 @@ export class ClinicalDataComponent implements OnInit {
 
     });
   }
+
+  /**
+   * onShowMore.
+   *
+   * @author=	Ankush
+   * @since= v0.0.1
+   * @version= v1.0.0	Wednesday, May 27th, 2020.
+   * @description= Function control variable that serves to show more information of clinical case by it's id.
+   * @return=	void
+   */
   onShowMore(id: string) {
     this.showMoreCaseId = this.showMoreCaseId == id ? null : id;
   }
 
+
+  /**
+   * getSelectedVersion.
+   *
+   * @author=	Ankush
+   * @since= v0.0.1
+   * @version= v1.0.0	Wednesday, May 27th, 2020.
+   * @description= Function to get selected version by selectedVersionID. 
+   *               If there is no version by id than it will return last version.
+   * @return=	void
+   */
   getSelectedVersion(clinicalCase: ClinicalCase): Version {
     let selectedVersionId = clinicalCase.$selectedVersionId;
 
@@ -72,6 +112,15 @@ export class ClinicalDataComponent implements OnInit {
     }
   }
 
+  /**
+   * onShowDoc.
+   *
+   * @author=	Ankush
+   * @since= v0.0.1
+   * @version= v1.0.0	Wednesday, May 27th, 2020.
+   * @description= Function to control the variable showDocs , when user click on show more document.
+   * @return=	void
+   */
   onShowDoc(id: string) {
     let index = this.showDocs.findIndex(docId => docId == id);
 
@@ -122,18 +171,6 @@ export class ClinicalDataComponent implements OnInit {
       }
       this.isLodging = false;
     })
-
-
-
-
-    // } else {
-
-    //   clinicalCase.$selectedVersionId = null
-
-    //   let version = clinicalCase.$versions[clinicalCase.$versions.length - 1]
-    //   clinicalCase.$clinicalCase = version.$clinicalCase;
-    //   clinicalCase.$hpoCodes = version.$hpoCodes;
-    // }
 
   }
 

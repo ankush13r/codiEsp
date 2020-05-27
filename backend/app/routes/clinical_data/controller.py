@@ -1,18 +1,26 @@
+"""Controller file for clinical_data.py. All request of clinical_data.py will be controll in this file.
+"""
+
 from app import constants
 from app.utils.mongo import mongo
 from bson.objectid import ObjectId
 from pymongo.errors import InvalidId
 from pymongo import DESCENDING, ASCENDING
 from operator import itemgetter
-from flask import abort 
+from flask import abort
 
 from app.utils import utils
 
 
 def get_data(args):
+    """This method serve to return document those as clinical cases. 
+    These document will include it's clinical cases.
+    If it throw any exception than it will return exception with code 500.
+    """
     try:
+        #Getting valid pagination valid argument by calling a function from app.utils.utils
         page, per_page, start, end = utils.get_valid_pagination_args(args)
-        sort_column = args.get("sort_column","--")
+        sort_column = args.get("sort_column", "--")
 
         # If mongo object is None, it gets a empty list [].
         mongo_data_list = list(
@@ -31,6 +39,7 @@ def get_data(args):
         error = None
         documents = mongo_documents[start:end]
 
+        # Add clinical cases to the documents finding from mongoDB.
         for document in documents:
             link = None
             if document["format"] == "link":
@@ -43,8 +52,8 @@ def get_data(args):
 
             for case in clinicalCases:
                 case.update({"_id": str(case["_id"]),
-                            "sourceId": str(case["sourceId"]),
-                            })
+                             "sourceId": str(case["sourceId"]),
+                             })
                 try:
                     for version in case["versions"]:
                         version.pop('locationId', None)
@@ -52,8 +61,8 @@ def get_data(args):
                     pass
 
             document.update({"_id": str(document["_id"]),
-                            "link": link,
-                            "clinicalCases": clinicalCases})
+                             "link": link,
+                             "clinicalCases": clinicalCases})
 
         data = {
             "documents": documents,
@@ -62,12 +71,17 @@ def get_data(args):
             "perPage": per_page,
         }
     except Exception as err:
-        return abort(500,str(err))
+        return abort(500, str(err))
 
     return data
 
 
 def delete_case(case_id):
+    """This function is to delete a clinical case by it's id received as parameter.
+        If all correct then it will return [true], otherwis a [false].
+        But if it throw any exception than it will return exception with code 500.
+    """
+
     response = [False]
 
     try:
@@ -87,12 +101,18 @@ def delete_case(case_id):
             doc = mongo.db.clinicalCases.find_one({"_id": source_id})
 
     except Exception as err:
-        response = [False, str(err)]
+        return abort(500, str(err))
 
     return response
 
 
 def modify_selected_version(case_id, obj):
+    """This function is to modify a clinical case version by case id and version id received as parameter.
+        It will modify the version depending on data and  it must receve a json data with valid keys.
+        If all correct then it will return [true], otherwis a [false].
+        But if it throw any exception than it will return exception with code 500.
+    """
+
     selected_version_id = obj.get("selectedVersionId", None)
 
     response = [True]
@@ -100,12 +120,16 @@ def modify_selected_version(case_id, obj):
         res = mongo.db.clinicalCases.update_one({"_id": ObjectId(case_id)}, {
                                                 "$set": {"selectedVersionId": selected_version_id}})
     except Exception as err:
-        response = [False, str(err)]
+        return abort(500, str(err))
 
     return response
 
 
 def delete_version(case_id, version_id):
+    """This function is to delete a clinical case version by case id and version id received as parameter.
+        If all correct then it will return [true], otherwis a [false].
+        But if it throw any exception than it will return exception with code 500.
+    """
     response = [False]
 
     # Delete a version from clinical_case by id received as paramenters.
@@ -123,9 +147,11 @@ def delete_version(case_id, version_id):
 
         response = [result.modified_count == 1]
     except Exception as err:
-        response = [False, str(err)]
+        return abort(500, str(err))
 
     try:
+        #If response it, it means if the version is deleted than, 
+        # it will process this algorithm
         if response[0]:
             obj = mongo.db.clinicalCases.find_one(
                 {"_id": ObjectId(case_id)})
@@ -152,12 +178,17 @@ def delete_version(case_id, version_id):
                     }
                 )
     except Exception as err:
-        response.append(str(err))
+        return abort(500, str(err))
 
     return response
 
 
 def patchVersion(case_id, version_id, obj):
+    """This function is modify a clinical case version by case id and version id received as parameter.
+    It must receve a json data with valid keys.
+    If all correct then it will return [true], otherwis a [false].
+    But if it throw any exception than it will return exception with code 500.
+    """
     setObj = {}
 
     if obj.get("clinicalCase"):
@@ -169,7 +200,6 @@ def patchVersion(case_id, version_id, obj):
     if obj.get("time"):
         setObj.update({"versions.$.time": obj["time"]})
 
-    print(setObj)
     response = [False]
     try:
         result = mongo.db.clinicalCases.update_one(
@@ -182,30 +212,8 @@ def patchVersion(case_id, version_id, obj):
 
         response = [result.modified_count == 1]
     except Exception as err:
-        response.append(str(err))
+        return abort(500, str(err))
 
     return response
 
-    # setObj = {}
-
-    #     if selected_version_id:
-    #         version_obj = [version for version in obj["versions"]
-    #                        if version["id"] == selected_version_id][0]
-    #     else:
-    #         version_obj = sorted(obj.get("versions"),
-    #                              key=itemgetter('time'))[-1]
-
-    #     setObj.update(
-    #         {
-    #             "clinicalCase": version_obj["clinicalCase"],
-    #             "hpoCodes": version_obj["hpoCodes"],
-    #             "selectedVersionId": selected_version_id
-    #         })
-
-    #     result = mongo.db.clinicalCases.update_one(
-    #         {"_id": ObjectId(case_id)},
-    #         {"$set": setObj}
-
-    #     )
-
-    #     response = [result.modified_count == 1]
+ 

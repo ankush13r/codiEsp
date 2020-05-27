@@ -1,3 +1,6 @@
+"""Testing file for app
+"""
+
 from app.routes.clinical_data import controller
 from app import create_app
 from app.utils.mongo import mongo

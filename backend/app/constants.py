@@ -11,7 +11,6 @@ TYPE_LINK = "link"
 TYPE_PDF = "pdf"
 TYPE_TEXT = "text"
 
-print(THIS_DIR)
 FORMATS = ["xml", "pdf", "text", "link", "html"]
 GeoipPath = os.path.join(
     THIS_DIR,  'data/GeoLite2-City_20200211/GeoLite2-City.mmdb')

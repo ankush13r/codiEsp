@@ -1,3 +1,6 @@
+"""Controller file for auth.py. All request of auth.py will be controll in this file.
+"""
+
 from flask import current_app, request, abort
 from app.utils import jwt
 
@@ -5,7 +8,11 @@ from app.utils.mongo import mongo
 
 
 def login(json):
-    '''Check if the given email and password match the ones for that user in database.'''
+    '''Check if the given email and password match the ones for that user in database.
+        If all data is correct then it will make login and return user data 
+        and token to access to the protected tokens.
+    '''
+
     response = [False, 'Invalid user and/or password']
 
     user_mail = ""
@@ -42,8 +49,16 @@ def login(json):
 
 
 def refresh_token():
+    '''Function  to get access token. 
+    It call to other function from app.jwt.jwt to create a access token.
+    '''
+
     return jwt.refresh_token()
 
 
 def logout():
+    '''Function  to logout. 
+    It call to other function from app.jwt.jwt to revoke the token passed by user.
+    After this user won't be able to make petitions by same jwt(json web token).
+    '''
     return jwt.revoke_token()

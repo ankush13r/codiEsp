@@ -7,9 +7,7 @@ export class User {
     private firstName: string;
     private lastName: string;
     private role: Role;
-    private username?: string;
-    private token: string;
-    private refreshToken: string;
+
 
 
 
@@ -19,9 +17,6 @@ export class User {
         $firstName: string = null,
         $lastName: string = null,
         $role: Role = null,
-        $username: string = null,
-        $token: string = null,
-        $refreshToken: string = null
     ) {
         this._id = $_id;
         this.email = $email;
@@ -29,8 +24,6 @@ export class User {
         this.firstName = $firstName;
         this.lastName = $lastName;
         this.role = $role;
-        this.token = $token;
-        this.refreshToken = $refreshToken;
     }
 
     /**
@@ -81,21 +74,6 @@ export class User {
         return this.role;
     }
 
-    /**
-     * Getter $token
-     * @return {string}
-     */
-    public get $token(): string {
-        return this.token;
-    }
-
-    /**
-     * Getter $refreshToken
-     * @return {string}
-     */
-    public get $refreshToken(): string {
-        return this.refreshToken;
-    }
 
     /**
      * Setter  $_id
@@ -143,22 +121,6 @@ export class User {
      */
     public set $role(value: Role) {
         this.role = value;
-    }
-
-    /**
-     * Setter $token
-     * @param {string} value
-     */
-    public set $token(value: string) {
-        this.token = value;
-    }
-
-    /**
-     * Setter $refreshToken
-     * @param {string} value
-     */
-    public set $refreshToken(value: string) {
-        this.refreshToken = value;
     }
 
 

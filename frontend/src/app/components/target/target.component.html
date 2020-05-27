@@ -24,7 +24,8 @@
         </div>
 
         <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-            <mat-radio-group *ngIf="selectedCase" name="yes_no" aria-label="Select an option , yes or no">
+            <mat-radio-group *ngIf="selectedCase" name="yes_no" aria-label="Oncology" matTooltip="Is Oncology"
+                [matTooltipPosition]="'above'" [matTooltipClass]="'tooltip-dark'">
                 <mat-radio-button name="yes_no" *ngFor="let item of yesNoValues" class="ml-4" value="{{item}}"
                     [checked]="selectedCaseVersion?.$yes_no == item"
                     (change)="selectedCase.$newCaseVersion.$yes_no = item">
@@ -38,14 +39,14 @@
                 <mat-icon>note_add</mat-icon>
             </button>
         </div>
-
         <div fxFlex="50" class="textAreaParent mat-primary-outline">
-            <textarea *ngIf="selectedCase" class="textarea h-100 w-100" name="clinicalCase" type="textarea" matInputAutofocus
-                [disabled]="selectedCaseVersion != selectedCase?.$newCaseVersion" required  #textarea
+            <textarea *ngIf="selectedCase" class="textarea h-100 w-100" name="clinicalCase" type="textarea"
+                matInputAutofocus [disabled]="selectedCaseVersion != selectedCase?.$newCaseVersion" required #textarea
                 [(ngModel)]="selectedCaseVersion.$clinicalCase" (ngModelChange)="onChangeText($event)"
                 (scroll)="onScroll($event)">
             </textarea>
-            <div class="textAreaBacks h-100 w-100" #backTextarea [innerHTML]="selectedCaseVersion?.$clinicalCase|highlightBreakLine"></div>
+            <div class="textAreaBacks h-100 w-100" #backTextarea
+                [innerHTML]="selectedCaseVersion?.$clinicalCase|highlightBreakLine"></div>
         </div>
         <app-chips-list *ngIf="selectedCaseVersion" fxFlex="20" class="p-1 m-2 mat-primary-outline"
             [selectedValues]="selectedCaseVersion.$hpoCodes"
@@ -55,10 +56,8 @@
         <div fxFlex="15" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="3em" class="m-1 pt-4">
             <div fxLayout="row" fxLayoutGap="1.2em">
                 <button *ngIf="selectedCaseVersion != selectedCase?.$newCaseVersion" (click)="onEdit()" type="button"
-                    mat-raised-button color="primary"
-                    [matTooltip]="toolTips.editCase.value"
-                    [matTooltipClass]="toolTips.editCase.class"
-                    [matTooltipClass]="toolTips.editCase.position">
+                    mat-raised-button color="primary" [matTooltip]="toolTips.editCase.value"
+                    [matTooltipClass]="toolTips.editCase.class" [matTooltipClass]="toolTips.editCase.position">
                     Edit
                 </button>
                 <button *ngIf="selectedCaseVersion == selectedCase?.$newCaseVersion" type="submit" mat-raised-button
@@ -69,17 +68,13 @@
             </div>
 
             <div fxLayout="row" fxLayoutGap="0.05em">
-                <button type="button" mat-icon-button (click)="previousDoc()"
-                [matTooltip]="toolTips.previousDoc.value"
-                [matTooltipClass]="toolTips.previousDoc.class"
-                [matTooltipClass]="toolTips.previousDoc.position">
+                <button type="button" mat-icon-button (click)="previousDoc()" [matTooltip]="toolTips.previousDoc.value"
+                    [matTooltipClass]="toolTips.previousDoc.class" [matTooltipClass]="toolTips.previousDoc.position">
                     <mat-icon>arrow_back</mat-icon>
                     <span class="p-2"> </span>
                 </button>
-                <button type="button" mat-icon-button (click)="nextDoc()"
-                [matTooltip]="toolTips.nextDoc.value"
-                [matTooltipClass]="toolTips.nextDoc.class"
-                [matTooltipClass]="toolTips.nextDoc.position">
+                <button type="button" mat-icon-button (click)="nextDoc()" [matTooltip]="toolTips.nextDoc.value"
+                    [matTooltipClass]="toolTips.nextDoc.class" [matTooltipClass]="toolTips.nextDoc.position">
                     <span class="p-2"> </span>
                     <mat-icon>arrow_forward</mat-icon>
                 </button>
@@ -87,18 +82,15 @@
             </div>
 
             <div fxLayout="row" fxLayoutGap="0.5em">
-                <button type="button" mat-raised-button (click)="onNewCase()"
-                [matTooltip]="toolTips.newCase.value"
-                [matTooltipClass]="toolTips.newCase.class"
-                [matTooltipClass]="toolTips.newCase.position">
+                <button type="button" mat-raised-button (click)="onNewCase()" [matTooltip]="toolTips.newCase.value"
+                    [matTooltipClass]="toolTips.newCase.class" [matTooltipClass]="toolTips.newCase.position">
                     <mat-icon>add</mat-icon>
                     <span class="p-2">New</span>
 
                 </button>
                 <button type="button" mat-raised-button [disabled]="document?.$state != '0'" (click)="onFinish()"
-                [matTooltip]="toolTips.finishDoc.value"
-                [matTooltipClass]="toolTips.finishDoc.class"
-                [matTooltipClass]="toolTips.finishDoc.position">
+                    [matTooltip]="toolTips.finishDoc.value" [matTooltipClass]="toolTips.finishDoc.class"
+                    [matTooltipClass]="toolTips.finishDoc.position">
                     <mat-icon>done_all</mat-icon>
                     <span class="p-2">Finish</span>
                 </button>

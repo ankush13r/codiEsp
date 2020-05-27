@@ -1,13 +1,5 @@
-#!/usr/bin/env python
-# encoding: utf-8
-
+"""Flask file to receive request for documents.
 """
-Flask + MongoDB - User Registration and Login - Explainer Video
-https://www.youtube.com/watch?v=3DMMPA3uxBo
-"""
-
-# from datetime import datetime, timedelta
-# import time
 
 from bson.objectid import ObjectId
 import os
